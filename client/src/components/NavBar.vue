@@ -13,7 +13,6 @@
     <div class="button-container">
       <span class="each-button-container">
         <a v-if="isLoggedIn" @click="onLogoutButton">{{ msg.logout }}</a>
-        <a v-else @click="onLoginButton">{{ msg.login }}</a>
       </span>
       <span @click="onKoreanButton" class="each-button-container">
         <a>한국어</a>
@@ -114,9 +113,6 @@
       requestIsUserLogin () {
         this.$http.get('/api/auth/session')
           .then(res => {
-            this.isLoggedIn = false
-            this.msg.login = '로그인'
-            this.msg.logout = ''
             if (res.data.passport.user) {
               this.isLoggedIn = true
               this.msg.login = ''

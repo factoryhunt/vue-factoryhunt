@@ -12,7 +12,7 @@
       <div class="left-container">
 
         <div class="header-container">
-          <h1 class="title">{{ account.account_name_english }}</h1>
+          <h1 class="title">{{ account.account_name_english ? account.account_name_english : account.account_name }}</h1>
           <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <div class="sub-title-container">
             <h4 class="sub-title">{{ account.billing_country }}</h4>
@@ -52,14 +52,14 @@
         <div class="divider"></div>
 
         <!--<div class="history-container">-->
-          <!--<h3>History</h3>-->
-          <!--<br>-->
+        <!--<h3>History</h3>-->
+        <!--<br>-->
         <!--</div>-->
         <!--<div class="divider"></div>-->
 
         <!--<div class="certification-container">-->
-          <!--<h3>Certifications</h3>-->
-          <!--<br>-->
+        <!--<h3>Certifications</h3>-->
+        <!--<br>-->
         <!--</div>-->
         <!--<div class="divider"></div>-->
 
@@ -129,12 +129,12 @@
 </template>
 
 <script>
-  import NavBar from '../components/NavBar'
-  import FooterBar from '../components/FooterBar'
+  import NavBar from '../../components/NavBar'
+  import FooterBar from '../../components/FooterBar'
 
   export default {
     metaInfo: {
-      title: 'Supplier | Factory Hunt'
+      title: '수정 | 팩토리헌트'
     },
     components: {
       NavBar,
@@ -170,12 +170,20 @@
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
       checkIsMyAccount () {
-        this.$http.get('/api/auth/session')
+        this.$http.get('/api/auth/mypage')
           .then(res => {
+            console.log(res)
+            if (!res.data.account_id) {
+              alert('잘못된 접근입니다.')
+              this.$router.push({
+                path: '/login'
+              })
+            }
+            this.getAccount(res.data.account_id)
           })
       },
-      getAccount: function (company) {
-        this.$http.get(`/api/data/account/company/${company}`)
+      getAccount: function (id) {
+        this.$http.get(`/api/data/account/id/${id}`)
           .then(response => {
             if (!response.data) {
               this.$router.push({ path: '/error' })
@@ -276,21 +284,21 @@
       }
     },
     created () {
-      console.log('AccountProfile Created')
       window.scrollTo(0, 0)
 
-      this.getAccount(this.company)
+      this.checkIsMyAccount()
     },
     mounted () {
-      console.log('AccountProfile Mounted')
     },
     updated () {
-      console.log('AccountProfile Updated')
+      console.log('controller Updated')
     }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import (reference) "../../assets/less/global";
+
   /*Top image container*/
   .image-container {
     overflow: hidden;

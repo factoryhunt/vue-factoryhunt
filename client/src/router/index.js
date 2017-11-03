@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Home from '../controllers/Home'
 import SupplierSearchResultPage from '../controllers/SupplierSearchResultPage'
 import AccountProfile from '../controllers/AccountProfile'
+import CompanyEdit from '../controllers/CompanyEdit/CompanyEdit.vue'
 import ProductProfile from '../controllers/ProductProfile'
 import About from '../controllers/About'
 import ContactUs from '../controllers/ContactUs'
@@ -107,6 +108,11 @@ export default new Router({
       path: '/:company',
       name: 'company',
       component: AccountProfile
+    },
+    {
+      path: '/:company/edit',
+      name: 'company-edit',
+      component: CompanyEdit
     },
     {
       path: '/admin/:status',
