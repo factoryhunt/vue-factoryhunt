@@ -11,12 +11,13 @@
     </div>
 
     <div class="button-container">
+      <span class="each-button-container">
+        <a v-if="isLoggedIn" @click="onLogoutButton">{{ msg.logout }}</a>
+        <a v-else @click="onLoginButton">{{ msg.login }}</a>
+      </span>
       <span @click="onKoreanButton" class="each-button-container">
         <a>한국어</a>
       </span>
-      <!--<span @click="onKoreanButton" class="each-button-container">-->
-        <!--한국어-->
-      <!--</span>-->
     </div>
   </nav>
   <!--<nav class="navbar navbar-default">-->
@@ -64,7 +65,12 @@
         input: this.inputData,
         placeholder: {
           input: 'Search'
-        }
+        },
+        msg: {
+          login: '',
+          logout: ''
+        },
+        isLoggedIn: false
       }
     },
     methods: {
@@ -88,6 +94,13 @@
           path: '/signup'
         })
       },
+      onLogoutButton () {
+        console.log('onLogoutButton')
+        this.$http.get('/api/auth/logout')
+          .then(res => {
+            location.reload()
+          })
+      },
       onHelpButton: function () {
         this.$router.push({
           path: '/help'
@@ -97,6 +110,19 @@
         this.$router.push({
           path: '/korean'
         })
+      },
+      requestIsUserLogin () {
+        this.$http.get('/api/auth/session')
+          .then(res => {
+            this.isLoggedIn = false
+            this.msg.login = '로그인'
+            this.msg.logout = ''
+            if (res.data.passport.user) {
+              this.isLoggedIn = true
+              this.msg.login = ''
+              this.msg.logout = '로그아웃'
+            }
+          })
       }
     },
     created () {
@@ -107,6 +133,7 @@
           $('.logo-container').css('border-right', '1px solid #DBDBDB')
         })
       }
+      this.requestIsUserLogin()
     },
     mounted () {
       console.log('NavigationBarInput Mounted')

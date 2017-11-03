@@ -48,7 +48,23 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(3000, function () {
-  console.log('port 3000 connected')
+  console.log('port 3000 connected');
+  // if (req.headers.cookie) {
+  //   req.headers.cookie.split(';').map(function(element){
+  //     var element = element.split('=');
+  //     return {
+  //       key: element[0],
+  //       value: element[1]
+  //     };
+  //   });
+  // } else {
+  //   // Response header의 Set-Cookie 속성을 사용하여 쿠키 생성
+  //   res.writeHead(200, {
+  //     'Content-Type': 'text/html',
+  //     'Set-Cookie': ['id=ledgku', 'pw=cookieandsession']
+  //   });
+  //   res.send('Cookie created');
+  // }
 });
 
 module.exports = app;

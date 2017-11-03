@@ -12,11 +12,11 @@
 
         <div class="input-container">
           <input v-model="password" :value="password" type="password" :placeholder="placeholder.password">
-          <i class="fa fa-lock" aria-hidden="true"></i>
+          <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
         <div class="sign-up-button-container">
-          <button class="button-orange" @click="onSignUpButton" @keyup.enter="onLoginButton">
+          <button class="button-orange" @click="onLoginButton" @keyup.enter="onLoginButton">
             {{ msg.login }}
           </button>
         </div>
@@ -31,6 +31,9 @@
         </div>
       </div> <!--form-container -->
     </div> <!-- form-contents -->
+    <button class="button-orange" @click="onSessionButton">
+      call session & cookie
+    </button>
   </div> <!-- page-container -->
 </template>
 
@@ -67,9 +70,8 @@
         }
         this.$http.post('/api/auth/login', data)
           .then(res => {
-            console.log(res.data)
-            if (res.data.lead_id) {
-              alert('Login success.')
+            console.log(res)
+            if (res.data) {
               this.$router.push({
                 path: '/'
               })
@@ -85,6 +87,12 @@
         this.$router.push({
           path: '/register'
         })
+      },
+      onSessionButton () {
+        this.$http.get('/api/auth/session')
+          .then(res => {
+            console.log(res)
+          })
       }
     },
     created () {
@@ -130,6 +138,10 @@
         font-size: 20px;
         top: 16px;
         right: 14px;
+      }
+
+      #image-password {
+        right: 18px;
       }
     }
 

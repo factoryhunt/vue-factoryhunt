@@ -7,7 +7,7 @@
       <div class="form-container">
         <div class="input-container">
           <input v-model="company" :value="company" type="text" :placeholder="placeholder.company">
-          <i class="fa fa-building-o" aria-hidden="true"></i>
+          <i id="image-company" class="fa fa-building-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
@@ -17,7 +17,7 @@
 
         <div class="input-container">
           <input v-model="password" :value="password" type="password" :placeholder="placeholder.password">
-          <i class="fa fa-lock" aria-hidden="true"></i>
+          <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
         <div class="sign-up-button-container">
@@ -36,6 +36,10 @@
         </div>
       </div> <!--form-container -->
     </div> <!-- form-contents -->
+
+    <button class="button-orange" @click="onSessionButton">
+      call session & cookie
+    </button>
   </div> <!-- page-container -->
 </template>
 
@@ -92,6 +96,12 @@
         this.$router.push({
           path: '/login'
         })
+      },
+      onSessionButton () {
+        this.$http.get('/api/auth/session')
+          .then(res => {
+            console.log(res)
+          })
       }
     },
     created () {
@@ -137,6 +147,13 @@
         font-size: 20px;
         top: 16px;
         right: 14px;
+      }
+
+      #image-company {
+        right: 16px;
+      }
+      #image-password {
+        right: 18px;
       }
     }
 

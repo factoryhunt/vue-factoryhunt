@@ -176,11 +176,16 @@
 //            this.initMap()
 //          })
 //      },
+      checkIsMyAccount () {
+        this.$http.get('/api/auth/session')
+          .then(res => {
+          })
+      },
       getAccount: function (company) {
         this.$http.get(`/api/data/account/company/${company}`)
           .then(response => {
             if (!response.data) {
-              this.$router.push({ path: 'error' })
+              this.$router.push({ path: '/error' })
             }
             this.account = response.data
             this.getProducts(this.account.account_id)

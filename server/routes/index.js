@@ -25,6 +25,24 @@ router.get('/robots.txt', function(req, res) {
 });
 
 router.get('*', function(req, res) {
+  console.log('*')
+  // if (req.headers.cookie) {
+  //   console.log('cookie already have had.')
+  //   req.headers.cookie.split(';').map(function(element){
+  //     element = element.split('=');
+  //     return {
+  //       key: element[0],
+  //       value: element[1]
+  //     };
+  //   });
+  // } else {
+  //   // Response header의 Set-Cookie 속성을 사용하여 쿠키 생성
+  //   res.writeHead(200, {
+  //     'Content-Type': 'text/html',
+  //     'Set-Cookie': ['id=ledgku', 'pw=cookieandsession']
+  //   });
+  //   console.log('cookie created')
+  // }
   res.sendFile(path.join(__dirname, '../public', 'index.html'))
 });
 

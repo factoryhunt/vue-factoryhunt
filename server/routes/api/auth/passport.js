@@ -10,11 +10,11 @@ module.exports = (app) => {
 
   app.use(session({
     secret: 'io.zerobaseinc.www', //주기적으로 바꾸는 게 좋다
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 // 쿠키 유효기간 1시간
-    }
+    resave: false,
+    saveUninitialized: true
+    // cookie: {
+    //   maxAge: 1000 * 5 // 쿠키 1시간
+    // }
     // store: new redisStore() // 세션을 저장할 곳이 필요함. 안하면 세션 정보가 페이지마다 초기화되서 계속 로그인 해야하는 상태가 발생함.
   })); // 세션 활성화
   app.use(flash());
@@ -25,7 +25,6 @@ module.exports = (app) => {
   passport.serializeUser(function (user, done) {
     //strategy 에서 done()의 파라미터로 2번째로 넣은 게 전부 deserializeUser의 첫 번째 파라미터로 들어옴
     console.log('serializeUser() called');
-    console.log(user);
     // console.log('msg: ', user.msg);
     // console.log('result: ', user.result);
     done(null, user.contact_id)
@@ -39,7 +38,6 @@ module.exports = (app) => {
       if (err) return done(err);
 
       const user = rows[0];
-      console.log(user);
       done(null, user);
     })
   });
