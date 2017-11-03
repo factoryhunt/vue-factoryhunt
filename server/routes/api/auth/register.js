@@ -44,7 +44,9 @@ module.exports = (req, res) => {
             lead_source: 'website',
             lead_status: 'Open - Not Contacted',
             lead_type: 'Supplier',
-            languages: 'Korean'
+            languages: 'Korean',
+            mailing_country: '대한민국',
+            mailing_country_english: 'Republic of Korea'
           };
 
           // Create lead ( Open - not contacted )
@@ -61,7 +63,10 @@ module.exports = (req, res) => {
               account = {
                 account_name: company,
                 account_type: 'Supplier',
-                membership_type: 'Standard'
+                membership_type: 'Standard',
+                mailing_country: '대한민국',
+                mailing_country_english: 'Republic of Korea',
+                billing_country: 'Republic of Korea'
               };
 
               // Create account without domain value

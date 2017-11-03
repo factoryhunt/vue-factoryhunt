@@ -14,6 +14,9 @@
       <span v-if="isUserLoggedIn" class="each-button-container">
         <a @click="onLogoutButton">{{ msg.logout }}</a>
       </span>
+      <span v-if="isUserLoggedIn" class="each-button-container">
+        <a @click="onMyPageButton">{{ msg.mypage }}</a>
+      </span>
       <span @click="onKoreanButton" class="each-button-container">
         <a>한국어</a>
       </span>
@@ -26,13 +29,14 @@
     props: ['inputData'],
     data () {
       return {
-        input: this.inputData,
+        msg: {
+          logout: '로그아웃',
+          mypage: '마이페이지'
+        },
         placeholder: {
           input: 'Search'
         },
-        msg: {
-          logout: '로그아웃'
-        },
+        input: this.inputData,
         isUserLoggedIn: false
       }
     },
@@ -47,12 +51,12 @@
           })
         }
       },
-      onLoginButton: function () {
+      onLoginButton () {
         this.$router.push({
           path: '/login'
         })
       },
-      onSignUpButton: function () {
+      onSignUpButton () {
         this.$router.push({
           path: '/signup'
         })
@@ -64,12 +68,12 @@
             location.reload()
           })
       },
-      onHelpButton: function () {
+      onMyPageButton () {
         this.$router.push({
-          path: '/help'
+          path: '/company-edit'
         })
       },
-      onKoreanButton: function () {
+      onKoreanButton () {
         this.$router.push({
           path: '/korean'
         })
@@ -94,62 +98,70 @@
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import (reference) '../assets/less/global';
+
   .navbar-container {
     position: relative;
     height: 80px;
-  }
 
-  .logo-container {
-    position: absolute;
-    width: 80px;
-  }
-  .logo-container img {
-    padding: 17.5px;
-  }
+    .logo-container {
+      position: absolute;
+      width: 80px;
 
-  .search-container {
-    position: absolute;
-    margin: 27.5px 100px;
-    font-size: 18px;
-  }
-  .search-container .search-icon {
-  }
-  .search-container input {
-    width: 85%;
-    padding: 0 10px;
-    border: none;
-    box-shadow: none;
-    outline: none;
-  }
+      img {
+        padding: 17.5px;
+      }
+    }
 
-  .button-container {
-    float: right;
-    line-height: 80px;
-    margin: 0 20px;
-  }
-  .button-container .each-button-container {
-    margin: 0 10px;
-  }
-  .button-container .each-button-container a {
-    color: grey;
-    font-size:16px;
+    .search-container {
+      position: absolute;
+      margin: 27.5px 100px;
+      font-size: 18px;
+
+      .search-icon {}
+      input {
+        width: 85%;
+        padding: 0 10px;
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
+    .button-container {
+      float: right;
+      line-height: 80px;
+      margin: 0 20px;
+
+      .each-button-container {
+        margin: 0 10px;
+
+        a {
+          color: grey;
+          font-size:16px;
+        }
+      }
+    }
   }
 
   @media ( min-width: 744px ) {
     .search-container {
       margin: 27.5px 100px;
-    }
-    .search-container input {
-      width: 520px;
+
+      input {
+        width: 520px;
+      }
     }
   }
+
   @media ( min-width: 1128px ) {
     .search-container {
       margin: 27.5px 100px;
-    }
-    .search-container input {
-      width: 900px;
+
+      input {
+        width: 900px;
+      }
     }
   }
 </style>

@@ -4,7 +4,10 @@
     <nav-bar :inputData="input"></nav-bar>
 
     <div class="image-container">
-      <img class="main-image" :src="account.account_image_url_1">
+      <!--<img v-if="!account.account_image_url_1" class="main-image" :src="account.account_image_url_1">-->
+      <div class="temp-image-container">
+        대표 이미지를 넣어주세요
+      </div>
     </div>
 
     <div class="detail-contents">
@@ -12,61 +15,66 @@
       <div class="left-container">
 
         <div class="header-container">
-          <h1 class="title">{{ account.account_name_english ? account.account_name_english : account.account_name }}</h1>
+          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <h1 class="title">{{ account.account_name }}</h1>
           <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ account.billing_country }}</h4>
+            <h4 class="sub-title">{{ account.mailing_country }}</h4>
             •
             <div class="star-container" v-for="index in 5">
               <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             •
-            <h4 class="review-title">reviews <small>(0)</small></h4>
+            <h4 class="review-title"><small>{{ msg.kor.review }} (0)</small></h4>
           </div>
         </div>
         <div class="divider"></div>
 
         <div class="description-container">
-          <h3>Company description</h3>
+          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <h3>{{ msg.kor.description }}</h3>
           <br>
           <h4 class="sub-title">{{ account.company_short_description }}</h4>
         </div>
         <div class="divider"></div>
 
         <div class="information-container">
-          <h3>Information</h3>
+          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <h3>{{ msg.kor.information }}</h3>
           <br>
           <dl class="dl-horizontal information-table-container">
-            <dt>Products</dt>
+            <dt>{{ msg.kor.products }}</dt>
             <dd>{{ account.products_english }}</dd>
-            <dt>Website</dt>
+            <dt>{{ msg.kor.website }}</dt>
             <dd><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></dd>
-            <dt>Phone</dt>
+            <dt>{{ msg.kor.phone }}</dt>
             <dd>{{ account.phone }}</dd>
-            <dt>Location</dt>
+            <dt>{{ msg.kor.address }}</dt>
             <dd>{{getLocation}}</dd>
-            <dt>Established year</dt>
+            <dt>{{ msg.kor.establishedYear }}</dt>
             <dd>{{ getYear(account.established_date) }}</dd>
           </dl>
         </div>
         <div class="divider"></div>
 
-        <!--<div class="history-container">-->
-        <!--<h3>History</h3>-->
-        <!--<br>-->
-        <!--</div>-->
-        <!--<div class="divider"></div>-->
+        <div class="history-container">
+          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+        <h3>{{ msg.kor.history }}</h3>
+        <br>
+        </div>
+        <div class="divider"></div>
 
-        <!--<div class="certification-container">-->
-        <!--<h3>Certifications</h3>-->
-        <!--<br>-->
-        <!--</div>-->
-        <!--<div class="divider"></div>-->
+        <div class="certification-container">
+          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <h3>{{ msg.kor.certifications }}</h3>
+          <br>
+        </div>
+        <div class="divider"></div>
 
         <div class="review-container">
-          <h3>Reviews <small>(0)</small></h3>
+          <h3>{{ msg.kor.review }} <small>(0)</small></h3>
           <br>
-          <p>No review.</p>
+          <p>{{ msg.kor.noReview }}</p>
         </div>
         <div class="divider"></div>
       </div>
@@ -75,34 +83,34 @@
 
         <div class="form-container">
 
-          <h3>Contact</h3>
+          <h3>{{ msg.kor.contact }}</h3>
           <br>
           <div class="input-container">
-            <input v-model="email" type="text" :placeholder="placeholder.email">
+            <input v-model="email" type="text" :placeholder="placeholder.kor.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
+          <textarea v-model="quiry" rows="10" :placeholder="placeholder.kor.textarea"></textarea>
 
-          <p class="quote">{{quote}}</p>
+          <p class="quote">{{msg.kor.quote}}</p>
 
           <div class="button-container">
-            <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="button-orange">{{ msg.kor.sendInquiry }}</button>
           </div>
         </div>
 
       </div>
 
       <div class="location-container">
-        <h3 class="title">Location</h3>
+        <h3 class="title">{{ msg.kor.location }}</h3>
         <div id="map"></div>
       </div>
 
       <div class="products-container">
+        <i class="fa fa-plus image-product-add" aria-hidden="true"></i>
         <div class="row">
-
           <div class="col-md-12">
-            <h3 class="title">Products <small>({{products.length}})</small></h3>
+            <h3 class="title">{{ msg.kor.products }} <small>({{products.length}})</small></h3>
 
             <div class="product-container" v-for="(product, index) in this.products">
               <div class="col-md-3 col-sm-6 col-xs-12">
@@ -142,18 +150,40 @@
     },
     data () {
       return {
-        company: this.$route.params.company,
-        id: this.$route.query.id,
         input: this.$route.query.input,
         account: {},
         products: [],
+        msg: {
+          eng: {
+          },
+          kor: {
+            description: '회사 소개',
+            information: '정보',
+            history: '연혁',
+            certifications: '인증서',
+            review: '리뷰',
+            noReview: '리뷰가 없습니다.',
+            location: '위치',
+            products: '제품',
+            contact: '연락하기',
+            quote: '메일을 보내 가격을 문의해보세요',
+            sendInquiry: '문의하기',
+            website: '웹사이트',
+            phone: '연락처',
+            address: '주소',
+            establishedYear: '설립연도'
+          }
+        },
         placeholder: {
-          email: 'contact@email.com',
-          textarea: 'Enter your message'
+          eng: {
+          },
+          kor: {
+            email: '이메일',
+            textarea: '여기에 입력하세요'
+          }
         },
         email: '',
-        quiry: '',
-        quote: 'Request a quote to get pricing'
+        quiry: ''
       }
     },
     computed: {
@@ -169,18 +199,15 @@
       titleTemplate: function (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
-      checkIsMyAccount () {
-        this.$http.get('/api/auth/mypage')
-          .then(res => {
-            console.log(res)
-            if (!res.data.account_id) {
-              alert('잘못된 접근입니다.')
-              this.$router.push({
-                path: '/login'
-              })
-            }
-            this.getAccount(res.data.account_id)
-          })
+      initialize () {
+//        if (!this.$store.state.user) {
+//          alert('로그인 정보가 만료되었습니다.')
+//          this.$router.push({
+//            path: '/login'
+//          })
+//        }
+//        this.getAccount(this.$store.state.user.account_id)
+        this.getAccount(59)
       },
       getAccount: function (id) {
         this.$http.get(`/api/data/account/id/${id}`)
@@ -213,22 +240,6 @@
             return url
           }
         }
-      },
-      sendEmail: function (email, quiry) {
-        alert('Sent success.')
-        const data = {
-          email: email,
-          company: this.account.account_name_english,
-          quiry: this.convertEnterToBrTag(quiry),
-          subject: 'An inquiry for verified supplier'
-        }
-        this.$http.post('/api/mail/company', data)
-          .then(response => {
-            console.log('mail sent: ' + response.data)
-          })
-      },
-      convertEnterToBrTag: function (subject) {
-        return subject.replace(/\n/g, '<br />')
       },
       routeProductProfilePage: function (index) {
         this.$router.push({
@@ -285,8 +296,7 @@
     },
     created () {
       window.scrollTo(0, 0)
-
-      this.checkIsMyAccount()
+      this.initialize()
     },
     mounted () {
     },
@@ -298,6 +308,21 @@
 
 <style lang="less" scoped>
   @import (reference) "../../assets/less/global";
+
+  .image-edit {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .image-product-add {
+    position: absolute;
+    top: 8px;
+    left: 180px;
+    font-size: 18px;
+    cursor: pointer;
+  }
 
   /*Top image container*/
   .image-container {
@@ -316,6 +341,18 @@
 
   .left-container {
 
+  }
+  .temp-image-container {
+    width: 100%;
+    height: 100%;
+    background-color: @color-light-grey;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: 50px;
   }
 
   .header-container {
@@ -355,14 +392,14 @@
   }
 
   .description-container {
-
+    position: relative;
   }
   .description-container .sub-title {
     font-weight:200;
   }
 
   .information-container {
-
+    position: relative;
   }
   .information-container .information-table-container dt {
     font-weight: 500;
@@ -375,7 +412,16 @@
     font-size:16px;
   }
 
+  .history-container {
+    position: relative;
+  }
+
+  .certification-container {
+    position: relative;
+  }
+
   .review-container {
+    position: relative;
     font-weight: 300;
     font-size:18px;
   }
@@ -431,6 +477,7 @@
   }
 
   .products-container {
+    position: relative;
     margin-top: 20px;
   }
   .products-container .title {

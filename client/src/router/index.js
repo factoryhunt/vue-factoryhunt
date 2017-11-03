@@ -100,6 +100,11 @@ export default new Router({
       component: Admin
     },
     {
+      path: '/company-edit',
+      name: 'company-edit',
+      component: CompanyEdit
+    },
+    {
       path: '/error',
       name: 'error',
       component: NotFound
@@ -108,11 +113,6 @@ export default new Router({
       path: '/:company',
       name: 'company',
       component: AccountProfile
-    },
-    {
-      path: '/:company/edit',
-      name: 'company-edit',
-      component: CompanyEdit
     },
     {
       path: '/admin/:status',
