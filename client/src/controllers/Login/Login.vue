@@ -71,6 +71,7 @@
         this.$http.post('/api/auth/login', data)
           .then(res => {
             console.log(res)
+            this.$store.dispatch('setUser', res.data)
             if (res.data) {
               this.$router.push({
                 path: '/'

@@ -111,6 +111,8 @@
     created () {
       console.log('Home created')
       this.getCategory()
+      console.log('Home.vue')
+      console.log(this.$store.state.isUserLoggedIn)
     },
     mounted () {
       console.log('Home mounted')
