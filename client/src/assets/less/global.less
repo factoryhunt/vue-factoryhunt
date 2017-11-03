@@ -10,6 +10,7 @@
 // properties
 @box-shadow: 1px 1px 10px 1px #e4e4e4;
 @test-border: 1px solid red;
+@border-radius: 4px;
 
 // functions
 .contents-size(@maxWidth, @margin, @padding) {
@@ -22,7 +23,7 @@
 .button-custom(@background-color, @text-color) {
   background-color: @background-color;
   color: @text-color;
-  border-radius: 4px;
+  border-radius: @border-radius;
   outline: none;
 
   // when cursor is on button
@@ -42,4 +43,20 @@
     background-color: @background-color;
     color: @text-color;
   }
+}
+
+.input-basic {
+  border-radius: 4px;
+  border: 1px solid @color-light-grey;
+  box-shadow: none;
+  outline: none;
+  padding: 0 8px;
+}
+.textarea-basic {
+  resize: none;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid @color-light-grey;
+  border-radius: 4px;
+  outline: none;
 }

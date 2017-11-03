@@ -40,8 +40,11 @@
     height:180px;
   }
   input {
-    border-radius: 4px;
-    box-shadow: none;
+    .input-basic
+  }
+
+  textarea {
+    .textarea-basic
   }
 
   .button-orange {
@@ -51,13 +54,6 @@
   .button-white {
     border:1px solid @color-orange;
     .button-custom(@color-white, @color-orange)
-  }
-
-  textarea {
-    resize: vertical;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid @color-light-grey;
   }
 
   .contents {

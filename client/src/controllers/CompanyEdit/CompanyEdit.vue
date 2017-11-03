@@ -15,8 +15,10 @@
       <div class="left-container">
 
         <div class="header-container">
-          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
-          <h1 class="title">{{ account.account_name }}</h1>
+          <i @click="toggle.isAccountNameEdited = true" v-if="!toggle.isAccountNameEdited" class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <i @click="toggle.isAccountNameEdited = false" v-if="toggle.isAccountNameEdited" class="fa fa-check image-edit" aria-hidden="true"></i>
+          <h1 v-if="!toggle.isAccountNameEdited" class="title">{{ value.accountName }}</h1>
+          <input v-else class="title input-basic" type="text" :value="value.accountName" v-model="value.accountName"/>
           <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <div class="sub-title-container">
             <h4 class="sub-title">{{ account.mailing_country }}</h4>
@@ -31,10 +33,12 @@
         <div class="divider"></div>
 
         <div class="description-container">
-          <i class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <i @click="toggle.isDescriptionEdited = true" v-if="!toggle.isDescriptionEdited" class="fa fa-pencil image-edit" aria-hidden="true"></i>
+          <i @click="toggle.isDescriptionEdited = false" v-if="toggle.isDescriptionEdited" class="fa fa-check image-edit" aria-hidden="true"></i>
           <h3>{{ msg.kor.description }}</h3>
           <br>
-          <h4 class="sub-title">{{ account.company_short_description }}</h4>
+          <h4 v-if="!toggle.isDescriptionEdited" class="sub-title">{{ value.description }}</h4>
+          <textarea v-else rows="4" :value="value.description" v-model="value.description"></textarea>
         </div>
         <div class="divider"></div>
 
@@ -86,11 +90,11 @@
           <h3>{{ msg.kor.contact }}</h3>
           <br>
           <div class="input-container">
-            <input v-model="email" type="text" :placeholder="placeholder.kor.email">
+            <input v-model="value.email" type="text" :placeholder="placeholder.kor.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="quiry" rows="10" :placeholder="placeholder.kor.textarea"></textarea>
+          <textarea v-model="value.quiry" rows="10" :placeholder="placeholder.kor.textarea"></textarea>
 
           <p class="quote">{{msg.kor.quote}}</p>
 
@@ -142,7 +146,7 @@
 
   export default {
     metaInfo: {
-      title: '수정 | 팩토리헌트'
+      title: '정보수정 | 팩토리헌트'
     },
     components: {
       NavBar,
@@ -182,8 +186,19 @@
             textarea: '여기에 입력하세요'
           }
         },
-        email: '',
-        quiry: ''
+        toggle: {
+          isAccountNameEdited: false,
+          isDescriptionEdited: false,
+          isInformationEdited: false,
+          isHistoryEdited: false,
+          isCertificationEdited: false
+        },
+        value: {
+          email: '',
+          quiry: '',
+          accountName: '',
+          description: ''
+        }
       }
     },
     computed: {
@@ -193,6 +208,9 @@
         const state = this.account.mailing_state_english
         const country = this.account.mailing_country_english
         return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
+      },
+      onToggle (toggle) {
+        toggle = !toggle
       }
     },
     methods: {
@@ -216,9 +234,14 @@
               this.$router.push({ path: '/error' })
             }
             this.account = response.data
+            this.duplicateData(this.account)
             this.getProducts(this.account.account_id)
             this.initMap()
           })
+      },
+      duplicateData (account) {
+        this.value.accountName = account.account_name
+        this.value.description = account.company_short_description
       },
       getProducts: function (id) {
         if (!id) return
