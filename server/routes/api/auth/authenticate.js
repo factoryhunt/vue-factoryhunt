@@ -5,15 +5,16 @@ exports.authenticate = passport.authenticate('local', {
   failureFlash: true
 });
 
-exports.isAuthenticated = (req, res, next) => {
+exports.isLoggedIn = (req, res, next) => {
+  console.log('isLoggedIn() called');
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/register');
+  console.log('isLoggedIn() denied');
+  res.send({result: false});
 };
 
-exports.authCheckCallback = (req, res, next) => {
-  res.render('mypage',{
-    contact: req.user
-  })
+exports.authCheckCallback = (req, res) => {
+  console.log('authCheck() success');
+  res.send(req.user);
 }

@@ -22,7 +22,7 @@ router.get('/id/:id', function (req, res, next) {
   });
 });
 
-// return an account by using company name
+// // return an account by using company name
 router.get('/company/:company', function (req, res, next) {
   const company = req.params.company;
 

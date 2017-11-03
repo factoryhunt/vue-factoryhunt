@@ -13,7 +13,7 @@ router.post('/login', auth.authenticate, login);
 
 router.get('/session', session);
 router.get('/logout', logout);
-router.get('/mypage', auth.isAuthenticated, auth.authCheckCallback);
+router.get('/mypage', auth.isLoggedIn, auth.authCheckCallback);
 
 module.exports = router;
 

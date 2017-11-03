@@ -11,10 +11,10 @@ module.exports = (app) => {
   app.use(session({
     secret: 'io.zerobaseinc.www', //주기적으로 바꾸는 게 좋다
     resave: false,
-    saveUninitialized: true
-    // cookie: {
-    //   maxAge: 1000 * 5 // 쿠키 1시간
-    // }
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 5 // 쿠키 5분
+    }
     // store: new redisStore() // 세션을 저장할 곳이 필요함. 안하면 세션 정보가 페이지마다 초기화되서 계속 로그인 해야하는 상태가 발생함.
   })); // 세션 활성화
   app.use(flash());
@@ -34,7 +34,6 @@ module.exports = (app) => {
   passport.deserializeUser(function (id, done) {
     console.log('deserializeUser() called');
     mysql.query('SELECT * FROM contacts_copy WHERE contact_id = ?', id, function(err, rows) {
-
       if (err) return done(err);
 
       const user = rows[0];
