@@ -5,7 +5,7 @@ var crypto = require('crypto')
 
 // return all leads
 router.get('/', function(req, res, next) {
-  mysql.query('SELECT * FROM leads', function(err, rows) {
+  mysql.query('SELECT * FROM leads_copy', function(err, rows) {
     if (err) throw err;
     leads = rows;
     res.send(leads);
@@ -17,7 +17,7 @@ router.get('/id/:id', function(req, res, next) {
   const id = parseInt(req.params.id, 10);
   console.log(id);
 
-  mysql.query(`SELECT * FROM leads WHERE lead_id='${id}'`, function(err, rows) {
+  mysql.query(`SELECT * FROM leads_copy WHERE lead_id='${id}'`, function(err, rows) {
     if (err) throw err;
     const lead = rows[0];
     // var lead = leads.filter(function(lead) {
@@ -33,7 +33,7 @@ router.get('/:input', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input);
 
-  mysql.query(`SELECT * FROM leads WHERE lower(products_english) LIKE "%${input}%" ORDER BY number_of_employees DESC LIMIT 7`, function(err, rows) {
+  mysql.query(`SELECT * FROM leads_copy WHERE lower(products_english) LIKE "%${input}%" ORDER BY number_of_employees DESC LIMIT 7`, function(err, rows) {
     if (err) throw err;
     leads = rows;
     res.send(leads);
@@ -46,7 +46,7 @@ router.get('/:input/count', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input);
 
-  mysql.query(`SELECT count(*) as count FROM leads WHERE lower(products_english) LIKE "%${input}%"`, function(err, rows) {
+  mysql.query(`SELECT count(*) as count FROM leads_copy WHERE lower(products_english) LIKE "%${input}%"`, function(err, rows) {
     if (err) throw err;
     count = rows[0];
     res.send(count);
@@ -59,7 +59,7 @@ router.get('/company/:input', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input);
 
-  mysql.query(`SELECT * FROM leads WHERE lower(company_english) LIKE '%${input}%'`, function(err, rows) {
+  mysql.query(`SELECT * FROM leads_copy WHERE lower(company_english) LIKE '%${input}%'`, function(err, rows) {
     if (err) throw err;
     leads = rows;
     res.send(leads);
@@ -73,7 +73,7 @@ router.get('/:input/:page', function (req, res) {
   var page = Number(req.params.page);
   page = (page * 10);
 
-  mysql.query(`SELECT * FROM leads WHERE lower(products_english) LIKE "%${input}%" ORDER BY number_of_employees DESC LIMIT ${page}, 10`, function(err, rows) {
+  mysql.query(`SELECT * FROM leads_copy WHERE lower(products_english) LIKE "%${input}%" ORDER BY number_of_employees DESC LIMIT ${page}, 10`, function(err, rows) {
     if (err) throw err;
     results = rows;
     res.send(results);
@@ -123,7 +123,7 @@ router.post('/upload', function (req, res) {
     created_date = req.body.created_date,
     converted_date = req.body.converted_date;
 
-  mysql.query(`SELECT * FROM leads WHERE email = ?`, email, function (err, rows) {
+  mysql.query(`SELECT * FROM leads_copy WHERE email = ?`, email, function (err, rows) {
     if (err) return res.send(err);
 
     if (!rows[0]) {

@@ -4,7 +4,7 @@ var mysql = require('../../../models/mysql');
 
 // return all accounts
 router.get('/', function(req, res, next) {
-  mysql.query(`SELECT * FROM accounts LIMIT 6`, function(err, rows) {
+  mysql.query(`SELECT * FROM accounts_copy LIMIT 6`, function(err, rows) {
     if (err) throw err;
     results = rows;
     res.send(results);
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 router.get('/id/:id', function (req, res, next) {
   const id = req.params.id;
 
-  mysql.query(`SELECT * FROM accounts WHERE account_id='${id}'`, function(err, rows) {
+  mysql.query(`SELECT * FROM accounts_copy WHERE account_id='${id}'`, function(err, rows) {
     if (err) throw err;
     const account = rows[0];
     res.send(account);
@@ -26,7 +26,7 @@ router.get('/id/:id', function (req, res, next) {
 router.get('/company/:company', function (req, res, next) {
   const company = req.params.company;
 
-  mysql.query(`SELECT * FROM accounts WHERE domain='${company}'`, function(err, rows) {
+  mysql.query(`SELECT * FROM accounts_copy WHERE domain='${company}'`, function(err, rows) {
     if (err) throw err;
     const account = rows[0];
     res.send(account);
@@ -37,7 +37,7 @@ router.get('/company/:company', function (req, res, next) {
 router.get('/:input/count', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input)
-  mysql.query(`SELECT count(*) as count FROM accounts WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
+  mysql.query(`SELECT count(*) as count FROM accounts_copy WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
     if (err) throw err;
     count = rows[0];
     res.send(count);
@@ -48,7 +48,7 @@ router.get('/:input/count', function (req, res, next) {
 router.get('/:input', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input)
-  mysql.query(`SELECT * FROM accounts WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
+  mysql.query(`SELECT * FROM accounts_copy WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
     if (err) throw err;
     results = rows;
     res.send(results);
@@ -70,7 +70,7 @@ router.get('/:input/count', function (req, res, next) {
 router.get('/accountname/:input', function (req, res, next) {
   const input = req.params.input.toLowerCase();
   console.log(input)
-  mysql.query(`SELECT * FROM accounts WHERE lower(account_name_english) LIKE '%${input}%'`, function(err, rows) {
+  mysql.query(`SELECT * FROM accounts_copy WHERE lower(account_name_english) LIKE '%${input}%'`, function(err, rows) {
     if (err) throw err;
     results = rows;
     res.send(results);
