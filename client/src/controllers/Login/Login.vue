@@ -4,7 +4,7 @@
 
       <auth-header></auth-header>
 
-      <div class="form-container">
+      <div class="form-container" @keyup.enter="onLoginButton">
         <div class="input-container">
           <input v-model="email" :value="email" type="email" :placeholder="placeholder.email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="sign-up-button-container">
-          <button class="button-orange" @click="onLoginButton" @keyup.enter="onLoginButton">
+          <button class="button-orange" @click="onLoginButton">
             {{ msg.login }}
           </button>
         </div>
@@ -31,9 +31,6 @@
         </div>
       </div> <!--form-container -->
     </div> <!-- form-contents -->
-    <button class="button-orange" @click="onSessionButton">
-      call session & cookie
-    </button>
   </div> <!-- page-container -->
 </template>
 
@@ -70,15 +67,20 @@
         }
         this.$http.post('/api/auth/login', data)
           .then(res => {
+            console.log('login success')
             console.log(res)
-            this.$store.dispatch('setUser', res.data)
-            if (res.data) {
+            if (res.data.token) {
+              const token = res.data.token
+              const user = res.data.user
+              this.$store.dispatch('setToken', token)
+              this.$store.dispatch('setUser', user)
               this.$router.push({
                 path: '/'
               })
-            } else {
-              alert('Login failed.')
             }
+          })
+          .catch(() => {
+            alert('로그인 실패')
           })
       },
       onForgotPassword: function () {

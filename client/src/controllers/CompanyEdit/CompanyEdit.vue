@@ -1,6 +1,7 @@
 <template>
   <div class="page-container">
 
+    <add-button></add-button>
     <nav-bar :inputData="input"></nav-bar>
 
     <div class="image-container">
@@ -16,7 +17,7 @@
 
         <div class="header-container">
           <i @click="toggle.isAccountNameEdited = true" v-if="!toggle.isAccountNameEdited" class="fa fa-pencil image-edit" aria-hidden="true"></i>
-          <i @click="toggle.isAccountNameEdited = false" v-if="toggle.isAccountNameEdited" class="fa fa-check image-edit" aria-hidden="true"></i>
+          <i @click="updateData" v-else="toggle.isAccountNameEdited" class="fa fa-check image-edit" aria-hidden="true"></i>
           <h1 v-if="!toggle.isAccountNameEdited" class="title">{{ value.accountName }}</h1>
           <input v-else class="title input-basic" type="text" :value="value.accountName" v-model="value.accountName"/>
           <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
@@ -136,13 +137,14 @@
     </div>
 
     <footer-bar></footer-bar>
-
   </div>
 </template>
 
 <script>
+  import cookie from '../../assets/js/cookie'
   import NavBar from '../../components/NavBar'
   import FooterBar from '../../components/FooterBar'
+  import AddButton from './components/AddButton'
 
   export default {
     metaInfo: {
@@ -150,7 +152,8 @@
     },
     components: {
       NavBar,
-      FooterBar
+      FooterBar,
+      AddButton
     },
     data () {
       return {
@@ -209,25 +212,34 @@
         const country = this.account.mailing_country_english
         return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
       },
-      onToggle (toggle) {
-        toggle = !toggle
+      getToken () {
+        return cookie.getCookie('nekot')
       }
+//      getAccountId () {
+//        return this.$store.getters.userData.account_id
+//      }
     },
     methods: {
       titleTemplate: function (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
       initialize () {
-//        if (!this.$store.state.user) {
-//          alert('로그인 정보가 만료되었습니다.')
-//          this.$router.push({
-//            path: '/login'
-//          })
-//        }
-//        this.getAccount(this.$store.state.user.account_id)
-        this.getAccount(59)
+        const data = {
+          headers: {
+            'x-access-token': this.getToken
+          }
+        }
+        this.$http.get('/api/auth/check', data)
+          .then((res) => {
+            const contactId = res.data.info.id
+            this.fetchAccountData(contactId)
+          })
+          .catch(() => {
+            alert('로그인 정보가 만료되었습니다.')
+            this.$router.push({path: '/login'})
+          })
       },
-      getAccount: function (id) {
+      fetchAccountData (id) {
         this.$http.get(`/api/data/account/id/${id}`)
           .then(response => {
             if (!response.data) {
@@ -243,11 +255,21 @@
         this.value.accountName = account.account_name
         this.value.description = account.company_short_description
       },
+      updateData () {
+        const data = {
+          accountName: this.value.accountName
+        }
+        this.toggle.isAccountNameEdited = false
+        this.$http.post(`/api/data/account/update/${this.getAccountId}`, data)
+          .then(res => {
+            alert('수정되었습니다.')
+          })
+      },
       getProducts: function (id) {
         if (!id) return
         this.$http.get(`/api/data/product/account_id/${id}`)
-          .then(response => {
-            this.products = response.data
+          .then(res => {
+            this.products = res.data
           })
       },
       getYear: function (year) {
@@ -256,7 +278,7 @@
           return year[0]
         }
       },
-      checkWebsiteLinkHasHttp: function (url) {
+      checkWebsiteLinkHasHttp (url) {
         if (url) {
           if (url.indexOf('http') === -1) {
             url = ('http://' + url).toLowerCase()
@@ -264,7 +286,7 @@
           }
         }
       },
-      routeProductProfilePage: function (index) {
+      routeProductProfilePage (index) {
         this.$router.push({
           path: '/product/profile',
           query: {
@@ -342,8 +364,8 @@
   .image-product-add {
     position: absolute;
     top: 8px;
-    left: 180px;
-    font-size: 18px;
+    right: 0;
+    font-size: 30px;
     cursor: pointer;
   }
 

@@ -4,8 +4,8 @@ import Router from 'vue-router'
 // Client Controllers
 import Home from '../controllers/Home'
 import SupplierSearchResultPage from '../controllers/SupplierSearchResultPage'
-import AccountProfile from '../controllers/AccountProfile'
-import CompanyEdit from '../controllers/CompanyEdit/CompanyEdit.vue'
+import AccountProfile from '../controllers/Account/AccountProfile'
+import AccountEditKor from '../controllers/AccountEdit/AccountEditKor'
 import ProductProfile from '../controllers/ProductProfile'
 import About from '../controllers/About'
 import ContactUs from '../controllers/ContactUs'
@@ -21,8 +21,6 @@ import Korean from '../controllers/Korean'
 import API from '../controllers/API'
 import ContactForm from '../controllers/ContactForm'
 import ContactFormPremium from '../controllers/ContactFormPremium'
-
-// import robots from '../../static/robots.txt'
 
 // Admin Components
 import Admin from '../admins/Home'
@@ -100,11 +98,6 @@ export default new Router({
       component: Admin
     },
     {
-      path: '/company-edit',
-      name: 'company-edit',
-      component: CompanyEdit
-    },
-    {
       path: '/error',
       name: 'error',
       component: NotFound
@@ -113,6 +106,11 @@ export default new Router({
       path: '/:company',
       name: 'company',
       component: AccountProfile
+    },
+    {
+      path: '/:company/edit-kor',
+      name: 'company-edit-kor',
+      component: AccountEditKor
     },
     {
       path: '/admin/:status',

@@ -2,44 +2,41 @@
   <nav class="navbar-container">
 
     <div class="logo-container">
-      <a href="/"><img id="logo" src="../assets/fh_logo_512.png"></a>
-    </div>
-
-    <div class="search-container" v-show="this.$route.path !== '/'">
-      <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input @keyup.enter="onSearchInput" type="text" v-model="input" :value="input" :placeholder="placeholder.input">
+      <a href="/"><img id="logo" src="../../assets/fh_logo_512.png"></a>
     </div>
 
     <div class="button-container">
       <span v-if="isUserLoggedIn" class="each-button-container">
-        <a @click="onLogoutButton">{{ msg.logout }}</a>
+        <a class="edit-button" @click="onEditButton">{{ msg.edit }}</a>
       </span>
-      <span @click="onKoreanButton" class="each-button-container">
-        <a>한국어</a>
+      <span @click="onEnglishButton" class="each-button-container">
+        <a>{{ msg.english }}</a>
       </span>
     </div>
   </nav>
 </template>
 
 <script>
-  import cookie from '../../src/assets/js/cookie'
+  import cookie from '../../../src/assets/js/cookie'
   export default {
     props: ['inputData'],
     data () {
       return {
         msg: {
-          logout: '로그아웃',
-          mypage: '마이페이지'
+          edit: '수정하기',
+          english: 'English'
+        },
+        value: {
+          company: this.$route.params.company
         },
         placeholder: {
-          input: 'Search'
+          //
         },
-        input: this.inputData,
         isUserLoggedIn: false
       }
     },
     created () {
-      console.log('NavigationBarInput Created')
+      console.log('Admin NavBar Created')
       this.applyCSS()
       this.checkValidation()
     },
@@ -69,7 +66,13 @@
         this.$store.dispatch('setInitialState')
         location.reload()
       },
-      onKoreanButton () {
+      onEditButton () {
+        alert('Edit success.')
+        this.$router.push({
+          path: `/${this.value.company}`
+        })
+      },
+      onEnglishButton () {
         this.$router.push({
           path: '/korean'
         })
@@ -86,27 +89,40 @@
             this.isUserLoggedIn = true
           })
           .catch(() => {
+            alert('Login session is expired')
             this.isUserLoggedIn = false
+            this.$router.push({
+              path: '/login'
+            })
           })
       },
       applyCSS () {
-        if (this.$route.path !== '/') {
-          $(document).ready(function () {
-            $('.navbar-container').css('border-bottom', '1px solid #DBDBDB')
-            $('.logo-container').css('border-right', '1px solid #DBDBDB')
+        $(document).ready(function () {
+          $(window).scroll(() => {
+            const height = $(window).scrollTop()
+            if (height > 0) {
+              $('.navbar-container').css('border-bottom', '1px solid #DBDBDB')
+            } else {
+              $('.navbar-container').css('border-bottom', 'none')
+            }
           })
-        }
+        })
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../assets/less/global';
+  @import (reference) '../../assets/less/global';
 
   .navbar-container {
-    position: relative;
+    position: fixed;
+    z-index: 3;
+    top: 0 !important;
+    left: 0 !important;
     height: 80px;
+    width: 100%;
+    background-color: @color-white;
 
     .logo-container {
       position: absolute;
@@ -117,23 +133,10 @@
       }
     }
 
-    .search-container {
-      position: absolute;
-      margin: 27.5px 100px;
-      font-size: 18px;
-
-      .search-icon {}
-      input {
-        width: 85%;
-        padding: 0 10px;
-        border: none;
-        box-shadow: none;
-        outline: none;
-      }
-    }
-
     .button-container {
-      float: right;
+      position: absolute;
+      top: 0;
+      right: 0;
       line-height: 80px;
       margin: 0 20px;
 
@@ -144,27 +147,18 @@
           color: grey;
           font-size:16px;
         }
+
+        .edit-button {
+          color: @color-orange;
+          font-weight:700;
+        }
       }
     }
   }
 
   @media ( min-width: 744px ) {
-    .search-container {
-      margin: 27.5px 100px;
-
-      input {
-        width: 520px;
-      }
-    }
   }
 
   @media ( min-width: 1128px ) {
-    .search-container {
-      margin: 27.5px 100px;
-
-      input {
-        width: 900px;
-      }
-    }
   }
 </style>

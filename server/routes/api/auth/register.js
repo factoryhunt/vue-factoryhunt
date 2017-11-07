@@ -131,7 +131,7 @@ module.exports = (req, res) => {
                           }
                           console.log('domain changed');
                           console.log('Sign up success');
-                          res.redirect('/register');
+                          res.status(200).json({msg: 'success'})
                         });
                     });
 

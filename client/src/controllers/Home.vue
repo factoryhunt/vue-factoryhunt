@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import cookie from '../assets/js/cookie'
   import NavBar from '../components/NavBar.vue'
   import HomeHeader from '../components/HomeHeader'
   import FeaturedCard from '../components/FeaturedCard'
@@ -106,20 +107,35 @@
             this.inputActive = false
           }
         })
+      },
+      fetchUserState () {
+        const token = cookie.getCookie('nekot')
+        if (token) {
+          this.$store.dispatch('setToken', token)
+          this.$http.get('/api/auth/check', {headers: {'x-access-token': token}})
+            .then(res => {
+              const id = res.data.info.id
+              console.log(id)
+              this.$http.get(`/api/data/account/id/${id}`)
+                .then(response => {
+                  const account = response.data
+                  this.$store.dispatch('setUser', account)
+                })
+            })
+        }
       }
     },
     created () {
-      console.log('Home created')
-      this.getCategory()
-      console.log('Home.vue')
-      console.log(this.$store.state.isUserLoggedIn)
+      console.log('Home.vue created')
+      this.fetchUserState()
+//      this.getCategory()
     },
     mounted () {
       console.log('Home mounted')
     },
     updated () {
       console.log('Home updated')
-      this.inputActive = true
+//      this.inputActive = true
     }
   }
 </script>
@@ -143,8 +159,8 @@
       height: 30px;
       font-size: 17px;
       font-weight: 400;
-      border: none;
       width: 220px;
+      .input-none-border;
     }
 
     button {
@@ -185,6 +201,7 @@
       margin-bottom: 165px;
     }
     .form-container input {
+      .input-none-border;
       width: 95%;
     }
     .featured-title {
@@ -204,14 +221,12 @@
       height: 80px;
     }
     .form-container input {
+      .input-none-border;
       position: absolute;
       margin-right: 300px;
       height: 60px;
       font-size: 20px;
       font-weight: 400;
-      border: none;
-      box-shadow: none;
-      outline: none;
       width: 900px;
     }
     .form-container button {

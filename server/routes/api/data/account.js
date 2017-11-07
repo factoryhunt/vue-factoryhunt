@@ -91,4 +91,17 @@ router.get('/:input/:page', function (req, res) {
   })
 })
 
+// update single account
+router.post('/update/:id', function (req, res) {
+  console.log('update account called');
+  const account_id = req.params.id;
+  const account_name = req.body.accountName;
+  mysql.query(
+    `UPDATE accounts_copy SET account_name_english = "${account_name}" WHERE account_id = ${account_id}`, function (err) {
+      if(err) throw err;
+
+      res.send({msg: 'account updated'});
+    });
+});
+
 module.exports = router;

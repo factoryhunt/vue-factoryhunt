@@ -60,7 +60,7 @@
     .contents-size(1040px, 60px auto, 0 12px);
   }
   .detail-contents {
-    .contents-size(1040px, 30px auto, 0 12px);
+    .contents-size(1040px, 15px auto, 0 12px);
   }
   .narrow-contents {
     .contents-size(800px, 60px auto, 0 12px);

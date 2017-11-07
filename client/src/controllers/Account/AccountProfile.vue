@@ -1,19 +1,25 @@
 <template>
   <div class="page-container">
 
-    <nav-bar :inputData="input"></nav-bar>
+    <nav-bar :inputData="value.input"></nav-bar>
 
     <div class="image-container">
-      <img class="main-image" :src="account.account_image_url_1">
+      <img v-if="account.account_image_url_1" class="main-image" :src="account.account_image_url_1">
+      <img v-else class="main-image" src="../../assets/temp_01.png">
     </div>
 
     <div class="detail-contents">
 
+      <!-- Left-side UI container -->
       <div class="left-container">
 
-        <div class="header-container">
+        <sub-navigation-bar :company="value.company"></sub-navigation-bar>
+
+        <!-- Header -->
+        <div id="header-container" class="header-container">
           <h1 class="title">{{ account.account_name_english }}</h1>
-          <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
+          <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
+          <img v-else class="logo" src="../../assets/fh_logo_512.png">
           <div class="sub-title-container">
             <h4 class="sub-title">{{ account.billing_country }}</h4>
             •
@@ -44,26 +50,26 @@
             <dt>Phone</dt>
             <dd>{{ account.phone }}</dd>
             <dt>Location</dt>
-            <dd>{{getLocation}}</dd>
+            <dd>{{ getLocation }}</dd>
             <dt>Established year</dt>
             <dd>{{ getYear(account.established_date) }}</dd>
           </dl>
         </div>
         <div class="divider"></div>
 
-        <!--<div class="history-container">-->
-          <!--<h3>History</h3>-->
-          <!--<br>-->
-        <!--</div>-->
-        <!--<div class="divider"></div>-->
+        <div class="history-container">
+          <h3>History</h3>
+          <br>
+        </div>
+        <div class="divider"></div>
 
-        <!--<div class="certification-container">-->
-          <!--<h3>Certifications</h3>-->
-          <!--<br>-->
-        <!--</div>-->
-        <!--<div class="divider"></div>-->
+        <div class="certification-container">
+          <h3>Certifications</h3>
+          <br>
+        </div>
+        <div class="divider"></div>
 
-        <div class="review-container">
+        <div id="review-container" class="review-container">
           <h3>Reviews <small>(0)</small></h3>
           <br>
           <p>No review.</p>
@@ -78,27 +84,27 @@
           <h3>Contact</h3>
           <br>
           <div class="input-container">
-            <input v-model="email" type="text" :placeholder="placeholder.email">
+            <input v-model="value.email" type="text" :placeholder="placeholder.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
+          <textarea v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
 
-          <p class="quote">{{quote}}</p>
+          <p class="quote">{{msg.quote}}</p>
 
           <div class="button-container">
-            <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+            <button @click="sendEmail(value.email, value.quiry)" type="submit" class="btn btn-default">Send inquiry</button>
           </div>
         </div>
 
       </div>
 
-      <div class="location-container">
-        <h3 class="title">Location</h3>
+      <div id="address-container" class="address-container">
+        <h3 class="title">Address</h3>
         <div id="map"></div>
       </div>
 
-      <div class="products-container">
+      <div id="product-container" class="products-container">
         <div class="row">
 
           <div class="col-md-12">
@@ -129,8 +135,10 @@
 </template>
 
 <script>
-  import NavBar from '../components/NavBar'
-  import FooterBar from '../components/FooterBar'
+  import cookie from '../../assets/js/cookie'
+  import NavBar from '../../components/NavBar'
+  import FooterBar from '../../components/FooterBar'
+  import SubNavigationBar from './components/SubNavigationBar'
 
   export default {
     metaInfo: {
@@ -138,23 +146,46 @@
     },
     components: {
       NavBar,
+      SubNavigationBar,
       FooterBar
     },
     data () {
       return {
-        company: this.$route.params.company,
-        id: this.$route.query.id,
-        input: this.$route.query.input,
         account: {},
         products: [],
+        value: {
+          company: this.$route.params.company,
+          input: this.$route.query.input,
+          email: '',
+          quiry: '',
+          // for admin editing
+          accountName: ''
+        },
+        toggle: {
+          isUserAdmin: false,
+          isAccountNameEdited: false,
+          isDescriptionEdited: false,
+          isInformationEdited: false,
+          isHistoryEdited: false,
+          isCertificationEdited: false
+        },
         placeholder: {
           email: 'contact@email.com',
           textarea: 'Enter your message'
         },
-        email: '',
-        quiry: '',
-        quote: 'Request a quote to get pricing'
+        msg: {
+          quote: 'Request a quote to get pricing'
+        }
       }
+    },
+    created () {
+      window.scrollTo(0, 0)
+      console.log('AccountProfile Created')
+      this.fetchAccount('56848')
+      this.validateUser()
+    },
+    mounted () {
+      this.fetchAccount('56848')
     },
     computed: {
       getLocation () {
@@ -163,29 +194,50 @@
         const state = this.account.mailing_state_english
         const country = this.account.mailing_country_english
         return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
+      },
+      getToken () {
+        return cookie.getCookie('nekot')
+      },
+      getAccountId () {
+        return this.account.account_id
       }
     },
     methods: {
-      titleTemplate: function (account) {
+      titleTemplate (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
-      checkIsMyAccount () {
-        this.$http.get('/api/auth/session')
-          .then(res => {
+      validateUser () {
+        const data = {
+          headers: {
+            'x-access-token': this.getToken
+          }
+        }
+        this.$http.get('/api/auth/check', data)
+          .then(() => {
+//            const contactId = res.data.info.id
+            this.toggle.isUserAdmin = true
+          })
+          .catch(() => {
+            this.toggle.isUserAdmin = false
           })
       },
-      getAccount: function (company) {
+      fetchAccount (company) {
+        console.log(company)
         this.$http.get(`/api/data/account/company/${company}`)
           .then(response => {
             if (!response.data) {
               this.$router.push({ path: '/error' })
             }
             this.account = response.data
-            this.getProducts(this.account.account_id)
+            this.applyLocalData(this.account)
+            this.fetchProducts(this.account.account_id)
             this.initMap()
           })
       },
-      getProducts: function (id) {
+      applyLocalData (account) {
+        this.value.accountName = this.account.account_name_english
+      },
+      fetchProducts: function (id) {
         if (!id) return
         this.$http.get(`/api/data/product/account_id/${id}`)
           .then(response => {
@@ -273,26 +325,57 @@
           }
         })
         /* eslint-enable no-unused-vars */
+      },
+      toggleClass (toggle) {
+        return toggle ? 'fa fa-check image-edit' : 'fa fa-pencil image-edit'
+      },
+      onAccountNameEdit () {
+        if (this.toggle.isAccountNameEdited) {
+          const data = {
+            accountName: this.value.accountName
+          }
+          this.$http.post(`/api/data/account/update/${this.getAccountId}`, data)
+            .then(() => {
+              alert('Edited success.')
+              this.toggle.isAccountNameEdited = false
+            })
+            .catch(() => {
+              alert('Failed. Try it again.')
+              this.toggle.isAccountNameEdited = false
+            })
+        } else {
+          this.toggle.isAccountNameEdited = true
+        }
       }
-    },
-    created () {
-      console.log('AccountProfile Created')
-      window.scrollTo(0, 0)
-
-      this.getAccount(this.company)
-    },
-    mounted () {
-      console.log('AccountProfile Mounted')
-    },
-    updated () {
-      console.log('AccountProfile Updated')
     }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import (reference) '../../assets/less/global';
+
+  .image-edit {
+    position: absolute;
+    top: 1px;
+    left: -32px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .image-product-add {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .detail-contents {
+    margin-top: 0 !important;
+  }
+
   /*Top image container*/
   .image-container {
+    position: relative;
     overflow: hidden;
     width: 100%;
     height: 200px;
@@ -347,14 +430,15 @@
   }
 
   .description-container {
+    position: relative;
 
-  }
-  .description-container .sub-title {
-    font-weight:200;
+    .sub-title {
+      font-weight:200;
+    }
   }
 
   .information-container {
-
+    position: relative;
   }
   .information-container .information-table-container dt {
     font-weight: 500;
@@ -367,6 +451,14 @@
     font-size:16px;
   }
 
+  .history-container {
+    position: relative;
+  }
+
+  .certification-container {
+    position: relative;
+  }
+
   .review-container {
     font-weight: 300;
     font-size:18px;
@@ -377,74 +469,85 @@
   }
   .form-container {
     font-size: 17px;
-  }
-  .form-container .input-container {
-    position: relative;
-    border:1px solid lightgrey;
-    border-radius: 4px;
-    margin-bottom: 25px;
-  }
-  .form-container .input-container input {
-    width: 100%;
-    border-radius: 4px;
-    padding: 10px 50px 10px 10px;
-    border: none;
-    box-shadow: none;
-    outline: none;
-  }
-  .form-container .input-container i {
-    position: absolute;
-    right: 20px;
-    top: 32%;
+
+    .input-container {
+      position: relative;
+      border:1px solid lightgrey;
+      border-radius: 4px;
+      margin-bottom: 25px;
+
+      i {
+        position: absolute;
+        right: 20px;
+        top: 32%;
+      }
+
+      input {
+        width: 100%;
+        border-radius: 4px;
+        padding: 10px 50px 10px 10px;
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
+    textarea {
+      font-size: 17px;
+    }
+
+    .quote {
+      margin: 14px 0;
+      color: grey;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      height: 50px;
+      font-weight: 500;
+      font-size: 16px;
+    }
   }
 
-  .form-container textarea {
-    font-size: 17px;
-  }
-  .form-container .quote {
-    margin: 14px 0;
-    color: grey;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-  }
-  .form-container button {
-    width: 100%;
-    height: 50px;
-    font-weight: 500;
-    font-size: 16px;
-  }
-
-  .location-container {  }
-  .location-container #map {
-    margin: 30px 0 60px 0;
-    width: 100%;
-    min-height: 330px;
+  .address-container {
+    #map {
+      margin: 30px 0 60px 0;
+      width: 100%;
+      min-height: 330px;
+    }
   }
 
   .products-container {
     margin-top: 20px;
-  }
-  .products-container .title {
-    margin-bottom: 30px;
-  }
-  .product-container .each-product {
-    margin-bottom: 65px;
-  }
-  .product-container .each-product img {
-    cursor: pointer;
-    width: 100%;
-    box-shadow: 1px 1px 10px 1px #e4e4e4;
-  }
-  .product-container .each-product p {
-    margin-top: 15px;
-    margin-bottom: 4px;
-    font-size:16px;
-  }
-  .product-container .each-product .star-container {
-    color: #317fa9;
-    display: inline-block;
-    text-align: center;
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    .each-product {
+      margin-bottom: 65px;
+
+      img {
+        cursor: pointer;
+        width: 100%;
+        box-shadow: 1px 1px 10px 1px #e4e4e4;
+      }
+
+      p {
+        margin-top: 15px;
+        margin-bottom: 4px;
+        font-size: 16px;
+      }
+
+      .star-container {
+        color: #317fa9;
+        display: inline-block;
+        text-align: center;
+      }
+    }
   }
 
   @media ( min-width: 768px ) {
@@ -469,8 +572,8 @@
       margin: 0 auto 30px auto;
     }
 
-    .location-container {  }
-    .location-container #map {
+    .address-container {  }
+    .address-container #map {
       margin: 30px 0;
       width: 100%;
       min-height: 450px;
@@ -497,7 +600,7 @@
     .right-container {
       position: absolute;
       width: 340px;
-      top: 0;
+      top: 5px;
       right: 0;
     }
 
@@ -505,8 +608,8 @@
       margin-bottom: 0;
     }
 
-    .location-container {  }
-    .location-container #map {
+    .address-container {  }
+    .address-container #map {
       margin: 30px 0;
       width: 100%;
       min-height: 500px;

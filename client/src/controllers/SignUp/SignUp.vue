@@ -36,10 +36,6 @@
         </div>
       </div> <!--form-container -->
     </div> <!-- form-contents -->
-
-    <button class="button-orange" @click="onSessionButton">
-      call session & cookie
-    </button>
   </div> <!-- page-container -->
 </template>
 
