@@ -40,11 +40,22 @@
     height:180px;
   }
   input {
-    .input-basic
+    .input-basic;
+  }
+  label {
+    .label-basic;
+  }
+  textarea {
+    .textarea-basic;
+  }
+  select {
+    .select-basic;
   }
 
-  textarea {
-    .textarea-basic
+  #ui-datepicker-div {
+    background-color: @color-white !important;
+    border: 1px solid @color-light-grey !important;
+    width: 300px;
   }
 
   .button-orange {
@@ -84,7 +95,7 @@
     margin:18px 0 30px 0;
     width:100%;
     height: 1px;
-    background-color: @color-deep-gray;
+    background-color: @color-light-grey;
     display: block;
   }
 

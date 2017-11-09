@@ -35,7 +35,7 @@
         <div class="description-container">
           <h3>Company description</h3>
           <br>
-          <h4 class="sub-title">{{ account.company_short_description }}</h4>
+          <textarea>{{ account.company_short_description }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -66,6 +66,7 @@
         <div class="certification-container">
           <h3>Certifications</h3>
           <br>
+          <textarea>{{ account.history }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -181,11 +182,10 @@
     created () {
       window.scrollTo(0, 0)
       console.log('AccountProfile Created')
-      this.fetchAccount('56848')
       this.validateUser()
+      this.fetchAccount(this.value.company)
     },
     mounted () {
-      this.fetchAccount('56848')
     },
     computed: {
       getLocation () {
@@ -222,12 +222,12 @@
           })
       },
       fetchAccount (company) {
-        console.log(company)
         this.$http.get(`/api/data/account/company/${company}`)
           .then(response => {
             if (!response.data) {
               this.$router.push({ path: '/error' })
             }
+            console.log(response)
             this.account = response.data
             this.applyLocalData(this.account)
             this.fetchProducts(this.account.account_id)
@@ -326,9 +326,6 @@
         })
         /* eslint-enable no-unused-vars */
       },
-      toggleClass (toggle) {
-        return toggle ? 'fa fa-check image-edit' : 'fa fa-pencil image-edit'
-      },
       onAccountNameEdit () {
         if (this.toggle.isAccountNameEdited) {
           const data = {
@@ -367,6 +364,13 @@
     right: 0;
     font-size: 30px;
     cursor: pointer;
+  }
+
+  textarea {
+    border: none;
+    padding: 0;
+    font-weight:200;
+    font-size:18px;
   }
 
   .detail-contents {
@@ -457,6 +461,7 @@
 
   .certification-container {
     position: relative;
+
   }
 
   .review-container {

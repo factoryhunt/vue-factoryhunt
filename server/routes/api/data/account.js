@@ -93,15 +93,42 @@ router.get('/:input/:page', function (req, res) {
 
 // update single account
 router.post('/update/:id', function (req, res) {
-  console.log('update account called');
-  const account_id = req.params.id;
-  const account_name = req.body.accountName;
-  mysql.query(
-    `UPDATE accounts_copy SET account_name_english = "${account_name}" WHERE account_id = ${account_id}`, function (err) {
-      if(err) throw err;
+  console.log('update account called')
+  const account_id = req.params.id
+  const domain = req.body.domain,
+    account_name = req.body.account_name,
+    company_short_description = req.body.company_short_description,
+    products = req.body.products,
+    website = req.body.website,
+    phone = req.body.phone,
+    established_date = req.body.established_date,
+    mailing_country = req.body.mailing_country,
+    mailing_state = req.body.mailing_state,
+    mailing_city = req.body.mailing_city,
+    mailing_postal_code = req.body.mailing_postal_code,
+    mailing_street_address = req.body.mailing_street_address,
+    mailing_street_address_2 = req.body.mailing_street_address_2,
+    history = req.body.history
 
-      res.send({msg: 'account updated'});
-    });
-});
+  mysql.query(`UPDATE accounts_copy SET 
+  account_name = "${account_name}",
+  domain = "${domain}",
+  company_short_description = "${company_short_description}",
+  products = "${products}",
+  website = "${website}",
+  phone = "${phone}",
+  established_date = "${established_date}",
+  mailing_country = "${mailing_country}",
+  mailing_state = "${mailing_state}",
+  mailing_city = "${mailing_city}",
+  mailing_postal_code = "${mailing_postal_code}",
+  mailing_street_address = "${mailing_street_address}",
+  mailing_street_address_2 = "${mailing_street_address_2}",
+  history = "${history}" 
+  WHERE account_id = ${account_id}`, (err) => {
+    if(err) throw err
+    res.status(200).json({msg: 'account updated'})
+  })
+})
 
-module.exports = router;
+module.exports = router

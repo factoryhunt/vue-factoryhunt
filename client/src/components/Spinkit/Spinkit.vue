@@ -1,5 +1,5 @@
 <template>
-  <div class="spinkit">
+  <div class="invisible">
     <div class="sk-fading-circle">
       <div class="sk-circle1 sk-circle"></div>
       <div class="sk-circle2 sk-circle"></div>
@@ -19,7 +19,10 @@
 
 <script>
   export default {
-    created () {
+    props: ['type'],
+    mounted () {
+      console.log(this.type)
+      $('.spinkit-default').removeClass('spinkit-default').addClass(this.type)
     }
   }
 </script>
@@ -27,25 +30,41 @@
 <style lang="less" scoped>
   @import (reference) "../../assets/less/global";
 
-  .spinkit {
+  @size-modal: 50px;
+  @size-default: 25px;
+
+  .invisible {
+    display: none;
+  }
+
+  .spinkit-input {
+    .spinkit(@size-default)
+  }
+
+  .spinkit-modal {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.8);
-    opacity:0.7;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
-    z-index: 4;
+    opacity:0.4;
     display: -webkit-flex;
     display:         flex;
     -webkit-align-items: center;
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
+
+    .spinkit(@size-modal)
+  }
+
+  .spinkit(@size) {
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+    z-index: 5;
 
     &:target {
       opacity:0;
@@ -55,8 +74,8 @@
     .sk-fading-circle {
       position: relative;
       margin: auto;
-      width: 50px;
-      height: 50px;
+      width: @size;
+      height: @size;
       overflow: auto;
     }
 

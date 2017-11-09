@@ -2,16 +2,20 @@
 @color-orange: #f2583d;
 @color-link: #317fa9;
 @color-font-base: #484848;
-@color-light-grey: lightgrey;
+@color-light-grey: #dbdbdb;
 @color-white: #FFF;
 @color-black: #000;
-@color-deep-gray: lightgrey;
+@color-deep-gray: grey;
+@color-input-placeholder: #b5b5b5;
+@color-green: green;
+@color-red: #ff3017;
 
 // properties
-@test-border: 1px solid red;
+@test-border: 1px solid lightgreen;
 @box-shadow: 1px 1px 10px 1px #e4e4e4;
 @border-radius: 4px;
 @button-padding: 10px 28px;
+@input-padding: 8px 12px;
 
 // functions
 .contents-size(@maxWidth, @margin, @padding) {
@@ -51,7 +55,7 @@
   border-radius: @border-radius;
   border: 1px solid @color-light-grey;
   box-shadow: none;
-  padding: @button-padding;
+  padding: @input-padding;
   outline: none;
 
   &[type="file"] {
@@ -64,13 +68,29 @@
   outline: none;
 }
 
-
-
 .textarea-basic {
   resize: none;
   width: 100%;
-  padding: 10px;
+  padding: @input-padding;
   border: 1px solid @color-light-grey;
   border-radius: @border-radius;
   outline: none;
+}
+
+.label-basic {
+  padding: @button-padding;
+  border-radius: @border-radius;
+  cursor: pointer;
+}
+
+.select-basic {
+  width: 100%;
+  background-color: @color-white;
+  border: 1px solid @color-light-grey;
+  border-radius: @border-radius;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: @input-padding;
 }

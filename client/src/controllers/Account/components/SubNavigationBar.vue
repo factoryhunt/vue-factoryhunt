@@ -38,7 +38,7 @@
         $(document).ready(function () {
           $(window).scroll(() => {
             const height = $(window).scrollTop()
-            console.log(height)
+//            console.log(height)
 //            $(window).resize(function () {
 //              if ($(window).width() >= 1128) {
 //                //
