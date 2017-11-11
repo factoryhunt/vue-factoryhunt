@@ -3,72 +3,71 @@ var
   AWS = require('aws-sdk'),
   fs = require('fs'),
   async = require('async'),
-  Upload = {};
+  Upload = {}
 
-AWS.config.region = 'us-west-1'; //지역 설정
-var s3 = new AWS.S3();
+AWS.config.region = 'us-west-1' //지역 설정
+var s3 = new AWS.S3()
 var form = new formidable.IncomingForm({
   encoding: 'utf-8',
   multiples: true,
   keepExtensions: false //확장자 제거
-});
-const BUCKET_NAME = 'elasticbeanstalk-us-west-1-624975634187';
+})
+const BUCKET_NAME = 'factoryhunt.com'
 
 var params = { // AWS S3업로드에 대한 정보 입니다.
   Bucket: BUCKET_NAME, // S3 Bucket 이름을 지정합니다.
   Key: null, // Key : S3의 경로 및 파일 이름을 지정합니다.
   ACL: 'public-read', // ACL : 파일 권한에 대한 설정입니다.
   Body: null // Body : 업로드할 파일의 경로를 지정합니다.
-};
+}
 
 Upload.formidable = function (req, callback) {
   form.parse(req, function (err, fields, files) {
-  });
+  })
   form.on('error', function (err) {
-    callback(err, null);
-  });
+    callback(err, null)
+  })
   form.on('end', function () {
-    callback(null, this.openedFiles);
-  });
+    callback(null, this.openedFiles)
+  })
   form.on('aborted', function () {
-    callback('form.on(aborted)', null);
-  });
-};
+    callback('form.on(aborted)', null)
+  })
+}
 
-Upload.s3 = function (files, callback) {
-  params.Key = 'catalogs/'+files[0].name;
-  params.Body = fs.createReadStream(files[0].path);
+Upload.s3 = function (id, files, callback) {
+  params.Key = 'accounts/' + id + '/' + files[0].name
+  params.Body = fs.createReadStream(files[0].path)
   s3.upload(params, function (err, result) {
-    callback(err, result);
-  });
-};
+    callback(err, result)
+  })
+}
 
-// POST: /api/aws/upload
+// POST: /api/aws/account/upload
 module.exports = function (req, res) {
-  console.log('s3 upload called');
-  console.log(req)
+  console.log('s3 single image upload called');
+  var account_id = req.params.id
   var tasks = [
     function (callback) {
       Upload.formidable(req, function (err, files, field) {
-        console.log(req)
         console.log(files)
         callback(err, files);
       })
     },
     function (files, callback) {
-      Upload.s3(files, function (err, result) {
+      Upload.s3(account_id, files, function (err, result) {
         callback(err, files);
-      });
+      })
     }
-  ];
+  ]
   async.waterfall(tasks, function (err, result) {
     if(!err){
-      res.json({success:true, msg:'업로드 성공'})
+      res.json({success:true})
     }else{
       res.json({success:false, msg:'실패', err:err})
     }
-  });
-};
+  })
+}
 
 //putObject는 data 파라미터에 이미지가 저장된 url을 반환하지 않는다
 // s3.putObject(params, function(err, data) {
@@ -92,4 +91,3 @@ module.exports = function (req, res) {
 // var file = fs.createWriteStream('logo.png');
 // var params = {Bucket:BUCKET_NAME, Key:'logo.png'};
 // s3.getObject(params).createReadStream().pipe(file);
-

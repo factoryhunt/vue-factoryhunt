@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar-container">
+  <nav class="navbar-edit-container">
 
     <div class="logo-container">
       <a href="/"><img id="logo" src="../../assets/fh_logo_512.png"></a>
@@ -101,9 +101,9 @@
           $(window).scroll(() => {
             const height = $(window).scrollTop()
             if (height > 0) {
-              $('.navbar-container').css('border-bottom', '1px solid #DBDBDB')
+              $('.navbar-edit-container').css('border-bottom', '1px solid #DBDBDB')
             } else {
-              $('.navbar-container').css('border-bottom', 'none')
+              $('.navbar-edit-container').css('border-bottom', 'none')
             }
           })
         })
@@ -115,7 +115,7 @@
 <style lang="less" scoped>
   @import (reference) '../../assets/less/global';
 
-  .navbar-container {
+  .navbar-edit-container {
     position: fixed;
     z-index: 3;
     top: 0 !important;

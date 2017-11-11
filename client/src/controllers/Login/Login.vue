@@ -49,8 +49,8 @@
         email: '',
         password: '',
         placeholder: {
-          email: '이메일 | your@email.com',
-          password: '비밀번호'
+          email: 'Email | your@email.com',
+          password: 'Password'
         },
         msg: {
           forgot: '비밀번호가 기억나지 않으세요?',

@@ -1,20 +1,28 @@
-var express = require('express');
+const mysql = require('../../../models/mysql')
 var fs = require('fs');
 var AWS = require('aws-sdk');
 
-var s3 = new AWS.S3();
-AWS.config.region = 'us-west-1';
-const BUCKET_NAME = 'elasticbeanstalk-us-west-1-624975634187';
+var s3 = new AWS.S3()
+AWS.config.region = 'us-west-1'
+const BUCKET_NAME = 'factoryhunt.com'
 
-var router = express.Router();
-
-// POST: /api/aws/get
+// POST: /api/aws/account/get/:id
 module.exports = function (req, res) {
+  var id = req.params.id
 // BUCKET_NAME 주소에서 response로 데이터들 가져올 때
   s3.listObjects({Bucket: BUCKET_NAME}).on('success', function handlePage(response) {
     for(var name in response.data.Contents) {
-        console.log(response.data.Contents[name]);
-
+      var content = response.data.Contents[name]
+      var key = content.Key
+      if (key.indexOf(`accounts/${id}/`) !== -1) {
+        key = key.replace(' ', '+')
+        key = 'https://s3-us-west-1.amazonaws.com/factoryhunt.com/' + key
+        console.log(key)
+        mysql.query(`UPDATE accounts_copy SET account_image_url_1 = ${key} WHERE account_id = ${id}`, (err, rows) => {
+          if (err) throw err
+          res.status(200).json({msg: 'upload success'})
+        })
+      }
     }
     if (response.hasNextPage()) {
         response.nextPage('success', handlePage).send();

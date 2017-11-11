@@ -1,94 +1,111 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('../../../models/mysql');
+const router = require('express').Router()
+const mysql = require('../../../models/mysql')
+const multer = require('multer')
 
 // return all accounts
 router.get('/', function(req, res, next) {
   mysql.query(`SELECT * FROM accounts_copy LIMIT 6`, function(err, rows) {
-    if (err) throw err;
-    results = rows;
-    res.send(results);
-  });
-});
+    if (err) throw err
+    results = rows
+    res.send(results)
+  })
+})
 
 // return an account by using id
-router.get('/id/:id', function (req, res, next) {
-  const id = req.params.id;
+router.get('/id/:id', function (req, res) {
+  const id = req.params.id
 
   mysql.query(`SELECT * FROM accounts_copy WHERE account_id='${id}'`, function(err, rows) {
-    if (err) throw err;
-    const account = rows[0];
-    res.send(account);
+    if (err) throw err
+    const account = rows[0]
+    res.send(account)
   });
 });
 
 // // return an account by using company name
-router.get('/company/:company', function (req, res, next) {
-  const company = req.params.company;
+router.get('/company/:company', function (req, res) {
+  const company = req.params.company
 
   mysql.query(`SELECT * FROM accounts_copy WHERE domain='${company}'`, function(err, rows) {
-    if (err) throw err;
-    const account = rows[0];
-    res.send(account);
+    if (err) throw err
+    const account = rows[0]
+    res.send(account)
   });
 });
 
 // return filtered accounts by product_types_english
-router.get('/:input/count', function (req, res, next) {
-  const input = req.params.input.toLowerCase();
+router.get('/:input/count', function (req, res) {
+  const input = req.params.input.toLowerCase()
   console.log(input)
   mysql.query(`SELECT count(*) as count FROM accounts_copy WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
-    if (err) throw err;
-    count = rows[0];
-    res.send(count);
+    if (err) throw err
+    count = rows[0]
+    res.send(count)
   });
 });
 
 // return filtered accounts by product_types_english
-router.get('/:input', function (req, res, next) {
-  const input = req.params.input.toLowerCase();
+router.get('/:input', function (req, res) {
+  const input = req.params.input.toLowerCase()
   console.log(input)
   mysql.query(`SELECT * FROM accounts_copy WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
-    if (err) throw err;
-    results = rows;
-    res.send(results);
+    if (err) throw err
+    results = rows
+    res.send(results)
   });
 });
 
 // return count of filtered accounts by product_types_english
-router.get('/:input/count', function (req, res, next) {
-  const input = req.params.input.toLowerCase();
+router.get('/:input/count', function (req, res) {
+  const input = req.params.input.toLowerCase()
   console.log(input)
   mysql.query(`SELECT count(*) as count FROM accounts WHERE lower(products_english) LIKE '%${input}%'`, function(err, rows) {
-    if (err) throw err;
-    count = rows[0];
-    res.send(count);
+    if (err) throw err
+    count = rows[0]
+    res.send(count)
   });
 });
 
 // return filtered accounts by account_name
-router.get('/accountname/:input', function (req, res, next) {
-  const input = req.params.input.toLowerCase();
+router.get('/accountname/:input', function (req, res) {
+  const input = req.params.input.toLowerCase()
   console.log(input)
   mysql.query(`SELECT * FROM accounts_copy WHERE lower(account_name_english) LIKE '%${input}%'`, function(err, rows) {
-    if (err) throw err;
-    results = rows;
-    res.send(results);
+    if (err) throw err
+    results = rows
+    res.send(results)
   });
 });
 
 // return pagination lead
 router.get('/:input/:page', function (req, res) {
-  console.log('leads page called');
-  const input = req.params.input.toLowerCase();
-  var page = Number(req.params.page);
-  page = (page * 10);
+  console.log('leads page called')
+  const input = req.params.input.toLowerCase()
+  var page = Number(req.params.page)
+  page = (page * 10)
 
   mysql.query(`SELECT * FROM accounts WHERE lower(products_english) LIKE "%${input}%" ORDER BY number_of_employees DESC LIMIT ${page}, 10`, function(err, rows) {
-    if (err) throw err;
-    results = rows;
-    res.send(results);
+    if (err) throw err
+    results = rows
+    res.send(results)
   })
+})
+
+// update single image
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    }
+  })
+  // dest: 'uploads/'
+})
+router.post('/update/main_image', upload.single('main_image'), (req, res) => {
+  console.log(req.file)
+  res.send(req.file)
 })
 
 // update single account
@@ -96,6 +113,8 @@ router.post('/update/:id', function (req, res) {
   console.log('update account called')
   const account_id = req.params.id
   const domain = req.body.domain,
+    thumbnail_url = req.body.thumbnail_url,
+    account_image_url_1 = req.body.account_image_url_1,
     account_name = req.body.account_name,
     company_short_description = req.body.company_short_description,
     products = req.body.products,
@@ -113,6 +132,8 @@ router.post('/update/:id', function (req, res) {
   mysql.query(`UPDATE accounts_copy SET 
   account_name = "${account_name}",
   domain = "${domain}",
+  thumbnail_url = "${thumbnail_url}",
+  account_image_url_1 = "${account_image_url_1}",
   company_short_description = "${company_short_description}",
   products = "${products}",
   website = "${website}",

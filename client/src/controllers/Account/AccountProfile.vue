@@ -13,9 +13,25 @@
       <!-- Left-side UI container -->
       <div class="left-container">
 
-        <sub-navigation-bar :company="value.company"></sub-navigation-bar>
+        <!-- Sticky Header -->
+        <div class="sticky-outer-container">
+          <div class="sticky-inner-container">
+            <div class="sticky-container">
+              <ul>
+                <li><a>Title</a></li>
+                <li>•</li>
+                <li><a>Reviews</a></li>
+                <li>•</li>
+                <li><a>Address</a></li>
+                <li>•</li>
+                <li><a>Products</a></li>
+                <li v-if="toggle.isUserAdmin"><a id="edit-button" @click="onEditButton">{{ msg.kor.edit }}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-        <!-- Header -->
+        <!-- Company Header -->
         <div id="header-container" class="header-container">
           <h1 class="title">{{ account.account_name_english }}</h1>
           <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
@@ -32,6 +48,7 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Company Description -->
         <div class="description-container">
           <h3>Company description</h3>
           <br>
@@ -39,6 +56,7 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Company Information -->
         <div class="information-container">
           <h3>Information</h3>
           <br>
@@ -57,19 +75,22 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Company History -->
         <div class="history-container">
           <h3>History</h3>
-          <br>
-        </div>
-        <div class="divider"></div>
-
-        <div class="certification-container">
-          <h3>Certifications</h3>
           <br>
           <textarea>{{ account.history }}</textarea>
         </div>
         <div class="divider"></div>
 
+        <!-- Company Certification -->
+        <div class="certification-container">
+          <h3>Certifications</h3>
+          <br>
+        </div>
+        <div class="divider"></div>
+
+        <!-- Company Review -->
         <div id="review-container" class="review-container">
           <h3>Reviews <small>(0)</small></h3>
           <br>
@@ -78,8 +99,8 @@
         <div class="divider"></div>
       </div>
 
+      <!-- Contact Form -->
       <div class="right-container">
-
         <div class="form-container">
 
           <h3>Contact</h3>
@@ -97,14 +118,15 @@
             <button @click="sendEmail(value.email, value.quiry)" type="submit" class="btn btn-default">Send inquiry</button>
           </div>
         </div>
-
       </div>
 
+      <!-- Company Address -->
       <div id="address-container" class="address-container">
         <h3 class="title">Address</h3>
         <div id="map"></div>
       </div>
 
+      <!-- Company Products -->
       <div id="product-container" class="products-container">
         <div class="row">
 
@@ -127,7 +149,6 @@
 
         </div>
       </div>
-
     </div>
 
     <footer-bar></footer-bar>
@@ -175,7 +196,10 @@
           textarea: 'Enter your message'
         },
         msg: {
-          quote: 'Request a quote to get pricing'
+          quote: 'Request a quote to get pricing',
+          kor: {
+            edit: '수정하기'
+          }
         }
       }
     },
@@ -231,8 +255,14 @@
             this.account = response.data
             this.applyLocalData(this.account)
             this.fetchProducts(this.account.account_id)
+            this.applyStickyCSS()
             this.initMap()
           })
+      },
+      onEditButton () {
+        this.$router.push({
+          path: `/${this.value.company}/edit-kor`
+        })
       },
       applyLocalData (account) {
         this.value.accountName = this.account.account_name_english
@@ -326,22 +356,51 @@
         })
         /* eslint-enable no-unused-vars */
       },
-      onAccountNameEdit () {
-        if (this.toggle.isAccountNameEdited) {
-          const data = {
-            accountName: this.value.accountName
-          }
-          this.$http.post(`/api/data/account/update/${this.getAccountId}`, data)
-            .then(() => {
-              alert('Edited success.')
-              this.toggle.isAccountNameEdited = false
-            })
-            .catch(() => {
-              alert('Failed. Try it again.')
-              this.toggle.isAccountNameEdited = false
-            })
-        } else {
-          this.toggle.isAccountNameEdited = true
+      applyStickyCSS () {
+        const $stickyOuter = $('.sticky-outer-container')
+        const $sticky = $('.sticky-container')
+//          const $stickyStopper = $('.sticky-stopper')
+        if ($stickyOuter.offset()) { // make sure ".sticky" element exists
+//            var generalSidebarHeight = $sticky.innerHeight() // 30
+          var stickyTop = $stickyOuter.offset().top
+//            var stickyBottom = stickyTop + $sticky.outerHeight()
+          var stickOffset = 0
+//            var stickyStopperPosition = $stickyStopper.offset().top // 2259
+//            var stopPoint = stickyStopperPosition - generalSidebarHeight - stickOffset
+//            var diff = stopPoint + stickOffset
+          $(window).scroll(function () { // scroll event
+            var windowTop = $(window).scrollTop() // returns number
+//            console.log('windowTop: ', windowTop)
+//            console.log('stickyTop: ', stickyTop)
+//              console.log('stickyBottom: ', stickyBottom)
+//              console.log('stickyStopperPosition: ', stickyStopperPosition)
+//              console.log('stopPoint: ', stopPoint)
+//              console.log('diff: ', diff)
+            if (stickyTop - windowTop <= stickOffset) {
+              $stickyOuter.css({
+                'position': 'fixed',
+                'top': stickOffset,
+                'border-bottom': '1px solid #dbdbdb'
+              })
+              $sticky.css({
+                'border-bottom': 'none'
+              })
+            } else {
+              $stickyOuter.css({
+                'position': 'absolute',
+                'top': '-50px',
+                'border-bottom': 'none'
+              })
+              $sticky.css({
+                'border-bottom': '1px solid #dbdbdb'
+              })
+            }
+//              else if (stickyStopperPosition - windowTop < 0) {
+//                $sticky.css({
+//                  'position': 'absolute',
+//                  'bottom': stickyStopperPosition
+//                })
+          })
         }
       }
     }
@@ -366,13 +425,6 @@
     cursor: pointer;
   }
 
-  textarea {
-    border: none;
-    padding: 0;
-    font-weight:200;
-    font-size:18px;
-  }
-
   .detail-contents {
     margin-top: 0 !important;
   }
@@ -395,10 +447,14 @@
 
   .left-container {
 
+    .sticky-outer-container {
+      display: none;
+    }
   }
 
   .header-container {
     position: relative;
+    padding-top: 24px;
   }
   .header-container .title {
     font-size: 32px;
@@ -411,7 +467,7 @@
   }
   .header-container .logo {
     position: absolute;
-    top: 0;
+    top: 12px;
     right:0;
     border: 2px solid #eeeeee;
     width: 60px;
@@ -439,6 +495,12 @@
     .sub-title {
       font-weight:200;
     }
+    textarea {
+      border: none;
+      padding: 0;
+      font-weight:200;
+      font-size:18px;
+    }
   }
 
   .information-container {
@@ -457,11 +519,17 @@
 
   .history-container {
     position: relative;
+
+    textarea {
+      border: none;
+      padding: 0;
+      font-weight:200;
+      font-size:18px;
+    }
   }
 
   .certification-container {
     position: relative;
-
   }
 
   .review-container {
@@ -470,14 +538,13 @@
   }
 
   .right-container {
-    margin-bottom: 60px;
   }
   .form-container {
     font-size: 17px;
 
     .input-container {
       position: relative;
-      border:1px solid lightgrey;
+      border:1px solid @color-light-grey !important;
       border-radius: 4px;
       margin-bottom: 25px;
 
@@ -491,9 +558,9 @@
         width: 100%;
         border-radius: 4px;
         padding: 10px 50px 10px 10px;
-        border: none;
-        box-shadow: none;
-        outline: none;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
       }
     }
 
@@ -555,7 +622,7 @@
     }
   }
 
-  @media ( min-width: 768px ) {
+  @media ( min-width: 744px ) {
     .image-container {
       height: 460px;
     }
@@ -592,16 +659,69 @@
 
     .left-container {
       position: relative;
+      margin-top: 50px;
       padding-right: 410px;
+
+      .sticky-outer-container {
+        display: inherit;
+        position: absolute;
+        background-color: @color-white;
+        z-index: 3;
+        height: 50px;
+        line-height: 50px;
+        width: 100%;
+        top: -50px;
+        left: 0;
+
+        .sticky-inner-container {
+          position: relative;
+          width: 100%;
+          max-width: 1040px;
+          margin: 0 auto;
+          padding-right: 410px;
+
+          .sticky-container {
+            position: relative;
+            border-bottom: 1px solid @color-light-grey;
+            ul {
+              font-size: 16px;
+              list-style: none;
+              margin-bottom: 0;
+              padding-left: 0;
+
+              li {
+                display: inline-block;
+              }
+
+              a {
+                font-weight: 500;
+              }
+
+              #edit-button {
+                position: absolute;
+                color: @color-orange;
+                right: 0;
+                top: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .header-container {
+
+        .title {
+          padding-right: 81px;
+        }
+
+        .logo {
+          width: 70px;
+          border-radius: 35px;
+          border: 1px solid #eeeeee;
+        }
+      }
     }
-    .header-container .title {
-      padding-right: 81px;
-    }
-    .header-container .logo {
-      width: 76px;
-      border-radius: 38px;
-      border: 1px solid #eeeeee;
-    }
+
     .right-container {
       position: absolute;
       width: 340px;

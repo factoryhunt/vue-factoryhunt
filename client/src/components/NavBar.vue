@@ -14,8 +14,8 @@
       <span v-if="isUserLoggedIn" class="each-button-container">
         <a @click="onLogoutButton">{{ msg.logout }}</a>
       </span>
-      <span @click="onKoreanButton" class="each-button-container">
-        <a>한국어</a>
+      <span @click="onSignInButton" class="each-button-container">
+        <a>{{ msg.signin }}</a>
       </span>
     </div>
   </nav>
@@ -29,7 +29,8 @@
       return {
         msg: {
           logout: '로그아웃',
-          mypage: '마이페이지'
+          mypage: '마이페이지',
+          signin: 'Sign in'
         },
         placeholder: {
           input: 'Search'
@@ -54,7 +55,7 @@
           })
         }
       },
-      onLoginButton () {
+      onSignInButton () {
         this.$router.push({
           path: '/login'
         })

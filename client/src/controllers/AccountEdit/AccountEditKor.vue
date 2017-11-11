@@ -31,29 +31,30 @@
       <div class="left-container">
 
         <!-- Company Main Image -->
-        <form enctype="multipart/form-data">
-          <div class="main-image-container input-container">
-            <p class="title">{{ msg.mainImage.title }}</p>
-            <p class="sub-title">{{ msg.mainImage.subTitle }}</p>
-            <img v-if="value.mainImageUrl" :src="value.mainImageUrl">
-            <img v-else-if="value.mainImageFile" :src="value.mainImageFile">
-            <img v-else src="../../assets/temp_01.png">
-            <label for="main-image-input">{{ msg.fileSelect }}</label>
-            <input id="main-image-input" class="file" type="file" name="main_image_file[]" @change="onMainImageChanged($event.target.name, $event.target.files)" accept="image/*">
-          </div>
-        </form>
+
+        <!--<div id="main-image-form">-->
+          <!--<div class="main-image-container input-container">-->
+            <!--<p class="title">{{ msg.mainImage.title }}</p>-->
+            <!--<p class="sub-title">{{ msg.mainImage.subTitle }}</p>-->
+            <!--<img id="main-image" v-if="value.mainImageUrl" :src="value.mainImageUrl">-->
+            <!--<img id="main-image" v-else src="../../assets/temp_01.png">-->
+            <!--<label for="main-image-input">{{ msg.fileSelect }}</label>-->
+            <!--<input id="main-image-input" type="file" name="main_image" @change="onMainImageChanged($event.target.name, $event.target.files)">-->
+            <!--<button id="main-image-upload-button" class="button-orange" @click="onMainImageUploadButton">업로드</button>-->
+          <!--</div>-->
+        <!--</div>-->
 
         <!-- Company Logo Image -->
-        <form enctype="multipart/form-data">
-          <div class="logo-container input-container">
-            <p class="title">{{ msg.logoImage.title }}</p>
-            <p class="sub-title">{{ msg.logoImage.subTitle }}</p>
-            <img v-if="value.logoUrl" :src="value.logoUrl">
-            <img v-else src="../../assets/fh_logo_512.png">
-            <label for="logo-image-input">{{ msg.fileSelect }}</label>
-            <input id="logo-image-input" class="file" type="file" name="logo_image_file[]" @change="onLogoImageChanged($event.target.name, $event.target.files)" accept="image/*">
-          </div>
-        </form>
+        <!--<div class="logo-container input-container">-->
+          <!--<p class="title">{{ msg.logoImage.title }}</p>-->
+          <!--<p class="sub-title">{{ msg.logoImage.subTitle }}</p>-->
+          <!--<p class="third-title">{{ msg.logoImage.thirdTitle }}</p>-->
+          <!--<img id="logo-image" v-if="value.logoUrl" :src="value.logoUrl">-->
+          <!--<img id="logo-image" v-else src="../../assets/fh_logo_512.png">-->
+          <!--<label for="logo-image-input">{{ msg.fileSelect }}</label>-->
+          <!--<input id="logo-image-input" type="file" name="logo_image" @change="onLogoImageChanged($event.target.name, $event.target.files)" accept="image/*">-->
+          <!--<button id="logo-image-upload-button" class="button-orange" @click="onLogoImageUploadButton">업로드</button>-->
+        <!--</div>-->
 
         <!-- Company Domain -->
         <div class="domain-container input-container">
@@ -121,14 +122,14 @@
         </div>
 
         <!-- Company Certification -->
-        <div class="certification-container input-container">
-          <p class="title"> {{ msg.certification.title }} </p>
-          <p class="sub-title"> {{ msg.certification.subTitle }} </p>
-          <p class="third-title"> {{ msg.certification.thirdTitle }} </p>
-          <label for="certification-input">{{ msg.fileSelect }}</label>
-          <input id="certification-input" multiple class="file" type="file" name="img_files[]">
-          <!--@change="filesChange($event.target.name, $event.target.files)"-->
-        </div>
+        <!--<div class="certification-container input-container">-->
+          <!--<p class="title"> {{ msg.certification.title }} </p>-->
+          <!--<p class="sub-title"> {{ msg.certification.subTitle }} </p>-->
+          <!--<p class="third-title"> {{ msg.certification.thirdTitle }} </p>-->
+          <!--<label for="certification-input">{{ msg.fileSelect }}</label>-->
+          <!--<input id="certification-input" multiple class="file" type="file" name="img_files[]">-->
+          <!--&lt;!&ndash;@change="filesChange($event.target.name, $event.target.files)"&ndash;&gt;-->
+        <!--</div>-->
 
         <!-- Confirm and Submit -->
         <div class="confirm-container input-container sticky-stopper">
@@ -143,7 +144,7 @@
 
 <script>
   import cookie from '../../assets/js/cookie'
-  import NavigationBarAdmin from '../../components/NavigationBars/NavigationBarAdmin'
+  import NavigationBarAdmin from '../../components/NavigationBars/NavigationBarEdit'
   import FooterBar from '../../components/FooterBar'
   import Spinkit from '../../components/Spinkit/Spinkit'
 
@@ -163,9 +164,9 @@
         rawDomain: this.$route.params.company,
         value: {
           mainImageUrl: '',
-          mainImageFile: '',
+          mainImageFileName: '',
           logoUrl: '',
-          logoImageFile: '',
+          logoImageFileName: '',
           domain: '',
           accountName: '',
           description: '',
@@ -230,7 +231,8 @@
           },
           logoImage: {
             title: '회사 로고',
-            subTitle: '회사를 상징하는 로고입니다.'
+            subTitle: '회사를 상징하는 로고입니다.',
+            thirdTitle: '로고 사이즈는 정사각형에 최적화되어 있습니다.'
           },
           domain: {
             title: '도메인 주소',
@@ -361,28 +363,39 @@
         this.checkDomain(value.domain)
         this.checkAccountName(value.accountName)
       },
+      readURL (image, files) {
+        console.log(files)
+        if (files) {
+          var reader = new FileReader()
+          reader.onload = function (event) {
+            console.log(event)
+            image.attr('src', event.target.result)
+          }
+          reader.readAsDataURL(files[0])
+          console.log(reader)
+        }
+      },
+      filterImageFileName (fileName) {
+        fileName = fileName.replace(/ /gi, '+')
+        fileName = 'https://s3-us-west-1.amazonaws.com/factoryhunt.com/accounts/' + this.account.account_id + '/' + fileName
+        return fileName
+      },
       // domain exist checking
       onMainImageChanged (fieldName, fileList) {
-        console.log(fieldName)
-        console.log(fileList[0])
-
-        if (!fileList) return
+        var image = $('#main-image')
+        var uploadButton = $('#main-image-upload-button')
+        var fileName = fileList[0].name
+        uploadButton.css({'display': 'inherit'})
+        this.value.mainImageFileName = this.filterImageFileName(fileName)
+        this.readURL(image, fileList)
       },
       onLogoImageChanged (fieldName, fileList) {
-        console.log(fieldName)
-        console.log(fileList[0])
-
-        if (!fileList) return
-//        $('#main-image-input')
-        var logoFileReader = new FileReader()
-        console.log('reader created')
-        logoFileReader.onload = function (event) {
-//          console.log(event)
-        }
-        logoFileReader.readAsDataURL(fileList[0])
-        console.log(logoFileReader)
-        console.log('result:', logoFileReader.result)
-        this.value.mainImageFile = logoFileReader.result
+        var image = $('#logo-image')
+        var uploadButton = $('#logo-image-upload-button')
+        var fileName = fileList[0].name
+        uploadButton.css({'display': 'inherit'})
+        this.value.logoImageFileName = this.filterImageFileName(fileName)
+        this.readURL(image, fileList)
       },
       checkDomain (domain) {
 //        const domainInput = $('.domain-container > input')
@@ -464,6 +477,47 @@
       checkPostalCode (postalCode) {
         this.value.postalCode = postalCode.replace(/[^0-9]/g, '')
       },
+      onMainImageUploadButton () {
+        const formData = new FormData()
+        const accountId = this.account.account_id
+        var fileName = this.value.mainImageFileName
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        }
+        var file = document.getElementById('main-image-input').files[0]
+        formData.append('main_image', file)
+        this.$http.post(`/api/aws/account/upload/${accountId}`, formData, config)
+          .then(res => {
+            console.log(res)
+            if (res.data.success) {
+              this.$http.post(`/api/data/account/update/${accountId}`, fileName)
+                .then(response => {
+                  console.log(response)
+                })
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            alert('파일 업로드 실패.')
+          })
+      },
+      onLogoImageUploadButton () {
+        const formData = new FormData()
+        const accountId = this.account.account_id
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        }
+        var file = document.getElementById('logo-image-input').files[0]
+        formData.append('logo_image', file)
+        this.$http.post(`/api/aws/account/upload/${accountId}`, formData, config)
+          .then(res => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+            alert('파일 업로드 실패.')
+          })
+      },
       onEditButton (value) {
         // modal loading start
 
@@ -481,6 +535,8 @@
 
         // props
         const data = {
+          account_image_url_1: '',
+          thumbnail_url: '',
           account_name: value.accountName,
           domain: value.domain,
           company_short_description: value.description,
@@ -671,6 +727,8 @@
     @mark-right-amount: 12px;
     @small-mark-right-amount: 18px;
     @mark-bottom-amount: 16px;
+    @font-size-button: 22px;
+    @font-weight-button: 600;
 
     /* Global CSS */
     .page-container {
@@ -717,7 +775,8 @@
     label {
       border: 1px solid @color-font-base;
       margin-top: 10px;
-      font-size: 22px;
+      font-size: @font-size-button;
+      font-weight: @font-weight-button;
     }
     textarea {
       font-size: 20px !important;
@@ -739,6 +798,11 @@
       font-weight: 400 !important;
       margin-bottom: 5px !important;
       height: @height !important;
+    }
+    button {
+      font-size: @font-size-button;
+      font-weight: @font-weight-button;
+      border: 1px solid @color-orange;
     }
 
     .big-mark {
@@ -788,10 +852,17 @@
       position: relative;
       padding-right: 410px;
 
-      .image-container {
+      .main-image-container {
+        position: relative;
         img {
           width: 100% !important;
           display: block;
+        }
+        button {
+          position: absolute;
+          left: 150px;
+          bottom: 4.5px;
+          display: none;
         }
       }
 
@@ -805,7 +876,13 @@
           border-radius: 50px;
           border: 1px solid @color-light-grey;
           top: 0;
-          left: 260px;
+          left: 310px;
+        }
+        button {
+          position: absolute;
+          left: 150px;
+          bottom: 4.5px;
+          display: none;
         }
       }
 
@@ -890,8 +967,8 @@
           margin-bottom: 40px !important;
         }
         button {
-          font-size: 22px;
-          font-weight: 600;
+          font-size: @font-size-button;
+          font-weight: @font-weight-button;
         }
       }
     }
