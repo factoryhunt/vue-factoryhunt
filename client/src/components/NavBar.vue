@@ -2,20 +2,23 @@
   <nav class="navbar-container">
 
     <div class="logo-container">
-      <a href="/"><img id="logo" src="../assets/fh_logo_512.png"></a>
+      <a href="/"><img id="logo" src="/static/logo_white.png"></a>
     </div>
 
     <div class="search-container" v-show="this.$route.path !== '/'">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input @keyup.enter="onSearchInput" type="text" v-model="input" :value="input" :placeholder="placeholder.input">
+      <input @keyup.enter="onSearchInput" type="text" v-model="input" :placeholder="placeholder.input">
     </div>
 
     <div class="button-container">
-      <span v-if="isUserLoggedIn" class="each-button-container">
-        <a @click="onLogoutButton">{{ msg.logout }}</a>
-      </span>
-      <span @click="onSignInButton" class="each-button-container">
-        <a>{{ msg.signin }}</a>
+      <!--<span v-if="isUserLoggedIn" class="each-button-container">-->
+        <!--<a @click="onLogoutButton">{{ msg.logout }}</a>-->
+      <!--</span>-->
+      <!--<span @click="onSignInButton" class="each-button-container">-->
+        <!--<a>{{ msg.signin }}</a>-->
+      <!--</span>-->
+      <span class="each-button-container">
+        <a href="https://www.factoryhunt.co.kr" target="_blank">한국어</a>
       </span>
     </div>
   </nav>
@@ -114,7 +117,7 @@
       width: 80px;
 
       img {
-        padding: 17.5px;
+        padding: 11.5px;
       }
     }
 

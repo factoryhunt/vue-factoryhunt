@@ -19,7 +19,7 @@
           <i @click="toggle.isAccountNameEdited = true" v-if="!toggle.isAccountNameEdited" class="fa fa-pencil image-edit" aria-hidden="true"></i>
           <i @click="updateData" v-else="toggle.isAccountNameEdited" class="fa fa-check image-edit" aria-hidden="true"></i>
           <h1 v-if="!toggle.isAccountNameEdited" class="title">{{ value.accountName }}</h1>
-          <input v-else class="title input-basic" type="text" :value="value.accountName" v-model="value.accountName"/>
+          <input v-else class="title input-basic" type="text" v-model="value.accountName"/>
           <img v-show="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <div class="sub-title-container">
             <h4 class="sub-title">{{ account.mailing_country }}</h4>
@@ -39,7 +39,7 @@
           <h3>{{ msg.kor.description }}</h3>
           <br>
           <h4 v-if="!toggle.isDescriptionEdited" class="sub-title">{{ value.description }}</h4>
-          <textarea v-else rows="4" :value="value.description" v-model="value.description"></textarea>
+          <textarea v-else rows="4" v-model="value.description"></textarea>
         </div>
         <div class="divider"></div>
 

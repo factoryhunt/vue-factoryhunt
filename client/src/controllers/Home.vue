@@ -8,7 +8,7 @@
       <home-header></home-header>
 
       <div class="form-container">
-        <input @keyup.enter="onSearchInput()" :value="input" v-model="input" type="text" class="form-control" id="searchInput" :placeholder="placeholder">
+        <input @keyup.enter="onSearchInput()" v-model="input" type="text" class="form-control" id="searchInput" :placeholder="placeholder">
         <button @click="onSearchInput()" type="submit" class="btn btn-default">Search</button>
 
         <!--<div v-show="input" class="form-guide-container" v-if="sub_categories">-->

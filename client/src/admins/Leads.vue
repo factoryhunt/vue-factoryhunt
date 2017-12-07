@@ -7,7 +7,7 @@
           <h4>Leads <small>({{leads.length}})</small></h4>
         </div>
         <div class="col-md-9">
-          <input @keyup.enter="requestData(input)" v-model="input" :value="input" type="text" class="search-bar form-control" placeholder="working only for company">
+          <input @keyup.enter="requestData(input)" v-model="input" type="text" class="search-bar form-control" placeholder="working only for company">
         </div>
       </div>
     </div>

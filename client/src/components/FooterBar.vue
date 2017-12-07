@@ -6,7 +6,7 @@
 
         <div class="col-md-3 col-sm-6">
           <ul class="list-unstyled">
-            <li class="list-title"><img class="logo-image" src="../assets/fh_logo_sub.jpg" alt=""></li>
+            <li class="list-title"><img class="logo-image" src="/static/logo_and_title.png" alt=""></li>
           </ul>
         </div>
 
@@ -28,7 +28,9 @@
             <!--<li class="small"><router-link :to="{ path: '/help', params: { id:100 } }"><a>Help</a></router-link></li>-->
             <li class="small"><router-link :to="{ path: '/faqs', params: { id:100 } }"><a>FAQs</a></router-link></li>
             <!--<li class="small"><router-link :to="{ path: '/openapi', params: { id:100 } }"><a>API</a></router-link></li>-->
-            <li class="small"><router-link :to="{ path: '/korean', params: { id:100 } }"><a>한국어</a></router-link></li>
+            <!--<li class="small"><router-link :to="{ path: '/korean', params: { id:100 } }"><a>한국어</a></router-link></li>-->
+            <li class="small"><a href="https://www.factoryhunt.co.kr"
+                                 target="_blank">한국어</a></li>
           </ul>
         </div>
 

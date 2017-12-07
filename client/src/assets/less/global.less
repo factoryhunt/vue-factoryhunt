@@ -2,18 +2,22 @@
 @color-orange: #f2583d;
 @color-link: #317fa9;
 @color-font-base: #484848;
+@color-font-gray: #767676;
 @color-light-grey: #dbdbdb;
+@color-lightest-grey: #efefef;
 @color-white: #FFF;
 @color-black: #000;
 @color-deep-gray: grey;
-@color-input-placeholder: #b5b5b5;
-@color-green: green;
+@color-input-placeholder: #bcbcbc;
+@color-menu-gray: #9a9a9a;
+@color-yellow: #eec02a;
+@color-green: #009b00;
 @color-red: #ff3017;
 
 // properties
 @test-border: 1px solid lightgreen;
 @box-shadow: 1px 1px 10px 1px #e4e4e4;
-@border-radius: 4px;
+@border-radius: 3px;
 @button-padding: 10px 28px;
 @input-padding: 8px 12px;
 
@@ -61,6 +65,9 @@
   &[type="file"] {
     display: none;
   }
+  &:disabled {
+    background-color: @color-lightest-grey;
+  }
 }
 .input-none-border {
   border: none;
@@ -69,7 +76,7 @@
 }
 
 .textarea-basic {
-  resize: none;
+  resize: vertical;
   width: 100%;
   padding: @input-padding;
   border: 1px solid @color-light-grey;
@@ -77,7 +84,7 @@
   outline: none;
 }
 
-.label-basic {
+.upload-label-basic {
   padding: @button-padding;
   border-radius: @border-radius;
   cursor: pointer;
@@ -93,4 +100,77 @@
   -moz-appearance: none;
   appearance: none;
   padding: @input-padding;
+}
+
+.modal-background {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,.3);
+  z-index: 9997;
+}
+.modal-container {
+  display: none;
+  position: fixed;
+  top: calc(50% - 20px);
+  left: calc(50% - 10px);
+  width: 320px; height: 145px;
+  background: @color-white;
+  border-radius: @border-radius;
+  z-index: 9998;
+  padding: 10px;
+
+  .modal-contents {
+    position: relative;
+    height: 100%;
+
+    .title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .button-container {
+      width: 100%;
+      display: table;
+      text-align: center;
+      vertical-align: middle;
+      height: 100px;
+
+      button {
+        margin: 0 10px 8px 10px;
+      }
+
+      .left-button-container {
+        display: table-cell;
+        vertical-align: bottom;
+        width: 50%;
+      }
+      .right-button-container {
+        display: table-cell;
+        vertical-align: bottom;
+        width: 50%;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes TextFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes TextFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }

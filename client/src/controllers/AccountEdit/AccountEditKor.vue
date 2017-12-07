@@ -61,7 +61,7 @@
           <p class="title">{{ msg.domain.title }}</p>
           <p class="sub-title">{{ msg.domain.subTitle }}</p>
           <p class="third-title">도메인 주소: factoryhunt.com/{{ value.domain }}</p>
-          <input id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" :value="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <input id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
           <i id="domain-mark" class="big-mark" aria-hidden="true"></i>
           <p class="hidden-title">{{ msg.domain.hiddenTitle }}</p>
           <spinkit id="domain-spinkit"></spinkit>
@@ -71,7 +71,7 @@
         <div class="account-name-container input-container">
           <p class="title">{{ msg.accountName.title }}</p>
           <p class="sub-title">{{ msg.accountName.subTitle }}</p>
-          <input id="account-name-input" type="text" :placeholder="placeholder.accountName" v-model="value.accountName" :value="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <input id="account-name-input" type="text" :placeholder="placeholder.accountName" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
           <p class="hidden-title">{{msg.accountName.hiddenTitle}}</p>
           <i id="account-name-mark" class="small-mark" aria-hidden="true"></i>
         </div>
@@ -80,7 +80,7 @@
         <div class="description-container input-container">
           <p class="title">{{ msg.description.title }}</p>
           <p class="sub-title">{{ msg.description.subTitle }}</p>
-          <textarea id="description-input" rows="10" :placeholder="placeholder.description" v-model="value.description" :value="value.description"></textarea>
+          <textarea id="description-input" rows="10" :placeholder="placeholder.description" v-model="value.description"></textarea>
           <i id="description-mark" class="small-mark" aria-hidden="true"></i>
         </div>
 
@@ -88,20 +88,20 @@
         <div class="information-container input-container">
           <p class="title">{{ msg.information.title }}</p>
           <p class="sub-title">{{ msg.information.subTitle }}</p>
-          <input type="text" :placeholder="placeholder.information.products" v-model="value.products" :value="value.products">
-          <input id="website-input" type="text" :placeholder="placeholder.information.website" v-model="value.website" :value="value.website" spellcheck="false">
-          <input id="phone-input" type="text" :placeholder="placeholder.information.phone" v-model="value.phone" :value="value.phone">
-          <input id="established-input" type="text" maxlength="10" :placeholder="placeholder.information.establishedDate" v-model="value.establishedDate" :value="value.establishedDate">
+          <input type="text" :placeholder="placeholder.information.products" v-model="value.products">
+          <input id="website-input" type="text" :placeholder="placeholder.information.website" v-model="value.website" spellcheck="false">
+          <input id="phone-input" type="text" :placeholder="placeholder.information.phone" v-model="value.phone">
+          <input id="established-input" type="text" maxlength="10" :placeholder="placeholder.information.establishedDate" v-model="value.establishedDate">
           <p class="sub-title" style="margin-top: 12px">{{ msg.information.address }}</p>
           <select v-model="value.country">
             <option disabled value="">{{ placeholder.information.country }}</option>
             <option>대한민국</option>
           </select>
-          <input type="text" :placeholder="placeholder.information.state" v-model="value.state" :value="value.state">
-          <input type="text" :placeholder="placeholder.information.city" v-model="value.city" :value="value.city">
-          <input type="text" maxlength="5" :placeholder="placeholder.information.postalCode" v-model="value.postalCode" :value="value.postalCode" @keyup="checkPostalCode(value.postalCode)">
-          <input type="text" :placeholder="placeholder.information.streetAddress" v-model="value.streetAddress" :value="value.streetAddress">
-          <input type="text" :placeholder="placeholder.information.streetAddressDetail" v-model="value.streetAddressDetail" :value="value.streetAddressDetail">
+          <input type="text" :placeholder="placeholder.information.state" v-model="value.state">
+          <input type="text" :placeholder="placeholder.information.city" v-model="value.city">
+          <input type="text" maxlength="5" :placeholder="placeholder.information.postalCode" v-model="value.postalCode" @keyup="checkPostalCode(value.postalCode)">
+          <input type="text" :placeholder="placeholder.information.streetAddress" v-model="value.streetAddress">
+          <input type="text" :placeholder="placeholder.information.streetAddressDetail" v-model="value.streetAddressDetail">
           <i id="products-mark" class="small-mark" aria-hidden="true"></i>
           <i id="website-mark" class="small-mark" aria-hidden="true"></i>
           <i id="phone-mark" class="small-mark" aria-hidden="true"></i>
@@ -117,7 +117,7 @@
         <div class="history-container input-container">
           <p class="title">{{ msg.history.title }}</p>
           <p class="sub-title">{{ msg.history.subTitle }}</p>
-          <textarea rows="9" :placeholder="placeholder.history" v-model="value.history" :value="value.history"></textarea>
+          <textarea rows="9" :placeholder="placeholder.history" v-model="value.history"></textarea>
           <i id="history-mark" class="small-mark" aria-hidden="true"></i>
         </div>
 

@@ -13,12 +13,30 @@
 <style lang="less">
   @import (reference) "./assets/less/global";
 
+  ::-webkit-input-placeholder {
+    color: @color-input-placeholder;
+    font-weight: 200;
+  }
+  ::-moz-placeholder {
+    color: @color-input-placeholder;
+    font-weight: 200;
+  } /* firefox 19+ */
+  :-ms-input-placeholder {
+    color: @color-input-placeholder;
+    font-weight: 200;
+  } /* ie */
+  input:-moz-placeholder {
+    color: @color-input-placeholder;
+    font-weight: 200;
+  }
+
   #app {
     font-family: 'Roboto', sans-serif;
     color: @color-font-base;
     background-color: @color-white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    outline: none;
   }
   a {
     font-weight:400;
@@ -41,9 +59,6 @@
   }
   input {
     .input-basic;
-  }
-  label {
-    .label-basic;
   }
   textarea {
     .textarea-basic;

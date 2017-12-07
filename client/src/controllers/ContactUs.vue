@@ -20,7 +20,7 @@
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
             </div>
 
-            <textarea v-model="quiry" :value="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
+            <textarea v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
 
             <div class="button-container">
               <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>

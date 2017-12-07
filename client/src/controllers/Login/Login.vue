@@ -6,12 +6,12 @@
 
       <div class="form-container" @keyup.enter="onLoginButton">
         <div class="input-container">
-          <input v-model="email" :value="email" type="email" :placeholder="placeholder.email">
+          <input v-model="email" type="email" :placeholder="placeholder.email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="password" :value="password" type="password" :placeholder="placeholder.password">
+          <input v-model="password" type="password" :placeholder="placeholder.password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
@@ -74,9 +74,7 @@
               const user = res.data.user
               this.$store.dispatch('setToken', token)
               this.$store.dispatch('setUser', user)
-              this.$router.push({
-                path: '/'
-              })
+              location.href = '/'
             }
           })
           .catch(() => {

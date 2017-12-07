@@ -17,7 +17,7 @@
             <!--<i class="fa fa-search" aria-hidden="true"></i>-->
           <!--</div>-->
           <!--<div class="form-group">-->
-            <!--<input type="text" class="form-control" v-model="input" :value="input" :placeholder="placeholder.input">-->
+            <!--<input type="text" class="form-control" v-model="input" :placeholder="placeholder.input">-->
           <!--</div>-->
         <!--</div>-->
 

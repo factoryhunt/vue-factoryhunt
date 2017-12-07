@@ -6,17 +6,17 @@
 
       <div class="form-container">
         <div class="input-container">
-          <input v-model="company" :value="company" type="text" :placeholder="placeholder.company">
+          <input v-model="company" type="text" :placeholder="placeholder.company">
           <i id="image-company" class="fa fa-building-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="email" :value="email" type="email" :placeholder="placeholder.email">
+          <input v-model="email" type="email" :placeholder="placeholder.email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="password" :value="password" type="password" :placeholder="placeholder.password">
+          <input v-model="password" type="password" :placeholder="placeholder.password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
@@ -80,9 +80,7 @@
         this.$http.post('/api/auth/register', data)
           .then(res => {
             if (res.data) {
-              this.$router.push({
-                path: '/'
-              })
+              location.href = `/${this.company}`
             } else {
               alert('Sign up failed. Try again.')
             }

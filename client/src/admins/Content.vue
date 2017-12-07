@@ -2,7 +2,7 @@
   <div class="page-container">
 
     <div class="form-container">
-      <input @keyup.enter="onSearch" v-model="input" :value="input" type="text" :placeholder="placeholder">
+      <input @keyup.enter="onSearch" v-model="input" type="text" :placeholder="placeholder">
     </div>
 
     <div class="result-container">

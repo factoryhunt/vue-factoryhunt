@@ -4,8 +4,7 @@
     <nav-bar :inputData="value.input"></nav-bar>
 
     <div class="image-container">
-      <img v-if="account.account_image_url_1" class="main-image" :src="account.account_image_url_1">
-      <img v-else class="main-image" src="../../assets/temp_01.png">
+      <div class="main-image"></div>
     </div>
 
     <div class="detail-contents">
@@ -18,15 +17,20 @@
           <div class="sticky-inner-container">
             <div class="sticky-container">
               <ul>
-                <li><a>Title</a></li>
+                <li><a href="#INTRO" class="sticky-item">Intro</a></li>
                 <li>•</li>
-                <li><a>Reviews</a></li>
+                <li><a href="#ADDRESS" class="sticky-item">Address</a></li>
                 <li>•</li>
-                <li><a>Address</a></li>
-                <li>•</li>
-                <li><a>Products</a></li>
+                <li><a href="#PRODUCTS" class="sticky-item">Products</a></li>
                 <li v-if="toggle.isUserAdmin"><a id="edit-button" @click="onEditButton">{{ msg.kor.edit }}</a></li>
               </ul>
+            </div>
+
+            <div class="sticky-company-container">
+              <a href="#app"class="sticky-item">
+                <div id="sticky-company-logo"></div>
+                <span id="sticky-company-name">{{account.account_name_english}}</span>
+              </a>
             </div>
           </div>
         </div>
@@ -49,7 +53,7 @@
         <div class="divider"></div>
 
         <!-- Company Description -->
-        <div class="description-container">
+        <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
           <textarea>{{ account.company_short_description }}</textarea>
@@ -76,19 +80,19 @@
         <div class="divider"></div>
 
         <!-- Company History -->
-        <div class="history-container">
-          <h3>History</h3>
-          <br>
-          <textarea>{{ account.history }}</textarea>
-        </div>
-        <div class="divider"></div>
+        <!--<div class="history-container">-->
+          <!--<h3>History</h3>-->
+          <!--<br>-->
+          <!--<textarea>{{ account.history }}</textarea>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
 
         <!-- Company Certification -->
-        <div class="certification-container">
-          <h3>Certifications</h3>
-          <br>
-        </div>
-        <div class="divider"></div>
+        <!--<div class="certification-container">-->
+          <!--<h3>Certifications</h3>-->
+          <!--<br>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
 
         <!-- Company Review -->
         <div id="review-container" class="review-container">
@@ -121,13 +125,13 @@
       </div>
 
       <!-- Company Address -->
-      <div id="address-container" class="address-container">
+      <div id="ADDRESS" class="address-container">
         <h3 class="title">Address</h3>
         <div id="map"></div>
       </div>
 
       <!-- Company Products -->
-      <div id="product-container" class="products-container">
+      <div id="PRODUCTS" class="products-container">
         <div class="row">
 
           <div class="col-md-12">
@@ -255,8 +259,9 @@
             this.account = response.data
             this.applyLocalData(this.account)
             this.fetchProducts(this.account.account_id)
-            this.applyStickyCSS()
             this.initMap()
+            this.activateJquery()
+            document.title = `${this.account.account_name_english} | Factory Hunt`
           })
       },
       onEditButton () {
@@ -356,8 +361,34 @@
         })
         /* eslint-enable no-unused-vars */
       },
+      textareaResize () {
+        $(document).ready(() => {
+          const $description = $('.description-container textarea')
+          const $history = $('.history-container textarea')
+//          console.log($textarea[0].scrollHeight)
+          $description.css({
+            'height': ($description[0].scrollHeight) + 'px',
+            'overflow': 'hidden'
+          })
+          $history.css({
+            'height': ($history[0].scrollHeight) + 'px',
+            'overflow': 'hidden'
+          })
+        })
+      },
+      activateJquery () {
+        $(document).ready(() => {
+          this.applyImageCSS()
+          this.applySmoothScrolling()
+          this.applyStickyCSS()
+          this.applyCompanyFadeInOutInStickyNavigationBar()
+          this.applyCompanyLogoImage()
+          this.textareaResize()
+        })
+      },
       applyStickyCSS () {
         const $stickyOuter = $('.sticky-outer-container')
+        const $stickyInner = $('.sticky-inner-container')
         const $sticky = $('.sticky-container')
 //          const $stickyStopper = $('.sticky-stopper')
         if ($stickyOuter.offset()) { // make sure ".sticky" element exists
@@ -382,6 +413,9 @@
                 'top': stickOffset,
                 'border-bottom': '1px solid #dbdbdb'
               })
+              $stickyInner.css({
+                'padding-right': 'none'
+              })
               $sticky.css({
                 'border-bottom': 'none'
               })
@@ -390,6 +424,9 @@
                 'position': 'absolute',
                 'top': '-50px',
                 'border-bottom': 'none'
+              })
+              $stickyInner.css({
+                'padding-right': '410px'
               })
               $sticky.css({
                 'border-bottom': '1px solid #dbdbdb'
@@ -402,6 +439,86 @@
 //                })
           })
         }
+      },
+      applyCompanyFadeInOutInStickyNavigationBar () {
+        $(document).ready(() => {
+          const fadeContainer = $('.sticky-company-container')
+          var title = $('.header-container .logo')
+          var titleBottomOffset = title.offset().top + title.outerHeight() - 60
+          $(window).scroll(function () { // scroll event
+            var windowTop = $(window).scrollTop() // returns number
+            if (windowTop > titleBottomOffset) {
+              fadeContainer.css({'opacity': '1'}).fadeIn(200)
+            } else {
+              fadeContainer.fadeOut(200)
+            }
+          })
+        })
+      },
+      applySmoothScrolling () {
+        /* eslint-disable */
+        $(document).ready(function () {
+
+          // Select all links with hashes
+          $('.sticky-item')
+            .click(function (event) {
+              // On-page links
+              if (
+                location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname
+              ) {
+                // Figure out element to scroll to
+                var target = $(this.hash)
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']')
+                // Does a scroll target exist?
+                if (target.length) {
+                  // Only prevent default if animation is actually gonna happen
+                  event.preventDefault()
+                  $('html, body').animate({
+                    scrollTop: target.offset().top - 70
+                  }, 1000, function () {
+                    // Callback after animation
+                    // Must change focus!
+                    var $target = $(target)
+                    $target.focus()
+                    if ($target.is(':focus')) { // Checking if the target was focused
+                      return false
+                    } else {
+                      $target.attr('tabindex', '-1') // Adding tabindex for elements not focusable
+                      $target.focus() // Set focus again
+                    }
+                  })
+                }
+              }
+            })
+        })
+        /* eslint-enable */
+//    Add above line to enable not ignoring space and ';' issues
+      },
+      applyCompanyLogoImage () {
+        const $logo = $('#company-logo')
+        const $stickyLogo = $('#sticky-company-logo')
+        var image = this.account.thumbnail_url
+        if (image) {
+          image = 'url(' + image + ')'
+        } else {
+          image = 'url(../../static/temp-logo-image_512.png)'
+        }
+        $logo.css('background-image', image)
+        $stickyLogo.css('background-image', image)
+      },
+      applyImageCSS () {
+        const $image = $('.main-image')
+        var image = this.account.account_image_url_1
+        if (image) {
+          image = 'url(' + image + ')'
+        } else {
+          image = 'url(../../static/cover_image.png)'
+        }
+        $image.css('background-image', image)
+      },
+      imageResize () {
+        const $image = $('.product-image')
+        $image.css('height', $image.width() + 'px')
       }
     }
   }
@@ -432,17 +549,22 @@
   /*Top image container*/
   .image-container {
     position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 200px;
-    display: -webkit-flex;
-    display:         flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+    /*overflow: hidden;*/
+    /*width: 100%;*/
+    /*height: 200px;*/
+    /*display: -webkit-flex;*/
+    /*display:         flex;*/
+    /*-webkit-align-items: center;*/
+    /*align-items: center;*/
+    /*-webkit-justify-content: center;*/
+    /*justify-content: center;*/
   }
   .image-container .main-image {
+    /*background-image: url(../../assets/temp_01.png);*/
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: 50% 50% !important;
+    height: 320px !important;
   }
 
   .left-container {
@@ -491,11 +613,13 @@
 
   .description-container {
     position: relative;
+    outline: none;
 
     .sub-title {
       font-weight:200;
     }
     textarea {
+      resize: none;
       border: none;
       padding: 0;
       font-weight:200;
@@ -521,6 +645,7 @@
     position: relative;
 
     textarea {
+      resize: none;
       border: none;
       padding: 0;
       font-weight:200;
@@ -538,53 +663,54 @@
   }
 
   .right-container {
-  }
-  .form-container {
-    font-size: 17px;
-
-    .input-container {
-      position: relative;
-      border:1px solid @color-light-grey !important;
-      border-radius: 4px;
-      margin-bottom: 25px;
-
-      i {
-        position: absolute;
-        right: 20px;
-        top: 32%;
-      }
-
-      input {
-        width: 100%;
-        border-radius: 4px;
-        padding: 10px 50px 10px 10px;
-        border: none !important;
-        box-shadow: none !important;
-        outline: none !important;
-      }
-    }
-
-    textarea {
+    .form-container {
       font-size: 17px;
-    }
 
-    .quote {
-      margin: 14px 0;
-      color: grey;
-      font-size: 14px;
-      font-weight: 400;
-      text-align: center;
-    }
+      .input-container {
+        position: relative;
+        border:1px solid @color-light-grey !important;
+        border-radius: 4px;
+        margin-bottom: 25px;
 
-    button {
-      width: 100%;
-      height: 50px;
-      font-weight: 500;
-      font-size: 16px;
+        i {
+          position: absolute;
+          right: 20px;
+          top: 32%;
+        }
+
+        input {
+          width: 100%;
+          border-radius: 4px;
+          padding: 10px 50px 10px 10px;
+          border: none !important;
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      }
+
+      textarea {
+        font-size: 17px;
+      }
+
+      .quote {
+        margin: 14px 0;
+        color: grey;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+      }
+
+      button {
+        width: 100%;
+        height: 50px;
+        font-weight: 500;
+        font-size: 16px;
+      }
     }
   }
 
   .address-container {
+    outline: none;
     #map {
       margin: 30px 0 60px 0;
       width: 100%;
@@ -594,6 +720,7 @@
 
   .products-container {
     margin-top: 20px;
+    outline: none;
 
     .title {
       margin-bottom: 30px;
@@ -624,7 +751,9 @@
 
   @media ( min-width: 744px ) {
     .image-container {
-      height: 460px;
+      .main-image {
+        height: 460px !important;
+      }
     }
 
     .left-container {
@@ -654,7 +783,9 @@
 
   @media ( min-width: 1128px ) {
     .image-container {
-      height: 490px;
+      .main-image {
+        height: 460px !important;
+      }
     }
 
     .left-container {
@@ -683,6 +814,7 @@
           .sticky-container {
             position: relative;
             border-bottom: 1px solid @color-light-grey;
+
             ul {
               font-size: 16px;
               list-style: none;
@@ -702,6 +834,38 @@
                 color: @color-orange;
                 right: 0;
                 top: 0;
+              }
+            }
+            .dot {
+              margin: 0 5px;
+            }
+          }
+
+          .sticky-company-container {
+            position: absolute;
+            top: -2px;
+            right: 0;
+            opacity: 0;
+
+            a {
+              text-decoration: none;
+              color: @color-font-gray;
+
+              #sticky-company-logo {
+                display: inline-block;
+                vertical-align: middle;
+                width: 32px;
+                height: 32px;
+                border-radius: 16px;
+                border: 1px solid @color-lightest-grey;
+                background-position: 50% 50%;
+                background-size: cover;
+                background-repeat: no-repeat;
+              }
+              #sticky-company-name {
+                font-weight: 500;
+                margin-left: 5px;
+                font-size: 16px;
               }
             }
           }

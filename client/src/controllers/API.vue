@@ -6,7 +6,7 @@
       <h2>{{msg.title}}</h2>
       <hr>
 
-      <input type="text" :placeholder="placeholder.input" v-model="supplierNumber" :value="supplierNumber">
+      <input type="text" :placeholder="placeholder.input" v-model="supplierNumber">
       <button @click="callYear" class="btn btn-lg">
         Call API
       </button>

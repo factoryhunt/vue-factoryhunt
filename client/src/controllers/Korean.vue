@@ -16,10 +16,10 @@
       <!--<div class="form-container">-->
         <!--&lt;!&ndash;action="/api/aws/upload" &ndash;&gt;-->
         <!--<form enctype="multipart/form-data" novalidate>-->
-          <!--<input class="form-control company" :value="data.company" v-model="data.company" placeholder="회사 이름" type="text">-->
-          <!--<input class="form-control company" :value="data.name" v-model="data.name" placeholder="이름" type="text">-->
-          <!--<input class="form-control company" :value="data.email" v-model="data.email" placeholder="이메일" type="text">-->
-          <!--<input class="form-control company" :value="data.website" v-model="data.website" placeholder="웹사이트" type="text">-->
+          <!--<input class="form-control company" v-model="data.company" placeholder="회사 이름" type="text">-->
+          <!--<input class="form-control company" v-model="data.name" placeholder="이름" type="text">-->
+          <!--<input class="form-control company" v-model="data.email" placeholder="이메일" type="text">-->
+          <!--<input class="form-control company" v-model="data.website" placeholder="웹사이트" type="text">-->
           <!--<div class="form-group">-->
             <!--<input @change="filesChange($event.target.name, $event.target.files)" multiple class="file" type="file" name="img_files[]">-->
             <!--<p class="help-block">{{information}}</p>-->

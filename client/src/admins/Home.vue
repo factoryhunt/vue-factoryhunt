@@ -19,10 +19,10 @@
                 You have to enter your identification
               </div>
               <div class="col-md-12">
-                Email <input :value="email" v-model="email" title="email" type="text">
+                Email <input v-model="email" title="email" type="text">
               </div>
               <div class="col-md-12">
-                Password <input :value="password" v-model="password" title="password" type="password">
+                Password <input v-model="password" title="password" type="password">
               </div>
               <div @click="onLogin" class="btn btn-primary">
                 Log in
