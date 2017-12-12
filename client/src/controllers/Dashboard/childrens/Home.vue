@@ -165,7 +165,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../../assets/css/index";
+  @import "../../../assets/css/index";
 
   p {
     margin: 0;

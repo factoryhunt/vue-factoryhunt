@@ -441,7 +441,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../../../../assets/less/global';
+  @import '../../../../assets/css/index';
 
   #html-editor {
     height: 300px !important;

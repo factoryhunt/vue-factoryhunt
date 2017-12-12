@@ -6,27 +6,25 @@
 
       <form class="form-container" @submit.prevent="onLoginButton">
         <div class="input-container">
-          <input required v-model="value.email" type="email" :placeholder="placeholder.email">
+          <input required v-model="value.email" type="email" placeholder="Email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input required minlength="8" v-model="value.password" type="password" :placeholder="placeholder.password">
+          <input required minlength="8" v-model="value.password" type="password" placeholder="Password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
         <div class="login-button-container">
           <spinkit id="login-loader"></spinkit>
-          <button id="login-button" class="button-orange">로그인</button>
+          <button id="login-button" class="button-orange">Login</button>
         </div>
 
         <div class="divider"></div>
 
         <div class="login-container">
-          <a class="text-login" @click="onForgotPassword">{{ msg.forgot }}</a>
-          <a class="button-white" @click="onSignUpButton">
-            {{ msg.signUp }}
-          </a>
+          <a class="text-login" @click="onForgotPassword">Forgot your password?</a>
+          <a class="button-white" @click="onSignUpButton">Sign up</a>
         </div>
       </form> <!--form-container -->
     </div> <!-- form-contents -->
@@ -39,7 +37,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: 'Login | Factory Hunt'
+      title: '로그인 | Factory Hunt'
     },
     components: {
       AuthHeader,
@@ -50,15 +48,6 @@
         value: {
           email: '',
           password: ''
-        },
-        placeholder: {
-          email: '이메일',
-          password: '비밀번호'
-        },
-        msg: {
-          forgot: '비밀번호가 기억나지 않으세요?',
-          login: '로그인',
-          signUp: '회원가입'
         }
       }
     },
@@ -110,7 +99,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/css/index";
+  @import "../../assets/css/index";
 
   .form-contents {
     .contents-size(500px, 60px auto, 0 24px);
@@ -172,6 +161,7 @@
       .button-white {
         position: absolute;
         font-size:16px;
+        color: @color-orange;
         padding: 4px 12px;
         top: -7px;
         right: 0;

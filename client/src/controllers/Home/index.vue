@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
 
-    <nav-bar></nav-bar>
+    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="body-container">
 
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-  import cookie from '../../assets/js/cookie'
   import NavBar from '../../components/NavBar.vue'
   import HomeHeader from '../../components/HomeHeader'
   import FeaturedCard from '../../components/FeaturedCard'
   import FooterBar from '../../components/FooterBar'
   import CopyrightBar from '../../components/CopyrightBar.vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {
@@ -61,6 +61,10 @@
     },
     data () {
       return {
+        value: {
+          account: {},
+          contact: {}
+        },
         msg: {
           inputGuide: 'Loading..'
         },
@@ -70,7 +74,21 @@
         placeholder: 'Try "Toy"'
       }
     },
+    computed: {
+      ...mapGetters([
+        'getContactId',
+        'getAccountId',
+        'isLoggedIn'
+      ])
+    },
     methods: {
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
+          })
+      },
       onSearchInput () {
         if (this.input) {
           this.$router.push({
@@ -108,35 +126,11 @@
             this.inputActive = false
           }
         })
-      },
-      fetchUserState () {
-        const token = cookie.getCookie('nekot')
-        if (token) {
-          this.$store.dispatch('setToken', token)
-          this.$http.get('/api/auth/check', {headers: {'x-access-token': token}})
-            .then(res => {
-              const id = res.data.info.id
-              console.log(id)
-              this.$http.get(`/api/data/account/id/${id}`)
-                .then(response => {
-                  const account = response.data
-                  this.$store.dispatch('setUser', account)
-                })
-            })
-        }
       }
     },
     created () {
       console.log('Home.vue created')
-      this.fetchUserState()
-//      this.getCategory()
-    },
-    mounted () {
-      console.log('Home mounted')
-    },
-    updated () {
-      console.log('Home updated')
-//      this.inputActive = true
+      this.tryAutoLogin()
     }
   }
 </script>

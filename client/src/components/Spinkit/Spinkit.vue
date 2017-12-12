@@ -28,7 +28,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/less/global";
+  @import "../../assets/css/index";
 
   @size-modal: 50px;
   @size-default: 25px;

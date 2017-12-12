@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
 
-    <nav-bar :inputData="value.input"></nav-bar>
+    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="image-container">
       <div class="main-image"></div>
@@ -161,9 +161,9 @@
 </template>
 
 <script>
-  import cookie from '../../assets/js/cookie'
   import NavBar from '../../components/NavBar'
   import CopyrightBar from '../../components/CopyrightBar.vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     metaInfo: {
@@ -178,6 +178,9 @@
         account: {},
         products: [],
         value: {
+          account: {},
+          contact: {},
+          vendor: {},
           company: this.$route.params.company,
           input: this.$route.query.input,
           email: '',
@@ -208,12 +211,15 @@
     created () {
       window.scrollTo(0, 0)
       console.log('AccountProfile Created')
-      this.validateUser()
+      this.tryAutoLogin()
       this.fetchAccount(this.value.company)
     },
-    mounted () {
-    },
     computed: {
+      ...mapGetters([
+        'getContactId',
+        'getAccountId',
+        'isLoggedIn'
+      ]),
       getLocation () {
         const street = this.account.mailing_street_address_english
         const city = this.account.mailing_city_english
@@ -221,34 +227,23 @@
         const country = this.account.mailing_country_english
         return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
       },
-      getToken () {
-        return cookie.getCookie('nekot')
-      },
       getAccountId () {
-        return this.account.account_id
+        return this.value.account.account_id
       }
     },
     methods: {
       titleTemplate (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
+          })
+      },
       changeDocumentTitle () {
         document.title = `${this.account.account_name_english} | Factory hunt`
-      },
-      validateUser () {
-        const data = {
-          headers: {
-            'x-access-token': this.getToken
-          }
-        }
-        this.$http.get('/api/auth/check', data)
-          .then(() => {
-//            const contactId = res.data.info.id
-            this.toggle.isUserAdmin = true
-          })
-          .catch(() => {
-            this.toggle.isUserAdmin = false
-          })
       },
       fetchAccount (company) {
         this.$http.get(`/api/data/account/domain/${company}`)

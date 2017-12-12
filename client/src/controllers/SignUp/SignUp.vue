@@ -6,33 +6,29 @@
 
       <div class="form-container">
         <div class="input-container">
-          <input v-model="company" type="text" :placeholder="placeholder.company">
+          <input v-model="company" type="text" placeholder="Company">
           <i id="image-company" class="fa fa-building-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="email" type="email" :placeholder="placeholder.email">
+          <input v-model="email" type="email" placeholder="Email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="password" type="password" :placeholder="placeholder.password">
+          <input v-model="password" type="password" placeholder="Password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
         <div class="sign-up-button-container">
-          <button class="button-orange" @click="onSignUpButton" @keyup.enter="onLoginButton">
-            {{ msg.signUp }}
-          </button>
+          <button class="button-orange" @click="onSignUpButton" @keyup.enter="onLoginButton">Sign Up</button>
         </div>
 
         <div class="divider"></div>
 
         <div class="log-in-container">
-          <a class="text-login" @click="onLoginButton">{{ msg.noAccount }}</a>
-          <button class="button-white" @click="onLoginButton">
-            {{ msg.login }}
-          </button>
+          <a class="text-login" @click="onLoginButton">Did you already have account?</a>
+          <button class="button-white" @click="onLoginButton">Login</button>
         </div>
       </div> <!--form-container -->
     </div> <!-- form-contents -->
@@ -53,17 +49,7 @@
       return {
         email: '',
         company: '',
-        password: '',
-        placeholder: {
-          company: '회사명 | (주)팩토리헌트',
-          email: '이메일 | your@email.com',
-          password: '비밀번호'
-        },
-        msg: {
-          signUp: '가입하기',
-          login: '로그인',
-          noAccount: '계정이 이미 있으신가요?'
-        }
+        password: ''
       }
     },
     methods: {

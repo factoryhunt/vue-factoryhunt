@@ -1,8 +1,8 @@
 <template>
   <div v-if="value.account.account_id" class="page-container">
     <nav-bar :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
-    <div class="contents">
-      <div class="body-container">
+    <div class="body-container">
+      <div class="body-contents">
         <router-view :account="value.account" :contact="value.contact"></router-view>
       </div>
     </div>
@@ -58,8 +58,11 @@
 </script>
 
 <style lang="less">
-  @import (reference) "../../assets/css/index";
+  @import "../../assets/css/index";
 
+  .body-contents {
+    margin-top: 20px;
+  }
 
   .dashboard-page-container {
     position: relative;

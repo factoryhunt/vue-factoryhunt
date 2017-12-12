@@ -29,7 +29,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../../../assets/less/global";
+  @import "../../../../assets/css/index";
 
   @height: 50px;
   @mark-right-amount: 12px;

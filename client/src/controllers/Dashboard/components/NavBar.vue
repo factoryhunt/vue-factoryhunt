@@ -169,14 +169,14 @@
         })
       }
     },
-    mounted () {
+    created () {
       this.activateJquery()
     }
   }
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../../../assets/less/global';
+  @import '../../../assets/css/index';
 
   .fixed-navbar-container {
     position: fixed;

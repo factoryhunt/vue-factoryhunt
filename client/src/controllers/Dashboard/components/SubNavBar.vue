@@ -1,6 +1,6 @@
 <template>
   <div class="component-container">
-    <div class="contents">
+    <div class="body-container">
       <div class="tab-container">
         <a id="item-dashboard" class="tab" href="/dashboard">관리자 센터</a>
         <a id="item-company" class="tab" href="/dashboard/company">회사</a>
@@ -44,17 +44,13 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../../assets/less/global";
+  @import "../../../assets/css/index";
 
   // Global
   .component-container {
     background-color: @color-font-base;
     width: 100%;
     height: 40px;
-  }
-  .contents {
-    margin-top: 0;
-    margin-bottom: 0;
   }
 
   .tab-container {

@@ -286,7 +286,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/css/index";
+  @import "../../assets/css/index";
 
   .body-container {
     h3 {
