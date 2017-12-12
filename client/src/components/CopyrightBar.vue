@@ -15,8 +15,8 @@
       </div>
 
       <div class="right-container">
-        <a href="/terms">이용약관</a>
-        <a href="/privacy">개인정보 보호정책</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy</a>
       </div>
 
     </div>
