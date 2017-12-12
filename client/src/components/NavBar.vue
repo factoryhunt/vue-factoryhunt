@@ -1,25 +1,20 @@
 <template>
-  <nav class="navbar-container">
+  <nav class="navigation-outer-container">
+    <div class="navigation-inner-container">
 
-    <div class="logo-container">
-      <a href="/"><img id="logo" src="/static/logo_white.png"></a>
-    </div>
+      <div class="logo-container">
+        <a href="/"><img id="logo" src="/static/logo_white.png"></a>
+      </div>
 
-    <div class="search-container" v-show="this.$route.path !== '/'">
-      <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input @keyup.enter="onSearchInput" type="text" v-model="input" :placeholder="placeholder.input">
-    </div>
+      <div class="search-container" v-show="this.$route.path !== '/'">
+        <input @keyup.enter="onSearchInput" v-model="input" placeholder="Search" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
 
-    <div class="button-container">
-      <!--<span v-if="isUserLoggedIn" class="each-button-container">-->
-        <!--<a @click="onLogoutButton">{{ msg.logout }}</a>-->
-      <!--</span>-->
-      <!--<span @click="onSignInButton" class="each-button-container">-->
-        <!--<a>{{ msg.signin }}</a>-->
-      <!--</span>-->
-      <span class="each-button-container">
-        <a href="https://www.factoryhunt.co.kr" target="_blank">한국어</a>
-      </span>
+      <div class="button-container">
+        <span class="each-button-container">
+          <a class="nav-button" href="/login">로그인</a>
+        </span>
+      </div>
     </div>
   </nav>
 </template>
@@ -96,8 +91,7 @@
       applyCSS () {
         if (this.$route.path !== '/') {
           $(document).ready(function () {
-            $('.navbar-container').css('border-bottom', '1px solid #DBDBDB')
-            $('.logo-container').css('border-right', '1px solid #DBDBDB')
+            $('.navigation-outer-container').css('border-bottom', '1px solid #DBDBDB')
           })
         }
       }
@@ -106,68 +100,60 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../assets/less/global';
-
-  .navbar-container {
-    position: relative;
+  @import '../assets/css/index';
+  .navigation-outer-container {
+    background: @color-white;
+    width: 100%;
     height: 80px;
+    z-index: 3;
 
-    .logo-container {
-      position: absolute;
-      width: 80px;
+    .navigation-inner-container {
+      display: table;
+      width: 100%;
 
-      img {
-        padding: 11.5px;
-      }
-    }
+      .logo-container {
+        display: table-cell;
+        vertical-align: middle;
+        width: 80px;
 
-    .search-container {
-      position: absolute;
-      margin: 27.5px 100px;
-      font-size: 18px;
-
-      .search-icon {}
-      input {
-        width: 85%;
-        padding: 0 10px;
-        border: none;
-        box-shadow: none;
-        outline: none;
-      }
-    }
-
-    .button-container {
-      float: right;
-      line-height: 80px;
-      margin: 0 20px;
-
-      .each-button-container {
-        margin: 0 10px;
-
-        a {
-          color: grey;
-          font-size:16px;
+        #logo {
+          width: 80px;
+          padding: 11.5px;
         }
       }
-    }
-  }
 
-  @media ( min-width: 744px ) {
-    .search-container {
-      margin: 27.5px 100px;
+      .search-container {
+        display: table-cell;
+        vertical-align: middle;
+        width: 70%;
+        border-left: 1px solid @color-light-grey;
 
-      input {
-        width: 520px;
+        input {
+          width: 100%;
+          height: 75px;
+          padding: 0 20px;
+          border: none;
+          outline: none;
+          font-size: 18px;
+          font-weight: 300;
+        }
       }
-    }
-  }
 
-  @media ( min-width: 1128px ) {
-    .search-container {
-      margin: 27.5px 100px;
+      .button-container {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: right;
+        padding-right: 20px;
 
-      input {
-        width: 900px;
+        .each-button-container {
+          margin-left: 30px;
+          font-weight: 400;
+          font-size: 15px;
+
+          .nav-button {
+            color: @color-font-gray;
+          }
+        }
       }
     }
   }

@@ -7,7 +7,7 @@
       <div class="main-image"></div>
     </div>
 
-    <div class="detail-contents">
+    <div class="body-container">
 
       <!-- Left-side UI container -->
       <div class="left-container">
@@ -155,7 +155,7 @@
       </div>
     </div>
 
-    <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
 
   </div>
 </template>
@@ -163,8 +163,7 @@
 <script>
   import cookie from '../../assets/js/cookie'
   import NavBar from '../../components/NavBar'
-  import FooterBar from '../../components/FooterBar'
-  import SubNavigationBar from './components/SubNavigationBar'
+  import CopyrightBar from '../../components/CopyrightBar.vue'
 
   export default {
     metaInfo: {
@@ -172,8 +171,7 @@
     },
     components: {
       NavBar,
-      SubNavigationBar,
-      FooterBar
+      CopyrightBar
     },
     data () {
       return {
@@ -234,6 +232,9 @@
       titleTemplate (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
+      changeDocumentTitle () {
+        document.title = `${this.account.account_name_english} | Factory hunt`
+      },
       validateUser () {
         const data = {
           headers: {
@@ -250,7 +251,7 @@
           })
       },
       fetchAccount (company) {
-        this.$http.get(`/api/data/account/company/${company}`)
+        this.$http.get(`/api/data/account/domain/${company}`)
           .then(response => {
             if (!response.data) {
               this.$router.push({ path: '/error' })
@@ -261,13 +262,8 @@
             this.fetchProducts(this.account.account_id)
             this.initMap()
             this.activateJquery()
-            document.title = `${this.account.account_name_english} | Factory Hunt`
+            this.changeDocumentTitle()
           })
-      },
-      onEditButton () {
-        this.$router.push({
-          path: `/${this.value.company}/edit-kor`
-        })
       },
       applyLocalData (account) {
         this.value.accountName = this.account.account_name_english
@@ -525,7 +521,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../../assets/less/global';
+  @import '../../assets/css/index';
 
   .image-edit {
     position: absolute;

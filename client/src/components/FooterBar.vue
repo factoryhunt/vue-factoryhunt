@@ -1,7 +1,7 @@
 <template>
-  <div class="footer-container">
+  <div class="body-container">
     <div class="divider"></div>
-    <div class="contents">
+    <footer class="footer-container">
       <div class="row">
 
         <div class="col-md-3 col-sm-6">
@@ -45,18 +45,7 @@
 
 
       </div>
-
-      <div class="sub-divider"></div>
-
-      <div class="row">
-        <div class="col-md-10">
-          <div class="copyright-container">
-            <i class="fa fa-copyright"></i> {{copyright}}
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -70,50 +59,36 @@
   }
 </script>
 
-<style scoped>
-  .contents {
-    max-width:1000px;
-    margin: 0 auto;
+<style lang="less" scoped>
+  @import '../assets/css/index';
+
+  .body-container {
+    min-height: 0;
   }
 
   .divider {
-    margin: 30px 0 50px 0;
-  }
-
-  .sub-divider {
-    margin: 50px 0 30px 0;
-    width: 100%;
-    height: 1px;
-    background-color: #DBDBDB;
+    margin: 60px 0;
   }
 
   .column {
-  padding-left: 80px;
+    padding-left: 80px;
   }
 
   .logo-image {
-  width: 250px;
+    width: 250px;
   }
 
   .list-title {
-  font-weight:500;
-  }
-
-  .copyright-container {
-    color: gray;
-    padding-bottom:70px;
+    font-weight:500;
   }
 
   li {
-  font-weight: 300;
-  font-size:15px;
-  line-height:1.6;
+    font-weight: 300;
+    font-size:15px;
+    line-height:1.6;
   }
 
   a {
-  color: gray;
+    color: @color-font-gray;
   }
-
-
-
 </style>

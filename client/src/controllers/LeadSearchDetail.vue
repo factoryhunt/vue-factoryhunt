@@ -53,9 +53,6 @@
   import NavBar from '../components/NavBar'
   import FooterBar from '../components/FooterBar.vue'
   export default {
-    metaInfo: {
-      title: 'Factory Hunt - Search result in Lead'
-    },
     components: {
       NavBar,
       FooterBar
@@ -72,19 +69,22 @@
       }
     },
     methods: {
-      requestLeadCount: function () {
-        this.$http.get(`/api/data/lead/${this.input}/count`)
-          .then(response => {
-            this.lead_count = response.data.count
+      changeDocumentTitle () {
+        document.title = `${this.input} | Factory Hunt`
+      },
+      requestLeadCount () {
+        this.$http.get(`/api/data/lead/keyword/${this.input}`)
+          .then(res => {
+            this.lead_count = res.data.result.count
           })
       },
-      requestDatas: function (index) {
+      requestDatas (index) {
         window.scrollTo(0, 0)
         this.select = index
         this.leads = []
         console.log(this.select)
         // Get leads filtered by input
-        this.$http.get(`/api/data/lead/${this.input}/${this.select}`)
+        this.$http.get(`/api/data/lead/keyword/${this.input}/${this.select}`)
           .then((leadResponse) => {
             this.leads = leadResponse.data
           })
@@ -112,7 +112,7 @@
           return url
         }
       },
-      routeNextPage: function () {
+      routeNextPage () {
         const pagination = Math.ceil((this.lead_count / 10) / 10)
         console.log('this.pagination: ' + pagination)
         if (this.page < pagination - 1) {
@@ -120,7 +120,7 @@
           this.requestDatas(this.page * 10)
         }
       },
-      routePrevPage: function () {
+      routePrevPage () {
         if (this.page > 0) {
           this.page -= 1
           this.requestDatas(this.page * 10)
@@ -132,6 +132,7 @@
       }
     },
     created () {
+      this.changeDocumentTitle()
       this.requestLeadCount()
       this.requestDatas(0)
     }

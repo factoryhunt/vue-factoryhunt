@@ -82,7 +82,7 @@
     },
     methods: {
       getThisLeadData: function (id) {
-        this.$http.get(`/api/data/lead/id/${id}`)
+        this.$http.get(`/api/data/lead/${id}`)
           .then(response => {
             this.lead = response.data
           })

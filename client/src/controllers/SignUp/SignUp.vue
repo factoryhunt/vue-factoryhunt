@@ -105,7 +105,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/less/global";
+  @import '../../assets/css/index';
 
   .form-contents {
     .contents-size(500px, 60px auto, 0 24px);

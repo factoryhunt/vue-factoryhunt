@@ -1,0 +1,75 @@
+<template>
+  <div v-if="value.account.account_id" class="page-container">
+    <nav-bar :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
+    <div class="contents">
+      <div class="body-container">
+        <router-view :account="value.account" :contact="value.contact"></router-view>
+      </div>
+    </div>
+    <copyright-bar></copyright-bar>
+  </div>
+</template>
+
+<script>
+  import NavBar from './components/NavBar.vue'
+  import CopyrightBar from '../../components/CopyrightBar.vue'
+  import { mapGetters } from 'vuex'
+  export default {
+    metaInfo: {
+      title: '관리자 센터 | Factory Hunt'
+    },
+    components: {
+      NavBar,
+      CopyrightBar
+    },
+    data () {
+      return {
+        value: {
+          account: {},
+          contact: {}
+        }
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'isLoggedIn',
+        'getAccountId',
+        'getContactId'
+      ])
+    },
+    methods: {
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
+          })
+          .catch(() => {
+            alert('로그인 정보가 만료되었습니다.')
+            this.$router.push('/login')
+          })
+      }
+    },
+    created () {
+      window.scrollTo(0, 0)
+      this.tryAutoLogin()
+    }
+  }
+</script>
+
+<style lang="less">
+  @import (reference) "../../assets/css/index";
+
+
+  .dashboard-page-container {
+    position: relative;
+    // Header
+    .header-container {
+      .title {
+        font-size:30px;
+        font-weight: 600;
+      }
+    }
+  }
+
+</style>

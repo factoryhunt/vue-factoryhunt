@@ -4,53 +4,56 @@
 
       <auth-header></auth-header>
 
-      <div class="form-container" @keyup.enter="onLoginButton">
+      <form class="form-container" @submit.prevent="onLoginButton">
         <div class="input-container">
-          <input v-model="email" type="email" :placeholder="placeholder.email">
+          <input required v-model="value.email" type="email" :placeholder="placeholder.email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="password" type="password" :placeholder="placeholder.password">
+          <input required minlength="8" v-model="value.password" type="password" :placeholder="placeholder.password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
-        <div class="sign-up-button-container">
-          <button class="button-orange" @click="onLoginButton">
-            {{ msg.login }}
-          </button>
+        <div class="login-button-container">
+          <spinkit id="login-loader"></spinkit>
+          <button id="login-button" class="button-orange">로그인</button>
         </div>
 
         <div class="divider"></div>
 
-        <div class="log-in-container">
+        <div class="login-container">
           <a class="text-login" @click="onForgotPassword">{{ msg.forgot }}</a>
-          <button class="button-white" @click="onSignUpButton">
+          <a class="button-white" @click="onSignUpButton">
             {{ msg.signUp }}
-          </button>
+          </a>
         </div>
-      </div> <!--form-container -->
+      </form> <!--form-container -->
     </div> <!-- form-contents -->
   </div> <!-- page-container -->
 </template>
 
 <script>
   import AuthHeader from '../../components/AuthHeader'
-
+  import Spinkit from '../../components/Spinkit/Spinkit.vue'
+  import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
       title: 'Login | Factory Hunt'
     },
     components: {
-      AuthHeader
+      AuthHeader,
+      Spinkit
     },
     data () {
       return {
-        email: '',
-        password: '',
+        value: {
+          email: '',
+          password: ''
+        },
         placeholder: {
-          email: 'Email | your@email.com',
-          password: 'Password'
+          email: '이메일',
+          password: '비밀번호'
         },
         msg: {
           forgot: '비밀번호가 기억나지 않으세요?',
@@ -59,51 +62,55 @@
         }
       }
     },
+    computed: {
+      ...mapGetters([
+        'isLoggedIn'
+      ])
+    },
     methods: {
-      onLoginButton: function () {
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(() => {
+            location.href = '/dashboard'
+          })
+      },
+      onLoginButton () {
         const data = {
-          email: this.email,
-          password: this.password
+          email: this.value.email,
+          password: this.value.password
         }
-        this.$http.post('/api/auth/login', data)
-          .then(res => {
-            console.log('login success')
-            console.log(res)
-            if (res.data.token) {
-              const token = res.data.token
-              const user = res.data.user
-              this.$store.dispatch('setToken', token)
-              this.$store.dispatch('setUser', user)
-              location.href = '/'
-            }
+        const $loader = $('#login-loader')
+        const $loginButton = $('#login-button')
+        $loader.removeClass().addClass('spinkit-input')
+        $loginButton.css('display', 'none')
+        this.$store.dispatch('login', data)
+          .then(() => {
+            location.href = '/dashboard'
           })
-          .catch(() => {
-            alert('로그인 실패')
+          .catch((err) => {
+            $loader.removeClass().addClass('invisible')
+            $loginButton.css('display', 'inherit')
+            alert(err.data.msg_kor)
           })
       },
-      onForgotPassword: function () {
-        alert('Comming soon.')
+      onForgotPassword () {
+        alert('준비중 입니다.')
       },
-      onSignUpButton: function () {
+      onSignUpButton () {
         this.$router.push({
-          path: '/register'
+          path: '/signup'
         })
-      },
-      onSessionButton () {
-        this.$http.get('/api/auth/session')
-          .then(res => {
-            console.log(res)
-          })
       }
     },
     created () {
       window.scrollTo(0, 0)
+      this.tryAutoLogin()
     }
   }
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/less/global";
+  @import (reference) "../../assets/css/index";
 
   .form-contents {
     .contents-size(500px, 60px auto, 0 24px);
@@ -146,21 +153,17 @@
       }
     }
 
-    .sign-up-button-container {
+    .login-button-container {
+      margin-top: 40px;
       .button-orange {
         width: 100%;
         height: 50px;
-        margin-top: 50px;
         font-size: 18px;
+        font-weight: 600;
       }
     }
 
-    .button-container #button-signup {
-      margin-top: 70px;
-      height: 50px;
-    }
-
-    .log-in-container {
+    .login-container {
       position: relative;
 
       .text-login {
@@ -172,6 +175,7 @@
         padding: 4px 12px;
         top: -7px;
         right: 0;
+        text-decoration: none;
       }
     }
   }

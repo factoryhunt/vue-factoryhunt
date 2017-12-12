@@ -30,7 +30,7 @@
 <script>
   export default {
     props: [
-      'keywordData',
+      'id',
       'line'
     ],
     data () {
@@ -44,7 +44,7 @@
     },
     methods: {
       requestFeaturedAccount () {
-        this.$http.get(`/api/data/account/id/${this.keyword}`)
+        this.$http.get(`/api/data/account/${this.id}`)
           .then((response) => {
             this.account = response.data
           })

@@ -2,10 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Client Controllers
-import Home from '../controllers/Home'
-import SupplierSearchResultPage from '../controllers/SupplierSearchResultPage'
+import Home from '../controllers/Home/index'
+import SearchResult from '../controllers/SearchResult/SupplierSearchResultPage.vue'
 import AccountProfile from '../controllers/Account/AccountProfile'
-import AccountEditKor from '../controllers/AccountEdit/AccountEditKor'
 import ProductProfile from '../controllers/ProductProfile'
 import About from '../controllers/About'
 import ContactUs from '../controllers/ContactUs'
@@ -16,16 +15,27 @@ import Login from '../controllers/Login/Login.vue'
 import SignUp from '../controllers/SignUp/SignUp.vue'
 import Help from '../controllers/Help'
 import FAQs from '../controllers/FAQs'
-import Terms from '../controllers/Terms'
-import Korean from '../controllers/Korean'
-import API from '../controllers/API'
+import TermsOfUse from '../controllers/TermsOfUse/TermsOfUse.vue'
+import PrivacyPolicy from '../controllers/PrivacyPolicy/PrivacyPolicy.vue'
 import ContactForm from '../controllers/ContactForm'
 import ContactFormPremium from '../controllers/ContactFormPremium'
 
-// Admin Components
-import Admin from '../admins/Home'
-// import Auth from '../components/admins/Auth'
-import Contents from '../admins/Contents'
+// Dashboard
+import Dashboard from '../controllers/Dashboard/Dashboard.vue'
+import DashboardHome from '../controllers/Dashboard/childrens/Home.vue'
+import DashboardCompany from '../controllers/Dashboard/childrens/Company/Company.vue'
+import DashboardCompanyEdit from '../controllers/Dashboard/childrens/Company/Edit.vue'
+import DashboardCompanyDomain from '../controllers/Dashboard/childrens/Company/Domain.vue'
+import DashboardCompanyImage from '../controllers/Dashboard/childrens/Company/ImageEdit.vue'
+import DashboardCompanyCertification from '../controllers/Dashboard/childrens/Company/Certification.vue'
+import DashboardProduct from '../controllers/Dashboard/childrens/Product/Product.vue'
+import DashboardProductList from '../controllers/Dashboard/childrens/Product/List.vue'
+import DashboardProductUpload from '../controllers/Dashboard/childrens/Product/Upload.vue'
+import DashboardProductEdit from '../controllers/Dashboard/childrens/Product/Edit.vue'
+import DashboardAccount from '../controllers/Dashboard/childrens/Account/Account.vue'
+import DashboardAccountEdit from '../controllers/Dashboard/childrens/Account/Edit.vue'
+import DashboardAccountPassword from '../controllers/Dashboard/childrens/Account/Password.vue'
+import DashboardAccountManagement from '../controllers/Dashboard/childrens/Account/Management.vue'
 
 Vue.use(Router)
 
@@ -50,7 +60,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      component: SupplierSearchResultPage
+      component: SearchResult
     },
     {
       path: '/membership',
@@ -80,22 +90,87 @@ export default new Router({
     {
       path: '/terms',
       name: 'terms',
-      component: Terms
+      component: TermsOfUse
     },
     {
-      path: '/korean',
-      name: 'korean',
-      component: Korean
+      path: '/privacy',
+      name: 'privacy',
+      component: PrivacyPolicy
     },
     {
-      path: '/openapi',
-      name: 'openapi',
-      component: API
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      component: Admin
+      path: '/dashboard',
+      component: Dashboard,
+      // beforeEnter (to, from, next) {
+      //   if (store.getters.getToken) {
+      //     next()
+      //   } else {
+      //     next('/login')
+      //   }
+      // }
+      children: [
+        {
+          path: '',
+          component: DashboardHome
+        },
+        {
+          path: 'company',
+          component: DashboardCompany,
+          children: [
+            {
+              path: '',
+              component: DashboardCompanyEdit
+            },
+            {
+              path: 'domain',
+              component: DashboardCompanyDomain
+            },
+            {
+              path: 'image',
+              component: DashboardCompanyImage
+            },
+            {
+              path: 'certifications',
+              component: DashboardCompanyCertification
+            }
+          ]
+        },
+        {
+          path: 'product',
+          component: DashboardProduct,
+          children: [
+            {
+              path: '',
+              component: DashboardProductList
+            },
+            {
+              path: 'upload',
+              component: DashboardProductUpload
+            },
+            {
+              path: 'edit',
+              component: DashboardProductEdit
+            }
+          ]
+        },
+        {
+          path: 'account',
+          component: DashboardAccount,
+          children: [
+            {
+              path: '',
+              component: DashboardAccountEdit
+            },
+            {
+              path: 'password',
+              component: DashboardAccountPassword
+            },
+            {
+              path: 'management',
+              component: DashboardAccountManagement
+            }
+          ]
+        }
+      ]
     },
     {
       path: '/error',
@@ -106,16 +181,6 @@ export default new Router({
       path: '/:company',
       name: 'company',
       component: AccountProfile
-    },
-    {
-      path: '/:company/edit-kor',
-      name: 'company-edit-kor',
-      component: AccountEditKor
-    },
-    {
-      path: '/admin/:status',
-      name: 'admin-contents',
-      component: Contents
     },
     {
       path: '/contact/lead',
