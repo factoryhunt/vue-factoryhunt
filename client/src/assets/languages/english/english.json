@@ -1,0 +1,10 @@
+{
+  "dashboard": {
+    "title": "title",
+    "description": "description"
+  },
+  "home": {
+    "title": "title",
+    "description": "description"
+  }
+}

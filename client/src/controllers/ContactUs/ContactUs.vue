@@ -4,38 +4,39 @@
     <nav-bar></nav-bar>
 
     <div class="body-container">
+      <div class="body-contents">
+        <h2>Contact Us</h2>
+        <hr>
 
-      <h2>Contact Us</h2>
-      <hr>
+        <div class="inner-contents">
 
-      <div class="inner-contents">
+          <div class="right-container">
+            <div class="form-container">
 
-        <div class="right-container">
-          <div class="form-container">
+              <h3 class="title">Contact</h3>
+              <br>
+              <div class="input-container">
+                <input v-model="email" type="text" :placeholder="placeholder.email">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              </div>
 
-            <h3 class="title">Contact</h3>
-            <br>
-            <div class="input-container">
-              <input v-model="email" type="text" :placeholder="placeholder.email">
-              <i class="fa fa-envelope-o" aria-hidden="true"></i>
-            </div>
+              <textarea v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
 
-            <textarea v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
-
-            <div class="button-container">
-              <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+              <div class="button-container">
+                <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="left-container">
-          <div class="location-container">
-            <hr>
-            <h3 class="title">Location</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25392017.06642179!2d132.10668611474622!3d39.02417588597382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca43fa198ee59%3A0x9b0e31cc41a900d9!2s417+Yeongdong-daero%2C+Gangnam-gu%2C+Seoul!5e0!3m2!1sen!2skr!4v1502419672699" width="550" height="450" frameborder="0" style="border: 0px; pointer-events: none;" allowfullscreen=""></iframe>
+          <div class="left-container">
+            <div class="location-container">
+              <hr>
+              <h3 class="title">Location</h3>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25392017.06642179!2d132.10668611474622!3d39.02417588597382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca43fa198ee59%3A0x9b0e31cc41a900d9!2s417+Yeongdong-daero%2C+Gangnam-gu%2C+Seoul!5e0!3m2!1sen!2skr!4v1502419672699" width="550" height="450" frameborder="0" style="border: 0px; pointer-events: none;" allowfullscreen=""></iframe>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
 
     </div>
@@ -92,7 +93,11 @@
 </script>
 
 <style less="lang" scoped>
-  
+
+  .body-contents {
+    margin-top: 20px;
+  }
+
   .inner-contents {
     position: relative;
   }
