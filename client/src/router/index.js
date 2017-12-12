@@ -7,7 +7,7 @@ import SearchResult from '../controllers/SearchResult/SupplierSearchResultPage.v
 import AccountProfile from '../controllers/Account/AccountProfile'
 import ProductProfile from '../controllers/ProductProfile'
 import About from '../controllers/About'
-import ContactUs from '../controllers/ContactUs'
+import ContactUs from '../controllers/ContactUs/ContactUs.vue'
 import LeadSearchDetail from '../controllers/LeadSearchDetail'
 import NotFound from '../controllers/NotFound'
 import Membership from '../controllers/Membership'

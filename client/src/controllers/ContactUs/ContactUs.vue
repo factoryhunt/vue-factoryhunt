@@ -3,9 +3,9 @@
 
     <nav-bar></nav-bar>
 
-    <div class="contents">
+    <div class="body-container">
 
-      <h2>{{msg.title}}</h2>
+      <h2>Contact Us</h2>
       <hr>
 
       <div class="inner-contents">
@@ -39,26 +39,27 @@
       </div>
 
     </div>
+
     <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
   </div>
 </template>
 
 <script>
-  import NavBar from '../components/NavBar'
-  import FooterBar from '../components/FooterBar'
+  import NavBar from '../../components/NavBar'
+  import FooterBar from '../../components/FooterBar'
+  import CopyrightBar from '../../components/CopyrightBar'
   export default {
     metaInfo: {
       title: 'Contact Us | Factory Hunt'
     },
     components: {
       NavBar,
-      FooterBar
+      FooterBar,
+      CopyrightBar
     },
     data () {
       return {
-        msg: {
-          title: 'Contact Us'
-        },
         placeholder: {
           email: 'contact@example.com',
           textarea: 'Enter your message'
@@ -90,8 +91,8 @@
   }
 </script>
 
-<style scoped>
-
+<style less="lang" scoped>
+  
   .inner-contents {
     position: relative;
   }
