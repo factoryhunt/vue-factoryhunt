@@ -46,6 +46,10 @@
 <style lang="less" scoped>
   @import "../../../assets/css/index";
 
+  .body-container {
+    margin-top: 0;
+  }
+
   // Global
   .component-container {
     background-color: @color-font-base;

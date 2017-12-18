@@ -16,10 +16,10 @@
         </div>
         <div v-else class="each-button-container">
           <span class="each-button-container">
-            <a @click="onSignUpButton">Sign Up</a>
+            <a class="nav-button" @click="onSignUpButton">Sign Up</a>
           </span>
           <span class="each-button-container">
-            <a @click="onLoginButton">Login</a>
+            <a class="nav-button" @click="onLoginButton">Login</a>
           </span>
         </div>
       </div>
