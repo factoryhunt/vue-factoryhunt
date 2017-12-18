@@ -134,7 +134,7 @@
       <div id="PRODUCTS" class="products-container">
         <div class="row">
 
-          <div class="col-md-12">
+          <div style="padding: 0" class="col-md-12">
             <h3 class="title">Products <small>({{products.length}})</small></h3>
 
             <div class="product-container" v-for="(product, index) in this.products">

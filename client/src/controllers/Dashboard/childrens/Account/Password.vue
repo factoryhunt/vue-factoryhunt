@@ -79,7 +79,7 @@
           })
           .catch(err => {
             console.log(err.response)
-            alert(err.response.data.msg_kor)
+            alert(err.response.data.msg)
           })
       },
       mappingData () {

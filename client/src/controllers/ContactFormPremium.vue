@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="sendEmail(email, quiry)" id="form-container">
+  <form class="narrow-contents" @submit.prevent="sendEmail(email, quiry)" id="form-container">
 
     <div class="narrow-contents">
       <h2>{{msg.title}}</h2>

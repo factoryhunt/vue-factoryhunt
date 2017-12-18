@@ -3,6 +3,10 @@
   max-width: 1040px;
   margin: 20px auto 0 auto;
   padding: 0 18px;
+  .narrow-contents {
+    position: relative;
+    margin: 0 auto;
+  }
 }
 
 @media ( min-width: 744px ) {
@@ -17,6 +21,10 @@
 @media ( min-width: 1128px ) {
   .body-container {
     padding: 0;
+
+    .narrow-contents {
+      max-width: 600px;
+    }
 
     .body-contents {
       min-height: 500px;

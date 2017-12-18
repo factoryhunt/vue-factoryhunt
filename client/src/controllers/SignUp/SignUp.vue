@@ -40,7 +40,7 @@
 
   export default {
     metaInfo: {
-      title: '회원가입 | 팩토리헌트'
+      title: 'Sign Up | Factory Hunt'
     },
     components: {
       AuthHeader

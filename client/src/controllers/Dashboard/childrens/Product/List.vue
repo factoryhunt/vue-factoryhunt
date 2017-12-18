@@ -121,7 +121,7 @@
             location.reload()
           })
           .catch((err) => {
-            alert(err.response.data.msg_kor)
+            alert(err.response.data.msg)
           })
       },
       applyAttributes () {

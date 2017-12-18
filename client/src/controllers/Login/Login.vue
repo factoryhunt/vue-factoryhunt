@@ -37,7 +37,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '로그인 | Factory Hunt'
+      title: 'Login | Factory Hunt'
     },
     components: {
       AuthHeader,
@@ -79,16 +79,14 @@
           .catch((err) => {
             $loader.removeClass().addClass('invisible')
             $loginButton.css('display', 'inherit')
-            alert(err.data.msg_kor)
+            alert(err.data.msg)
           })
       },
       onForgotPassword () {
-        alert('준비중 입니다.')
+        alert('coming soon.')
       },
       onSignUpButton () {
-        this.$router.push({
-          path: '/signup'
-        })
+        location.href = '/signup'
       }
     },
     created () {
