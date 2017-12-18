@@ -1,11 +1,9 @@
 <template>
   <div class="page-container">
 
-    <nav-bar :inputData="input"></nav-bar>
+    <div class="body-container">
 
-    <div class="contents">
-
-      <div class="leads-container">
+      <div class="body-contents">
         <h2>Suppliers <small>({{ addComma(lead_count) }})</small> </h2>
         <hr>
         <div class="row">
@@ -45,7 +43,6 @@
 
     </div>
 
-    <footer-bar></footer-bar>
   </div>
 </template>
 
@@ -96,15 +93,8 @@
         return year[0]
       },
       routeLeadContactForm: function (index) {
-        const company = this.leads[index].company
         const id = this.leads[index].lead_id
-        this.$router.push({
-          path: '/contact/lead',
-          query: {
-            company: company,
-            id: id
-          }
-        })
+        location.href = `/contact/lead?id=${id}`
       },
       checkWebsiteLinkHasHttp: function (url) {
         if (url.indexOf('http') === -1) {
@@ -156,7 +146,7 @@
   }
 
   /*Leads section*/
-  .leads-container h3 {
+  .body-container h3 {
     line-height:1.4;
     font-size: 20px;
   }

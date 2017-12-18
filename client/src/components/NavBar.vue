@@ -11,18 +11,17 @@
       </div>
 
       <div class="button-container">
-        <span v-if="isUserLoggedIn" class="each-button-container">
-          <div v-if="account.thumbnail_url" id="user-logo" class="each-button" @click="onProfileImage"></div>
-          <div v-else="" id="user-logo" class="each-button" src="../../../assets/fh_logo_512.png" @click="onProfileImage"></div>
-        </span>
-        <span v-else>
+        <div v-if="isUserLoggedIn" class="each-button-container">
+          <div id="user-logo" class="each-button" @click="onProfileImage"></div>
+        </div>
+        <div v-else class="each-button-container">
           <span class="each-button-container">
-          <a class="nav-button" href="/signup">Sign Up</a>
-        </span>
-        <span class="each-button-container">
-          <a class="nav-button" href="/login">Login</a>
-        </span>
-        </span>
+            <a @click="onSignUpButton">Sign Up</a>
+          </span>
+          <span class="each-button-container">
+            <a @click="onLoginButton">Login</a>
+          </span>
+        </div>
       </div>
 
       <!-- Profile Toggle Menu -->
@@ -30,19 +29,19 @@
         <div class="dropdown-container">
           <div class="dropdown-pointer"></div>
           <div class="dropdown-pointer-bg"></div>
-          <div class="dropdown-contents">
+          <div class="dropdown-contents" v-show="contact.contact_id">
             <div class="user-container">
               <p class="user-email">{{contact.contact_email}}</p>
-              <p class="user-company-name">{{account.account_name}}</p>
-              <p class="user-name">{{contact.first_name + contact.last_name}}</p>
+              <p class="user-company-name">{{account.account_name_english}}</p>
+              <p class="user-name">{{contact.salutation + ' ' + contact.first_name_english + ' ' + contact.last_name_english}}</p>
             </div>
             <div class="footer-divider"></div>
             <div class="footer">
               <div class="footer-left">
-                <a id="my-page-button" @click="routeDashboardPage">관리자 센터</a>
+                <a id="my-page-button" @click="routeDashboardPage">Dashboard</a>
               </div>
               <div class="footer-right">
-                <a id="logout-button" @click="onLogoutButton">로그아웃</a>
+                <a id="logout-button" @click="onLogoutButton">Logout</a>
               </div>
             </div>
           </div>
@@ -94,6 +93,12 @@
           location.href = `/search?input=${this.input}`
         }
       },
+      onLoginButton () {
+        location.href = '/login'
+      },
+      onSignUpButton () {
+        location.href = '/signup'
+      },
       onLogoutButton () {
         this.$store.dispatch('logout')
       },
@@ -115,6 +120,7 @@
       applyImageBackgroundImage () {
         const $image = $('#user-logo')
         var image = this.account.thumbnail_url
+        console.log('image:', image)
         if (image) {
           image = 'url(' + image + ')'
         } else {

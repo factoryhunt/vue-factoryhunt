@@ -50,7 +50,7 @@
               <p class="secondary-text">{{product.secondary_product_category}}</p>
             </div>
             <div class="product-name-container">
-              <p class="name-text">{{product.product_name}}</p>
+              <p class="name-text">{{product.product_name_english}}</p>
               <p class="code-text">{{product.product_code}}</p>
             </div>
             <div class="status-container">

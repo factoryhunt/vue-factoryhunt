@@ -74,18 +74,30 @@ export default new Router({
         {
           path: 'privacy',
           component: PrivacyPolicy
+        },
+        {
+          path: 'membership',
+          component: Membership
+        },
+        {
+          path: '/contact/lead',
+          name: 'contact-lead',
+          component: ContactForm
+        },
+        {
+          path: '/contact/premium',
+          name: 'contact-premium',
+          component: ContactFormPremium
+        },
+        {
+          path: 'search',
+          component: SearchResult
+        },
+        {
+          path: 'search/supplier',
+          component: LeadSearchDetail
         }
       ]
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: SearchResult
-    },
-    {
-      path: '/membership',
-      name: 'membership',
-      component: Membership
     },
     {
       path: '/login',
@@ -179,33 +191,11 @@ export default new Router({
     },
     {
       path: '/:company',
-      name: 'company',
       component: AccountProfile
     },
     {
       path: '/:company/:name',
-      name: 'product',
       component: ProductProfile
-    },
-    {
-      path: '/contact/lead',
-      name: 'contact-lead',
-      component: ContactForm
-    },
-    {
-      path: '/contact/premium',
-      name: 'contact-premium',
-      component: ContactFormPremium
-    },
-    {
-      path: '/account/profile',
-      name: 'account-profile',
-      component: AccountProfile
-    },
-    {
-      path: '/supplier/result',
-      name: 'supplier-result',
-      component: LeadSearchDetail
     },
     {
       path: '*',

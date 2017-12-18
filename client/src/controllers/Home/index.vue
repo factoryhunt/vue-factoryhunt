@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" v-if="toggle.isAuthLoaded">
 
     <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
@@ -36,6 +36,9 @@
         msg: {
           inputGuide: 'Loading..'
         },
+        toggle: {
+          isAuthLoaded: false
+        },
         input: '',
         sub_categories: null,
         inputActive: false,
@@ -53,8 +56,12 @@
       tryAutoLogin () {
         this.$store.dispatch('autoLogin')
           .then(res => {
+            this.toggle.isAuthLoaded = true
             this.value.contact = res[0].data
             this.value.account = res[1].data
+          })
+          .catch(() => {
+            this.toggle.isAuthLoaded = true
           })
       },
       onSearchInput () {
@@ -97,7 +104,6 @@
       }
     },
     created () {
-      console.log('Home.vue created')
       this.tryAutoLogin()
     }
   }

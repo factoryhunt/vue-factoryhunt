@@ -280,21 +280,21 @@
       applyLocalData (account) {
         this.value.mainImageUrl = account.account_image_url_1
         this.value.logoUrl = account.thumbnail_url
-        this.value.accountName = account.account_name
-        this.value.description = account.company_description
-        this.value.shortDescription = account.company_short_description
+        this.value.accountName = account.account_name_english
+        this.value.description = account.company_description_english
+        this.value.shortDescription = account.company_short_description_english
         this.value.shortDescriptionCount = (account.company_short_description).length
         this.value.products = account.products
         this.value.phone = account.phone
         this.value.website = account.website
         this.value.establishedDate = this.getYear(account.established_date)
-        this.value.country = account.mailing_country
-        this.value.state = account.mailing_state
-        this.value.city = account.mailing_city
-        this.value.postalCode = account.mailing_postal_code
-        this.value.streetAddress = account.mailing_street_address
-        this.value.streetAddressDetail = account.mailing_street_address_2
-        this.value.history = account.history
+        this.value.country = account.mailing_country_english
+        this.value.state = account.mailing_state_english
+        this.value.city = account.mailing_city_english
+        this.value.postalCode = account.mailing_postal_code_english
+        this.value.streetAddress = account.mailing_street_address_english
+        this.value.streetAddressDetail = account.mailing_street_address_2_english
+        this.value.history = account.history_english
       },
       getYear (date) {
         if (date === '0000-00-00') {
@@ -338,20 +338,20 @@
 
         // props
         const data = {
-          account_name: value.accountName,
-          company_short_description: value.shortDescription,
-          company_description: value.description,
+          account_name_english: value.accountName,
+          company_short_description_english: value.shortDescription,
+          company_description_english: value.description,
           products: value.products,
           website: value.website,
           phone: value.phone,
           established_date: value.establishedDate,
-          mailing_country: value.country,
-          mailing_state: value.state,
-          mailing_city: value.city,
-          mailing_postal_code: value.postalCode,
-          mailing_street_address: value.streetAddress,
-          mailing_street_address_2: value.streetAddressDetail,
-          history: value.history
+          mailing_country_english: value.country,
+          mailing_state_english: value.state,
+          mailing_city_english: value.city,
+          mailing_postal_code_english: value.postalCode,
+          mailing_street_address_english: value.streetAddress,
+          mailing_street_address_2_english: value.streetAddressDetail,
+          history_english: value.history
         }
         // request
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)

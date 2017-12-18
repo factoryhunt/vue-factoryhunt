@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
+    <nav-bar v-if="toggle.isAuthLoaded" :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="body-container">
       <div class="body-contents">
@@ -152,7 +152,10 @@
           account: {},
           contact: {}
         },
-        input: this.$route.query.input,
+        toggle: {
+          isAuthLoaded: false
+        },
+        input: this.$route.query.input ? this.$route.query.input : '',
         accountDomain: this.$route.params.company,
         productDomain: this.$route.params.name,
         products: [],
@@ -196,7 +199,11 @@
       },
       routeProductProfilePage: function (index) {
         const productDomain = this.products[index].product_domain
-        location.href = `/${this.accountDomain}/${productDomain}?input=${this.input}`
+        if (this.input) {
+          location.href = `/${this.accountDomain}/${productDomain}?input=${this.input}`
+        } else {
+          location.href = `/${this.accountDomain}/${productDomain}`
+        }
       },
       onSendInquiry: function () {
         const productName = this.product.product_name
@@ -229,8 +236,12 @@
       tryAutoLogin () {
         this.$store.dispatch('autoLogin')
           .then(res => {
+            this.toggle.isAuthLoaded = true
             this.value.contact = res[0].data
             this.value.account = res[1].data
+          })
+          .catch(() => {
+            this.toggle.isAuthLoaded = true
           })
       }
     },

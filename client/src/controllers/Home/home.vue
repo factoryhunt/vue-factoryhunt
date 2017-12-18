@@ -1,5 +1,5 @@
 <template>
-  <secion>
+  <section>
       <home-header></home-header>
 
       <div class="form-container">
@@ -17,7 +17,7 @@
       <featured-card line="on" id="11"></featured-card>
       <featured-card line="off" id="6"></featured-card>
 
-  </secion>
+  </section>
 </template>
 
 <script>

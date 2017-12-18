@@ -1,104 +1,94 @@
 <template>
   <div class="page-container">
 
-    <!--<nav-bars></nav-bars>-->
-    <nav-bar :inputData="input"></nav-bar>
-
-    <div class="body-container">
-
-      <div class="products-contents">
-        <h2>Verified products <small>{{ checkResultCount(product_result, product_count) }}</small> </h2>
-        <div class="divider"></div>
-        <div class="row">
-          <div v-if="products.length === 0">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <h5>{{ product_result }}</h5>
-            </div>
+    <div class="products-contents">
+      <h2>Verified products <small>{{ checkResultCount(product_result, product_count) }}</small> </h2>
+      <div class="divider"></div>
+      <div class="row">
+        <div v-if="products.length === 0">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <h5>{{ product_result }}</h5>
           </div>
-          <div v-else>
+        </div>
+        <div v-else>
 
-            <div v-for="(product, productIndex) in products" v-if="productIndex < 9" class="products-container">
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="product-each-container">
-                  <a @click="routeProductProfilePage(productIndex)"><img class="product-preview-image" :src="product.product_image_url_1" alt="logo"></a>
-                  <p>{{ product.product_name }}</p>
-                  <div class="star-container" v-for="index in 5">
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                  </div>
+          <div v-for="(product, productIndex) in products" v-if="productIndex < 9" class="products-container">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="product-each-container">
+                <a @click="routeProductProfilePage(productIndex)"><img class="product-preview-image" :src="product.product_image_url_1" alt="logo"></a>
+                <p>{{ product.product_name }}</p>
+                <div class="star-container" v-for="index in 5">
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
-
           </div>
+
         </div>
       </div>
-
-      <div class="accounts-contents">
-        <h2>Verified suppliers<small> {{ checkResultCount(account_result, account_count) }} </small> </h2>
-        <div class="divider"></div>
-        <div class="row">
-          <div class="col-md-9 col-sm-9">
-
-            <div v-if="accounts.length === 0">
-              <h5 style="margin-bottom: 35px">{{ account_result }}</h5>
-            </div>
-            <div v-else>
-              <div v-for="(account, i) in accounts" v-if="i < 7">
-                <div class="account-container">
-                  <h3 class="company" v-if="account.account_name_english" @click="routeAccountProfilePage(i)">{{account.account_name_english}} <small>({{ getYear(account.established_date) }})</small></h3>
-                  <h3 class="company" v-else @click="routeAccountProfilePage(i)">{{account.account_name}} <small>({{ getYear(account.established_date) }})</small></h3>
-                  <ul class="list-unstyled account-ul">
-                    <li id="products">{{ account.products_english }}</li>
-                    <li><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></li>
-                    <li>{{ account.email }}</li>
-                    <li>{{ account.phone }}</li>
-                    <li>{{ account.mailing_city_english ? account.mailing_city_english + ',' : '' }} {{account.mailing_state_english ? account.mailing_state_english + ',' : ''}} {{ account.mailing_country_english }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="leads-contents">
-
-        <h2>Suppliers <small>{{ checkResultCount(lead_result, lead_count) }}</small> </h2>
-        <div class="divider"></div>
-        <div class="row">
-
-            <div class="col-md-9" v-if="leads.length === 0">
-              <h5>{{ lead_result }}</h5>
-            </div>
-
-            <div v-else>
-              <div v-for="(lead, index2) in leads" v-if="index2 < 7">
-                <div class="col-md-9">
-                  <div class="directory-content">
-                    <h4 class="company" v-if="lead.company_english" @click="routeLeadContactForm(index2)">{{ lead.company_english }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
-                    <h4 class="company" v-else @click="routeLeadContactForm(index2)">{{ lead.company }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
-                    <ul class="list-unstyled lead-ul">
-                      <li id="products">{{ lead.products_english }}</li>
-                      <li><a :href="checkWebsiteLinkHasHttp(lead.website)" target="_blank">{{ lead.website }}</a></li>
-                      <li>{{ lead.email }}</li>
-                      <li>{{ lead.phone }}</li>
-                      <li>{{ lead.mailing_city_english ? lead.mailing_city_english + ',' : '' }} {{lead.mailing_state_english ? lead.mailing_state_english + ',' : ''}} {{ lead.mailing_country_english }}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div v-if="leads.length >= 7">
-          <h4 class="text-left"><a @click="onLeadReadMore">Read more</a></h4>
-        </div>
-      </div>
-
     </div>
 
-    <footer-bar></footer-bar>
+    <div class="accounts-contents">
+      <h2>Verified suppliers<small> {{ checkResultCount(account_result, account_count) }} </small> </h2>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col-md-9 col-sm-9">
 
+          <div v-if="accounts.length === 0">
+            <h5 style="margin-bottom: 35px">{{ account_result }}</h5>
+          </div>
+          <div v-else>
+            <div v-for="(account, i) in accounts" v-if="i < 7">
+              <div class="account-container">
+                <h3 class="company" v-if="account.account_name_english" @click="routeAccountProfilePage(i)">{{account.account_name_english}} <small>({{ getYear(account.established_date) }})</small></h3>
+                <h3 class="company" v-else @click="routeAccountProfilePage(i)">{{account.account_name}} <small>({{ getYear(account.established_date) }})</small></h3>
+                <ul class="list-unstyled account-ul">
+                  <li id="products">{{ account.products_english }}</li>
+                  <li><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></li>
+                  <li>{{ account.email }}</li>
+                  <li>{{ account.phone }}</li>
+                  <li>{{ account.mailing_city_english ? account.mailing_city_english + ',' : '' }} {{account.mailing_state_english ? account.mailing_state_english + ',' : ''}} {{ account.mailing_country_english }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="leads-contents">
+
+      <h2>Suppliers <small>{{ checkResultCount(lead_result, lead_count) }}</small> </h2>
+      <div class="divider"></div>
+      <div class="row">
+
+        <div class="col-md-9" v-if="leads.length === 0">
+          <h5>{{ lead_result }}</h5>
+        </div>
+
+        <div v-else>
+          <div v-for="(lead, index2) in leads" v-if="index2 < 7">
+            <div class="col-md-9">
+              <div class="directory-content">
+                <h4 class="company" v-if="lead.company_english" @click="routeLeadContactForm(index2)">{{ lead.company_english }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
+                <h4 class="company" v-else @click="routeLeadContactForm(index2)">{{ lead.company }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
+                <ul class="list-unstyled lead-ul">
+                  <li id="products">{{ lead.products_english }}</li>
+                  <li><a :href="checkWebsiteLinkHasHttp(lead.website)" target="_blank">{{ lead.website }}</a></li>
+                  <li>{{ lead.email }}</li>
+                  <li>{{ lead.phone }}</li>
+                  <li>{{ lead.mailing_city_english ? lead.mailing_city_english + ',' : '' }} {{lead.mailing_state_english ? lead.mailing_state_english + ',' : ''}} {{ lead.mailing_country_english }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="leads.length >= 7">
+        <h4 class="text-left"><a @click="onLeadReadMore">Read more</a></h4>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -179,15 +169,8 @@
         return year[0]
       },
       routeLeadContactForm: function (index) {
-        const company = this.leads[index].company
         const id = this.leads[index].lead_id
-        this.$router.push({
-          path: '/contact/lead',
-          query: {
-            company: company,
-            id: id
-          }
-        })
+        location.href = `/contact/lead?id=${id}`
       },
       routeAccountProfilePage: function (index) {
         const domain = this.accounts[index].domain
@@ -210,12 +193,7 @@
         return url
       },
       onLeadReadMore: function () {
-        this.$router.push({
-          path: '/supplier/result',
-          query: {
-            input: this.input
-          }
-        })
+        location.href = `/search/supplier?input=${this.input}`
       },
       checkResultCount: function (result, count) {
         var resultCount = '(' + count + ')'

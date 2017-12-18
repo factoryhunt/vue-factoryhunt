@@ -7,21 +7,21 @@
     <div class="inner-contents">
 
       <div class="right-container">
-        <div class="form-container">
+        <form @submit.prevent="sendEmail(email, quiry)" class="form-container">
 
           <h3 class="title">Contact</h3>
           <br>
           <div class="input-container">
-            <input v-model="email" type="text" :placeholder="placeholder.email">
+            <input required v-model="email" type="text" :placeholder="placeholder.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
+          <textarea required v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
 
           <div class="button-container">
-            <button @click="sendEmail(email, quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="btn btn-default">Send inquiry</button>
           </div>
-        </div>
+        </form>
       </div>
 
       <div class="left-container">

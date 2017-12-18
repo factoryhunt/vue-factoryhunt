@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
 
-    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
+    <nav-bar v-if="toggle.isAuthLoaded" :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="image-container">
       <div class="main-image"></div>
@@ -56,7 +56,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea>{{ account.company_short_description }}</textarea>
+          <textarea readonly>{{ account.company_short_description }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -182,13 +182,14 @@
           contact: {},
           vendor: {},
           company: this.$route.params.company,
-          input: this.$route.query.input,
+          input: this.$route.query.input ? this.$route.query.input : '',
           email: '',
           quiry: '',
           // for admin editing
           accountName: ''
         },
         toggle: {
+          isAuthLoaded: false,
           isUserAdmin: false,
           isAccountNameEdited: false,
           isDescriptionEdited: false,
@@ -210,7 +211,6 @@
     },
     created () {
       window.scrollTo(0, 0)
-      console.log('AccountProfile Created')
       this.tryAutoLogin()
       this.fetchAccount(this.value.company)
     },
@@ -238,8 +238,12 @@
       tryAutoLogin () {
         this.$store.dispatch('autoLogin')
           .then(res => {
+            this.toggle.isAuthLoaded = true
             this.value.contact = res[0].data
             this.value.account = res[1].data
+          })
+          .catch(() => {
+            this.toggle.isAuthLoaded = true
           })
       },
       changeDocumentTitle () {
@@ -251,7 +255,6 @@
             if (!response.data) {
               this.$router.push({ path: '/error' })
             }
-            console.log(response)
             this.account = response.data
             this.applyLocalData(this.account)
             this.fetchProducts(this.account.account_id)
@@ -302,7 +305,11 @@
       },
       routeProductProfilePage: function (index) {
         const productDomain = this.products[index].product_domain
-        location.href = `/${this.value.company}/${productDomain}?input=${this.value.input}`
+        if (this.value.input) {
+          location.href = `/${this.value.company}/${productDomain}?input=${this.value.input}`
+        } else {
+          location.href = `/${this.value.company}/${productDomain}`
+        }
       },
       initMap () {
         const latlng = new google.maps.LatLng(39.305, -76.617)

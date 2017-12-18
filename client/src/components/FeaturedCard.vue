@@ -51,9 +51,7 @@
       },
       routeAccountProfilePage () {
         const domain = this.account.domain
-        this.$router.push({
-          path: `/${domain}`
-        })
+        location.href = `/${domain}`
       }
     },
     created () {
