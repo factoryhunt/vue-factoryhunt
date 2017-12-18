@@ -8,10 +8,10 @@
           <div id="company-image"></div>
           <div class="title-contents">
             <p class="title">{{ account.account_name }}</p>
-            <p v-if="contact.first_name" class="sub-title">{{contact.first_name}}{{contact.last_name}}<small>님</small></p>
+            <p v-if="contact.first_name" class="sub-title">{{contact.first_name}}{{contact.last_name}}<small></small></p>
           </div>
-          <button id="view-button" @click="routeCompanyPage" class="view-button button-white">회사 페이지 보기</button>
-          <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white">정보 수정</button>
+          <button id="view-button" @click="routeCompanyPage" class="view-button button-white">View website</button>
+          <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white">Edit</button>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 
       <!-- Header -->
       <header class="header-container">
-        <p class="sub-title">안녕하세요, {{contact.first_name ? (contact.first_name + contact.last_name) : contact.contact_email}}님!</p>
+        <p class="sub-title">Hello, {{contact.first_name ? (contact.first_name + contact.last_name) : contact.contact_email}}!</p>
       </header>
 
       <!-- Link -->
@@ -33,50 +33,50 @@
       <!-- Body -->
       <div class="body-container">
 
-        <p class="title">관리자 센터에서는?</p>
+        <p class="title">Dashboard</p>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/company/domain" class="button">등록하기</a>
-            <p class="title">도메인 등록</p>
+            <a href="/dashboard/company/domain" class="button">Edit</a>
+            <p class="title">Customized domain</p>
           </div>
           <div class="text-container">
-            <p class="text">도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.</p>
+            <p class="text">Share the link below and use it as your company website.</p>
             <a id="clipboard" data-clipboard-target="#domain-text">
               <span id="domain-text" class="text">www.factoryhunt.co.kr/{{account.domain}}
               </span>
             </a>
-            <span id="copied-text">URL이 복사 되었습니다!</span>
+            <span id="copied-text">URL copied</span>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/company" class="button">관리하기</a>
-            <p class="title">회사 정보 관리</p>
+            <a href="/dashboard/company" class="button">Edit</a>
+            <p class="title">Company information</p>
           </div>
           <div class="text-container">
-            <p class="text">회사 정보를 업데이트하면, 맞춤형 웹페이지가 생성됩니다. 도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.</p>
+            <p class="text">Update company information and create a website in a minute.</p>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/product" class="button">관리하기</a>
-            <p class="title">제품 정보 관리</p>
+            <a href="/dashboard/product" class="button">Edit</a>
+            <p class="title">Product information</p>
           </div>
           <div class="text-container">
-            <p class="text">제품 정보를 등록하면, 손쉽게 온라인 카탈로그를 만들 수 있습니다.</p>
+            <p class="text">Update product information and create an online product catalog.</p>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/account" class="button">관리하기</a>
-            <p class="title">계정 정보 관리</p>
+            <a href="/dashboard/account" class="button">Edit</a>
+            <p class="title">Account Information</p>
           </div>
           <div class="text-container">
-            <p class="text">회사 또는 제품에 관심이 있는 고객(또는 바이어)이 있을 경우, 입력해 주신 연락처로 관련 정보를 받아보게 됩니다.</p>
+            <p class="text">Update your contact information. You will be connected with potential buyers by email.</p>
           </div>
         </div>
 

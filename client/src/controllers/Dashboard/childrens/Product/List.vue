@@ -5,13 +5,13 @@
     <div class="modal-background" @click="modalToggle">
       <div class="modal-container">
         <div class="modal-contents" @click="modalToggle">
-          <p class="title">정말 삭제하시겠습니까?</p>
+          <p class="title">Are you sure you want to delete?</p>
           <div class="button-container">
             <div class="left-button-container">
-              <button class="button-white confirm-button" @click="deleteProduct">삭제하기</button>
+              <button class="button-white confirm-button" @click="deleteProduct">Delete</button>
             </div>
             <div class="right-button-container">
-              <button class="button-orange cancel-button" @click="modalToggle">취소하기</button>
+              <button class="button-orange cancel-button" @click="modalToggle">Cancel</button>
             </div>
           </div>
         </div>
@@ -20,8 +20,8 @@
 
     <!-- Header -->
     <div class="header-container">
-      <button v-if="products.length > 0" class="button-orange product-upload-button" @click="onProductUploadButton">새로 등록하기</button>
-      <p class="title">제품 목록</p>
+      <button v-if="products.length > 0" class="button-orange product-upload-button" @click="onProductUploadButton">New Product</button>
+      <p class="title">Product List</p>
     </div>
 
     <!-- Body -->
@@ -30,10 +30,10 @@
       <!-- products empty -->
       <div v-if="products.length < 1" class="product-empty-container">
         <div class="empty">
-          <p class="title">등록된 제품이 아직 없습니다.</p>
-          <p class="sub-title">귀사에서 생산하는 훌륭한 제품을 페이지에 올려주세요. 바이어들에게 바로 노출됩니다.</p>
+          <p class="title">There is no registered product yet.</p>
+          <p class="sub-title">Please add your product information. Potential buyers will be able to find your product information.</p>
           <button @click="onProductUploadButton" class="product-upload-button button-orange">
-            제품 업로드
+            Upload Product
           </button>
         </div>
       </div>
@@ -54,14 +54,14 @@
               <p class="code-text">{{product.product_code}}</p>
             </div>
             <div class="status-container">
-              <p :class="product.product_status === 'pending' ? 'pending' : 'on-sale'">{{product.product_status === 'pending' ? '승인 대기중' : '승인 완료'}}</p>
-              <p class="price-text">{{product.price ? product.price : '가격 미정'}}</p>
+              <p :class="product.product_status === 'pending' ? 'pending' : 'on-sale'">{{product.product_status === 'pending' ? 'Pending' : 'Approved'}}</p>
+              <p class="price-text">{{product.price ? product.price : ''}}</p>
             </div>
             <div class="tool-container">
-              <a class="product-edit-button" @click="onEditButton(index)">수정</a>
+              <a class="product-edit-button" @click="onEditButton(index)">Edit</a>
               <span>|</span>
-              <a class="product-remove-button" @click="showProductRemoveModal(index)">삭제</a>
-              <a class="view-product-button" @click="routeProductPage(index)">제품 보기</a>
+              <a class="product-remove-button" @click="showProductRemoveModal(index)">Delete</a>
+              <a class="view-product-button" @click="routeProductPage(index)">View Product</a>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@
 <script>
   export default {
     metaInfo: {
-      title: '제품 | Factory Hunt'
+      title: 'Product | Factory Hunt'
     },
     props: {
       products: {

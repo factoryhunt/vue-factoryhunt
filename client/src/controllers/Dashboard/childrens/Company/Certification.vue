@@ -3,9 +3,9 @@
     <div class="body-container">
       <!--Company Certification -->
       <div class="certification-container input-container">
-        <p class="sub-title">귀사에서 취급하는 제품이 기관으로부터 당당히 인증을 받았다는 것을 증명해주세요. 입력해야할 필수 항목은 아니지만 바이어들에게 신뢰를 줄 수 있습니다.</p>
-        <p class="third-title">사업자등록증, 공장등록증, 제품인증서..</p>
-        <label for="certification-input">파일 선택</label>
+        <p class="sub-title">Please prove that the product you are dealing with is certified by agencies. It is not a required entry, but it can give buyers confidence about your company and products.</p>
+        <p class="third-title">Business registration certificate, Factory registration certificate, Product registrations, and etc.</p>
+        <label for="certification-input">Choose File</label>
         <input id="certification-input" multiple class="file" type="file" name="img_files[]">
         <!--@change="filesChange($event.target.name, $event.target.files)"-->
       </div>
@@ -16,7 +16,7 @@
 <script>
   export default {
     metaInfo: {
-      title: '인증서 업로드 | Factory Hunt'
+      title: 'Upload certification | Factory Hunt'
     },
     data () {
       return {

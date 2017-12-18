@@ -10,7 +10,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '제품 | Factory Hunt'
+      title: 'Product | Factory Hunt'
     },
     components: {
       Spinkit

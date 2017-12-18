@@ -5,31 +5,31 @@
 
         <!-- Required Input Container -->
         <div class="required-container input-container">
-          <p class="title">새로운 비밀번호</p>
-          <p class="sub-title">비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.</p>
+          <p class="title">New password</p>
+          <p class="sub-title">Use at least one letter, one numeral, and eight characters.</p>
 
           <!-- Current Password Container -->
           <div class="box-container">
-            <div class="left-contents">현재 비밀번호</div>
+            <div class="left-contents">Current password</div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.currentPassword"></div>
           </div>
           <br>
 
           <!-- New Password Container -->
           <div class="box-container">
-            <div class="left-contents">새로운 비밀번호</div>
+            <div class="left-contents">New password</div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.newPassword"></div>
           </div>
           <!-- Confirm Password Container -->
           <div class="box-container">
-            <div class="left-contents">확인</div>
+            <div class="left-contents">Confirm</div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.newPasswordConfirm"></div>
           </div>
         </div>
 
         <!-- Edit Password Container -->
         <div class="confirm-container input-container">
-          <button class="button-orange">변경하기</button>
+          <button class="button-orange">Change</button>
         </div>
 
       </div>
@@ -41,7 +41,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '비밀번호 변경 | Factory Hunt'
+      title: 'Change Password | Factory Hunt'
     },
     props: {
       contact: {
@@ -74,7 +74,7 @@
         }
         this.$http.put(`/api/data/contact/password_change/${this.getContactId}`, data)
           .then(() => {
-            alert('비밀번호가 변경되었습니다.')
+            alert('Password has been changed.')
             location.reload()
           })
           .catch(err => {

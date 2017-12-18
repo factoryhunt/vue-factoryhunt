@@ -2,10 +2,10 @@
   <div class="component-container">
     <div class="body-container">
       <div class="tab-container">
-        <a id="item-dashboard" class="tab" href="/dashboard">관리자 센터</a>
-        <a id="item-company" class="tab" href="/dashboard/company">회사</a>
-        <a id="item-product" class="tab" href="/dashboard/product">제품</a>
-        <a id="item-account" class="tab" href="/dashboard/account">내 계정</a>
+        <a id="item-dashboard" class="tab" href="/dashboard">Dashboard</a>
+        <a id="item-company" class="tab" href="/dashboard/company">Company</a>
+        <a id="item-product" class="tab" href="/dashboard/product">Product</a>
+        <a id="item-account" class="tab" href="/dashboard/account">My Account</a>
       </div>
     </div>
   </div>

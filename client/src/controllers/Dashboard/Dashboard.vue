@@ -16,7 +16,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '관리자 센터 | Factory Hunt'
+      title: 'Dashboard | Factory Hunt'
     },
     components: {
       NavBar,
@@ -45,7 +45,7 @@
             this.value.account = res[1].data
           })
           .catch(() => {
-            alert('로그인 정보가 만료되었습니다.')
+            alert('Your session has expired. Please log-in again.')
             this.$router.push('/login')
           })
       }
