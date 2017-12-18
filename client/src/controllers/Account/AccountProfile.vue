@@ -301,14 +301,8 @@
         return subject.replace(/\n/g, '<br />')
       },
       routeProductProfilePage: function (index) {
-        this.$router.push({
-          path: '/product/profile',
-          query: {
-            input: this.input,
-            productName: this.products[index].product_name,
-            id: this.products[index].product_id
-          }
-        })
+        const productDomain = this.products[index].product_domain
+        location.href = `/${this.value.company}/${productDomain}?input=${this.value.input}`
       },
       initMap () {
         const latlng = new google.maps.LatLng(39.305, -76.617)

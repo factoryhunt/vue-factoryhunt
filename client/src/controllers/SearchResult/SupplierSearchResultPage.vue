@@ -191,21 +191,16 @@
       },
       routeAccountProfilePage: function (index) {
         const domain = this.accounts[index].domain
-        this.$router.push({
-          path: `/${domain}`
-        })
+        location.href = `/${domain}?input=${this.input}`
       },
       routeProductProfilePage: function (index) {
-        const productName = this.products[index].product_name_english
-        const id = this.products[index].product_id
-        this.$router.push({
-          path: '/product/profile',
-          query: {
-            input: this.input,
-            productName: productName,
-            id: id
-          }
-        })
+        const productDomain = this.products[index].product_domain
+        const accountId = this.products[index].account_id
+        this.$http.get(`/api/data/account/${accountId}`)
+          .then(res => {
+            const domain = res.data.domain
+            location.href = `/${domain}/${productDomain}?input=${this.input}`
+          })
       },
       checkWebsiteLinkHasHttp: function (url) {
         if (url.indexOf('http') === -1) {

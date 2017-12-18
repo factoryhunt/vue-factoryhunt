@@ -69,10 +69,6 @@
       },
       isUserLoggedIn: {
         default: false
-      },
-      inputData: {
-        type: String,
-        default: ''
       }
     },
     data () {
@@ -89,18 +85,13 @@
           isDropdownShown: false,
           isProfileDropdownShown: false
         },
-        input: this.inputData
+        input: this.$route.query.input
       }
     },
     methods: {
       onSearchInput () {
         if (this.input) {
-          this.$router.push({
-            path: '/search',
-            query: {
-              input: this.input
-            }
-          })
+          location.href = `/search?input=${this.input}`
         }
       },
       onLogoutButton () {
@@ -219,7 +210,7 @@
         position: relative;
         right: 0;
         top: 75px;
-        z-index: 10 !important;
+        z-index: 9999 !important;
 
         .dropdown-container {
           position: absolute;

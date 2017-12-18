@@ -14,9 +14,8 @@
           <ul class="list-unstyled">
             <li class="list-title">Factory Hunt</li>
             <br>
-            <li class="small"><router-link :to="{ path: '/about', params: { id:100 } }">About Us</router-link></li>
-            <li class="small"><router-link :to="{ path: '/contact', params: { id:100 } }">Contact Us</router-link></li>
-            <li class="small"><router-link :to="{ path: '/terms', params: { id:100 } }">Terms & Conditions</router-link></li>
+            <li class="small"><a href="/about">About Us</a></li>
+            <li class="small"><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
 

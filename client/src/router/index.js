@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Client Controllers
-import Home from '../controllers/Home/index'
+import Index from '../controllers/Home/index'
+import Home from '../controllers/Home/home'
 import SearchResult from '../controllers/SearchResult/SupplierSearchResultPage.vue'
 import AccountProfile from '../controllers/Account/AccountProfile'
 import ProductProfile from '../controllers/ProductProfile'
@@ -44,18 +45,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: ContactUs
+      component: Index,
+      children: [
+        {
+          path: '',
+          component: Home
+        },
+        {
+          path: 'about',
+          component: About
+        },
+        {
+          path: 'contact',
+          component: ContactUs
+        },
+        {
+          path: 'help',
+          component: Help
+        },
+        {
+          path: 'faqs',
+          component: FAQs
+        },
+        {
+          path: 'terms',
+          component: TermsOfUse
+        },
+        {
+          path: 'privacy',
+          component: PrivacyPolicy
+        }
+      ]
     },
     {
       path: '/search',
@@ -76,26 +96,6 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp
-    },
-    {
-      path: '/help',
-      name: 'help',
-      component: Help
-    },
-    {
-      path: '/faqs',
-      name: 'faqs',
-      component: FAQs
-    },
-    {
-      path: '/terms',
-      name: 'terms',
-      component: TermsOfUse
-    },
-    {
-      path: '/privacy',
-      name: 'privacy',
-      component: PrivacyPolicy
     },
     {
       path: '/dashboard',
@@ -183,6 +183,11 @@ export default new Router({
       component: AccountProfile
     },
     {
+      path: '/:company/:name',
+      name: 'product',
+      component: ProductProfile
+    },
+    {
       path: '/contact/lead',
       name: 'contact-lead',
       component: ContactForm
@@ -196,11 +201,6 @@ export default new Router({
       path: '/account/profile',
       name: 'account-profile',
       component: AccountProfile
-    },
-    {
-      path: '/product/profile',
-      name: 'product-profile',
-      component: ProductProfile
     },
     {
       path: '/supplier/result',

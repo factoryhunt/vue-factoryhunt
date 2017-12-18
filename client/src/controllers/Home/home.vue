@@ -1,31 +1,34 @@
 <template>
-  <div class="home-container">
+  <secion>
+      <home-header></home-header>
 
-    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
-
-    <div class="body-container">
-      <div class="body-contents">
-        <router-view></router-view>
+      <div class="form-container">
+        <input @keyup.enter="onSearchInput()" v-model="input" type="text" class="form-control" id="searchInput" :placeholder="placeholder">
+        <button @click="onSearchInput()" type="submit" class="btn btn-default">Search</button>
       </div>
-    </div>
 
-    <footer-bar></footer-bar>
-    <copyright-bar></copyright-bar>
+      <h2 class="featured-title">Featured Suppliers</h2>
+      <featured-card line="on" id="7"></featured-card>
+      <featured-card line="on" id="10"></featured-card>
+      <featured-card line="on" id="5"></featured-card>
+      <featured-card line="on" id="3"></featured-card>
+      <featured-card line="on" id="4"></featured-card>
+      <featured-card line="on" id="1"></featured-card>
+      <featured-card line="on" id="11"></featured-card>
+      <featured-card line="off" id="6"></featured-card>
 
-  </div>
+  </secion>
 </template>
 
 <script>
-  import NavBar from '../../components/NavBar.vue'
-  import FooterBar from '../../components/FooterBar'
-  import CopyrightBar from '../../components/CopyrightBar.vue'
+  import HomeHeader from '../../components/HomeHeader'
+  import FeaturedCard from '../../components/FeaturedCard'
   import { mapGetters } from 'vuex'
 
   export default {
     components: {
-      NavBar,
-      FooterBar,
-      CopyrightBar
+      HomeHeader,
+      FeaturedCard
     },
     data () {
       return {
@@ -50,19 +53,9 @@
       ])
     },
     methods: {
-      tryAutoLogin () {
-        this.$store.dispatch('autoLogin')
-          .then(res => {
-            this.value.contact = res[0].data
-            this.value.account = res[1].data
-          })
-      },
       onSearchInput () {
         if (this.input) {
-          this.$router.push({
-            path: '/search',
-            query: { input: this.input }
-          })
+          location.href = `/search?input=${this.input}`
         }
       },
       onSearchGuide (keyword) {
@@ -95,10 +88,6 @@
           }
         })
       }
-    },
-    created () {
-      console.log('Home.vue created')
-      this.tryAutoLogin()
     }
   }
 </script>

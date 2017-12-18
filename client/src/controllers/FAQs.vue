@@ -1,22 +1,15 @@
 <template>
   <div class="page-container">
-    <nav-bar></nav-bar>
-
-    <div class="contents">
-      <div class="row">
-        <h2>{{msg.title}}</h2>
-        <hr>
-        <h4>{{msg.temp}}</h4>
-      </div>
-    </div>
-
-    <footer-bar></footer-bar>
+    <h2>{{msg.title}}</h2>
+    <hr>
+    <h4>{{msg.temp}}</h4>
   </div>
 </template>
 
 <script>
   import NavBar from '../components/NavBar'
   import FooterBar from '../components/FooterBar'
+  import CopyrightBar from '../components/CopyrightBar'
 
   export default {
     metaInfo: {
@@ -24,7 +17,8 @@
     },
     components: {
       NavBar,
-      FooterBar
+      FooterBar,
+      CopyrightBar
     },
     data () {
       return {
