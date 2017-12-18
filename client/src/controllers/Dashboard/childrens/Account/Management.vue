@@ -3,37 +3,37 @@
 
     <div v-if="!toggle.isShowing" class="body-container">
       <button id="first-drop-button" class="button-orange" @click="toggle.isShowing = true">
-        계정 해지하기
+        Delete account
       </button>
     </div>
     <div v-else class="body-container">
       <form @submit.prevent="dropAccount">
         <!-- Account Drop -->
         <div class="drop-container input-container">
-          <p class="title">계정 해지하기</p>
+          <p class="title">Delete account</p>
 
           <div class="description-container input-container">
-            <p class="sub-title">왜 떠나시나요? 이유를 말씀해주세요.</p>
-            <textarea rows="10" placeholder="자세히 적어주시면 검토 후 유저분들께 더 나은 서비스를 제공할 수 있도록 최선을 다하도록 하겠습니다. 감사합니다." v-model="value.description"></textarea>
+            <p class="sub-title">Could you tell us why you want to stop using the service?</p>
+            <textarea rows="10" placeholder="If you tell us the reason why you want to delete the account, we will do our best to improve the service to make users happy." v-model="value.description"></textarea>
           </div>
         </div>
 
         <!-- Cautions -->
         <div class="caution-container input-container">
-          <p class="title">계정을 해지한다면 생기는 일</p>
+          <p class="title">What happens when a user delete account.</p>
           <ul>
-            <li><p class="sub-title">회원님의 프로필과 회사, 제품 정보가 모두 없어집니다.</p></li>
-            <li><p class="sub-title">웹사이트 검색 엔진에 정보가 더 이상 노출되지 않습니다.</p></li>
-            <li><p class="sub-title">현재 사용 중인 도메인을 누군가가 사용할 수 있습니다.</p></li>
-            <li><p class="sub-title">재가입시 불이익이 생길 수 있습니다.</p></li>
+            <li><p class="sub-title">All information will be deleted.</p></li>
+            <li><p class="sub-title">No more appears in the search result.</p></li>
+            <li><p class="sub-title">Your domain could be taken by someone else.</p></li>
+            <li><p class="sub-title">There could be some disadvantages when you signup again.</p></li>
           </ul>
         </div>
 
         <!-- Confirm -->
         <div class="confirm-container input-container">
-          <p class="sub-title">그래도 정말 떠나실건가요?..</p>
-          <button id="drop-button" class="button-orange">해지하기</button>
-          <button id="cancel-button" class="button-white" @click="onCancelButton">취소하기</button>
+          <p class="sub-title">Are you sure you want to delete your account?</p>
+          <button id="drop-button" class="button-orange">Delete</button>
+          <button id="cancel-button" class="button-white" @click="onCancelButton">Cancel</button>
         </div>
       </form>
     </div>
@@ -45,7 +45,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '계정 관리 | Factory Hunt'
+      title: 'Manage Account | Factory Hunt'
     },
     props: {
       contact: {
@@ -79,7 +79,7 @@
         this.deleteProducts()
           .then(() => { this.deleteContact() })
           .then(() => { this.deleteAccount() })
-          .catch(() => { alert('계정 삭제 실패. 다시 시도해주세요.') })
+          .catch(() => { alert('Failed. Please try again.') })
       },
       onCancelButton () {
         location.replace('/dashboard')
@@ -110,10 +110,10 @@
         this.$http.delete(`/api/data/contact/${this.getContactId}`)
           .then(() => {
             this.$store.dispatch('logout')
-            alert('계정이 삭제되었습니다.')
+            alert('Your account has been deleted')
           })
           .catch(() => {
-            alert('계정 삭제 실패. 다시 시도해주세요.')
+            alert('Failed. Please try again.')
           })
       }
     }

@@ -6,12 +6,12 @@
     <form class="form-container" @submit.prevent="onEditButton(value)">
       <!-- Company Domain -->
       <div class="domain-container input-container">
-        <!--<p class="title">도메인 주소</p>-->
-        <!--<i class="fa fa-circle required-circle" aria-hidden="true"><span> 필수입력</span></i>-->
-        <p class="title">회사 이름이 포함된 맞춤형 도메인으로 변경하세요.</p>
+        <!--<p class="title">Domain Address</p>-->
+        <!--<i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>-->
+        <p class="title">Customize your domain.</p>
         <br>
         <p class="sub-title">www.factoryhunt.com/<span id="domain-text">{{ value.domain }}</span></p>
-        <input required pattern="[가-힣a-z0-9]{3,50}" title="3자 이상 50자 이하의 문자와 숫자로만 구성되어야 합니다." id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <input required pattern="[가-힣a-z0-9]{3,50}" title="You can use letters and numbers between 3 and 50 characters." id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <i id="domain-mark" class="big-mark" aria-hidden="true"></i>
         <p class="hidden-title">{{msg.domain.hiddenTitle}}</p>
         <spinkit id="domain-spinkit"></spinkit>
@@ -19,9 +19,9 @@
 
       <!-- Confirm and Submit -->
       <div class="confirm-container input-container sticky-stopper">
-        <!--<p class="title">확인 및 수정</p>-->
-        <!--<p class="sub-title">수정할 정보를 다시 한 번 확인하고 내용이 맞다면 수정하기 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!</p>-->
-        <button class="button-orange">수정하기</button>
+        <!--<p class="title">Confirm and Edit</p>-->
+        <!--<p class="sub-title">Please confirm all information above before you click edit button</p>-->
+        <button class="button-orange">Edit</button>
       </div>
     </form>
   </div>
@@ -34,7 +34,7 @@
   import Spinkit from '../../../../components/Spinkit/Spinkit'
   export default {
     metaInfo: {
-      title: '도메인 수정 | Factory Hunt'
+      title: 'Edit domain | Factory Hunt'
     },
     props: {
       account: {
@@ -58,13 +58,13 @@
           isDomainAvailable: null
         },
         placeholder: {
-          domain: '도메인 주소'
+          domain: 'Domain Address'
         },
         msg: {
           domain: {
-            title: '도메인 주소',
-            subTitle: '팩토리헌트에서 사용할 도메인 주소를 입력해주세요. 이 주소는 회사 이름을 나타내는 단어의 조합들로 입력하면 좋습니다.',
-            hiddenTitle: '3자 이상 50자 이하의 문자와 숫자로만 구성되어야 합니다.'
+            title: 'Domain Address',
+            subTitle: 'Customize your domain.',
+            hiddenTitle: 'You can use letters and numbers between 3 and 50 characters.'
           },
           confirm: {
             title: '',
@@ -103,7 +103,7 @@
 
         if (this.value.domain.length <= 2) {
           this.toggle.isDomainAvailable = false
-          this.msg.domain.hiddenTitle = '도메인 주소는 문자를 포함하여 3자 이상이어야 합니다.'
+          this.msg.domain.hiddenTitle = 'Domain address must contain at least 3 characters.'
           domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
           hiddenTitle.css({'color': '#767676'})
           return
@@ -113,7 +113,7 @@
         const numCheck = /^[0-9]*$/
         if (numCheck.test(this.value.domain)) {
           this.toggle.isDomainAvailable = false
-          this.msg.domain.hiddenTitle = '도메인 주소는 문자를 포함하여 3자 이상이어야 합니다.'
+          this.msg.domain.hiddenTitle = 'Domain address must contain at least 3 characters.'
           domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
           hiddenTitle.css({'color': '#767676'})
           return
@@ -133,27 +133,27 @@
             if (res.data) {
               // when domain already existed
               this.toggle.isDomainAvailable = false
-              this.msg.domain.hiddenTitle = '이미 사용중인 주소입니다. 다른 주소를 사용해주세요.'
+              this.msg.domain.hiddenTitle = 'That address is taken. Try another.'
               domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
               hiddenTitle.css({'color': 'red'})
 
               // when it is mine
               if (res.data.domain === this.account.domain) {
                 this.toggle.isDomainAvailable = true
-                this.msg.domain.hiddenTitle = '3자 이상 50자 이하의 문자와 숫자로만 구성되어야 합니다.'
+                this.msg.domain.hiddenTitle = 'You can use letters and numbers between 3 and 50 characters.'
                 domainMark.removeClass().addClass('big-mark fa fa-check').css({'color': 'green'})
                 hiddenTitle.css({'color': '#484848'})
               } // when available
             } else {
               this.toggle.isDomainAvailable = true
-              this.msg.domain.hiddenTitle = '사용 가능한 주소입니다.'
+              this.msg.domain.hiddenTitle = 'The address is available.'
               domainMark.removeClass().addClass('big-mark fa fa-check').css({'color': 'green'})
               hiddenTitle.css({'color': '#484848'})
             }
           }) // Error
           .catch(() => {
             this.toggle.isDomainAvailable = false
-            this.msg.domain.hiddenTitle = '서버 오류입니다. 다시 시도해주세요.'
+            this.msg.domain.hiddenTitle = 'Server error. Try again.'
             domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
           })
       },
@@ -177,7 +177,7 @@
             accountNameMark.removeClass('fa fa-exclamation')
           } else {
             this.toggle.isAccountNameAvailable = false
-            this.msg.accountName.hiddenTitle = '필수 입력 항목입니다.'
+            this.msg.accountName.hiddenTitle = 'It is a required field.'
             hiddenTitle.css({'color': 'red'})
             accountNameMark.addClass('fa fa-exclamation')
           }
@@ -194,13 +194,13 @@
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert('수정 되었습니다.')
+            alert('It has been edited.')
             window.scrollTo(0, 0)
             location.reload()
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert('수정 실패. 다시 시도해주세요.')
+            alert('It is failed. Try again.')
           })
       }
     },

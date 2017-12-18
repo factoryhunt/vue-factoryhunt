@@ -7,9 +7,9 @@
     <div class="logo-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">로고 이미지 수정</p>
-        <p class="sub-title">회사를 상징하는 로고입니다.</p>
-        <p class="third-title">로고 사이즈는 정사각형에 최적화되어 있습니다.</p>
+        <p class="title">Edit Logo Image</p>
+        <p class="sub-title">Your company's identity is visually expressed through its logo.</p>
+        <p class="third-title">Upload a square image.</p>
       </div>
 
       <!-- Logo Image -->
@@ -17,9 +17,9 @@
 
       <!-- Upload Button -->
       <div class="button-container">
-        <label for="logo-image-input">파일 선택</label>
+        <label for="logo-image-input">Choose File</label>
         <input id="logo-image-input" type="file" @change="onLogoImageChanged($event.target.files)" accept="image/*">
-        <button id="logo-image-upload-button" class="button-orange" @click="imageUpload('logo-image-input')">업로드</button>
+        <button id="logo-image-upload-button" class="button-orange" @click="imageUpload('logo-image-input')">Upload</button>
       </div>
     </div>
 
@@ -27,8 +27,8 @@
     <div class="main-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">대표 이미지 수정</p>
-        <p class="sub-title">홈페이지에 가장 먼저 노출되고 강조되는 부분입니다. 가장 멋진 사진을 올려주세요!</p>
+        <p class="title">Edit Company Cover photo</p>
+        <p class="sub-title">A cover photo is the larger photo at the top of your company website.</p>
       </div>
 
       <!-- Main Image -->
@@ -38,10 +38,10 @@
 
       <!-- Upload Button -->
       <div class="button-container">
-        <p class="caution-text">와이드 비율(16:9, 16:10) 사진이 웹사이트에 가장 최적화 되어있습니다.</p>
-        <label for="main-image-input">파일 선택</label>
+        <p class="caution-text">Optimize your cover photo for the right dimensions: 1920 pixels wide and 1080 pixels tall.</p>
+        <label for="main-image-input">Choose File</label>
         <input id="main-image-input" type="file" @change="onMainImageChanged($event.target.files)" accept="image/*">
-        <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')">업로드</button>
+        <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')">Upload</button>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
       Spinkit
     },
     metaInfo: {
-      title: '이미지 수정 | Factory Hunt'
+      title: 'Edit image | Factory Hunt'
     },
     props: {
       account: {

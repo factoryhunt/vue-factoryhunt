@@ -5,9 +5,9 @@
 
     <!-- Header -->
     <header class="header-container">
-      <p class="title">제품 수정</p>
+      <p class="title">Edit Product</p>
       <!--<i id="required-circle" class="fa fa-circle required-circle" aria-hidden="true"></i>-->
-      <!--<p class="caution-text">표시는 필수 입력 항목입니다.</p>-->
+      <!--<p class="caution-text"> Required field</p>-->
     </header>
 
     <div class="divider"></div>
@@ -18,8 +18,8 @@
 
         <!-- Category -->
         <div class="category-container input-container">
-          <p class="title">카테고리</p>
-          <!--<i class="fa fa-circle required-circle" aria-hidden="true"> <span> 필수입력</span></i>-->
+          <p class="title">Category</p>
+          <!--<i class="fa fa-circle required-circle" aria-hidden="true"> <span> Required field</span></i>-->
           <div class="category-inner-container">
             <!-- Primary -->
             <div class="primary-category-container">
@@ -34,26 +34,26 @@
               </ul>
             </div>
           </div>
-          <p v-if="value.primaryCategory" class="hidden-text">선택한 카테고리: {{value.primaryCategory}} {{ value.secondaryCategory ? '> ' + value.secondaryCategory : ''}} </p>
-          <p class="caution-text">상품과 맞지 않는 카테고리에 등록할 경우 강제 이동되거나 판매중지, 판매금지 될 수 있습니다.</p>
+          <p v-if="value.primaryCategory" class="hidden-text">Selected category: {{value.primaryCategory}} {{ value.secondaryCategory ? '> ' + value.secondaryCategory : ''}} </p>
+          <p class="caution-text">If you register in a category that does not match the product, your product may be forcibly moved, stopped selling, or prohibited from selling.</p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Name -->
         <div class="name-container input-container">
-          <p class="title">제품명</p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"><span> 필수입력</span></i>
-          <input id="name-count-input" minlength="1" maxlength="100" pattern="[가-힣A-Za-z0-9 ]{2,100}" title="2자 이상 100자 이하의 문자와 숫자로 제한됩니다." v-model="value.productName" @keyup="countNameLength" placeholder="제품 이름을 입력해주세요." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <p class="title">Product Name</p>
+          <i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>
+          <input id="name-count-input" minlength="1" maxlength="100" pattern="[가-힣A-Za-z0-9 ]{2,100}" title="You can use letters and numbers between 2 and 100 characters." v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
-          <p class="caution-text">판매 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 판매 금지 될 수 있습니다.</p>
+          <p class="caution-text">You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.</p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Image -->
         <div class="image-container input-container">
-          <p class="title">제품 이미지</p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"> <span> 필수입력</span></i>
-          <p class="sub-title">첫 번째 사진에는 대표 이미지를 올려주세요. 최대 5개까지 등록할 수 있습니다.</p>
+          <p class="title">Product Image</p>
+          <i class="fa fa-circle required-circle" aria-hidden="true"> <span> Required field</span></i>
+          <p class="sub-title">The first photo will be the main product image. You can upload up to 5 images.</p>
           <div class="image-inner-container">
             <div class="image-each-container">
               <ul id="image-container-ul">
@@ -69,64 +69,64 @@
                 </li>
               </ul>
             </div>
-            <span id="thumbnail-text">대표 이미지</span>
+            <span id="thumbnail-text">Main image</span>
           </div>
-          <p class="caution-text">판매 상품과 관련이 없는 이미지를 올리면 관리자에 의해 판매 금지 될 수 있습니다.</p>
+          <p class="caution-text">If you upload an image that is not relevant to your product, you may be banned by the administrator.</p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Information -->
         <div class="information-container input-container">
-          <p class="title">제품 정보</p>
-          <p class="sub-title">양식에 맞게 정확히 입력해주세요.</p>
+          <p class="title">Product Information</p>
+          <p class="sub-title">Please fill out the form correctly.</p>
 
           <!--<div class="box-container">-->
-          <!--<div class="left-container">개당 가격</div>-->
+          <!--<div class="left-container">Unit price</div>-->
           <!--<div class="right-container">-->
-          <!--<input placeholder="개당 가격을 입력해주세요" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">-->
+          <!--<input placeholder="Enter unit price" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">-->
           <!--</div>-->
           <!--</div>-->
           <div class="box-container">
-            <div class="left-container">제품 코드</div>
+            <div class="left-container">Product code</div>
             <div class="right-container">
               <input placeholder="Factory_Hunt_A_01" maxlength="100" v-model="value.productCode" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">최소 주문량 (MOQ)</div>
+            <div class="left-container">MOQ</div>
             <div class="right-container">
               <input placeholder="1,000 ..." maxlength="10" v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">생산지</div>
+            <div class="left-container">Product of Origin</div>
             <div class="right-container">
               <!--<select required v-model="value.origin">-->
               <select v-model="value.origin">
-                <option id="disabled-option" disabled value="">이 제품이 생산되는 곳을 선택해주세요</option>
+                <option id="disabled-option" disabled value="">Please select where the product is produced.</option>
                 <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
               </select>
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">규격 (mm)</div>
+            <div class="left-container">Size (mm)</div>
             <div class="right-container">
               <input placeholder="100 x 100 x 100mm" maxlength="100" v-model="value.dimension" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">소재 및 재질</div>
+            <div class="left-container">Materials</div>
             <div class="right-container">
-              <input placeholder="철, 종이, 나무 .." maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="" maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
-          <p class="caution-text">공개하고 싶지 않은 정보는 칸을 비워두세요.</p>
+          <p class="caution-text">Leave blank for information you do not want to disclose.</p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Description -->
         <div class="description-container input-container">
-          <p class="title">제품 설명</p>
+          <p class="title">Product Introduction</p>
           <vue-editor :editorToolbar="customToolbar"
                       useCustomImageHandler
                       @imageAdded="handleImageAdded"
@@ -135,16 +135,16 @@
 
           </vue-editor>
           <spinkit id="editor-spinkit"></spinkit>
-          <p class="caution-text">상품명과 직접적 관련 없는 상품상세, 외부 링크 입력 시 관리자에 의해 판매 금지 될 수 있습니다.
+          <p class="caution-text">Product details not directly related to the product name may be prohibited by the administrator.
           </p>
         </div>
         <div class="divider"></div>
 
         <!-- Upload Button -->
         <div class="confirm-container input-container">
-          <p class="title">확인 및 수정</p>
-          <p class="sub-title">수정 할 정보를 다시 한 번 확인하고 내용이 맞다면 수정하기 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!</p>
-          <button class="button-orange">수정하기</button>
+          <p class="title">Confirm and Edit</p>
+          <p class="sub-title">Please confirm the information above before submitting it. The information will be updated immediately.</p>
+          <button class="button-orange">Edit</button>
         </div>
       </form>
     </div>
@@ -160,7 +160,7 @@
   import { mapGetters } from 'vuex'
   export default {
     metaInfo: {
-      title: '제품 수정하기 | Factory Hunt'
+      title: 'Edit Product | Factory Hunt'
     },
     components: {
       VueEditor,

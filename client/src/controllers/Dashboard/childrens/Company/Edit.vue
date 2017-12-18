@@ -29,104 +29,104 @@
 
       <!-- Company Name -->
       <div class="account-name-container input-container">
-        <p class="title">{{ msg.accountName.title }}</p>
-        <i class="fa fa-circle required-circle" aria-hidden="true"><span> 필수입력</span></i>
-        <p class="sub-title">{{ msg.accountName.subTitle }}</p>
-        <input required pattern="[가-힣A-Za-z0-9 ().,]{2,50}" title="2자 이상 50자 이하로 제한됩니다. 특수기호는 ( ) . , 만 사용 가능합니다." id="account-name-input" type="text" :placeholder="placeholder.accountName" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-        <p class="hidden-title">{{msg.accountName.hiddenTitle}}</p>
+        <p class="title">Company Name</p>
+        <i class="fa fa-circle required-circle" aria-hidden="true"><span>Required field</span></i>
+        <p class="sub-title">Use the official company name from the business registration certificate.</p>
+        <input required pattern="[가-힣A-Za-z0-9 ().,]{2,50}" title="You can use letters, numbers, and special characters(( ) . ,)between 2 and 50 characters." id="account-name-input" type="text" placeholder="Factory Hunt, Inc." v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <p class="hidden-title"></p>
         <i id="account-name-mark" class="small-mark" aria-hidden="true"></i>
       </div>
 
       <!-- Company Short Description -->
       <div class="short-description-container input-container">
-        <p class="title">슬로건</p>
-        <p class="sub-title">귀사를 한 문장으로 표현해주세요.</p>
-        <input id="short-description-input" maxlength="50" @keyup="countInputLength" v-model="value.shortDescription">
+        <p class="title">Slogan</p>
+        <p class="sub-title">Describe your company in 50 characters or less.</p>
+        <input id="short-description-input" maxlength="50" @keyup="countInputLength" placeholder="Factory Hunt is a global B2B platform." v-model="value.shortDescription">
         <p class="third-title">{{ 50 - value.shortDescriptionCount }}</p>
       </div>
 
       <!-- Company Long Description -->
       <div class="description-container input-container">
-        <p class="title">{{ msg.description.title }}</p>
-        <p class="sub-title">{{ msg.description.subTitle }}</p>
-        <textarea id="description-input" maxlength="25000" rows="10" :placeholder="placeholder.description" v-model="value.description"></textarea>
+        <p class="title">Company Description</p>
+        <p class="sub-title">Describe your company</p>
+        <textarea id="description-input" maxlength="25000" rows="10" placeholder="Factory Hunt is a global B2B platform." v-model="value.description"></textarea>
       </div>
 
       <!-- Company Information -->
       <div class="information-container input-container">
-        <p class="title">회사 정보</p>
-        <p class="sub-title">각 항목에 알맞은 정보를 입력해주세요.</p>
+        <p class="title">Company Information</p>
+        <p class="sub-title">Fill out the information below.</p>
         <!-- Products -->
         <div class="box-container">
-          <div class="left-contents">제조 품목</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="공업용 자재, 철강.." v-model="value.products"></div>
+          <div class="left-contents">Products</div>
+          <div class="right-contents"><input type="text" maxlength="100" placeholder="LED, Light bulbs, ..." v-model="value.products"></div>
         </div>
         <!-- Website -->
         <div class="box-container">
-          <div class="left-contents">웹사이트</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="www.factoryhunt.co.kr" v-model="value.website" spellcheck="false"></div>
+          <div class="left-contents">Website</div>
+          <div class="right-contents"><input type="text" maxlength="100" placeholder="www.factoryhunt.com" v-model="value.website" spellcheck="false"></div>
         </div>
         <!-- Phone -->
         <div class="box-container">
-          <div class="left-contents">연락처</div>
+          <div class="left-contents">Phone</div>
           <div class="right-contents"><input type="text" maxlength="21" placeholder="+82-2-1234-5678" v-model="value.phone"></div>
         </div>
         <!-- Established Year -->
         <div class="box-container">
-          <div class="left-contents">설립연도</div>
+          <div class="left-contents">Established Year</div>
           <div class="right-contents"><input type="text" maxlength="10" placeholder="1970-01-01" v-model="value.establishedDate"></div>
         </div>
-        <p class="sub-title" style="margin-top: 12px">도로명 주소 입력 - 이 항목을 정확히 입력해야 지도에 정확한 위치가 표시됩니다.</p>
+        <p class="sub-title" style="margin-top: 12px">Address Information</p>
         <!-- Country -->
         <div class="box-container">
-          <div class="left-contents">국가</div>
+          <div class="left-contents">Country</div>
           <div class="right-contents">
             <select v-model="value.country">
-              <option disabled value="">국가를 선택해주세요</option>
-              <option>대한민국</option>
+              <option disabled value="">Select a country</option>
+              <option></option>
             </select>
           </div>
         </div>
         <!-- State -->
         <div class="box-container">
-          <div class="left-contents">도</div>
-          <div class="right-contents"><input type="text" maxlength="15" placeholder="경기도, 경상북도.. (서울은 빈칸)" v-model="value.state"></div>
+          <div class="left-contents">State</div>
+          <div class="right-contents"><input type="text" maxlength="15" placeholder="California" v-model="value.state"></div>
         </div>
         <!-- City -->
         <div class="box-container">
-          <div class="left-contents">시, 군, 구</div>
-          <div class="right-contents"><input type="text" maxlength="15" placeholder="화성시, 남양주시.." v-model="value.city"></div>
+          <div class="left-contents">City</div>
+          <div class="right-contents"><input type="text" maxlength="15" placeholder="San Francisco" v-model="value.city"></div>
         </div>
         <!-- Street Address -->
         <div class="box-container">
-          <div class="left-contents">도로명 주소</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="공단대로" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
+          <div class="left-contents">Street address</div>
+          <div class="right-contents"><input type="text" maxlength="100" placeholder="7 hacker street" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
         </div>
         <!-- Street Address Detail -->
         <div class="box-container">
-          <div class="left-contents">상세 주소</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="공단빌딩 2층 3호" v-model="value.streetAddressDetail"></div>
+          <div class="left-contents">Street address 2</div>
+          <div class="right-contents"><input type="text" maxlength="100" placeholder="Floor 2" v-model="value.streetAddressDetail"></div>
         </div>
         <!-- Postal Code -->
         <div class="box-container">
-          <div class="left-contents">우편번호</div>
-          <div class="right-contents"><input type="text" pattern="[0-9]{5}" title="5자리의 숫자로만 구성해주세요." placeholder="01542" v-model="value.postalCode"></div>
+          <div class="left-contents">Postal code</div>
+          <div class="right-contents"><input type="text" pattern="[0-9]" title="" placeholder="" v-model="value.postalCode"></div>
         </div>
       </div>
 
       <!-- Company History -->
       <div class="history-container input-container">
-        <p class="title">{{ msg.history.title }}</p>
-        <p class="sub-title">{{ msg.history.subTitle }}</p>
-        <textarea rows="10" maxlength="25000" :placeholder="placeholder.history" v-model="value.history"></textarea>
+        <p class="title">Company History</p>
+        <p class="sub-title"></p>
+        <textarea rows="10" maxlength="25000" placeholder="" v-model="value.history"></textarea>
         <i id="history-mark" class="small-mark" aria-hidden="true"></i>
       </div>
 
       <!-- Confirm and Submit -->
       <div class="confirm-container input-container sticky-stopper">
-        <p class="title"> {{ msg.confirm.title }} </p>
-        <p class="sub-title"> {{ msg.confirm.subTitle }} </p>
-        <button class="button-orange">{{ msg.confirm.edit }}</button>
+        <p class="title">Confirm and edit</p>
+        <p class="sub-title">Please confirm the information above before you submit it. Company information will be updated immediately.</p>
+        <button class="button-orange">Submit</button>
       </div>
     </form>
   </div>
@@ -139,7 +139,7 @@
   import Spinkit from '../../../../components/Spinkit/Spinkit'
   export default {
     metaInfo: {
-      title: '회사 정보 수정 | Factory Hunt'
+      title: 'Edit Comapny information | Factory Hunt'
     },
     props: {
       account: {
@@ -183,75 +183,12 @@
           isAccountNameAvailable: null,
           isUserAdmin: false
         },
-        placeholder: {
-          accountName: '(주)팩토리헌트',
-          shortDescription: '회사를 소개하는 간단한 소개 문구를 작성해주세요.',
-          description: '회사가 얼만큼 그 제품에 대해 전문성이 있는지 간결하게 작성하는게 좋습니다.',
-          information: {
-            products: '제조 품목',
-            website: '웹사이트 | www.factoryhunt.com',
-            phone: '연락처 | +82-2-1234-5678, +82-1688-1234',
-            establishedDate: '설립연도 | 1970-01-01',
-            country: '국가',
-            state: '도 | 경기도',
-            city: '시 | 화성시',
-            postalCode: '우편번호 | 01234',
-            streetAddress: '도로명 주소 | 공단대로 공단빌딩',
-            streetAddressDetail: '상세주소 | 2층 1호'
-          },
-          history: '2000년 1월 1일 - 회사 설립 \n' +
-          '2000년 10월 1일 - 수출 규모 10억원 달성\n\n' +
-          '2003년 1월 1일 - 수출 규모 100억원 달성',
-          certification: ''
-        },
         msg: {
-          fileSelect: '파일 선택',
-          sticky: {
-            first: {
-              title: '홈페이지',
-              subTitle: '정보를 몇 개 입력하는 것만으로 멋진 공장 홈페이지를 무료로 가질 수 있습니다!'
-            },
-            second: {
-              title: '검색 엔진',
-              subTitle: '모든 정보를 입력하면 바이어들에게 홈페이지가 노출됩니다.'
-            },
-            third: {
-              title: '인증',
-              subTitle: '공장이 활발히 제품을 생산하고 있다는 것을 알려주세요. 검수 후 바이어들에게 연결될 수 있도록 도와드리겠습니다.'
-            },
-            caption: '모든 정보를 한 번에 입력하지 않아도 됩니다. 입력할 수 있는 것만 입력하고 수정해도 괜찮습니다.'
-          },
-          mainImage: {
-            title: '대표 이미지',
-            subTitle: '홈페이지에 가장 먼저 노출되고 강조되는 부분입니다. 가장 멋진 사진을 올려주세요!'
-          },
-          logoImage: {
-            title: '회사 로고',
-            subTitle: '회사를 상징하는 로고입니다.',
-            thirdTitle: '로고 사이즈는 정사각형에 최적화되어 있습니다.'
-          },
+          fileSelect: 'Choose File',
           accountName: {
-            title: '회사명',
+            title: 'Company Name',
             subTitle: '사업자등록증의 회사명과 일치시켜주세요.',
             hiddenTitle: ''
-          },
-          shortDescription: {
-            title: '회사 소개',
-            subTitle: '회사를 소개하는 짧은 문구를 작성해주세요.',
-            thirdTitle: '200'
-          },
-          description: {
-            title: '회사 소개',
-            subTitle: '회사를 소개해주세요. 양식은 자유입니다.'
-          },
-          information: {
-            title: '회사 정보',
-            subTitle: '표시되는 형식에 맞춰 회사 정보를 정확히 입력해주세요.',
-            address: '주소입력 - 이 항목을 정확히 입력해야 지도에 위치가 정확히 표시됩니다.'
-          },
-          history: {
-            title: '연혁',
-            subTitle: '회사가 보내온 시간을 입력해주세요.'
           },
           confirm: {
             title: '확인 및 수정',

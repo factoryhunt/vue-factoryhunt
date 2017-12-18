@@ -5,10 +5,10 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div class="menu-container">
-            <a id="item-account-edit" class="menu" href="/dashboard/account">정보 수정</a>
-            <a id="item-password-edit" class="menu" href="/dashboard/account/password">비밀번호 변경</a>
-            <a id="item-management" class="menu" href="/dashboard/account/management">계정 관리</a>
-            <!--<button @click="routeCompanyPage" class="view-button button-white">내 프로필 보기</button>-->
+            <a id="item-account-edit" class="menu" href="/dashboard/account">Edit Information</a>
+            <a id="item-password-edit" class="menu" href="/dashboard/account/password">Change Password</a>
+            <a id="item-management" class="menu" href="/dashboard/account/management">Account Management</a>
+            <!--<button @click="routeCompanyPage" class="view-button button-white">See My Profile</button>-->
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
 <script>
   export default {
     metaInfo: {
-      title: '내 계정 | Factory Hunt'
+      title: 'My Account | Factory Hunt'
     },
     props: {
       account: {

@@ -6,51 +6,51 @@
     <form @submit.prevent="onEditButton">
       <div class="body-container">
 
-        <p class="title">정보 입력하기</p>
-        <p class="sub-title">모든 정보를 입력하면 바이어가 회원님을 찾는게 좀 더 수월해집니다.</p>
+        <p class="title">Account Information</p>
+        <p class="sub-title">Please upload all information below. It will make easier for buyers to contact you.</p>
 
         <div class="input-container">
           <!-- Email -->
           <div class="box-container" style="background-color: #eeeeee">
-            <div class="left-contents">이메일</div>
+            <div class="left-contents">Email</div>
             <div class="right-contents"><input disabled type="email" v-model="value.email"></div>
           </div>
 
           <!-- First name -->
           <div class="box-container">
-            <div class="left-contents">성</div>
+            <div class="left-contents">Last Name</div>
             <div class="right-contents"><input type="text" placeholder="홍" v-model="value.firstName"></div>
           </div>
           <!-- Last name -->
           <div class="box-container">
-            <div class="left-contents">이름</div>
+            <div class="left-contents">First Name</div>
             <div class="right-contents"><input type="text" placeholder="길동" v-model="value.lastName"></div>
           </div>
 
           <!-- Title -->
           <div class="box-container">
-            <div class="left-contents">직책</div>
+            <div class="left-contents">Title</div>
             <div class="right-contents"><input type="text" placeholder="CEO, 대리.." v-model="value.title"></div>
           </div>
 
           <!-- Mobile -->
           <div class="box-container">
-            <div class="left-contents">핸드폰 번호</div>
+            <div class="left-contents">Mobile Number</div>
             <div class="right-contents"><input type="text" placeholder="+82-10-1234-5678" v-model="value.mobile"></div>
           </div>
 
           <!-- Phone -->
           <div class="box-container">
-            <div class="left-contents">사무실 전화번호</div>
+            <div class="left-contents">Office Phone</div>
             <div class="right-contents"><input type="text" placeholder="+82-31-123-4567" v-model="value.phone"></div>
           </div>
         </div>
 
         <!-- Confirm -->
         <div class="confirm-container input-container">
-          <p class="title">확인 및 수정</p>
-          <p class="sub-title">수정 할 정보를 다시 한 번 확인하고 내용이 맞다면 수정 버튼을 눌러주세요. 웹사이트에 바로 반영됩니다.</p>
-          <button class="button-orange">수정하기</button>
+          <p class="title">Confirm and Edit</p>
+          <p class="sub-title">Please confirm the information above befor you submit it. All information will be updated immediately.</p>
+          <button class="button-orange">Confirm</button>
         </div>
 
       </div>
@@ -62,7 +62,7 @@
   import Spinkit from '../../../../components/Spinkit/Spinkit.vue'
   export default {
     metaInfo: {
-      title: '정보 수정 | Factory Hunt'
+      title: 'Edit Information | Factory Hunt'
     },
     components: {
       Spinkit
@@ -110,13 +110,13 @@
         this.$http.put(`/api/data/contact/${this.contact.contact_id}`, data)
           .then(() => {
             $('#loader').removeClass()
-            alert('수정되었습니다.')
+            alert('Edited')
             window.scrollTo(0, 0)
             location.reload()
           })
           .catch(() => {
             $('#loader').removeClass()
-            alert('수정 실패. 다시 시도해주세요.')
+            alert('Failed. Please try again.')
           })
       },
       mappingData () {

@@ -5,11 +5,11 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div class="menu-container">
-            <a id="item-company-edit" class="menu" href="/dashboard/company">회사 정보 수정</a>
-            <a id="item-domain-edit" class="menu" href="/dashboard/company/domain">도메인 수정</a>
-            <a id="item-image-edit" class="menu" href="/dashboard/company/image">이미지 등록</a>
+            <a id="item-company-edit" class="menu" href="/dashboard/company">Edit Company Information</a>
+            <a id="item-domain-edit" class="menu" href="/dashboard/company/domain">Edit Domain</a>
+            <a id="item-image-edit" class="menu" href="/dashboard/company/image">Photos</a>
             <!--<a id="item-certification-upload" class="menu" href="/dashboard/company/certifications">인증서 등록</a>-->
-            <button @click="routeCompanyPage" class="view-button button-white">회사 페이지 보기</button>
+            <button @click="routeCompanyPage" class="view-button button-white">View Company Website</button>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
 <script>
   export default {
     metaInfo: {
-      title: '회사 | Factory Hunt'
+      title: 'Company | Factory Hunt'
     },
     props: {
       account: {

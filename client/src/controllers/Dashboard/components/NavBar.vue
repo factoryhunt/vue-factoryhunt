@@ -30,10 +30,10 @@
             <div class="footer-divider"></div>
             <div class="footer">
               <div class="footer-left">
-                <a id="my-page-button" @click="routeDashboardPage">관리자 센터</a>
+                <a id="my-page-button" @click="routeDashboardPage">Dashboard</a>
               </div>
               <div class="footer-right">
-                <a id="logout-button" @click="onLogoutButton">로그아웃</a>
+                <a id="logout-button" @click="onLogoutButton">Logout</a>
               </div>
             </div>
           </div>
