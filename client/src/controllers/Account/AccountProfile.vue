@@ -56,7 +56,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea readonly>{{ account.company_short_description }}</textarea>
+          <textarea readonly>{{ account.company_short_description_english }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -140,7 +140,7 @@
             <div class="product-container" v-for="(product, index) in this.products">
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="each-product">
-                  <img @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
+                  <img class="product-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
                   <p>{{product.product_name}}</p>
                   <div class="star-container" v-for="index in 5">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -253,7 +253,7 @@
         this.$http.get(`/api/data/account/domain/${company}`)
           .then(response => {
             if (!response.data) {
-              this.$router.push({ path: '/error' })
+              this.$router.replace({ path: '/error' })
             }
             this.account = response.data
             this.applyLocalData(this.account)
@@ -271,6 +271,7 @@
         this.$http.get(`/api/data/product/account_id/${id}`)
           .then(response => {
             this.products = response.data
+            this.imageResize()
           })
       },
       getYear: function (year) {
@@ -509,8 +510,10 @@
         $image.css('background-image', image)
       },
       imageResize () {
-        const $image = $('.product-image')
-        $image.css('height', $image.width() + 'px')
+        $(document).ready(() => {
+          const $image = $('.product-image')
+          $image.css('height', $image.width() + 'px')
+        })
       }
     }
   }
@@ -585,7 +588,8 @@
     right:0;
     border: 2px solid #eeeeee;
     width: 60px;
-    border-radius: 30px;
+    height: 60px;
+    border-radius: 50%;
   }
   .header-container .sub-title-container .sub-title  {
     font-weight: 400;
@@ -760,7 +764,7 @@
 
       .logo {
         width: 70px;
-        border-radius: 35px;
+        height: 70px;
         border: 1px solid #eeeeee;
       }
     }
@@ -878,7 +882,7 @@
 
         .logo {
           width: 70px;
-          border-radius: 35px;
+          height: 70px;
           border: 1px solid #eeeeee;
         }
       }

@@ -61,7 +61,7 @@
               <a class="product-edit-button" @click="onEditButton(index)">Edit</a>
               <span>|</span>
               <a class="product-remove-button" @click="showProductRemoveModal(index)">Delete</a>
-              <a class="view-product-button" @click="routeProductPage(index)">View Product</a>
+              <a class="view-product-button" @click="routeProductPage(index)">View</a>
             </div>
           </div>
         </div>

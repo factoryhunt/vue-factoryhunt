@@ -7,8 +7,8 @@
         <div class="profile-inner-container">
           <div id="company-image"></div>
           <div class="title-contents">
-            <p class="title">{{ account.account_name }}</p>
-            <p v-if="contact.first_name" class="sub-title">{{contact.first_name}}{{contact.last_name}}<small></small></p>
+            <p class="title">{{ account.account_name_english }}</p>
+            <p v-if="contact.first_name" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
           </div>
           <button id="view-button" @click="routeCompanyPage" class="view-button button-white">View website</button>
           <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white">Edit</button>
@@ -21,7 +21,7 @@
 
       <!-- Header -->
       <header class="header-container">
-        <p class="sub-title">Hello, {{contact.first_name ? (contact.first_name + contact.last_name) : contact.contact_email}}!</p>
+        <p class="sub-title">Hello, {{contact.first_name_english ? (contact.salutation + ' ' + contact.first_name_english + ' ' + contact.last_name_english) : contact.contact_email}}!</p>
       </header>
 
       <!-- Link -->

@@ -30,7 +30,7 @@
       <!-- Company Name -->
       <div class="account-name-container input-container">
         <p class="title">Company Name</p>
-        <i class="fa fa-circle required-circle" aria-hidden="true"><span>Required field</span></i>
+        <i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>
         <p class="sub-title">Use the official company name from the business registration certificate.</p>
         <input required pattern="[가-힣A-Za-z0-9 ().,]{2,50}" title="You can use letters, numbers, and special characters(( ) . ,)between 2 and 50 characters." id="account-name-input" type="text" placeholder="Factory Hunt, Inc." v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <p class="hidden-title"></p>
@@ -294,13 +294,13 @@
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert('수정 되었습니다.')
+            alert('Edited success')
             window.scrollTo(0, 0)
             location.reload()
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert('수정 실패. 다시 시도해주세요.')
+            alert('Edit failed. Try again please.')
           })
       },
       // jQuery for CSS

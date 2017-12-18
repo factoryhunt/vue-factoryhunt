@@ -16,15 +16,15 @@
             <div class="right-contents"><input disabled type="email" v-model="value.email"></div>
           </div>
 
-          <!-- First name -->
-          <div class="box-container">
-            <div class="left-contents">Last Name</div>
-            <div class="right-contents"><input type="text" placeholder="홍" v-model="value.firstName"></div>
-          </div>
           <!-- Last name -->
           <div class="box-container">
             <div class="left-contents">First Name</div>
-            <div class="right-contents"><input type="text" placeholder="길동" v-model="value.lastName"></div>
+            <div class="right-contents"><input type="text" placeholder="길동" v-model="value.firstName"></div>
+          </div>
+          <!-- First name -->
+          <div class="box-container">
+            <div class="left-contents">Last Name</div>
+            <div class="right-contents"><input type="text" placeholder="홍" v-model="value.lastName"></div>
           </div>
 
           <!-- Title -->

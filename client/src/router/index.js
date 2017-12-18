@@ -15,7 +15,7 @@ import Membership from '../controllers/Membership'
 import Login from '../controllers/Login/Login.vue'
 import SignUp from '../controllers/SignUp/SignUp.vue'
 import Help from '../controllers/Help'
-import FAQs from '../controllers/FAQs'
+import ForSuppliers from '../controllers/ForSuppliers/ForSuppliers.vue'
 import TermsOfUse from '../controllers/TermsOfUse/TermsOfUse.vue'
 import PrivacyPolicy from '../controllers/PrivacyPolicy/PrivacyPolicy.vue'
 import ContactForm from '../controllers/ContactForm'
@@ -64,8 +64,8 @@ export default new Router({
           component: Help
         },
         {
-          path: 'faqs',
-          component: FAQs
+          path: 'for-suppliers',
+          component: ForSuppliers
         },
         {
           path: 'terms',
