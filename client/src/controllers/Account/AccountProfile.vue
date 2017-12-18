@@ -385,7 +385,7 @@
 //          const $stickyStopper = $('.sticky-stopper')
         if ($stickyOuter.offset()) { // make sure ".sticky" element exists
 //            var generalSidebarHeight = $sticky.innerHeight() // 30
-          var stickyTop = $stickyOuter.offset().top
+          var stickyTop = $stickyOuter.offset().top + 80
 //            var stickyBottom = stickyTop + $sticky.outerHeight()
           var stickOffset = 0
 //            var stickyStopperPosition = $stickyStopper.offset().top // 2259
@@ -657,6 +657,7 @@
   .right-container {
     .form-container {
       font-size: 17px;
+      margin-bottom: 40px;
 
       .input-container {
         position: relative;
@@ -751,13 +752,17 @@
     .left-container {
     }
 
-    .header-container .title {
-      padding-right: 75px;
-    }
-    .header-container .logo {
-      width: 70px;
-      border-radius: 35px;
-      border: 1px solid #eeeeee;
+    .header-container {
+      padding-top: 24px;
+      .title {
+        padding-right: 75px;
+      }
+
+      .logo {
+        width: 70px;
+        border-radius: 35px;
+        border: 1px solid #eeeeee;
+      }
     }
 
     .right-container {
@@ -865,6 +870,7 @@
       }
 
       .header-container {
+        padding-top: 24px;
 
         .title {
           padding-right: 81px;

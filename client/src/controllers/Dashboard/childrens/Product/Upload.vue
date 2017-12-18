@@ -180,7 +180,7 @@
         ],
         value: {
           files: [],
-          countries: countries.korean,
+          countries: countries.english,
           categories: categories,
           subCategories: '',
           thirdCategories: '',
