@@ -37,16 +37,18 @@
 
         <!-- Company Header -->
         <div id="header-container" class="header-container">
+          <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
+          <img v-else="" id="company-logo" class="logo" src="/static/temp-logo-image_english_512.png">
+          <p class="sub-title">{{ account.mailing_state_english }} {{ account.mailing_city_english }}</p>
           <h1 class="title">{{ account.account_name_english }}</h1>
-          <div class="logo"></div>
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ account.mailing_country_english }}</h4>
-            •
-            <div class="star-container" v-for="index in 5">
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            •
-            <h4 class="review-title">reviews <small>(0)</small></h4>
+            <p class="short-description">{{ account.company_short_description }}</p>
+            <!--•-->
+            <!--<div class="star-container" v-for="index in 5">-->
+            <!--<i class="fa fa-star-o" aria-hidden="true"></i>-->
+            <!--</div>-->
+            <!--•-->
+            <!--<h4 class="review-title"> <small>(0)개의 평가</small></h4>-->
           </div>
         </div>
         <div class="divider"></div>
@@ -55,7 +57,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea readonly>{{ account.company_short_description_english }}</textarea>
+          <textarea readonly>{{ account.company_description_english }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -436,7 +438,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() + 20
+          var titleBottomOffset = title.offset().top + title.outerHeight() + 30
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -570,21 +572,30 @@
 
   .header-container {
     position: relative;
-    padding-top: 24px;
-  }
-  .header-container .title {
-    font-size: 32px;
-    font-weight:500;
-    margin-bottom:10px;
-    padding-right: 65px;
+
+    .title {
+      font-size: 32px;
+      font-weight:500;
+      margin-bottom:10px;
+      padding-right: 65px;
+    }
+    .sub-title  {
+      font-weight: 400;
+      font-size:16px;
+      margin-bottom:0;
+      color: @color-font-gray;
+    }
+    .short-description {
+      font-weight: 300;
+      font-size: 18px;
+      color: @color-font-base;
+    }
   }
   .header-container .sub-title-container {
     padding-right: 65px;
   }
   .header-container .logo {
-    position: absolute;
-    top: 12px;
-    right:0;
+    float:right;
     border: 2px solid #eeeeee;
     width: 60px;
     height: 60px;
@@ -759,7 +770,6 @@
     }
 
     .header-container {
-      padding-top: 24px;
       .title {
         padding-right: 75px;
       }
@@ -876,7 +886,7 @@
       }
 
       .header-container {
-        padding-top: 24px;
+        padding-top:30px;
 
         .title {
           padding-right: 81px;
