@@ -30,7 +30,7 @@
 <script>
   export default {
     props: [
-      'keywordData',
+      'id',
       'line'
     ],
     data () {
@@ -44,16 +44,14 @@
     },
     methods: {
       requestFeaturedAccount () {
-        this.$http.get(`/api/data/account/id/${this.keyword}`)
+        this.$http.get(`/api/data/account/${this.id}`)
           .then((response) => {
             this.account = response.data
           })
       },
       routeAccountProfilePage () {
         const domain = this.account.domain
-        this.$router.push({
-          path: `/${domain}`
-        })
+        location.href = `/${domain}`
       }
     },
     created () {

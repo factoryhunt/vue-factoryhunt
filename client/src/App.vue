@@ -11,7 +11,7 @@
 </script>
 
 <style lang="less">
-  @import (reference) "./assets/less/global";
+  @import "./assets/css/index";
 
   ::-webkit-input-placeholder {
     color: @color-input-placeholder;
@@ -82,16 +82,6 @@
     .button-custom(@color-white, @color-orange)
   }
 
-  .contents {
-    .contents-size(1040px, 60px auto, 0 12px);
-  }
-  .detail-contents {
-    .contents-size(1040px, 15px auto, 0 12px);
-  }
-  .narrow-contents {
-    .contents-size(800px, 60px auto, 0 12px);
-  }
-
   .btn, .btn-lg {
     background-color: @color-orange;
     color: @color-white;
@@ -106,15 +96,7 @@
     color: @color-white;
   }
 
-  .divider {
-    margin:18px 0 30px 0;
-    width:100%;
-    height: 1px;
-    background-color: @color-light-grey;
-    display: block;
-  }
-
-  /*Google maps API Hard Control*/
+  // Google maps API Hard Control
   .gm-style-pbc {
     opacity: 0 !important;
   }

@@ -2,25 +2,30 @@
   <div class="page-container">
     <nav-bar></nav-bar>
 
-    <div class="contents">
-      <h3>{{msg}}</h3>
-      <button @click="onGoBackButton" class="btn btn-default">
-        Go back to home
-      </button>
+    <div class="body-container">
+      <div class="body-contents">
+        <h3>{{msg}}</h3>
+        <button @click="onGoBackButton" class="btn btn-default">
+          Go back Home
+        </button>
+      </div>
     </div>
 
     <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
   </div>
 </template>
 
 <script>
   import NavBar from '../components/NavBar'
   import FooterBar from '../components/FooterBar'
+  import CopyrightBar from '../components/CopyrightBar'
 
   export default {
     components: {
       NavBar,
-      FooterBar
+      FooterBar,
+      CopyrightBar
     },
     metaInfo: {
       title: 'Not found | Factory Hunt'

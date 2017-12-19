@@ -1,36 +1,22 @@
 <template>
   <div class="component-container">
-    <p class="title text-center" @click="onTitle">{{title}}</p>
+    <a href="/"><p class="title text-center">Factory Hunt</p></a>
   </div>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        title: 'Factory Hunt'
-      }
-    },
-    methods: {
-      onTitle: function () {
-        this.$router.push({
-          path: '/'
-        })
-      }
-    },
-    created () {
-    }
-  }
-</script>
-
-<style scoped>
+<style lang="less" scoped>
+  @import '../assets/css/index';
   .component-container {
-  }
-  .component-container .title {
-    margin: 30px 0;
-    font-weight: 500;
-    font-size: 50px;
-    color: #f2583d;
-    cursor: pointer;
+    a {
+      text-decoration: none;
+    }
+
+    .title {
+      margin: 30px 0;
+      font-weight: 500;
+      font-size: 50px;
+      color: @color-orange;
+      cursor: pointer;
+    }
   }
 </style>

@@ -4,98 +4,94 @@
 
       <auth-header></auth-header>
 
-      <div class="form-container">
+      <form class="form-container" @submit.prevent="onSignUpButton">
         <div class="input-container">
-          <input v-model="company" type="text" :placeholder="placeholder.company">
+          <input required v-model="value.company" type="text" placeholder="Company">
           <i id="image-company" class="fa fa-building-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="email" type="email" :placeholder="placeholder.email">
+          <input required v-model="value.email" type="email" placeholder="Email">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input v-model="password" type="password" :placeholder="placeholder.password">
+          <input required minlength="8" v-model="value.password" type="password" placeholder="Password">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
+        <p class="password-caution-text">Password must be at least 8 characters.</p>
 
         <div class="sign-up-button-container">
-          <button class="button-orange" @click="onSignUpButton" @keyup.enter="onLoginButton">
-            {{ msg.signUp }}
-          </button>
+          <spinkit id="sign-up-loader"></spinkit>
+          <button id="sign-up-button" class="button-orange">Sign Up</button>
         </div>
-
+        <p class="terms">
+          By clicking Sign Up, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy Policy</a>, including our Cookie Use.
+        </p>
         <div class="divider"></div>
 
         <div class="log-in-container">
-          <a class="text-login" @click="onLoginButton">{{ msg.noAccount }}</a>
-          <button class="button-white" @click="onLoginButton">
-            {{ msg.login }}
-          </button>
+          <a class="text-login" @click="onLoginButton">Did you already have account?</a>
+          <a class="button-white" @click="onLoginButton">Login</a>
         </div>
-      </div> <!--form-container -->
+      </form> <!--form-container -->
     </div> <!-- form-contents -->
   </div> <!-- page-container -->
 </template>
 
 <script>
   import AuthHeader from '../../components/AuthHeader'
+  import Spinkit from '../../components/Spinkit/Spinkit.vue'
 
   export default {
     metaInfo: {
-      title: '회원가입 | 팩토리헌트'
+      title: 'Sign Up | Factory Hunt'
     },
     components: {
-      AuthHeader
+      AuthHeader,
+      Spinkit
     },
     data () {
       return {
-        email: '',
-        company: '',
-        password: '',
-        placeholder: {
-          company: '회사명 | (주)팩토리헌트',
-          email: '이메일 | your@email.com',
-          password: '비밀번호'
-        },
-        msg: {
-          signUp: '가입하기',
-          login: '로그인',
-          noAccount: '계정이 이미 있으신가요?'
+        value: {
+          email: '',
+          company: '',
+          password: ''
         }
       }
     },
     methods: {
-      onSignUpButton: function () {
-        const data = {
-          company: this.company,
-          email: this.email,
-          password: this.password
-        }
-        if (data.password.length < 8) {
-          return alert('Too short password')
-        }
-
-        this.$http.post('/api/auth/register', data)
-          .then(res => {
-            if (res.data) {
-              location.href = `/${this.company}`
-            } else {
-              alert('Sign up failed. Try again.')
-            }
-          })
+      onLoginButton () {
+        location.href = '/login'
       },
-      onLoginButton: function () {
-        this.$router.push({
-          path: '/login'
+      async onSignUpButton () {
+        const $loader = $('#sign-up-loader')
+        const $signUpButton = $('#sign-up-button')
+        try {
+          $loader.removeClass().addClass('spinkit-input')
+          $signUpButton.css('display', 'none')
+          await this.signUp()
+          $loader.removeClass().addClass('invisible')
+          $signUpButton.css('display', 'inherit')
+          alert('You have signed up successfully. \nPlease check your email to activate your account.')
+          location.href = '/dashboard'
+        } catch (err) {
+          $loader.removeClass().addClass('invisible')
+          $signUpButton.css('display', 'inherit')
+          alert(err.data.msg)
+        }
+      },
+      signUp () {
+        return new Promise((resolve, reject) => {
+          const data = {
+            company: this.value.company,
+            email: this.value.email,
+            password: this.value.password
+          }
+          this.$store.dispatch('signUp', data)
+            .then(() => { resolve() })
+            .catch((err) => { reject(err.response) })
         })
-      },
-      onSessionButton () {
-        this.$http.get('/api/auth/session')
-          .then(res => {
-            console.log(res)
-          })
       }
     },
     created () {
@@ -105,7 +101,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import (reference) "../../assets/less/global";
+  @import "../../assets/css/index";
 
   .form-contents {
     .contents-size(500px, 60px auto, 0 24px);
@@ -114,7 +110,6 @@
   .form-container {
     border-radius: 4px;
     box-shadow: @box-shadow;
-    /*border: 1px solid #484848;*/
     padding: 30px;
 
     span {
@@ -152,17 +147,27 @@
     }
 
     .sign-up-button-container {
+      margin-top: 40px;
       .button-orange {
         width: 100%;
         height: 50px;
-        margin-top: 50px;
         font-size: 18px;
+        font-weight: 600;
       }
     }
 
-    .button-container #button-signup {
-      margin-top: 70px;
-      height: 50px;
+    .password-caution-text {
+      margin-top: 5px;
+      margin-bottom: 0;
+      font-size: 13px;
+      color: @color-font-gray;
+    }
+
+    .terms {
+      text-align: center;
+      margin-top: 17px;
+      font-size: 12px;
+      color: @color-font-gray;
     }
 
     .log-in-container {
@@ -175,6 +180,8 @@
         position: absolute;
         font-size:16px;
         padding: 4px 12px;
+        color: @color-orange;
+        text-decoration: none;
         top: -7px;
         right: 0;
       }

@@ -1,7 +1,5 @@
 <template>
-  <div id="form-container">
-
-    <nav-bar :inputData="input"></nav-bar>
+  <form class="narrow-contents" @submit.prevent="sendEmail(email, quiry)" id="form-container">
 
     <div class="narrow-contents">
       <h2>{{msg.title}}</h2>
@@ -18,24 +16,22 @@
       </div>
 
       <div class="input-container">
-        <input type="email" v-model="email" :placeholder="placeholder.email">
+        <input required type="email" v-model="email" :placeholder="placeholder.email">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
       </div>
 
-      <textarea rows="7" v-model="quiry" :placeholder="placeholder.textarea"></textarea>
+      <textarea required rows="7" v-model="quiry" :placeholder="placeholder.textarea"></textarea>
 
       <div class="button-container">
         <div class="help-container">
           <a @click="onNeedHelpButton"><i class="fa fa-info-circle"></i> Need our help?</a>
         </div>
-        <button @click="sendEmail(email, quiry)" type="submit" class="btn-lg btn-default"><i class="fa fa-paper-plane"></i> Send inquiry</button>
+        <button type="submit" class="btn-lg btn-default"><i class="fa fa-paper-plane"></i> Send inquiry</button>
       </div>
 
     </div>
 
-    <footer-bar></footer-bar>
-
-  </div>
+  </form>
 </template>
 
 <script>
@@ -79,7 +75,7 @@
     },
     methods: {
       requestProductData: function () {
-        this.$http.get(`/api/data/product/id/${this.pid}`)
+        this.$http.get(`/api/data/product/product_id/${this.pid}`)
           .then(response => {
             this.product = response.data
             console.log(this.product.account_id)
@@ -87,7 +83,7 @@
           })
       },
       requestAccountData: function () {
-        this.$http.get(`/api/data/account/id/${this.aid}`)
+        this.$http.get(`/api/data/account/${this.aid}`)
           .then(response => {
             this.account = response.data
           })

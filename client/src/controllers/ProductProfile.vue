@@ -1,99 +1,133 @@
 <template>
-
   <div class="page-container">
 
-    <nav-bar :inputData="input"></nav-bar>
+    <nav-bar v-if="toggle.isAuthLoaded" :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
 
-    <div class="detail-contents">
+    <div class="body-container">
 
       <div class="left-container">
+
         <div class="header-container">
-          <h1 class="title">{{ product.product_name }}</h1>
+          <h1 class="title">{{ value.product.product_name }}</h1>
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ product.product_origin }}</h4>
+            <h4 class="sub-title">{{ value.product.product_origin }}</h4>
             •
             <div class="star-container" v-for="index in 5">
               <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             •
-            <h4 class="review-title">reviews <small>(0)</small></h4>
+            <h4 class="review-title">Reviews (0)</h4>
           </div>
         </div>
         <div class="divider"></div>
 
         <div class="right-container">
+
           <div class="product-image-container">
-
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                <li id="1st" data-target="#product-carousel" data-slide-to="0" class="active">
-
-                </li>
-                <li id="2nd" v-show="product.product_image_url_2" data-target="#product-carousel" data-slide-to="1">
-
-                </li>
-                <li id="3rd" v-show="product.product_image_url_3" data-target="#product-carousel" data-slide-to="2">
-
-                </li>
-                <li id="4th" v-show="product.product_image_url_4" data-slide-to="3">
-                </li>
-                <li id="5th" v-show="product.product_image_url_5" data-slide-to="4">
-                </li>
-                <li id="6th" v-show="product.product_image_url_6" data-slide-to="5">
-                </li>
-              </ol>
-
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                  <img :src="product.product_image_url_1" alt="...">
-                </div>
-                <div :class="product.product_image_url_2 ? 'item' : 'disable' " v-if="product.product_image_url_2">
-                  <img :src="product.product_image_url_2" alt="...">
-                </div>
-                <div :class="product.product_image_url_3 ? 'item' : 'disable' " v-if="product.product_image_url_3">
-                  <img :src="product.product_image_url_3" alt="...">
-                </div>
-                <div :class="product.product_image_url_4 ? 'item' : 'disable' " v-if="product.product_image_url_4">
-                  <img :src="product.product_image_url_4" alt="...">
-                </div>
-                <div :class="product.product_image_url_5 ? 'item' : 'disable' " v-if="product.product_image_url_5">
-                  <img :src="product.product_image_url_5" alt="...">
-                </div>
-                <div :class="product.product_image_url_6 ? 'item' : 'disable' " v-if="product.product_image_url_6">
-                  <img :src="product.product_image_url_6" alt="...">
-                </div>
-              </div>
-
-              <!-- Controls -->
-              <a class="left carousel-control" href="#product-carousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#product-carousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+            <div class="item">
+              <img :src="value.product.product_image_url_1">
             </div>
-
-            <h4>{{ quote }}</h4>
-            <button @click="onSendInquiry" class="btn btn-default">
-              Send inquiry
-            </button>
+            <div :class="value.product.product_image_url_2 ? 'item' : 'disable' " v-if="value.product.product_image_url_2">
+              <img :src="value.product.product_image_url_2" alt="...">
+            </div>
+            <div :class="value.product.product_image_url_3 ? 'item' : 'disable' " v-if="value.product.product_image_url_3">
+              <img :src="value.product.product_image_url_3" alt="...">
+            </div>
+            <div :class="value.product.product_image_url_4 ? 'item' : 'disable' " v-if="value.product.product_image_url_4">
+              <img :src="value.product.product_image_url_4" alt="...">
+            </div>
+            <div :class="value.product.product_image_url_5 ? 'item' : 'disable' " v-if="value.product.product_image_url_5">
+              <img :src="value.product.product_image_url_5" alt="...">
+            </div>
+            <div :class="value.product.product_image_url_6 ? 'item' : 'disable' " v-if="value.product.product_image_url_6">
+              <img :src="value.product.product_image_url_6" alt="...">
+            </div>
           </div>
+
+          <h4 class="quote-text">Send inquiry to get pricing</h4>
+          <button @click="onSendInquiry" class="button-orange inquiry-button">Send inquiry</button>
+
+          <!--<div class="product-image-containers">-->
+
+            <!--<div id="product-carousel" class="carousel slide" data-ride="carousel">-->
+              <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+              <!--<ol class="carousel-indicators">-->
+                <!--<li id="1st" data-target="#product-carousel" data-slide-to="0" class="active">-->
+
+                <!--</li>-->
+                <!--<li id="2nd" v-show="value.product.product_image_url_2" data-target="#product-carousel" data-slide-to="1">-->
+
+                <!--</li>-->
+                <!--<li id="3rd" v-show="value.product.product_image_url_3" data-target="#product-carousel" data-slide-to="2">-->
+
+                <!--</li>-->
+                <!--<li id="4th" v-show="value.product.product_image_url_4" data-slide-to="3">-->
+                <!--</li>-->
+                <!--<li id="5th" v-show="value.product.product_image_url_5" data-slide-to="4">-->
+                <!--</li>-->
+                <!--<li id="6th" v-show="value.product.product_image_url_6" data-slide-to="5">-->
+                <!--</li>-->
+              <!--</ol>-->
+
+              <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+              <!--<div class="carousel-inner" role="listbox">-->
+                <!--<div class="item active">-->
+                  <!--<img :src="value.product.product_image_url_1">-->
+                <!--</div>-->
+                <!--<div :class="value.product.product_image_url_2 ? 'item' : 'disable' " v-if="value.product.product_image_url_2">-->
+                  <!--<img :src="value.product.product_image_url_2" alt="...">-->
+                <!--</div>-->
+                <!--<div :class="value.product.product_image_url_3 ? 'item' : 'disable' " v-if="value.product.product_image_url_3">-->
+                  <!--<img :src="value.product.product_image_url_3" alt="...">-->
+                <!--</div>-->
+                <!--<div :class="value.product.product_image_url_4 ? 'item' : 'disable' " v-if="value.product.product_image_url_4">-->
+                  <!--<img :src="value.product.product_image_url_4" alt="...">-->
+                <!--</div>-->
+                <!--<div :class="value.product.product_image_url_5 ? 'item' : 'disable' " v-if="value.product.product_image_url_5">-->
+                  <!--<img :src="value.product.product_image_url_5" alt="...">-->
+                <!--</div>-->
+                <!--<div :class="value.product.product_image_url_6 ? 'item' : 'disable' " v-if="value.product.product_image_url_6">-->
+                  <!--<img :src="value.product.product_image_url_6" alt="...">-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--&lt;!&ndash; Controls &ndash;&gt;-->
+              <!--<a class="left carousel-control" href="#product-carousel" role="button" data-slide="prev">-->
+                <!--<icon class="arrow-image" name="arrow-left"></icon>-->
+                <!--<span class="sr-only">Previous</span>-->
+              <!--</a>-->
+              <!--<a class="right carousel-control" href="#product-carousel" role="button" data-slide="next">-->
+                <!--<icon class="arrow-image" name="arrow-right"></icon>-->
+                <!--<span class="sr-only">Next</span>-->
+              <!--</a>-->
+            <!--</div>-->
+          <!--</div>-->
+
           <div class="divider"></div>
         </div>
 
         <div class="information-container">
-          <h3>Information</h3>
-          <br>
-          <h4>{{product.primary_product_category}}</h4>
-          <h4>{{product.secondary_product_category}}</h4>
-          <h4 v-show="product.minimum_order_quantity">MOQ: {{ product.minimum_order_quantity }}</h4>
-          <h4 v-show="product.item_dimensions">Dimensions: {{ product.item_dimensions }}</h4>
-          <h4 v-show="product.material_type">Material type: {{ product.material_type }}</h4>
-          <h4>Made by: <a @click="routeAccountProfilePage">{{account.account_name_english}}</a></h4>
+          <a><div class="vendor-logo-image" @click="routeAccountProfilePage"></div></a>
+          <div class="category-contents">
+            <span>{{value.product.primary_product_category}}</span>
+            <span> > </span>
+            <span>{{value.product.secondary_product_category}}</span>
+          </div>
+          <p id="vendor-text">Made by: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
+          <!--<div class="list-container">-->
+          <!--<div class="left-contents">최소 주문량: {{value.product.minimum_order_quantity}}</div>-->
+          <!--<div class="right-contents">제품 가격: 미정</div>-->
+          <!--</div>-->
+          <!--<div class="list-container">-->
+          <!--<div class="left-contents">소재 및 재질: {{ value.product.material_type }}</div>-->
+          <!--<div class="right-contents">규격: {{ value.product.item_dimensions }}</div>-->
+          <!--</div>-->
+
+          <p class="left-contents" v-show="value.product.minimum_order_quantity">MOQ: {{value.product.minimum_order_quantity}}</p>
+          <p class="right-contents" v-show="value.product.price">Price: {{ value.product.price }}</p>
+          <p class="left-contents" v-show="value.product.material_type">Materials: {{ value.product.material_type }}</p>
+          <p class="right-contents" v-show="value.product.item_dimensions">Dimensions: {{ value.product.item_dimensions }}</p>
+
         </div>
         <div class="divider"></div>
 
@@ -108,7 +142,7 @@
       <div class="catalog-container">
         <h3>Catalogs</h3>
         <br>
-        <div class="catalog-inner-container" v-html="product.product_description"></div>
+        <div class="catalog-inner-container" v-html="value.product.product_description"></div>
       </div>
       <div class="divider"></div>
 
@@ -116,8 +150,8 @@
         <h3 class="title">Related products</h3>
         <br>
         <div class="row">
-          <div class="product-container" v-for="(product, index) in products" v-if="product.product_id !== product_id">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
+            <div v-if="index < 9" class="col-md-3 col-sm-6 col-xs-12">
               <div class="each-product">
                 <img @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
                 <p>{{product.product_name}}</p>
@@ -132,126 +166,236 @@
 
     </div>
 
-    <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
 
   </div>
 </template>
 
 <script>
   import NavBar from '../components/NavBar'
-  import FooterBar from '../components/FooterBar'
+  import CopyrightBar from '../components/CopyrightBar'
+  import { mapGetters } from 'vuex'
 
   export default {
-    metaInfo: {
-      title: 'Product | Factory Hunt'
-    },
     components: {
       NavBar,
-      FooterBar
+      CopyrightBar
+    },
+    computed: {
+      ...mapGetters([
+        'isLoggedIn',
+        'getAccountId',
+        'getContactId'
+      ])
     },
     data () {
       return {
-        input: this.$route.query.input,
-        product_id: parseInt(this.$route.query.id),
-        products: [],
-        product: [],
-        account: [],
-        quote: 'Request a quote to get pricing'
+        domain: this.$route.params.company,
+        productDomain: this.$route.params.name,
+        input: this.$route.query.input ? this.$route.query.input : '',
+        value: {
+          account: {},
+          contact: {},
+          products: [],
+          product: {},
+          vendor: {}
+        },
+        toggle: {
+          isAuthLoaded: false
+        }
       }
     },
     methods: {
-      requestProductData: function () {
-        // find single product by using product id
-        this.$http.get(`/api/data/product/id/${this.product_id}`)
-          .then(response => {
-            this.product = response.data
-
-            this.requestAccountData(this.product.account_id)
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.toggle.isAuthLoaded = true
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
+          })
+          .catch(() => {
+            this.toggle.isAuthLoaded = true
           })
       },
-      requestAccountData: function (accountId) {
-        this.$http.get(`/api/data/account/id/${accountId}`)
-          .then(response => {
-            this.account = response.data
-
-            this.requestRelatedProductsData(this.account.account_id)
-          })
+      async fetchDatas () {
+        const promise = await Promise.all([
+          this.fetchProduct(),
+          this.fetchVendor()
+        ])
+        this.value.product = promise[0]
+        this.value.vendor = promise[1]
+        if (!this.value.product.product_image_url_1) {
+          this.value.product.product_image_url_1 = '../../static/product_loading_image.png'
+        }
+        this.fetchReletedProducts(this.value.product.account_id)
+        this.applyJquery()
+        this.activateJS()
       },
-      requestRelatedProductsData: function (aid) {
-        this.$http.get(`/api/data/product/account_id/${aid}`)
-          .then(response => {
-            this.products = response.data
-          })
-      },
-      routeAccountProfilePage: function () {
-        const domain = this.account.domain
-        this.$router.push({
-          path: `/${domain}`
+      fetchProduct () {
+        return new Promise((resolve, reject) => {
+          this.$http.get(`/api/data/product/domain/${this.productDomain}`)
+            .then(res => {
+              resolve(res.data)
+            })
+            .catch(err => {
+              reject(err.response)
+            })
         })
       },
-      routeProductProfilePage: function (index) {
-        this.$router.push({
-          path: '/product/profile',
-          query: {
-            input: this.input,
-            productName: this.products[index].product_name,
-            id: this.products[index].product_id
-          }
+      fetchReletedProducts (id) {
+        this.$http.get(`/api/data/product/account_id/${id}`)
+          .then(res => {
+            this.value.products = res.data
+          })
+      },
+      fetchVendor () {
+        return new Promise((resolve, reject) => {
+          this.$http.get(`/api/data/account/domain/${this.domain}`)
+            .then(res => {
+              resolve(res.data)
+            })
+            .catch(err => {
+              reject(err.response)
+            })
         })
       },
-      onSendInquiry: function () {
-        const productName = this.product.product_name
-        const pid = this.product.product_id
-        const aid = this.account.account_id
+      activateJS () {
+        this.changePageTitle()
+      },
+      onSendInquiry () {
+        const pid = this.value.product.product_id
+        const aid = this.value.vendor.account_id
         this.$router.push({
           path: '/contact/premium',
           query: {
             input: this.input,
-            productName: productName,
             pid: pid,
             aid: aid
           }
         })
       },
-      applyBootstrap: function () {
-        $(document).ready(function () {
-          $('.carousel').hover(function () {
-            $('.carousel-control').css({
-              'opacity': '0.2'
+      applyJquery () {
+        $(document).ready(() => {
+          this.applyCompanyLogoImage()
+          this.activateSlick()
+          this.imageResize()
+
+          $(window).resize(() => {
+            this.imageResize()
+          })
+        })
+      },
+      changePageTitle () {
+        document.title = `${this.value.product.product_name} - ${this.value.vendor.account_name_english} | Factory Hunt`
+      },
+      routeAccountProfilePage () {
+        location.href = `/${this.domain}`
+      },
+      routeProductProfilePage (index) {
+        const productDomain = this.value.products[index].product_domain
+        if (this.input) {
+          location.href = `/${this.domain}/${productDomain}?input=${this.input}`
+        } else {
+          location.href = `/${this.domain}/${productDomain}`
+        }
+      },
+      applyCompanyLogoImage () {
+        const $logo = $('.vendor-logo-image')
+        var image = this.value.vendor.thumbnail_url
+        console.log(image)
+        if (image) {
+          image = 'url(' + image + ')'
+        } else {
+          image = 'url(/static/temp-logo-image_english_512.png)'
+        }
+        $logo.css('background-image', image)
+      },
+      activateSlick () {
+        $(document).ready(() => {
+          $('.product-image-container').slick({
+            infinite: true,
+            arrows: true,
+            dots: true,
+            draggable: true,
+            nextArrow: '<div id="right-arrow-container"><i id="right-arrow" class="fa fa-arrow-right"></i></div>',
+            prevArrow: '<div id="left-arrow-container"><i id="left-arrow" class="fa fa-arrow-left"></i></div>'
+          })
+          $('.item').css('outline', 'none')
+          $('.slick-dots').css('bottom', '4px')
+          $('.slick-dots li').css('margin', '0')
+
+          $('#right-arrow-container').css({
+            'position': 'absolute',
+            'right': '0',
+            'top': '0',
+            'opacity': '0',
+            'width': '15%',
+            'height': '100%',
+            'z-index': '1',
+            'background': 'linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.2))',
+            'cursor': 'pointer'
+          })
+          $('#right-arrow').css({
+            'position': 'absolute',
+            'right': '30%',
+            'top': '50%'
+          })
+          $('#left-arrow-container').css({
+            'position': 'absolute',
+            'left': '0',
+            'top': '0',
+            'opacity': '0',
+            'width': '15%',
+            'height': '100%',
+            'z-index': '1',
+            'background': 'linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.2))',
+            'cursor': 'pointer'
+          })
+          $('#left-arrow').css({
+            'position': 'absolute',
+            'left': '30%',
+            'top': '50%'
+          })
+
+          $('.product-image-container').hover(function () {
+            $('#right-arrow-container, #left-arrow-container').css({
+              'opacity': '0.7'
             })
           }, function () {
-            $('.carousel-control').css('opacity', '0')
+            $('#right-arrow-container, #left-arrow-container').css('opacity', '0')
           })
-          $('#product-carousel').carousel({
-            interval: false
-          })
+        })
+      },
+      imageResize () {
+        $(document).ready(() => {
+          const $image = $('.product-image-container img')
+          $image.css('height', $image.width() + 'px')
         })
       }
     },
     created () {
       window.scrollTo(0, 0)
-      this.requestProductData()
-      this.applyBootstrap()
-    },
-    watch: {
-      '$route.query.id' (n, o) {
-        this.products = []
-        this.product = []
-        this.account = []
-        location.reload()
-        window.scrollTo(0, 0)
-//        this.product_id = n
-//        this.requestProductData()
-      }
+      this.tryAutoLogin()
+      this.fetchDatas()
     }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import '../assets/css/index';
+
+  // Global
+  p {
+    margin: 0;
+  }
+  textarea {
+    resize: none;
+  }
 
   .header-container .title {
     font-weight:500;
     margin-bottom: 10px;
+    word-wrap: break-word;
   }
   .header-container .sub-title-container .sub-title  {
     font-weight: 400;
@@ -270,12 +414,54 @@
   }
 
   .information-container {
+    position: relative;
 
-  }
-  .information-container h4 {
-    font-size:19px;
-    font-weight:300;
-    line-height:1.6;
+    .category-contents {
+      color: @color-font-gray;
+      font-size: 17px;
+      font-weight: 300;
+    }
+
+    #vendor-text {
+      font-size: 19px;
+      margin-bottom: 28px;
+    }
+
+    .vendor-logo-image {
+      position: absolute;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      border: 1px solid @color-lightest-grey;
+      border-radius: 50%;
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+      background-position: 50% 50% !important;
+    }
+
+    p {
+      font-size: 19px;
+      font-weight: 300;
+      margin-bottom: 3px;
+    }
+
+    .list-container {
+      position: relative;
+      display: table;
+      width: 100%;
+      font-size: 19px;
+      font-weight: 300;
+      margin-bottom: 12px;
+
+      .left-contents {
+        display: table-cell;
+        width: 50%;
+      }
+      .right-contents {
+        display: table-cell;
+        width: 50%;
+      }
+    }
   }
 
   .reviews-container h4 {
@@ -283,60 +469,40 @@
     font-weight:300;
   }
 
-  .product-image-container {
-  }
-  .product-image-container img {
-    box-shadow: 1px 1px 10px 1px #e4e4e4;
-  }
-  .product-image-container h4 {
-    text-align: center;
-    font-weight:400;
-    color: grey;
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-  .product-image-container .btn {
-    height:45px;
-    width: 100%;
-    font-size:17px;
-    font-weight:500;
-  }
-  .product-image-container .carousel {
-    box-shadow: 1px 1px 10px 1px #e4e4e4;
-    margin-bottom: 20px;
+  .right-container {
+
+    .product-image-container {
+      box-shadow: 1px 1px 10px 1px #e4e4e4;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    h4 {
+      text-align: center;
+      font-weight:400;
+      color: grey;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    button {
+      height:45px;
+      width: 100%;
+      font-size:17px;
+      font-weight:500;
+    }
   }
 
-  .product-image-container .carousel .carousel-indicators {
-    bottom: 0;
-  }
-  .product-image-container .carousel .carousel-indicators li {
-    border: none;
-    background-color: #e4e4e4;
-    width: 8px;
-    height: 8px;
-    margin: 0;
-  }
-  .product-image-container .carousel .carousel-indicators .active  {
-    border: none;
-    background-color: grey;
-  }
-  .product-image-container .carousel .carousel-control {
-    background-color: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.2)) !important;
-    opacity:0;
-  }
-  .product-image-container .carousel .carousel-control:hover {
-
-  }
-  .product-image-container .glyphicon {
-    top: 50%;
+  .review-container {
   }
 
   .catalog-container {
-    margin-top: 20px;
+    position: relative;
+    font-size:19px;
+    font-weight:300;
   }
   .catalog-inner-container {
     overflow: hidden;
-    text-align: center;
+    text-align: inherit;
   }
   .catalog-inner-container img {
     width:100% !important;
@@ -388,7 +554,6 @@
     .left-container {
       position: relative;
       padding-right: 410px;
-      height: 440px;
     }
     .right-container {
       position: absolute;

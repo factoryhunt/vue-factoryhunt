@@ -1,13 +1,13 @@
 <template>
   <div class="page-container">
 
-    <nav-bar :inputData="value.input"></nav-bar>
+    <nav-bar v-if="toggle.isAuthLoaded" :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="image-container">
       <div class="main-image"></div>
     </div>
 
-    <div class="detail-contents">
+    <div class="body-container">
 
       <!-- Left-side UI container -->
       <div class="left-container">
@@ -37,17 +37,18 @@
 
         <!-- Company Header -->
         <div id="header-container" class="header-container">
-          <h1 class="title">{{ account.account_name_english }}</h1>
           <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
-          <img v-else class="logo" src="../../assets/fh_logo_512.png">
+          <img v-else="" id="company-logo" class="logo" src="/static/temp-logo-image_english_512.png">
+          <p class="sub-title">{{ account.mailing_city_english + ', ' }} {{ account.mailing_country_english }}</p>
+          <h1 class="title">{{ account.account_name_english }}</h1>
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ account.billing_country }}</h4>
-            •
-            <div class="star-container" v-for="index in 5">
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            •
-            <h4 class="review-title">reviews <small>(0)</small></h4>
+            <p class="short-description">{{ account.company_short_description_english }}</p>
+            <!--•-->
+            <!--<div class="star-container" v-for="index in 5">-->
+            <!--<i class="fa fa-star-o" aria-hidden="true"></i>-->
+            <!--</div>-->
+            <!--•-->
+            <!--<h4 class="review-title"> <small>(0)개의 평가</small></h4>-->
           </div>
         </div>
         <div class="divider"></div>
@@ -56,7 +57,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea>{{ account.company_short_description }}</textarea>
+          <textarea readonly>{{ account.company_description_english }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -105,23 +106,23 @@
 
       <!-- Contact Form -->
       <div class="right-container">
-        <div class="form-container">
+        <form @submit.prevent="sendEmail(value.email, value.quiry)" class="form-container">
 
           <h3>Contact</h3>
           <br>
           <div class="input-container">
-            <input v-model="value.email" type="text" :placeholder="placeholder.email">
+            <input required v-model="value.email" type="email" :placeholder="placeholder.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
+          <textarea required v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
 
           <p class="quote">{{msg.quote}}</p>
 
           <div class="button-container">
-            <button @click="sendEmail(value.email, value.quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="btn btn-default">Send inquiry</button>
           </div>
-        </div>
+        </form>
       </div>
 
       <!-- Company Address -->
@@ -134,13 +135,13 @@
       <div id="PRODUCTS" class="products-container">
         <div class="row">
 
-          <div class="col-md-12">
+          <div style="padding: 0" class="col-md-12">
             <h3 class="title">Products <small>({{products.length}})</small></h3>
 
             <div class="product-container" v-for="(product, index) in this.products">
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="each-product">
-                  <img @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
+                  <img class="product-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
                   <p>{{product.product_name}}</p>
                   <div class="star-container" v-for="index in 5">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -155,16 +156,15 @@
       </div>
     </div>
 
-    <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
 
   </div>
 </template>
 
 <script>
-  import cookie from '../../assets/js/cookie'
   import NavBar from '../../components/NavBar'
-  import FooterBar from '../../components/FooterBar'
-  import SubNavigationBar from './components/SubNavigationBar'
+  import CopyrightBar from '../../components/CopyrightBar.vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     metaInfo: {
@@ -172,22 +172,25 @@
     },
     components: {
       NavBar,
-      SubNavigationBar,
-      FooterBar
+      CopyrightBar
     },
     data () {
       return {
         account: {},
         products: [],
         value: {
+          account: {},
+          contact: {},
+          vendor: {},
           company: this.$route.params.company,
-          input: this.$route.query.input,
+          input: this.$route.query.input ? this.$route.query.input : '',
           email: '',
           quiry: '',
           // for admin editing
           accountName: ''
         },
         toggle: {
+          isAuthLoaded: false,
           isUserAdmin: false,
           isAccountNameEdited: false,
           isDescriptionEdited: false,
@@ -209,13 +212,15 @@
     },
     created () {
       window.scrollTo(0, 0)
-      console.log('AccountProfile Created')
-      this.validateUser()
+      this.tryAutoLogin()
       this.fetchAccount(this.value.company)
     },
-    mounted () {
-    },
     computed: {
+      ...mapGetters([
+        'getContactId',
+        'getAccountId',
+        'isLoggedIn'
+      ]),
       getLocation () {
         const street = this.account.mailing_street_address_english
         const city = this.account.mailing_city_english
@@ -223,51 +228,41 @@
         const country = this.account.mailing_country_english
         return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
       },
-      getToken () {
-        return cookie.getCookie('nekot')
-      },
       getAccountId () {
-        return this.account.account_id
+        return this.value.account.account_id
       }
     },
     methods: {
       titleTemplate (account) {
         return account ? `${account} - Factory Hunt` : ' - Supplier'
       },
-      validateUser () {
-        const data = {
-          headers: {
-            'x-access-token': this.getToken
-          }
-        }
-        this.$http.get('/api/auth/check', data)
-          .then(() => {
-//            const contactId = res.data.info.id
-            this.toggle.isUserAdmin = true
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.toggle.isAuthLoaded = true
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
           })
           .catch(() => {
-            this.toggle.isUserAdmin = false
+            this.toggle.isAuthLoaded = true
           })
       },
+      changeDocumentTitle () {
+        document.title = `${this.account.account_name_english} | Factory hunt`
+      },
       fetchAccount (company) {
-        this.$http.get(`/api/data/account/company/${company}`)
+        this.$http.get(`/api/data/account/domain/${company}`)
           .then(response => {
             if (!response.data) {
-              this.$router.push({ path: '/error' })
+              this.$router.replace({ path: '/error' })
             }
-            console.log(response)
             this.account = response.data
             this.applyLocalData(this.account)
             this.fetchProducts(this.account.account_id)
             this.initMap()
             this.activateJquery()
-            document.title = `${this.account.account_name_english} | Factory Hunt`
+            this.changeDocumentTitle()
           })
-      },
-      onEditButton () {
-        this.$router.push({
-          path: `/${this.value.company}/edit-kor`
-        })
       },
       applyLocalData (account) {
         this.value.accountName = this.account.account_name_english
@@ -277,6 +272,7 @@
         this.$http.get(`/api/data/product/account_id/${id}`)
           .then(response => {
             this.products = response.data
+            this.imageResize()
           })
       },
       getYear: function (year) {
@@ -294,7 +290,6 @@
         }
       },
       sendEmail: function (email, quiry) {
-        alert('Sent success.')
         const data = {
           email: email,
           company: this.account.account_name_english,
@@ -302,22 +297,23 @@
           subject: 'An inquiry for verified supplier'
         }
         this.$http.post('/api/mail/company', data)
-          .then(response => {
-            console.log('mail sent: ' + response.data)
+          .then(() => {
+            alert('Your message has been sent successfully.')
+          })
+          .catch(() => {
+            alert('Failed. Please try again.')
           })
       },
       convertEnterToBrTag: function (subject) {
         return subject.replace(/\n/g, '<br />')
       },
       routeProductProfilePage: function (index) {
-        this.$router.push({
-          path: '/product/profile',
-          query: {
-            input: this.input,
-            productName: this.products[index].product_name,
-            id: this.products[index].product_id
-          }
-        })
+        const productDomain = this.products[index].product_domain
+        if (this.value.input) {
+          location.href = `/${this.value.company}/${productDomain}?input=${this.value.input}`
+        } else {
+          location.href = `/${this.value.company}/${productDomain}`
+        }
       },
       initMap () {
         const latlng = new google.maps.LatLng(39.305, -76.617)
@@ -378,6 +374,7 @@
       },
       activateJquery () {
         $(document).ready(() => {
+          this.mainImageResize()
           this.applyImageCSS()
           this.applySmoothScrolling()
           this.applyStickyCSS()
@@ -386,6 +383,14 @@
           this.textareaResize()
         })
       },
+      mainImageResize () {
+        const $image = $('.main-image')
+        const width = $(window).width()
+        const height = (460 * width) / 1280
+        console.log(width)
+        console.log(height)
+        $image.css('height', `${height}px`)
+      },
       applyStickyCSS () {
         const $stickyOuter = $('.sticky-outer-container')
         const $stickyInner = $('.sticky-inner-container')
@@ -393,7 +398,7 @@
 //          const $stickyStopper = $('.sticky-stopper')
         if ($stickyOuter.offset()) { // make sure ".sticky" element exists
 //            var generalSidebarHeight = $sticky.innerHeight() // 30
-          var stickyTop = $stickyOuter.offset().top
+          var stickyTop = $stickyOuter.offset().top + 80
 //            var stickyBottom = stickyTop + $sticky.outerHeight()
           var stickOffset = 0
 //            var stickyStopperPosition = $stickyStopper.offset().top // 2259
@@ -444,7 +449,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() - 60
+          var titleBottomOffset = title.offset().top + title.outerHeight()
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -495,13 +500,13 @@
 //    Add above line to enable not ignoring space and ';' issues
       },
       applyCompanyLogoImage () {
-        const $logo = $('#company-logo')
+        const $logo = $('.logo')
         const $stickyLogo = $('#sticky-company-logo')
         var image = this.account.thumbnail_url
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../static/temp-logo-image_512.png)'
+          image = 'url(../../static/temp-logo-image_english_512.png)'
         }
         $logo.css('background-image', image)
         $stickyLogo.css('background-image', image)
@@ -512,20 +517,22 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../static/cover_image.png)'
+          image = 'url(../../static/cover_image_english.png)'
         }
         $image.css('background-image', image)
       },
       imageResize () {
-        const $image = $('.product-image')
-        $image.css('height', $image.width() + 'px')
+        $(document).ready(() => {
+          const $image = $('.product-image')
+          $image.css('height', $image.width() + 'px')
+        })
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  @import (reference) '../../assets/less/global';
+  @import '../../assets/css/index';
 
   .image-edit {
     position: absolute;
@@ -564,7 +571,7 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
     background-position: 50% 50% !important;
-    height: 320px !important;
+    height: 320px;
   }
 
   .left-container {
@@ -576,24 +583,37 @@
 
   .header-container {
     position: relative;
-    padding-top: 24px;
-  }
-  .header-container .title {
-    font-size: 32px;
-    font-weight:500;
-    margin-bottom:10px;
-    padding-right: 65px;
+
+    .title {
+      font-size: 32px;
+      font-weight:500;
+      margin-bottom:10px;
+      padding-right: 65px;
+    }
+    .sub-title  {
+      font-weight: 400;
+      font-size:16px;
+      margin-bottom:0;
+      color: @color-font-gray;
+    }
+    .short-description {
+      font-weight: 300;
+      font-size: 18px;
+      color: @color-font-base;
+    }
   }
   .header-container .sub-title-container {
     padding-right: 65px;
   }
   .header-container .logo {
-    position: absolute;
-    top: 12px;
-    right:0;
+    float:right;
     border: 2px solid #eeeeee;
     width: 60px;
-    border-radius: 30px;
+    height: 60px;
+    border-radius: 50%;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: 50% 50% !important;
   }
   .header-container .sub-title-container .sub-title  {
     font-weight: 400;
@@ -665,6 +685,7 @@
   .right-container {
     .form-container {
       font-size: 17px;
+      margin-bottom: 40px;
 
       .input-container {
         position: relative;
@@ -752,20 +773,23 @@
   @media ( min-width: 744px ) {
     .image-container {
       .main-image {
-        height: 460px !important;
+        height: 460px;
       }
     }
 
     .left-container {
     }
 
-    .header-container .title {
-      padding-right: 75px;
-    }
-    .header-container .logo {
-      width: 70px;
-      border-radius: 35px;
-      border: 1px solid #eeeeee;
+    .header-container {
+      .title {
+        padding-right: 75px;
+      }
+
+      .logo {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #eeeeee;
+      }
     }
 
     .right-container {
@@ -784,7 +808,7 @@
   @media ( min-width: 1128px ) {
     .image-container {
       .main-image {
-        height: 460px !important;
+        height: 460px;
       }
     }
 
@@ -873,6 +897,7 @@
       }
 
       .header-container {
+        padding-top:30px;
 
         .title {
           padding-right: 81px;
@@ -880,7 +905,7 @@
 
         .logo {
           width: 70px;
-          border-radius: 35px;
+          height: 70px;
           border: 1px solid #eeeeee;
         }
       }

@@ -1,41 +1,34 @@
 <template>
-  <div id="form-container">
+  <form class="narrow-contents" @submit.prevent="sendEmail(email, quiry)" id="form-container">
 
-    <nav-bar></nav-bar>
+    <h2>{{msg.title}}</h2>
+    <hr>
 
-    <div class="narrow-contents">
-      <h2>{{msg.title}}</h2>
-      <hr>
-
-      <div class="input-container">
-        <input v-if="lead.company_english" class="input-disable" type="text" placeholder="Company" :value="lead.company_english" readonly>
-        <input v-else class="input-disable" type="text" placeholder="Company" :value="lead.company" readonly>
-        <i class="fa fa-building-o" aria-hidden="true"></i>
-      </div>
-
-      <div class="input-container">
-        <input class="input-disable" type="text" placeholder="Products" :value="lead.products_english" readonly>
-        <i class="fa fa-cube" aria-hidden="true"></i>
-      </div>
-
-      <div class="input-container">
-        <input type="email" v-model="email" :placeholder="placeholder.email">
-        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-      </div>
-
-      <textarea rows="7" v-model="quiry" :placeholder="placeholder.textarea"></textarea>
-
-      <div class="button-container">
-        <div class="help-container">
-          <a @click="onNeedHelpButton"><i class="fa fa-info-circle"></i> Need our help?</a>
-        </div>
-        <button @click="sendEmail(email, quiry)" type="submit" class="btn-lg btn-default"><i class="fa fa-paper-plane"></i> Send inquiry</button>
-      </div>
+    <div class="input-container">
+      <input v-if="lead.company_english" class="input-disable" type="text" placeholder="Company" :value="lead.company_english" readonly>
+      <input v-else class="input-disable" type="text" placeholder="Company" :value="lead.company" readonly>
+      <i class="fa fa-building-o" aria-hidden="true"></i>
     </div>
 
-    <footer-bar></footer-bar>
+    <div class="input-container">
+      <input class="input-disable" type="text" placeholder="Products" :value="lead.products_english" readonly>
+      <i class="fa fa-cube" aria-hidden="true"></i>
+    </div>
 
-  </div>
+    <div class="input-container">
+      <input required type="email" v-model="email" :placeholder="placeholder.email">
+      <i class="fa fa-envelope-o" aria-hidden="true"></i>
+    </div>
+
+    <textarea required rows="7" v-model="quiry" :placeholder="placeholder.textarea"></textarea>
+
+    <div class="button-container">
+      <div class="help-container">
+        <a @click="onNeedHelpButton"><i class="fa fa-info-circle"></i> Need our help?</a>
+      </div>
+      <button type="submit" class="btn-lg btn-default"><i class="fa fa-paper-plane"></i> Send inquiry</button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -82,7 +75,7 @@
     },
     methods: {
       getThisLeadData: function (id) {
-        this.$http.get(`/api/data/lead/id/${id}`)
+        this.$http.get(`/api/data/lead/${id}`)
           .then(response => {
             this.lead = response.data
           })
