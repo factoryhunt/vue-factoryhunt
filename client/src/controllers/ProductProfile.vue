@@ -153,7 +153,7 @@
           <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
             <div v-if="index < 9" class="col-md-3 col-sm-6 col-xs-12">
               <div class="each-product">
-                <img @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
+                <img class="related-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
                 <p>{{product.product_name}}</p>
                 <div class="star-container" v-for="index in 5">
                   <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -246,6 +246,7 @@
         this.$http.get(`/api/data/product/account_id/${id}`)
           .then(res => {
             this.value.products = res.data
+            this.relatedProductImageResize()
           })
       },
       fetchVendor () {
@@ -279,6 +280,7 @@
           this.applyCompanyLogoImage()
           this.activateSlick()
           this.imageResize()
+          this.relatedProductImageResize()
 
           $(window).resize(() => {
             this.imageResize()
@@ -371,12 +373,24 @@
           const $image = $('.product-image-container img')
           $image.css('height', $image.width() + 'px')
         })
+      },
+      relatedProductImageResize () {
+        $(document).ready(() => {
+          console.log(1)
+          const $image = $('.related-image')
+          $image.css('height', $image.width() + 'px')
+        })
       }
     },
     created () {
       window.scrollTo(0, 0)
       this.tryAutoLogin()
       this.fetchDatas()
+    },
+    watch: {
+      'this.value.products' () {
+        this.applyJquery()
+      }
     }
   }
 </script>
@@ -420,6 +434,7 @@
       color: @color-font-gray;
       font-size: 17px;
       font-weight: 300;
+      padding-right: 80px;
     }
 
     #vendor-text {

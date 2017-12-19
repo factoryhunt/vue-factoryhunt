@@ -12,7 +12,7 @@
           <h3 class="title">Contact</h3>
           <br>
           <div class="input-container">
-            <input required v-model="email" type="text" :placeholder="placeholder.email">
+            <input required v-model="email" type="email" :placeholder="placeholder.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
@@ -64,15 +64,17 @@
     },
     methods: {
       sendEmail: function (email, quiry) {
-        alert('Sent success.')
         const data = {
           email: email,
           quiry: this.convertEnterToBrTag(quiry),
           subject: 'inquiry for Factory Hunt'
         }
         this.$http.post('/api/mail/contact', data)
-          .then(response => {
-            console.log('mail sent: ' + response.data)
+          .then(() => {
+            alert('Your message has been sent successfully. We will get back to you as soon as possible.')
+          })
+          .catch(() => {
+            alert('Failed. Please try again.')
           })
       },
       convertEnterToBrTag: function (subject) {
@@ -157,7 +159,7 @@
       display: none;
     }
     .right-container {
-      z-index: 9998;
+      z-index: 1;
       position: absolute;
       right: 0;
       top: 0;

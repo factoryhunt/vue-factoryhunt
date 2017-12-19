@@ -30,8 +30,8 @@
       <!-- products empty -->
       <div v-if="products.length < 1" class="product-empty-container">
         <div class="empty">
-          <p class="title">There is no registered product yet.</p>
-          <p class="sub-title">Please add your product information. Potential buyers will be able to find your product information.</p>
+          <p class="title">Update your product information.</p>
+          <p class="sub-title">When you update your product information, it will appear in search results.</p>
           <button @click="onProductUploadButton" class="product-upload-button button-orange">
             Upload Product
           </button>
@@ -50,7 +50,7 @@
               <p class="secondary-text">{{product.secondary_product_category}}</p>
             </div>
             <div class="product-name-container">
-              <p class="name-text">{{product.product_name_english}}</p>
+              <p class="name-text">{{product.product_name}}</p>
               <p class="code-text">{{product.product_code}}</p>
             </div>
             <div class="status-container">
@@ -242,7 +242,7 @@
             .category-container {
               vertical-align: middle;
               display: table-cell;
-              width: 13%;
+              width: 18%;
               padding: 0 8px;
 
               .primary-text {
@@ -261,7 +261,7 @@
               text-align: left;
               display: table-cell;
               padding: 0 8px;
-              width: 60%;
+              width: 55%;
 
               .name-text {
                 white-space: nowrap;

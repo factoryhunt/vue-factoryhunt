@@ -43,7 +43,7 @@
         <div class="name-container input-container">
           <p class="title">Product Name</p>
           <i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>
-          <input id="name-count-input" pattern="[가-힣A-Za-z0-9 ]{2,100}" title="You can use letters and numbers between 2 and 100 characters." minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input id="name-count-input" required pattern="[가-힣A-Za-z0-9 ]{2,100}" title="You can use letters and numbers between 2 and 100 characters." minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
           <p class="caution-text">You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.</p>
         </div>
@@ -95,14 +95,14 @@
           <div class="box-container">
             <div class="left-container">MOQ</div>
             <div class="right-container">
-              <input placeholder="1,000 ..." maxlength="10" v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="100" maxlength="10" pattern="[0-9]{1,10}" title="You can use only numbers." v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
             <div class="left-container">Product of Origin</div>
             <div class="right-container">
               <!--<select required v-model="value.origin">-->
-              <select v-model="value.origin">
+              <select required v-model="value.origin">
                 <option id="disabled-option" disabled value="">Please select where the product is produced.</option>
                 <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
               </select>
@@ -340,7 +340,7 @@
         this.$http.post(`/api/data/product/${this.getAccountId}`, formData, config)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert(' Your product has been uploaded.\nPlease allow up to 24 hours for product approval.')
+            alert('Your product has been uploaded.\nPlease allow up to 24 hours for product approval.')
             location.href = '/dashboard/product'
           })
           .catch(() => {
