@@ -7,6 +7,7 @@
       <div class="description-section">
         <p>Factory Hunt is a supplier search engine & B2B platform where businesses can be connected each other.</p>
         <p>Any manufacturer/supplier can create a website and online product catalog for free. Once a website/catalog is created, the information will be displayed in search results.</p>
+        <p>Our mission is to make a free website for every suppliers in the world and make it easy to connect businesses. As a platform, we will continue to develop services to help businesses and discover new opportunities. </p>
         <p>Best regards,</p>
         <p>Factory Hunt Team</p>
       </div>
