@@ -69,12 +69,12 @@
         <!-- Phone -->
         <div class="box-container">
           <div class="left-contents">Phone</div>
-          <div class="right-contents"><input type="text" maxlength="21" placeholder="+82-2-1234-5678" v-model="value.phone"></div>
+          <div class="right-contents"><input type="text" maxlength="21" placeholder="+1-971-1234-5678" v-model="value.phone"></div>
         </div>
         <!-- Established Year -->
         <div class="box-container">
           <div class="left-contents">Established Year</div>
-          <div class="right-contents"><input type="text" maxlength="10" placeholder="1970-01-01" v-model="value.establishedDate"></div>
+          <div class="right-contents"><input type="text" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title ="YYYY-MM-DD" placeholder="2003-01-01" v-model="value.establishedDate"></div>
         </div>
         <p class="sub-title" style="margin-top: 12px">Address Information</p>
         <!-- Country -->
@@ -90,12 +90,12 @@
         <!-- State -->
         <div class="box-container">
           <div class="left-contents">State</div>
-          <div class="right-contents"><input type="text" maxlength="15" placeholder="California" v-model="value.state"></div>
+          <div class="right-contents"><input type="text" maxlength="50" placeholder="California" v-model="value.state"></div>
         </div>
         <!-- City -->
         <div class="box-container">
           <div class="left-contents">City</div>
-          <div class="right-contents"><input type="text" maxlength="15" placeholder="San Francisco" v-model="value.city"></div>
+          <div class="right-contents"><input type="text" maxlength="50" placeholder="San Francisco" v-model="value.city"></div>
         </div>
         <!-- Street Address -->
         <div class="box-container">
@@ -110,7 +110,7 @@
         <!-- Postal Code -->
         <div class="box-container">
           <div class="left-contents">Postal code</div>
-          <div class="right-contents"><input type="text" pattern="[0-9]{1,10}" title="" placeholder="12345" v-model="value.postalCode"></div>
+          <div class="right-contents"><input type="text" pattern="[0-9-]{1,10}" title="" placeholder="12345" v-model="value.postalCode"></div>
         </div>
       </div>
 
@@ -223,7 +223,7 @@
         this.value.description = account.company_description_english
         this.value.shortDescription = account.company_short_description_english
         this.value.shortDescriptionCount = (account.company_short_description).length
-        this.value.products = account.products
+        this.value.products = account.products_english
         this.value.phone = account.phone
         this.value.website = account.website
         this.value.establishedDate = this.getYear(account.established_date)
@@ -296,13 +296,13 @@
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert('Edited success')
+            alert('The information has been updated successfully.')
             window.scrollTo(0, 0)
             location.reload()
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert('Edit failed. Try again please.')
+            alert('Failed. Please try again.')
           })
       },
       // jQuery for CSS

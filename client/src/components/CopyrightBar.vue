@@ -28,7 +28,7 @@
 
   .body-container {
     margin-top: 60px;
-    margin-bottom: 60px;
+    margin-bottom: 60px !important;
     min-height: 0;
 
     .divider {

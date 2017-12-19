@@ -17,10 +17,18 @@ const createProductImageMulter = multer({
     acl: 'public-read',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function (req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
+      console.log('params', req.params)
+      console.log('query', req.query)
+      console.log('file', file)
+      cb(null, {fieldName: file.fieldname})
     },
     key: function (req, file, cb) {
-      const product_id = req.params.product_id
+      // const product_name = req.body.product_name
+      console.log('body', req.body)
+      console.log('params', req.params)
+      console.log('query', req.query)
+      console.log('file', file)
+      const product_id = req.params.account_id
       const file_name = file.originalname
       cb(null, `products/${product_id}/thumbnail_images/${file_name}`)
     }

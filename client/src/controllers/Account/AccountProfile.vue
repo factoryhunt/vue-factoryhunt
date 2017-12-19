@@ -39,10 +39,10 @@
         <div id="header-container" class="header-container">
           <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <img v-else="" id="company-logo" class="logo" src="/static/temp-logo-image_english_512.png">
-          <p class="sub-title">{{ account.mailing_city_english + ', ' }} {{ account.mailing_country_english }}</p>
+          <p class="sub-title">{{ account.mailing_city_english ? account.mailing_city_english + ', ' : '' }} {{ account.mailing_country_english ? account.mailing_country_english : '' }}</p>
           <h1 class="title">{{ account.account_name_english }}</h1>
           <div class="sub-title-container">
-            <p class="short-description">{{ account.company_short_description_english }}</p>
+            <p class="short-description">{{ account.company_short_description_english ? account.company_short_description_english : '' }}</p>
             <!--•-->
             <!--<div class="star-container" v-for="index in 5">-->
             <!--<i class="fa fa-star-o" aria-hidden="true"></i>-->
@@ -222,11 +222,12 @@
         'isLoggedIn'
       ]),
       getLocation () {
-        const street = this.account.mailing_street_address_english
-        const city = this.account.mailing_city_english
-        const state = this.account.mailing_state_english
+        const street = this.account.mailing_street_address_english ? this.account.mailing_street_address_english + ', ' : ''
+        const street2 = this.account.mailing_street_address_2_english ? this.account.mailing_street_address_2_english + ', ' : ''
+        const city = this.account.mailing_city_english ? this.account.mailing_city_english + ', ' : ''
+        const state = this.account.mailing_state_english ? this.account.mailing_state_english + ', ' : ''
         const country = this.account.mailing_country_english
-        return state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
+        return street + street2 + city + state + country
       },
       getAccountId () {
         return this.value.account.account_id
@@ -248,7 +249,7 @@
           })
       },
       changeDocumentTitle () {
-        document.title = `${this.account.account_name_english} | Factory hunt`
+        document.title = `${this.account.account_name_english} | Factory Hunt`
       },
       fetchAccount (company) {
         this.$http.get(`/api/data/account/domain/${company}`)
@@ -278,6 +279,11 @@
       getYear: function (year) {
         if (year) {
           year = year.split('-')
+
+          if (year[0] === '0000') {
+            return ''
+          }
+
           return year[0]
         }
       },
@@ -589,6 +595,7 @@
       font-weight:500;
       margin-bottom:10px;
       padding-right: 65px;
+      min-height: 80px;
     }
     .sub-title  {
       font-weight: 400;

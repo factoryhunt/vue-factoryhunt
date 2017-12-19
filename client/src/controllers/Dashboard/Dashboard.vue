@@ -45,7 +45,7 @@
             this.value.account = res[1].data
           })
           .catch(() => {
-            alert('Your session has expired. Please log-in again.')
+            alert('Your session has been expired. Please log-in again.')
             this.$router.push('/login')
           })
       }
