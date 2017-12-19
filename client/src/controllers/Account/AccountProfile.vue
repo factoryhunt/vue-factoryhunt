@@ -40,7 +40,7 @@
           <h1 class="title">{{ account.account_name_english }}</h1>
           <div class="logo"></div>
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ account.billing_country }}</h4>
+            <h4 class="sub-title">{{ account.mailing_country_english }}</h4>
             •
             <div class="star-container" v-for="index in 5">
               <i class="fa fa-star-o" aria-hidden="true"></i>

@@ -72,7 +72,7 @@ export default {
         return new Promise((resolve, reject) => {
           const data = {
             email: payload.email,
-            subject: '가입을 축하합니다. 이메일을 인증해주세요.'
+            subject: 'Please verify your email.'
           }
           axios.post('/api/mail/signup', data)
             .then(() => { resolve() })
@@ -92,7 +92,7 @@ export default {
       return new Promise(async (resolve, reject) => {
         try {
           const data = await register()
-          await sendVerifyEmail()
+          sendVerifyEmail()
           await login()
           resolve(data)
         } catch (err) {

@@ -648,7 +648,7 @@
               font-size: 15px;
               color: @color-link;
               top: 155px;
-              left: 64px;
+              left: 57px;
             }
             .required-circle {
               position: absolute;

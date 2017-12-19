@@ -19,30 +19,30 @@
           <!-- Last name -->
           <div class="box-container">
             <div class="left-contents">First Name</div>
-            <div class="right-contents"><input type="text" placeholder="길동" v-model="value.firstName"></div>
+            <div class="right-contents"><input type="text" placeholder="Robert" v-model="value.firstName"></div>
           </div>
           <!-- First name -->
           <div class="box-container">
             <div class="left-contents">Last Name</div>
-            <div class="right-contents"><input type="text" placeholder="홍" v-model="value.lastName"></div>
+            <div class="right-contents"><input type="text" placeholder="Smith" v-model="value.lastName"></div>
           </div>
 
           <!-- Title -->
           <div class="box-container">
             <div class="left-contents">Title</div>
-            <div class="right-contents"><input type="text" placeholder="CEO, 대리.." v-model="value.title"></div>
+            <div class="right-contents"><input type="text" placeholder="CEO, Manager.." v-model="value.title"></div>
           </div>
 
           <!-- Mobile -->
           <div class="box-container">
             <div class="left-contents">Mobile Number</div>
-            <div class="right-contents"><input type="text" placeholder="+82-10-1234-5678" v-model="value.mobile"></div>
+            <div class="right-contents"><input type="text" placeholder="+1-917-1234-5678" v-model="value.mobile"></div>
           </div>
 
           <!-- Phone -->
           <div class="box-container">
             <div class="left-contents">Office Phone</div>
-            <div class="right-contents"><input type="text" placeholder="+82-31-123-4567" v-model="value.phone"></div>
+            <div class="right-contents"><input type="text" placeholder="+1-917-123-4567" v-model="value.phone"></div>
           </div>
         </div>
 

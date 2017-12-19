@@ -159,7 +159,7 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../../static/temp-logo-image_512.png)'
+          image = 'url(../../../static/temp-logo-image_english_512.png)'
         }
         $image.css('background-image', image)
       },

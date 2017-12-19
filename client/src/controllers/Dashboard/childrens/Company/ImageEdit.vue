@@ -248,8 +248,8 @@
     .logo-image-container {
 
       #logo-image {
+        float: right;
         display: inline-block;
-        padding-top: 80px;
         width: 100px;
         height: 100px;
         border-radius: 50%;

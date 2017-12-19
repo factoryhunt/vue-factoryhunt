@@ -107,7 +107,7 @@
         </div>
 
         <div class="information-container">
-          <a><div class="vendor-logo-image" @clikc="routeAccountProfilePage"></div></a>
+          <a><div class="vendor-logo-image" @click="routeAccountProfilePage"></div></a>
           <div class="category-contents">
             <span>{{value.product.primary_product_category}}</span>
             <span> > </span>
