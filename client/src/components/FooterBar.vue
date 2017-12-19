@@ -1,5 +1,5 @@
 <template>
-  <div class="body-container">
+  <section class="body-container">
     <div class="divider"></div>
     <footer class="footer-container">
       <div class="row">
@@ -45,7 +45,7 @@
 
       </div>
     </footer>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -60,6 +60,10 @@
 
 <style lang="less" scoped>
   @import '../assets/css/index';
+
+  section {
+    display: none;
+  }
 
   .body-container {
     min-height: 0;
@@ -89,5 +93,14 @@
 
   a {
     color: @color-font-gray;
+  }
+
+  @media ( min-width: 744px ) {
+
+  }
+  @media ( min-width: 1128px ) {
+    section {
+      display: inherit;
+    }
   }
 </style>

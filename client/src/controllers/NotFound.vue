@@ -6,7 +6,7 @@
       <div class="body-contents">
         <h3>{{msg}}</h3>
         <button @click="onGoBackButton" class="btn btn-default">
-          Go back to home
+          Go back Home
         </button>
       </div>
     </div>

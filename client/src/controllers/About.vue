@@ -1,14 +1,14 @@
 <template>
   <div class="about-container">
 
-    <h2>About Us</h2>
+    <h2>About Factory Hunt</h2>
     <hr>
     <div class="containers">
-      <p class="title-text">Introduce Factory Hunt</p>
       <div class="description-section">
-        <p>Factory Hunt is a Supplier Search Engine & B2B Marketplace where businesses in South Korea can buy and sell products.</p>
-        <p>Beyond just product discovery and verification, we help businesses in obtaining financing and insurance, managing their shipments and ensuring payments security.</p>
-        <p>We facilitate the whole trading operation so that our buyers can find the most competitive products and obtain financing; and our suppliers can access new markets and trade in a secure environment.</p>
+        <p>Factory Hunt is a supplier search engine & B2B platform where businesses can be connected each other.</p>
+        <p>Any manufacturer/supplier can create a website and online product catalog for free. Once a website/catalog is created, the information will be displayed in search results.</p>
+        <p>Best regards,</p>
+        <p>Factory Hunt Team</p>
       </div>
     </div>
   </div>
@@ -78,6 +78,9 @@
   .description-section {
     font-size:22px;
     font-weight:300;
+  }
+  p {
+    margin-bottom: 20px;
   }
 
 </style>
