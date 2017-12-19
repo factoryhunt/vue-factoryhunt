@@ -7,6 +7,7 @@ import Home from '../controllers/Home/home'
 import SearchResult from '../controllers/SearchResult/SupplierSearchResultPage.vue'
 import AccountProfile from '../controllers/Account/AccountProfile'
 import ProductProfile from '../controllers/ProductProfile'
+import EmailVerification from '../controllers/Verification/Email.vue'
 import About from '../controllers/About'
 import ContactUs from '../controllers/ContactUs/ContactUs.vue'
 import LeadSearchDetail from '../controllers/LeadSearchDetail'
@@ -96,6 +97,10 @@ export default new Router({
         {
           path: 'search/supplier',
           component: LeadSearchDetail
+        },
+        {
+          path: 'verification/email',
+          component: EmailVerification
         }
       ]
     },

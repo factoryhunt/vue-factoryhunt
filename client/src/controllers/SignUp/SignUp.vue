@@ -26,7 +26,7 @@
           <button id="sign-up-button" class="button-orange">Sign Up</button>
         </div>
         <p class="terms">
-          By clicking Create Account, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy policy</a>, including our Cookie Use. You may receive SMS Notifications from Facebook and can opt out at any time.
+          By clicking Sign Up, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy Policy</a>, including our Cookie Use.
         </p>
         <div class="divider"></div>
 
@@ -57,22 +57,12 @@
           email: '',
           company: '',
           password: ''
-        },
-        placeholder: {
-          company: '회사명 | (주)팩토리헌트',
-          email: '이메일',
-          password: '비밀번호'
-        },
-        msg: {
-          signUp: '계정 만들기',
-          login: '로그인',
-          noAccount: '계정이 이미 있으신가요?'
         }
       }
     },
     methods: {
       onLoginButton () {
-        this.$router.push({path: '/login'})
+        location.href = '/login'
       },
       async onSignUpButton () {
         const $loader = $('#sign-up-loader')
@@ -83,10 +73,9 @@
           await this.signUp()
           $loader.removeClass().addClass('invisible')
           $signUpButton.css('display', 'inherit')
-          alert('Sign up success. \nPlease check your email and verify it.')
+          alert('You have signed up successfully. \nPlease check your email to activate your account.')
           location.href = '/dashboard'
         } catch (err) {
-          console.log(err)
           $loader.removeClass().addClass('invisible')
           $signUpButton.css('display', 'inherit')
           alert(err.data.msg)
@@ -114,10 +103,6 @@
 <style lang="less" scoped>
   @import "../../assets/css/index";
 
-  /*#sign-up-loader {*/
-  /*margin-top: 12px;*/
-  /*}*/
-
   .form-contents {
     .contents-size(500px, 60px auto, 0 24px);
   }
@@ -125,7 +110,6 @@
   .form-container {
     border-radius: 4px;
     box-shadow: @box-shadow;
-    /*border: 1px solid #484848;*/
     padding: 30px;
 
     span {
