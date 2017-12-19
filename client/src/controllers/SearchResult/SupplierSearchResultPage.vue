@@ -13,7 +13,7 @@
         <div v-else>
 
           <div v-for="(product, productIndex) in products" v-if="productIndex < 9" class="products-container">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div v-if="product.product_status" class="col-md-3 col-sm-6 col-xs-12">
               <div class="product-each-container">
                 <a @click="routeProductProfilePage(productIndex)"><img class="product-preview-image" :src="product.product_image_url_1" alt="logo"></a>
                 <p>{{ product.product_name }}</p>
@@ -135,6 +135,7 @@
         // Get products filtered by input
         this.$http.get(`/api/data/product/keyword/${this.input}`)
           .then((res) => {
+            console.log(res.data.result)
             this.product_count = res.data.result.count
             this.products = res.data.result.products
             this.product_result = ''

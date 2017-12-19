@@ -8,7 +8,7 @@
           <div id="company-image"></div>
           <div class="title-contents">
             <p class="title">{{ account.account_name_english }}</p>
-            <p v-if="contact.first_name" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
+            <p v-if="contact.first_name_english" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
           </div>
           <button id="view-button" @click="routeCompanyPage" class="view-button button-white">View website</button>
           <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white">Edit</button>

@@ -5,7 +5,7 @@
 
     <!-- Header -->
     <header class="header-container">
-      <p class="title">Upllad Product</p>
+      <p class="title">Upload Product</p>
       <!--<i id="required-circle" class="fa fa-circle required-circle" aria-hidden="true"></i>-->
       <!--<p class="caution-text">Required field</p>-->
     </header>

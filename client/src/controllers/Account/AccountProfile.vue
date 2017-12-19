@@ -39,10 +39,10 @@
         <div id="header-container" class="header-container">
           <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
           <img v-else="" id="company-logo" class="logo" src="/static/temp-logo-image_english_512.png">
-          <p class="sub-title">{{ account.mailing_state_english }} {{ account.mailing_city_english }}</p>
+          <p class="sub-title">{{ account.mailing_city_english + ', ' }} {{ account.mailing_country_english }}</p>
           <h1 class="title">{{ account.account_name_english }}</h1>
           <div class="sub-title-container">
-            <p class="short-description">{{ account.company_short_description }}</p>
+            <p class="short-description">{{ account.company_short_description_english }}</p>
             <!--•-->
             <!--<div class="star-container" v-for="index in 5">-->
             <!--<i class="fa fa-star-o" aria-hidden="true"></i>-->
@@ -106,23 +106,23 @@
 
       <!-- Contact Form -->
       <div class="right-container">
-        <div class="form-container">
+        <form @submit.prevent="sendEmail(value.email, value.quiry)" class="form-container">
 
           <h3>Contact</h3>
           <br>
           <div class="input-container">
-            <input v-model="value.email" type="text" :placeholder="placeholder.email">
+            <input required v-model="value.email" type="email" :placeholder="placeholder.email">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
+          <textarea required v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
 
           <p class="quote">{{msg.quote}}</p>
 
           <div class="button-container">
-            <button @click="sendEmail(value.email, value.quiry)" type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="btn btn-default">Send inquiry</button>
           </div>
-        </div>
+        </form>
       </div>
 
       <!-- Company Address -->
@@ -290,7 +290,6 @@
         }
       },
       sendEmail: function (email, quiry) {
-        alert('Sent success.')
         const data = {
           email: email,
           company: this.account.account_name_english,
@@ -298,8 +297,11 @@
           subject: 'An inquiry for verified supplier'
         }
         this.$http.post('/api/mail/company', data)
-          .then(response => {
-            console.log('mail sent: ' + response.data)
+          .then(() => {
+            alert('Your message has been sent successfully.')
+          })
+          .catch(() => {
+            alert('Failed. Please try again.')
           })
       },
       convertEnterToBrTag: function (subject) {
@@ -372,6 +374,7 @@
       },
       activateJquery () {
         $(document).ready(() => {
+          this.mainImageResize()
           this.applyImageCSS()
           this.applySmoothScrolling()
           this.applyStickyCSS()
@@ -379,6 +382,14 @@
           this.applyCompanyLogoImage()
           this.textareaResize()
         })
+      },
+      mainImageResize () {
+        const $image = $('.main-image')
+        const width = $(window).width()
+        const height = (460 * width) / 1280
+        console.log(width)
+        console.log(height)
+        $image.css('height', `${height}px`)
       },
       applyStickyCSS () {
         const $stickyOuter = $('.sticky-outer-container')
@@ -438,7 +449,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() + 30
+          var titleBottomOffset = title.offset().top + title.outerHeight()
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -560,7 +571,7 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
     background-position: 50% 50% !important;
-    height: 320px !important;
+    height: 320px;
   }
 
   .left-container {
@@ -762,7 +773,7 @@
   @media ( min-width: 744px ) {
     .image-container {
       .main-image {
-        height: 460px !important;
+        height: 460px;
       }
     }
 
@@ -797,7 +808,7 @@
   @media ( min-width: 1128px ) {
     .image-container {
       .main-image {
-        height: 460px !important;
+        height: 460px;
       }
     }
 

@@ -142,9 +142,9 @@
 
         <!-- Upload Button -->
         <div class="confirm-container input-container">
-          <p class="title">Confirm and Edit</p>
-          <p class="sub-title">Please confirm the information above before submitting it. The information will be updated immediately.</p>
-          <button class="button-orange">Edit</button>
+          <p class="title">Confirm and Save</p>
+          <p class="sub-title">Please confirm the information above before you save it. The information will be updated immediately.</p>
+          <button class="button-orange">Save</button>
         </div>
       </form>
     </div>

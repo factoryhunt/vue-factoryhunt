@@ -54,13 +54,14 @@ router.put('/image/:id', upload.array('image', 1), (req, res) => {
   const account_id = req.params.id
   const db_column = req.body.db_column
   const {
-    originalname,
     mimetype,
     buffer
   } = req.files[0]
+  const key = db_column === 'thumbnail_url' ? 'logo' : 'cover'
+
   const params = { // AWS S3업로드에 대한 정보 입니다.
     Bucket: BUCKET_NAME, // S3 Bucket 이름을 지정합니다.
-    Key: `accounts/${account_id}/${originalname}`, // Key : S3의 경로 및 파일 이름을 지정합니다.
+    Key: `accounts/${account_id}/${key}`, // Key : S3의 경로 및 파일 이름을 지정합니다.
     ACL: 'public-read', // ACL : 파일 권한에 대한 설정입니다.
     ContentType: mimetype,
     Body: buffer

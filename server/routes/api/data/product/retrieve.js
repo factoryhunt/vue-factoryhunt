@@ -57,7 +57,7 @@ router.get('/keyword/:keyword', async (req, res) => {
   const keyword = req.params.keyword.toLowerCase()
   const products = () => {
     return new Promise((resolve, reject) => {
-      mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE lower(product_name) LIKE "%${keyword}%" LIMIT 8`, (err, rows) => {
+      mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE lower(product_name) LIKE "%${keyword}%" AND product_status = "approved" LIMIT 8`, (err, rows) => {
         if (err) reject(err)
         resolve(rows)
       })
@@ -65,7 +65,7 @@ router.get('/keyword/:keyword', async (req, res) => {
   }
   const count = () => {
     return new Promise((resolve, reject) => {
-      mysql.query(`SELECT count(*) as count FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE lower(product_name) LIKE '%${keyword}%'`, (err, rows) => {
+      mysql.query(`SELECT count(*) as count FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE lower(product_name) LIKE '%${keyword}%' AND product_status = "approved"`, (err, rows) => {
         if (err) reject(err)
         resolve(rows[0].count)
       })

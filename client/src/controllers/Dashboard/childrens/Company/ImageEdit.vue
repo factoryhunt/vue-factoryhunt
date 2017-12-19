@@ -7,7 +7,7 @@
     <div class="logo-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">Edit Logo Image</p>
+        <p class="title">Edit Logo</p>
         <p class="sub-title">Your company's identity is visually expressed through its logo.</p>
         <p class="third-title">Upload a square image.</p>
       </div>
@@ -27,7 +27,7 @@
     <div class="main-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">Edit Company Cover photo</p>
+        <p class="title">Edit Company Cover Photo</p>
         <p class="sub-title">A cover photo is the larger photo at the top of your company website.</p>
       </div>
 
@@ -38,7 +38,7 @@
 
       <!-- Upload Button -->
       <div class="button-container">
-        <p class="caution-text">Optimize your cover photo for the right dimensions: 1920 pixels wide and 1080 pixels tall.</p>
+        <p class="caution-text">Optimize your cover photo for the right dimensions: 1280 pixels wide and 460 pixels tall.</p>
         <label for="main-image-input">Choose File</label>
         <input id="main-image-input" type="file" @change="onMainImageChanged($event.target.files)" accept="image/*">
         <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')">Upload</button>
@@ -120,11 +120,11 @@
           console.log(compressedFile)
           await this.postImageToS3(inputId, compressedFile)
           this.deactivateLoader()
-          alert('업로드 성공')
+          alert('The image has been uploaded successfully.')
           location.reload()
         } catch (err) {
           this.deactivateLoader()
-          alert('이미지 업로드 실패. 다시 시도해주세요.')
+          alert('Failed. Please try again.')
         }
       },
       imageCompress (file) {
@@ -148,6 +148,7 @@
           } else if (inputId === 'main-image-input') {
             formData.append('db_column', 'account_image_url_1')
           }
+          console.log(file)
           this.$http.put(`/api/data/account/image/${this.getAccountId}`, formData, config)
             .then(() => {
               resolve()
@@ -271,7 +272,7 @@
 
         #main-image {
           width: 100%;
-          height: 300px;
+          height: 280px;
           background-size: cover;
           background-position: 50%, 50%;
           background-repeat: no-repeat;

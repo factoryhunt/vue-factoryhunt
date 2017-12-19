@@ -110,7 +110,7 @@
         <!-- Postal Code -->
         <div class="box-container">
           <div class="left-contents">Postal code</div>
-          <div class="right-contents"><input type="text" pattern="[0-9]" title="" placeholder="Your code" v-model="value.postalCode"></div>
+          <div class="right-contents"><input type="text" pattern="[0-9]{1,10}" title="" placeholder="12345" v-model="value.postalCode"></div>
         </div>
       </div>
 
@@ -124,9 +124,9 @@
 
       <!-- Confirm and Submit -->
       <div class="confirm-container input-container sticky-stopper">
-        <p class="title">Confirm and edit</p>
-        <p class="sub-title">Please confirm the information above before you submit it. Company information will be updated immediately.</p>
-        <button class="button-orange">Submit</button>
+        <p class="title">Confirm and Save</p>
+        <p class="sub-title">Please confirm the information above before you save it. Company information will be updated immediately.</p>
+        <button class="button-orange">Save</button>
       </div>
     </form>
   </div>
@@ -280,7 +280,7 @@
           account_name_english: value.accountName,
           company_short_description_english: value.shortDescription,
           company_description_english: value.description,
-          products: value.products,
+          products_english: value.products,
           website: value.website,
           phone: value.phone,
           established_date: value.establishedDate,

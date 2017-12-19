@@ -124,7 +124,7 @@
           <!--</div>-->
 
           <p class="left-contents" v-show="value.product.minimum_order_quantity">MOQ: {{value.product.minimum_order_quantity}}</p>
-          <p class="right-contents">Price: No entered</p>
+          <p class="right-contents" v-show="value.product.price">Price: {{ value.product.price }}</p>
           <p class="left-contents" v-show="value.product.material_type">Materials: {{ value.product.material_type }}</p>
           <p class="right-contents" v-show="value.product.item_dimensions">Dimensions: {{ value.product.item_dimensions }}</p>
 

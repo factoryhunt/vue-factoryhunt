@@ -5,11 +5,11 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div class="menu-container">
-            <a id="item-company-edit" class="menu" href="/dashboard/company">Edit Company Information</a>
+            <a id="item-company-edit" class="menu" href="/dashboard/company">Edit Company</a>
             <a id="item-domain-edit" class="menu" href="/dashboard/company/domain">Edit Domain</a>
             <a id="item-image-edit" class="menu" href="/dashboard/company/image">Photos</a>
             <!--<a id="item-certification-upload" class="menu" href="/dashboard/company/certifications">인증서 등록</a>-->
-            <button @click="routeCompanyPage" class="view-button button-white">View Company Website</button>
+            <button @click="routeCompanyPage" class="view-button button-white">View Website</button>
           </div>
         </div>
       </div>

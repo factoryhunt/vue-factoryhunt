@@ -3,7 +3,7 @@
 
     <spinkit id="modal-spinkit"></spinkit>
 
-    <form class="form-container" @submit.prevent="onEditButton(value)">
+    <form class="form-container" @submit.prevent="checkDomain">
       <!-- Company Domain -->
       <div class="domain-container input-container">
         <!--<p class="title">Domain Address</p>-->
@@ -12,16 +12,16 @@
         <br>
         <p class="sub-title">www.factoryhunt.com/<span id="domain-text">{{ value.domain }}</span></p>
         <input required pattern="[가-힣a-z0-9]{3,50}" title="You can use letters and numbers between 3 and 50 characters." id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-        <i id="domain-mark" class="big-mark" aria-hidden="true"></i>
+        <!--<i id="domain-mark" class="big-mark" aria-hidden="true"></i>-->
         <p class="hidden-title">{{msg.domain.hiddenTitle}}</p>
-        <spinkit id="domain-spinkit"></spinkit>
+        <!--<spinkit id="domain-spinkit"></spinkit>-->
       </div>
 
       <!-- Confirm and Submit -->
       <div class="confirm-container input-container sticky-stopper">
-        <!--<p class="title">Confirm and Edit</p>-->
+        <!--<p class="title">Confirm and Save</p>-->
         <!--<p class="sub-title">Please confirm all information above before you click edit button</p>-->
-        <button class="button-orange">Edit</button>
+        <button class="button-orange">Save</button>
       </div>
     </form>
   </div>
@@ -86,75 +86,32 @@
       applyAttributes () {
         // when login user is page admin, keep going
         this.applyLocalData(this.account)
-        this.checkAllInputOnce(this.value)
-        this.applyInputFocusBlurEvent()
       },
       applyLocalData (account) {
         this.value.domain = account.domain
       },
-      checkAllInputOnce (value) {
-        this.checkDomain(value.domain)
-      },
-      checkDomain (domain) {
-//        const domainInput = $('.domain-container > input')
-        const spinkitInput = $('#domain-spinkit')
-        const domainMark = $('.domain-container > #domain-mark')
-        const hiddenTitle = $('.domain-container > .hidden-title')
+      checkDomain () {
+        $('#modal-spinkit').removeClass().addClass('spinkit-modal')
+//        const hiddenTitle = $('.domain-container > .hidden-title')
 
-        if (this.value.domain.length <= 2) {
-          this.toggle.isDomainAvailable = false
-          this.msg.domain.hiddenTitle = 'Domain address must contain at least 3 characters.'
-          domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
-          hiddenTitle.css({'color': '#767676'})
+        if (this.value.domain === this.account.domain) {
+          alert('It has been edited successfuly.')
+          window.scrollTo(0, 0)
+          location.reload()
           return
         }
 
-        // not allowed only number
-        const numCheck = /^[0-9]*$/
-        if (numCheck.test(this.value.domain)) {
-          this.toggle.isDomainAvailable = false
-          this.msg.domain.hiddenTitle = 'Domain address must contain at least 3 characters.'
-          domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
-          hiddenTitle.css({'color': '#767676'})
-          return
-        }
-
-        // not allowed static domain string (ex:about, contact-us ..)
-
-        // loading start
-        domainMark.removeClass()
-        spinkitInput.removeClass().addClass('spinkit-input')
-
-        // after loading
-        this.$http.get(`/api/data/account/domain/${domain}`)
+        this.$http.get(`/api/data/account/domain/${this.value.domain}`)
           .then(res => {
-            spinkitInput.removeClass().addClass('invisible')
-
             if (res.data) {
-              // when domain already existed
+              alert('The domain is already taken. Try another one.')
+              $('#modal-spinkit').removeClass()
               this.toggle.isDomainAvailable = false
-              this.msg.domain.hiddenTitle = 'That address is taken. Try another.'
-              domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
-              hiddenTitle.css({'color': 'red'})
-
-              // when it is mine
-              if (res.data.domain === this.account.domain) {
-                this.toggle.isDomainAvailable = true
-                this.msg.domain.hiddenTitle = 'You can use letters and numbers between 3 and 50 characters.'
-                domainMark.removeClass().addClass('big-mark fa fa-check').css({'color': 'green'})
-                hiddenTitle.css({'color': '#484848'})
-              } // when available
-            } else {
-              this.toggle.isDomainAvailable = true
-              this.msg.domain.hiddenTitle = 'The address is available.'
-              domainMark.removeClass().addClass('big-mark fa fa-check').css({'color': 'green'})
-              hiddenTitle.css({'color': '#484848'})
+//              this.msg.domain.hiddenTitle = 'The domain is already taken. Try another one.'
+//              hiddenTitle.css({'color': 'red'})
+            } else { // when available
+              this.updateDomain()
             }
-          }) // Error
-          .catch(() => {
-            this.toggle.isDomainAvailable = false
-            this.msg.domain.hiddenTitle = 'Server error. Try again.'
-            domainMark.removeClass().addClass('big-mark fa fa-times').css({'color': 'red'})
           })
       },
       domainInputPressed () {
@@ -183,24 +140,22 @@
           }
         })
       },
-      onEditButton (value) {
-        $('#modal-spinkit').removeClass().addClass('spinkit-modal')
-
+      updateDomain () {
         // props
         const data = {
-          domain: value.domain
+          domain: this.value.domain
         }
         // request
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert('It has been edited.')
+            alert('It has been edited successfuly.')
             window.scrollTo(0, 0)
             location.reload()
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert('It is failed. Try again.')
+            alert('Failed. Try again please.')
           })
       }
     },

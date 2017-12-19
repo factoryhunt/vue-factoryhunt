@@ -5,14 +5,13 @@ const CONFIG_MYSQL = require('../../../../config/mysql_config')
 // DELETE /api/data/product/:product_id
 router.delete('/:product_id', async (req, res) => {
   const id = req.params.product_id
-  console.log(id)
 
   const transferProduct = () => {
     return new Promise((resolve, reject) => {
       mysql.query(`INSERT INTO ${CONFIG_MYSQL.TABLE_PRODUCTS_DELETED} SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE ${CONFIG_MYSQL.TABLE_PRODUCTS}.product_id = ${id}`,
         (err) => {
           if (err) return reject({
-            msg: 'Removing single product failed. Try again.',
+            msg: 'Failed. Please try again.',
             msg_kor: '제품 삭제 실패. 다시 시도해주세요.'
           })
           resolve()
@@ -25,7 +24,7 @@ router.delete('/:product_id', async (req, res) => {
       mysql.query(`DELETE FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE product_id = ${id}`,
         (err) => {
           if (err) return reject({
-            msg: 'Removing single product failed. Try again.',
+            msg: 'Failed. Please try again.',
             msg_kor: '제품 삭제 실패. 다시 시도해주세요.'
           })
           resolve()
@@ -50,8 +49,11 @@ router.delete('/:product_id', async (req, res) => {
   }
 
   try {
+    console.log(1)
     await transferProduct()
+    console.log(2)
     await removeProduct()
+    console.log(3)
     onSuccess()
   } catch (err) {
     onError(err)

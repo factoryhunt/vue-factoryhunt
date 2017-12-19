@@ -215,6 +215,7 @@
         vertical-align: middle;
         text-align: right;
         padding-right: 30px;
+        visibility: hidden;
 
         .each-button-container {
           margin-left: 30px;
@@ -377,6 +378,13 @@
     .navigation-outer-container {
 
       .navigation-inner-container {
+
+        .logo-container {
+
+          #logo {
+            padding: 11.5px;
+          }
+        }
 
         .search-container {
           width: 60%;
@@ -595,6 +603,7 @@
           vertical-align: middle;
           text-align: right;
           padding-right: 30px;
+          visibility: visible;
 
           .each-button-container {
             margin-left: 30px;

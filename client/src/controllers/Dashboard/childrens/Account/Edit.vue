@@ -48,9 +48,9 @@
 
         <!-- Confirm -->
         <div class="confirm-container input-container">
-          <p class="title">Confirm and Edit</p>
-          <p class="sub-title">Please confirm the information above befor you submit it. All information will be updated immediately.</p>
-          <button class="button-orange">Confirm</button>
+          <p class="title">Confirm and Save</p>
+          <p class="sub-title">Please confirm the information above before you save it. All information will be updated immediately.</p>
+          <button class="button-orange">Save</button>
         </div>
 
       </div>

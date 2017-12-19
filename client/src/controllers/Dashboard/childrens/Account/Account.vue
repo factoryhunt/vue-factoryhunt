@@ -5,7 +5,7 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div class="menu-container">
-            <a id="item-account-edit" class="menu" href="/dashboard/account">Edit Information</a>
+            <a id="item-account-edit" class="menu" href="/dashboard/account">Edit Account</a>
             <a id="item-password-edit" class="menu" href="/dashboard/account/password">Change Password</a>
             <a id="item-management" class="menu" href="/dashboard/account/management">Account Management</a>
             <!--<button @click="routeCompanyPage" class="view-button button-white">See My Profile</button>-->
