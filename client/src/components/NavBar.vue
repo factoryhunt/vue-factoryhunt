@@ -7,6 +7,11 @@
       </div>
 
       <div class="search-container" v-show="this.$route.path !== '/'">
+        <div class="search-icon-container">
+          <div class="search-icon-contents">
+            <i id="search-icon" class="fa fa-search"></i>
+          </div>
+        </div>
         <input @keyup.enter="onSearchInput" v-model="input" placeholder="Search" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
 
@@ -124,7 +129,7 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../static/temp-logo-image_512.png)'
+          image = 'url(../../static/temp-logo-image_english_512.png)'
         }
         $image.css('background-image', image)
       },
@@ -166,18 +171,41 @@
       }
 
       .search-container {
+        position: relative;
         display: table-cell;
         vertical-align: middle;
-        width: 25%;
+        width: 27%;
         border-left: 1px solid @color-light-grey;
+
+        .search-icon-container {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 20px;
+
+          .search-icon-contents {
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
+
+          #search-icon {
+            position: absolute;
+            left: 8px;
+            top: 31px;
+            font-size:17px;
+            display: none;
+          }
+        }
 
         input {
           width: 100%;
           height: 75px;
-          padding: 0 20px;
+          padding: 0 26px;
           border: none;
           outline: none;
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 300;
         }
       }
@@ -353,10 +381,21 @@
         .search-container {
           width: 60%;
 
+          .search-icon-container {
+            .search-icon-contents {
+              #search-icon {
+                left: 12px;
+                top: 30px;
+                font-size:20px;
+                display: inherit;
+              }
+            }
+          }
+
           input {
             width: 100%;
             height: 75px;
-            padding: 0 20px;
+            padding-left: 42px;
             border: none;
             outline: none;
             font-size: 18px;
@@ -543,7 +582,7 @@
           input {
             width: 100%;
             height: 75px;
-            padding: 0 20px;
+            padding-left: 42px;
             border: none;
             outline: none;
             font-size: 18px;

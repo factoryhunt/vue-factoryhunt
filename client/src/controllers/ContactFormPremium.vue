@@ -31,8 +31,6 @@
 
     </div>
 
-    <footer-bar></footer-bar>
-
   </form>
 </template>
 
@@ -77,7 +75,7 @@
     },
     methods: {
       requestProductData: function () {
-        this.$http.get(`/api/data/product/id/${this.pid}`)
+        this.$http.get(`/api/data/product/product_id/${this.pid}`)
           .then(response => {
             this.product = response.data
             console.log(this.product.account_id)
@@ -85,7 +83,7 @@
           })
       },
       requestAccountData: function () {
-        this.$http.get(`/api/data/account/id/${this.aid}`)
+        this.$http.get(`/api/data/account/${this.aid}`)
           .then(response => {
             this.account = response.data
           })

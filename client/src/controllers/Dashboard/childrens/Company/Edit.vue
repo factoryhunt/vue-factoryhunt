@@ -81,9 +81,9 @@
         <div class="box-container">
           <div class="left-contents">Country</div>
           <div class="right-contents">
-            <select v-model="value.country">
-              <option disabled value="">Select a country</option>
-              <option></option>
+            <select required v-model="value.country">
+              <option id="disabled-option" disabled value="">Select a country.</option>
+              <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
             </select>
           </div>
         </div>
@@ -110,7 +110,7 @@
         <!-- Postal Code -->
         <div class="box-container">
           <div class="left-contents">Postal code</div>
-          <div class="right-contents"><input type="text" pattern="[0-9]" title="" placeholder="" v-model="value.postalCode"></div>
+          <div class="right-contents"><input type="text" pattern="[0-9]" title="" placeholder="Your code" v-model="value.postalCode"></div>
         </div>
       </div>
 
@@ -134,6 +134,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import countries from '../../../../assets/models/countries.json'
   import NavBar from '../../components/NavBar.vue'
   import FooterBar from '../../../../components/FooterBar'
   import Spinkit from '../../../../components/Spinkit/Spinkit'
@@ -157,6 +158,7 @@
     data () {
       return {
         value: {
+          countries: countries.english,
           contact: {},
           mainImageUrl: '',
           mainImageFileName: '',
@@ -374,8 +376,6 @@
         this.value.shortDescriptionCount = $('#short-description-input').val().length
       }
     },
-    created () {
-    },
     mounted () {
       this.applyAttributes()
     }
@@ -472,40 +472,6 @@
 
     .input-container {
       margin-bottom: 40px;
-    }
-    .box-container {
-      position: relative;
-      width: 100%;
-      border: 1px solid @color-light-grey;
-      border-radius: @border-radius;
-      margin-bottom: 4px;
-
-      .left-contents {
-        float: left;
-        font-size: 16px;
-        font-weight: 600;
-        padding-left: 18px;
-        height: @height;
-        line-height: @height;
-        width: 140px;
-        border-right: 1px solid @color-light-grey;
-      }
-      .right-contents {
-        padding-left: 140px;
-
-        input {
-          border: none;
-          margin-bottom: 0 !important;
-        }
-        select {
-          position: relative;
-          border: none;
-          margin-bottom: 0 !important;
-        }
-        #disabled-option {
-          color: @color-input-placeholder;
-        }
-      }
     }
 
     .title {

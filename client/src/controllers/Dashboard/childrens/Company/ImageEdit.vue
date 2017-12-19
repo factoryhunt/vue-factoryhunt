@@ -171,7 +171,7 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../../static/temp-logo-image_512.png)'
+          image = 'url(../../../static/temp-logo-image_english_512.png)'
         }
         $image.css('background-image', image)
       },
@@ -181,7 +181,7 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../../static/cover_image.png)'
+          image = 'url(../../../static/cover_image_english.png)'
         }
         $image.css('background-image', image)
       },

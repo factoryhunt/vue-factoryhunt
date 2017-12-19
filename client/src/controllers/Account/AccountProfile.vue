@@ -38,8 +38,7 @@
         <!-- Company Header -->
         <div id="header-container" class="header-container">
           <h1 class="title">{{ account.account_name_english }}</h1>
-          <img v-if="account.thumbnail_url" class="logo" :src="account.thumbnail_url">
-          <img v-else class="logo" src="../../assets/fh_logo_512.png">
+          <div class="logo"></div>
           <div class="sub-title-container">
             <h4 class="sub-title">{{ account.billing_country }}</h4>
             •
@@ -437,7 +436,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() - 60
+          var titleBottomOffset = title.offset().top + title.outerHeight() + 20
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -488,13 +487,13 @@
 //    Add above line to enable not ignoring space and ';' issues
       },
       applyCompanyLogoImage () {
-        const $logo = $('#company-logo')
+        const $logo = $('.logo')
         const $stickyLogo = $('#sticky-company-logo')
         var image = this.account.thumbnail_url
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../static/temp-logo-image_512.png)'
+          image = 'url(../../static/temp-logo-image_english_512.png)'
         }
         $logo.css('background-image', image)
         $stickyLogo.css('background-image', image)
@@ -505,7 +504,7 @@
         if (image) {
           image = 'url(' + image + ')'
         } else {
-          image = 'url(../../static/cover_image.png)'
+          image = 'url(../../static/cover_image_english.png)'
         }
         $image.css('background-image', image)
       },
@@ -590,6 +589,9 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: 50% 50% !important;
   }
   .header-container .sub-title-container .sub-title  {
     font-weight: 400;

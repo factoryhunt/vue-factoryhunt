@@ -73,15 +73,7 @@
           })
       },
       onLoginButton: function () {
-        this.$router.push({
-          path: '/login'
-        })
-      },
-      onSessionButton () {
-        this.$http.get('/api/auth/session')
-          .then(res => {
-            console.log(res)
-          })
+        location.href = '/login'
       }
     },
     created () {
@@ -142,6 +134,7 @@
         width: 100%;
         height: 50px;
         margin-top: 50px;
+        font-weight: 600;
         font-size: 18px;
       }
     }

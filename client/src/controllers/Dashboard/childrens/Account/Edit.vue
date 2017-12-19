@@ -250,41 +250,6 @@
 
     .body-container {
 
-      .box-container {
-        position: relative;
-        width: 100%;
-        border: 1px solid @color-light-grey;
-        border-radius: @border-radius;
-        margin-bottom: 4px;
-
-        .left-contents {
-          float: left;
-          font-size: 16px;
-          font-weight: 600;
-          padding-left: 18px;
-          height: @height;
-          line-height: @height;
-          width: 170px;
-          border-right: 1px solid @color-light-grey;
-        }
-        .right-contents {
-          padding-left: 180px;
-
-          input {
-            border: none;
-            margin-bottom: 0 !important;
-          }
-          select {
-            position: relative;
-            border: none;
-            margin-bottom: 0 !important;
-          }
-          #disabled-option {
-            color: @color-input-placeholder;
-          }
-        }
-      }
-
       .confirm-container {
         .sub-title {
           margin-bottom: 20px;
