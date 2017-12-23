@@ -5,8 +5,8 @@ module.exports = {
   'TABLE_ACCOUNTS_DELETED': 'accounts_deleted',
   'TABLE_CONTACTS': 'contacts',
   'TABLE_CONTACTS_DELETED': 'contacts_deleted',
-  'TABLE_PRODUCTS': 'products',
-  'TABLE_PRODUCTS_DELETED': 'products_deleted'
+  'TABLE_PRODUCTS': 'products_eng',
+  'TABLE_PRODUCTS_DELETED': 'products_eng_deleted'
   // 'TABLE_LEADS': 'leads_copy',
   // 'TABLE_LEADS_DELETED': 'leads_copy_deleted',
   // 'TABLE_ACCOUNTS': 'accounts_copy',

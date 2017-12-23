@@ -102,7 +102,7 @@
             <div class="left-container">Product of Origin</div>
             <div class="right-container">
               <!--<select required v-model="value.origin">-->
-              <select required v-model="value.origin">
+              <select v-model="value.origin">
                 <option id="disabled-option" disabled value="">Please select where the product is produced.</option>
                 <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
               </select>
@@ -137,6 +137,19 @@
           <spinkit id="editor-spinkit"></spinkit>
           <p class="caution-text">Product details not directly related to the product name may be prohibited by the administrator.
           </p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- Catalog -->
+        <div class="catalog-container input-container">
+          <p class="title">Catalog</p>
+          <p class="sub-title">PDF only. Maximum upload file size :10MB</p>
+          <label for="pdf-input">Select PDF</label>
+          <input name="catalog_pdf" id="pdf-input" type="file" accept="application/pdf" @change="onPDFchanged($event.target.files)">
+          <div class="file-information-container">
+            <p id="file-information-text">{{msg.pdfText}}</p>
+            <a id="pdf-cancel-button" @click="onPDFcancel">Cancel</a>
+          </div>
         </div>
         <div class="divider"></div>
 
@@ -180,6 +193,7 @@
         ],
         value: {
           files: [],
+          pdfFile: null,
           countries: countries.english,
           categories: categories,
           subCategories: '',
@@ -196,6 +210,9 @@
           dimension: '',
           materialType: '',
           editor: ''
+        },
+        msg: {
+          pdfText: ''
         }
       }
     },
@@ -336,6 +353,7 @@
         for (var i = 0; i < this.value.files.length; i++) {
           formData.append('images', this.value.files[i])
         }
+        formData.append('pdf', document.getElementById('pdf-input').files[0])
 
         this.$http.post(`/api/data/product/${this.getAccountId}`, formData, config)
           .then(() => {
@@ -369,6 +387,30 @@
             $('#editor-spinkit').removeClass().addClass('invisible')
             console.log(err)
           })
+      },
+      onPDFchanged (files) {
+        const maxSize = 15 * 1024 * 1024
+        var fileSize = ((files[0].size) / 1024) / 1024
+        fileSize = fileSize.toFixed(1)
+        // over 15MB
+        if (files[0].size > maxSize) {
+          this.onPDFcancel()
+          alert('Maximum file size is 10MB.')
+          return
+        }
+
+        $('#pdf-cancel-button').css('display', 'inline-block')
+        this.msg.pdfText = `${files[0].name} (${fileSize}MB)`
+        var reader = new FileReader()
+        reader.onload = (event) => {
+          console.log(event)
+        }
+        reader.readAsDataURL(files[0])
+      },
+      onPDFcancel () {
+        $('#pdf-input').val('')
+        this.msg.pdfText = ''
+        $('#pdf-cancel-button').css('display', 'none')
       }
     },
     mounted () {
@@ -727,6 +769,32 @@
 
           .quillWrapper {
             margin-bottom: 8px;
+          }
+        }
+
+        .catalog-container {
+
+          label {
+            .upload-label-basic;
+            border: 1px solid @color-font-base;
+            margin-top: 10px;
+            font-size: @font-size-button;
+            font-weight: @font-weight-button;
+          }
+
+          .file-information-container {
+            margin-top: 8px;
+
+            #pdf-cancel-button {
+              display: none;
+              font-size: 17px;
+              margin-left: 8px;
+            }
+            #file-information-text {
+              float: left;
+              font-size: 17px;
+              color: @color-font-gray;
+            }
           }
         }
 

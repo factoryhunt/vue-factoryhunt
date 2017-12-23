@@ -27,6 +27,7 @@ module.exports = {
   'globals': {
     '$': true,
     'jQuery': true,
-    'google': true
+    'google': true,
+    'PDFJS': true
   }
 }

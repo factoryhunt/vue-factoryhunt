@@ -125,7 +125,6 @@
       applyImageBackgroundImage () {
         const $image = $('#user-logo')
         var image = this.account.thumbnail_url
-        console.log('image:', image)
         if (image) {
           image = 'url(' + image + ')'
         } else {

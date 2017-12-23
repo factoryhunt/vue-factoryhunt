@@ -17,7 +17,7 @@ module.exports = (req, res) => {
       // checking user existing
       // both expression are accepted
       // if (users.length < 1) return res.status(403).json({msg: 'email is not exist'})
-      if (!user) return res.status(403).json({result: false, msg: 'email is not exist', msg_kor: '존재하지 않는 이메일입니다.'})
+      if (!user) return res.status(403).json({result: false, msg: 'email does not exist', msg_kor: '존재하지 않는 이메일입니다.'})
 
       // DB에 패스워드 길이가 50글자로 제한되어 있었음.
       crypto.pbkdf2(password, user.password_salt, 100000, 64, 'sha512', function (err, key) {

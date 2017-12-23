@@ -57,7 +57,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea readonly>{{ account.company_description_english }}</textarea>
+          <textarea id="description-textarea" readonly>{{ account.company_description_english }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -346,7 +346,6 @@
         const state = this.account.mailing_state_english
         const country = this.account.mailing_country_english
         const address = state ? street + ', ' + city + ', ' + state + ', ' + country : street + ', ' + city + ', ' + country
-        console.log(address)
         geocoder.geocode({'address': address}, function (results, status) {
           if (status === 'OK') {
             console.log('map ok')
@@ -366,16 +365,16 @@
       textareaResize () {
         $(document).ready(() => {
           const $description = $('.description-container textarea')
-          const $history = $('.history-container textarea')
+//          const $history = $('.history-container textarea')
 //          console.log($textarea[0].scrollHeight)
           $description.css({
             'height': ($description[0].scrollHeight) + 'px',
             'overflow': 'hidden'
           })
-          $history.css({
-            'height': ($history[0].scrollHeight) + 'px',
-            'overflow': 'hidden'
-          })
+//          $history.css({
+//            'height': ($history[0].scrollHeight) + 'px',
+//            'overflow': 'hidden'
+//          })
         })
       },
       activateJquery () {
@@ -393,8 +392,6 @@
         const $image = $('.main-image')
         const width = $(window).width()
         const height = (460 * width) / 1280
-        console.log(width)
-        console.log(height)
         $image.css('height', `${height}px`)
       },
       applyStickyCSS () {
@@ -455,7 +452,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight()
+          var titleBottomOffset = title.offset().top + title.outerHeight() + 34
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -589,13 +586,13 @@
 
   .header-container {
     position: relative;
+    min-height: 80px;
 
     .title {
       font-size: 32px;
       font-weight:500;
       margin-bottom:10px;
       padding-right: 65px;
-      min-height: 80px;
     }
     .sub-title  {
       font-weight: 400;

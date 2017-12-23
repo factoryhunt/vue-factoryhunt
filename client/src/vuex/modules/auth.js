@@ -142,7 +142,6 @@ function checkToken () {
       .then((res) => {
         const accountId = res.data.info.id
         const contactId = res.data.info.cid
-        console.log(res)
         store.commit('login', {
           token,
           user: {

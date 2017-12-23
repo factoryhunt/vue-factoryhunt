@@ -14,11 +14,13 @@ import Icon from 'vue-awesome/components/Icon'
 import axios from 'axios'
 import scrollReveal from 'scrollreveal'
 import store from './vuex/store'
+import PDFJS from 'pdfjs-dist'
 
 // Global variable setting up received CDN (axios, jQuery, Google ..)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 window.scrollReveal = scrollReveal()
+window.PDFJS = PDFJS
 Vue.use(Meta)
 Vue.component('icon', Icon)
 

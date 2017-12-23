@@ -140,6 +140,19 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Catalog -->
+        <div class="catalog-container input-container">
+          <p class="title">Catalog</p>
+          <p class="sub-title">PDF only. Maximum upload file size :10MB</p>
+          <label for="pdf-input">Select PDF</label>
+          <input name="catalog_pdf" id="pdf-input" type="file" accept="application/pdf" @change="onPDFchanged($event.target.files)">
+          <div class="file-information-container">
+            <p id="file-information-text">{{msg.pdfText}}</p>
+            <a id="pdf-cancel-button" @click="onPDFcancel">Cancel</a>
+          </div>
+        </div>
+        <div class="divider"></div>
+
         <!-- Upload Button -->
         <div class="confirm-container input-container">
           <p class="title">Confirm and Save</p>
@@ -198,6 +211,9 @@
           dimension: '',
           materialType: '',
           editor: ''
+        },
+        msg: {
+          pdfText: ''
         }
       }
     },
@@ -377,6 +393,11 @@
           this.value.files.push(new File([''], ''))
           this.readImage(5, product.product_image_url_5)
           $('#image-add').remove()
+        }
+
+        // pdf information mapping
+        if (product.product_pdf_url) {
+          this.msg.pdfText = 'asdf'
         }
       },
       readImage (index, url) {
@@ -777,6 +798,32 @@
 
           .quillWrapper {
             margin-bottom: 8px;
+          }
+        }
+
+        .catalog-container {
+
+          label {
+            .upload-label-basic;
+            border: 1px solid @color-font-base;
+            margin-top: 10px;
+            font-size: @font-size-button;
+            font-weight: @font-weight-button;
+          }
+
+          .file-information-container {
+            margin-top: 8px;
+
+            #pdf-cancel-button {
+              display: none;
+              font-size: 17px;
+              margin-left: 8px;
+            }
+            #file-information-text {
+              float: left;
+              font-size: 17px;
+              color: @color-font-gray;
+            }
           }
         }
 

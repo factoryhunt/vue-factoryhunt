@@ -17,27 +17,23 @@ const createProductImageMulter = multer({
     acl: 'public-read',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function (req, file, cb) {
-      console.log('params', req.params)
-      console.log('query', req.query)
-      console.log('file', file)
       cb(null, {fieldName: file.fieldname})
     },
     key: function (req, file, cb) {
-      // const product_name = req.body.product_name
-      console.log('body', req.body)
-      console.log('params', req.params)
-      console.log('query', req.query)
-      console.log('file', file)
-      const product_id = req.params.account_id
+      const product_id = req.product_id
       const file_name = file.originalname
-      cb(null, `products/${product_id}/thumbnail_images/${file_name}`)
+      cb(null, `products-eng/${product_id}/thumbnail_images/${file_name}`)
     }
   })
 })
-router.post('/:account_id', createProductImageMulter.array('images', 5), (req, res) => {
-  const account_id = req.params.account_id
-
-  const createProduct = () => new Promise((resolve, reject) => {
+const fields = [
+  {name: 'images'},
+  {name: 'pdf'}
+]
+router.post('/:account_id', productCreate, createProductImageMulter.fields(fields), (req, res) => {
+  // console.log(req.files)
+  const product_id = req.product_id
+  const updateTextData = () => new Promise((resolve, reject) => {
     let data = {
       product_name,
       product_domain,
@@ -51,36 +47,38 @@ router.post('/:account_id', createProductImageMulter.array('images', 5), (req, r
       minimum_order_quantity,
       product_description,
     } = req.body
-    data.account_id = account_id
-    data.product_status = 'pending'
-    console.log(data)
 
-    mysql.query(`INSERT INTO ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ?`, data,
-      (err, rows) => {
+    mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ? WHERE product_id = ${product_id}`, data,
+      (err) => {
         if (err) return reject(err)
-        resolve(rows.insertId)
+        resolve()
       })
   })
 
-  const updateImageUrl = (product_id) => new Promise((resolve, reject) => {
+  const updateImageUrl = () => new Promise((resolve, reject) => {
+    const product_id = req.product_id
     let imageData = {}
 
-    for (let i = 0; i < req.files.length; i++) {
+    for (let i = 0; i < req.files.images.length; i++) {
+      console.log('updateImageUrl')
       if (i === 0) {
-        imageData.product_image_url_1 = req.files[i].location
+        imageData.product_image_url_1 = req.files.images[i].location
       }
       if (i === 1) {
-        imageData.product_image_url_2 = req.files[i].location
+        imageData.product_image_url_2 = req.files.images[i].location
       }
       if (i === 2) {
-        imageData.product_image_url_3 = req.files[i].location
+        imageData.product_image_url_3 = req.files.images[i].location
       }
       if (i === 3) {
-        imageData.product_image_url_4 = req.files[i].location
+        imageData.product_image_url_4 = req.files.images[i].location
       }
       if (i === 4) {
-        imageData.product_image_url_5 = req.files[i].location
+        imageData.product_image_url_5 = req.files.images[i].location
       }
+    }
+    if (req.files.pdf[0].location) {
+      imageData.product_pdf_url = req.files.pdf[0].location
     }
     mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ? WHERE product_id = ${product_id}`, imageData,
       (err) => {
@@ -92,17 +90,18 @@ router.post('/:account_id', createProductImageMulter.array('images', 5), (req, r
   const onSuccess = () => {
     res.status(200).json({
       result: true,
-      msg: 'Image upload success.'
+      msg: 'Image upload succeed.'
     })
   }
-  const onError = () => {
+  const onError = (err) => {
+    console.log(err)
     res.status(403).json({
       result: false,
       msg: 'Image upload failed.'
     })
   }
 
-  createProduct()
+  updateTextData()
     .then(updateImageUrl)
     .then(onSuccess)
     .catch(onError)
@@ -119,9 +118,10 @@ const createEditorImageMulter = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function (req, file, cb) {
-      const product_id = req.params.product_id
-      const file_name = file.originalname
-      cb(null, `products/${product_id}/editor_images/${file_name}`)
+      // const product_id = req.params.product_id
+      // const file_name = file.originalname
+      const date = Date.now().toString()
+      cb(null, `products-eng/editor_images/${date}`)
     }
   })
 })
@@ -130,3 +130,31 @@ router.post('/editor/:account_id/', createEditorImageMulter.array('images', 1), 
 })
 
 module.exports = router
+
+function productCreate (req, res, next) {
+  const account_id = req.params.account_id
+  const createEmptyRecord = () => new Promise((resolve, reject) => {
+    let data = {}
+    data.account_id = account_id
+    data.product_status = 'pending'
+
+    mysql.query(`INSERT INTO ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ?`, data,
+      (err, rows) => {
+        if (err) return reject(err)
+        resolve(rows.insertId)
+      })
+  })
+
+  const onError = () => {
+    res.status(403).json({
+      result: false,
+      msg: 'Product create failed.'
+    })
+  }
+
+  createEmptyRecord().then((id) => {
+    req.product_id = id
+    console.log('new product id: ', req.product_id)
+    next()
+  }).catch(onError)
+}

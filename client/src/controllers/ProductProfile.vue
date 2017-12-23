@@ -7,6 +7,7 @@
 
       <div class="left-container">
 
+        <!-- Header -->
         <div class="header-container">
           <h1 class="title">{{ value.product.product_name }}</h1>
           <div class="sub-title-container">
@@ -21,6 +22,7 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Product Images -->
         <div class="right-container">
 
           <div class="product-image-container">
@@ -49,63 +51,64 @@
 
           <!--<div class="product-image-containers">-->
 
-            <!--<div id="product-carousel" class="carousel slide" data-ride="carousel">-->
-              <!--&lt;!&ndash; Indicators &ndash;&gt;-->
-              <!--<ol class="carousel-indicators">-->
-                <!--<li id="1st" data-target="#product-carousel" data-slide-to="0" class="active">-->
+          <!--<div id="product-carousel" class="carousel slide" data-ride="carousel">-->
+          <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+          <!--<ol class="carousel-indicators">-->
+          <!--<li id="1st" data-target="#product-carousel" data-slide-to="0" class="active">-->
 
-                <!--</li>-->
-                <!--<li id="2nd" v-show="value.product.product_image_url_2" data-target="#product-carousel" data-slide-to="1">-->
+          <!--</li>-->
+          <!--<li id="2nd" v-show="value.product.product_image_url_2" data-target="#product-carousel" data-slide-to="1">-->
 
-                <!--</li>-->
-                <!--<li id="3rd" v-show="value.product.product_image_url_3" data-target="#product-carousel" data-slide-to="2">-->
+          <!--</li>-->
+          <!--<li id="3rd" v-show="value.product.product_image_url_3" data-target="#product-carousel" data-slide-to="2">-->
 
-                <!--</li>-->
-                <!--<li id="4th" v-show="value.product.product_image_url_4" data-slide-to="3">-->
-                <!--</li>-->
-                <!--<li id="5th" v-show="value.product.product_image_url_5" data-slide-to="4">-->
-                <!--</li>-->
-                <!--<li id="6th" v-show="value.product.product_image_url_6" data-slide-to="5">-->
-                <!--</li>-->
-              <!--</ol>-->
+          <!--</li>-->
+          <!--<li id="4th" v-show="value.product.product_image_url_4" data-slide-to="3">-->
+          <!--</li>-->
+          <!--<li id="5th" v-show="value.product.product_image_url_5" data-slide-to="4">-->
+          <!--</li>-->
+          <!--<li id="6th" v-show="value.product.product_image_url_6" data-slide-to="5">-->
+          <!--</li>-->
+          <!--</ol>-->
 
-              <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-              <!--<div class="carousel-inner" role="listbox">-->
-                <!--<div class="item active">-->
-                  <!--<img :src="value.product.product_image_url_1">-->
-                <!--</div>-->
-                <!--<div :class="value.product.product_image_url_2 ? 'item' : 'disable' " v-if="value.product.product_image_url_2">-->
-                  <!--<img :src="value.product.product_image_url_2" alt="...">-->
-                <!--</div>-->
-                <!--<div :class="value.product.product_image_url_3 ? 'item' : 'disable' " v-if="value.product.product_image_url_3">-->
-                  <!--<img :src="value.product.product_image_url_3" alt="...">-->
-                <!--</div>-->
-                <!--<div :class="value.product.product_image_url_4 ? 'item' : 'disable' " v-if="value.product.product_image_url_4">-->
-                  <!--<img :src="value.product.product_image_url_4" alt="...">-->
-                <!--</div>-->
-                <!--<div :class="value.product.product_image_url_5 ? 'item' : 'disable' " v-if="value.product.product_image_url_5">-->
-                  <!--<img :src="value.product.product_image_url_5" alt="...">-->
-                <!--</div>-->
-                <!--<div :class="value.product.product_image_url_6 ? 'item' : 'disable' " v-if="value.product.product_image_url_6">-->
-                  <!--<img :src="value.product.product_image_url_6" alt="...">-->
-                <!--</div>-->
-              <!--</div>-->
+          <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+          <!--<div class="carousel-inner" role="listbox">-->
+          <!--<div class="item active">-->
+          <!--<img :src="value.product.product_image_url_1">-->
+          <!--</div>-->
+          <!--<div :class="value.product.product_image_url_2 ? 'item' : 'disable' " v-if="value.product.product_image_url_2">-->
+          <!--<img :src="value.product.product_image_url_2" alt="...">-->
+          <!--</div>-->
+          <!--<div :class="value.product.product_image_url_3 ? 'item' : 'disable' " v-if="value.product.product_image_url_3">-->
+          <!--<img :src="value.product.product_image_url_3" alt="...">-->
+          <!--</div>-->
+          <!--<div :class="value.product.product_image_url_4 ? 'item' : 'disable' " v-if="value.product.product_image_url_4">-->
+          <!--<img :src="value.product.product_image_url_4" alt="...">-->
+          <!--</div>-->
+          <!--<div :class="value.product.product_image_url_5 ? 'item' : 'disable' " v-if="value.product.product_image_url_5">-->
+          <!--<img :src="value.product.product_image_url_5" alt="...">-->
+          <!--</div>-->
+          <!--<div :class="value.product.product_image_url_6 ? 'item' : 'disable' " v-if="value.product.product_image_url_6">-->
+          <!--<img :src="value.product.product_image_url_6" alt="...">-->
+          <!--</div>-->
+          <!--</div>-->
 
-              <!--&lt;!&ndash; Controls &ndash;&gt;-->
-              <!--<a class="left carousel-control" href="#product-carousel" role="button" data-slide="prev">-->
-                <!--<icon class="arrow-image" name="arrow-left"></icon>-->
-                <!--<span class="sr-only">Previous</span>-->
-              <!--</a>-->
-              <!--<a class="right carousel-control" href="#product-carousel" role="button" data-slide="next">-->
-                <!--<icon class="arrow-image" name="arrow-right"></icon>-->
-                <!--<span class="sr-only">Next</span>-->
-              <!--</a>-->
-            <!--</div>-->
+          <!--&lt;!&ndash; Controls &ndash;&gt;-->
+          <!--<a class="left carousel-control" href="#product-carousel" role="button" data-slide="prev">-->
+          <!--<icon class="arrow-image" name="arrow-left"></icon>-->
+          <!--<span class="sr-only">Previous</span>-->
+          <!--</a>-->
+          <!--<a class="right carousel-control" href="#product-carousel" role="button" data-slide="next">-->
+          <!--<icon class="arrow-image" name="arrow-right"></icon>-->
+          <!--<span class="sr-only">Next</span>-->
+          <!--</a>-->
+          <!--</div>-->
           <!--</div>-->
 
           <div class="divider"></div>
         </div>
 
+        <!-- Information -->
         <div class="information-container">
           <a><div class="vendor-logo-image" @click="routeAccountProfilePage"></div></a>
           <div class="category-contents">
@@ -131,6 +134,7 @@
         </div>
         <div class="divider"></div>
 
+        <!-- Reviews -->
         <div class="reviews-container">
           <h3>Reviews <small>(0)</small></h3>
           <br>
@@ -139,10 +143,19 @@
         <div class="divider"></div>
       </div>
 
-      <div class="catalog-container">
-        <h3>Catalogs</h3>
+      <div class="product-introduction-container">
+        <h3>Product Introduction</h3>
         <br>
-        <div class="catalog-inner-container" v-html="value.product.product_description"></div>
+        <div class="product-introduction-inner-container" v-html="value.product.product_description"></div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="catalog-container" id="catalog-container">
+        <h3>Catalog</h3>
+        <!--<h3><a href="/static/web/viewer.html?file=http://localhost:8080/static/test.pdf" target="_blank">Catalog</a></h3>-->
+        <!--<iframe id="catalog" src="/static/web/viewer.html?file=/static/test.pdf" allowfullscreen webkitallowfullscreen scrolling="no"  name="pdf" width="724" height="300" style="border: none;">-->
+        <!--This browser does not support PDFs. Please download the PDF to view it: <a target="pdf" :href="value.product.product_image_url_2">Download PDF</a>-->
+        <!--</iframe>-->
       </div>
       <div class="divider"></div>
 
@@ -173,6 +186,7 @@
 
 <script>
   import NavBar from '../components/NavBar'
+  import pdflib from 'pdfjs-dist'
   import CopyrightBar from '../components/CopyrightBar'
   import { mapGetters } from 'vuex'
 
@@ -202,7 +216,8 @@
         },
         toggle: {
           isAuthLoaded: false
-        }
+        },
+        options: this || { scale: 1 }
       }
     },
     methods: {
@@ -229,7 +244,6 @@
         }
         this.fetchReletedProducts(this.value.product.account_id)
         this.applyJquery()
-        this.activateJS()
       },
       fetchProduct () {
         return new Promise((resolve, reject) => {
@@ -260,9 +274,6 @@
             })
         })
       },
-      activateJS () {
-        this.changePageTitle()
-      },
       onSendInquiry () {
         const pid = this.value.product.product_id
         const aid = this.value.vendor.account_id
@@ -277,15 +288,41 @@
       },
       applyJquery () {
         $(document).ready(() => {
+          this.changePageTitle()
           this.applyCompanyLogoImage()
-          this.activateSlick()
           this.imageResize()
-          this.relatedProductImageResize()
-
+          this.activateSlick()
+          this.renderPDF()
           $(window).resize(() => {
             this.imageResize()
           })
         })
+      },
+      renderPDF () {
+        const url = this.value.product.product_pdf_url
+        pdflib.PDFJS.getDocument(url).then((pdf) => {
+          for (let i = 1; i <= pdf.numPages; i += 1) {
+            const canvas = document.createElement('canvas')
+            canvas.id = 'catalog'
+            document.getElementById('catalog-container').appendChild(canvas)
+            pdf.getPage(i).then((page) => {
+              this.renderPage(page, canvas)
+            })
+          }
+        })
+      },
+      renderPage (page, canvas) {
+        const viewport = page.getViewport(1.5)
+        const canvasContext = canvas.getContext('2d')
+        const renderContext = {
+          canvasContext,
+          viewport
+        }
+        canvas.height = viewport.height
+        canvas.width = viewport.width
+        canvas.style.width = '100%'
+        canvas.style.marginBottom = '-5px'
+        page.render(renderContext)
       },
       changePageTitle () {
         document.title = `${this.value.product.product_name} - ${this.value.vendor.account_name_english} | Factory Hunt`
@@ -304,7 +341,6 @@
       applyCompanyLogoImage () {
         const $logo = $('.vendor-logo-image')
         var image = this.value.vendor.thumbnail_url
-        console.log(image)
         if (image) {
           image = 'url(' + image + ')'
         } else {
@@ -376,7 +412,6 @@
       },
       relatedProductImageResize () {
         $(document).ready(() => {
-          console.log(1)
           const $image = $('.related-image')
           $image.css('height', $image.width() + 'px')
         })
@@ -386,11 +421,6 @@
       window.scrollTo(0, 0)
       this.tryAutoLogin()
       this.fetchDatas()
-    },
-    watch: {
-      'this.value.products' () {
-        this.applyJquery()
-      }
     }
   }
 </script>
@@ -401,6 +431,7 @@
   // Global
   p {
     margin: 0;
+    word-break: break-all;
   }
   textarea {
     resize: none;
@@ -510,22 +541,32 @@
   .review-container {
   }
 
-  .catalog-container {
+  .product-introduction-container {
     position: relative;
     font-size:19px;
     font-weight:300;
+
+    .product-introduction-inner-container {
+      text-align: inherit;
+      word-break: break-all;
+    }
+    img {
+      width:100% !important;
+    }
   }
-  .catalog-inner-container {
+
+  .catalog-container {
+    position: relative;
     overflow: hidden;
-    text-align: inherit;
-  }
-  .catalog-inner-container img {
-    width:100% !important;
-  }
-  /* App.vue에서 조절하는 거 아니면 db에서 가져온 게 css 적용이 안된다 */
-  .catalog-container iframe {
-    /*width:100%;*/
-    /*height:300px;*/
+
+    h3 {
+      margin-bottom: 30px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
   }
 
   .related-products-container h4 {
