@@ -6,14 +6,14 @@
       <div class="divider"></div>
       <div class="row">
         <div v-if="products.length === 0">
-          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div style="padding: 0" class="col-md-12 col-sm-12 col-xs-12">
             <h5>{{ product_result }}</h5>
           </div>
         </div>
         <div v-else>
 
           <div v-for="(product, productIndex) in products" v-if="productIndex < 9" class="products-container">
-            <div v-if="product.product_status" class="col-md-3 col-sm-6 col-xs-12">
+            <div style="padding: 0" v-if="product.product_status" class="col-md-3 col-sm-6 col-xs-12">
               <div class="product-each-container">
                 <a @click="routeProductProfilePage(productIndex)"><img class="product-preview-image" :src="product.product_image_url_1" alt="logo"></a>
                 <p>{{ product.product_name }}</p>
@@ -32,7 +32,7 @@
       <h2>Verified suppliers<small> {{ checkResultCount(account_result, account_count) }} </small> </h2>
       <div class="divider"></div>
       <div class="row">
-        <div class="col-md-9 col-sm-9">
+        <div style="padding: 0" class="col-md-9 col-sm-9">
 
           <div v-if="accounts.length === 0">
             <h5 style="margin-bottom: 35px">{{ account_result }}</h5>
@@ -63,13 +63,13 @@
       <div class="divider"></div>
       <div class="row">
 
-        <div class="col-md-9" v-if="leads.length === 0">
+        <div style="padding: 0" class="col-md-9" v-if="leads.length === 0">
           <h5>{{ lead_result }}</h5>
         </div>
 
         <div v-else>
           <div v-for="(lead, index2) in leads" v-if="index2 < 7">
-            <div class="col-md-9">
+            <div style="padding: 0" class="col-md-9">
               <div class="directory-content">
                 <h4 class="company" v-if="lead.company_english" @click="routeLeadContactForm(index2)">{{ lead.company_english }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
                 <h4 class="company" v-else @click="routeLeadContactForm(index2)">{{ lead.company }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
@@ -203,22 +203,16 @@
       addComma: function (str) {
         str = String(str)
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')
+      },
+      highlightTextOfSearchResultText () {
       }
     },
     created () {
-      console.log('SearchResult Created')
       window.scrollTo(0, 0)
       this.requestDatas()
     },
-    mounted () {
-      console.log('SearchResult Mounted')
-    },
-    updated () {
-      console.log('SearchResult Updated')
-    },
     watch: {
       '$route.query.input' (newInput, oldInput) {
-        console.log('query.input changed')
         this.input = newInput
         this.requestDatas()
       }
@@ -262,13 +256,20 @@
     }
     .product-each-container {
       padding: 10px;
-      min-height:330px;
+      min-height:380px;
     }
     .products-contents .product-preview-image {
       box-shadow: 1px 1px 10px 1px #e4e4e4;
     }
     .products-contents .product-each-container p {
       margin-top: 7px;
+      word-break: break-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* 라인수 */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
     }
 
     /*Accounts section*/

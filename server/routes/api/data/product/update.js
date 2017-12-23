@@ -22,7 +22,7 @@ const upload = multer({
     key: function (req, file, cb) {
       const product_id = req.params.product_id
       const file_name = file.originalname
-      cb(null, `products/${product_id}/thumbnail_images/${file_name}`)
+      cb(null, `products-eng/${product_id}/thumbnail_images/${file_name}`)
     }
   })
 })
@@ -31,7 +31,8 @@ const uploadKeys = [
   {name: 'image_2'},
   {name: 'image_3'},
   {name: 'image_4'},
-  {name: 'image_5'}
+  {name: 'image_5'},
+  {name: 'pdf'}
 ]
 router.put('/:product_id', upload.fields(uploadKeys), (req, res) => {
   // constants
@@ -56,6 +57,7 @@ router.put('/:product_id', upload.fields(uploadKeys), (req, res) => {
       resolve()
     })
   })
+
   const imageUrlUpdate = () => new Promise((resolve, reject) => {
     let imageData = {}
     if (req.files.image_1) {
@@ -72,6 +74,9 @@ router.put('/:product_id', upload.fields(uploadKeys), (req, res) => {
     }
     if (req.files.image_5) {
       imageData.product_image_url_5 = req.files.image_5[0].location
+    }
+    if (req.files.pdf) {
+      imageData.product_pdf_url = req.files.pdf[0].location
     }
     mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ? WHERE product_id = ${product_id}`, imageData,
       (err) => {

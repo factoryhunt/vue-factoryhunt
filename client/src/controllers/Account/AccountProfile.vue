@@ -57,7 +57,7 @@
         <div id="INTRO" class="description-container">
           <h3>Company description</h3>
           <br>
-          <textarea readonly>{{ account.company_description_english }}</textarea>
+          <textarea id="description-textarea" readonly>{{ account.company_description_english }}</textarea>
         </div>
         <div class="divider"></div>
 
@@ -65,28 +65,38 @@
         <div class="information-container">
           <h3>Information</h3>
           <br>
-          <dl class="dl-horizontal information-table-container">
-            <dt>Products</dt>
-            <dd>{{ account.products_english }}</dd>
-            <dt>Website</dt>
-            <dd><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></dd>
-            <dt>Phone</dt>
-            <dd>{{ account.phone }}</dd>
-            <dt>Location</dt>
-            <dd>{{ getLocation }}</dd>
-            <dt>Established year</dt>
-            <dd>{{ getYear(account.established_date) }}</dd>
-          </dl>
+          <div class="information-table-container">
+            <div class="list-container" v-show="account.products_english">
+              <div class="left-contents">Products</div>
+              <div class="right-contents">{{ account.products_english }}</div>
+            </div>
+            <div class="list-container" v-show="account.website">
+              <div class="left-contents">Website</div>
+              <div class="right-contents"><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></div>
+            </div>
+            <div class="list-container" v-show="account.phone">
+              <div class="left-contents">Phone</div>
+              <div class="right-contents">{{ account.phone }}</div>
+            </div>
+            <div class="list-container">
+              <div class="left-contents">Location</div>
+              <div class="right-contents">{{ getLocation }}</div>
+            </div>
+            <div class="list-container">
+              <div class="left-contents">Established year</div>
+              <div class="right-contents">{{ getYear(account.established_date) }}</div>
+            </div>
+          </div>
         </div>
         <div class="divider"></div>
 
         <!-- Company History -->
-        <!--<div class="history-container">-->
-          <!--<h3>History</h3>-->
-          <!--<br>-->
-          <!--<textarea>{{ account.history }}</textarea>-->
-        <!--</div>-->
-        <!--<div class="divider"></div>-->
+        <div class="history-container" v-show="account.history">
+          <h3>History</h3>
+          <br>
+          <textarea>{{ account.history }}</textarea>
+        </div>
+        <div class="divider"></div>
 
         <!-- Company Certification -->
         <!--<div class="certification-container">-->
@@ -280,9 +290,9 @@
         if (year) {
           year = year.split('-')
 
-          if (year[0] === '0000') {
-            return ''
-          }
+//          if (year[0] === '0000') {
+//            return ''
+//          }
 
           return year[0]
         }
@@ -356,7 +366,7 @@
               position: results[0].geometry.location
             })
           } else {
-            geocoder.geocode({'address': 'south korea'}, function (result, status) {
+            geocoder.geocode({'address': 'united state'}, function (result, status) {
               resultsMap.setCenter(result[0].geometry.location)
             })
           }
@@ -367,7 +377,6 @@
         $(document).ready(() => {
           const $description = $('.description-container textarea')
           const $history = $('.history-container textarea')
-//          console.log($textarea[0].scrollHeight)
           $description.css({
             'height': ($description[0].scrollHeight) + 'px',
             'overflow': 'hidden'
@@ -387,14 +396,20 @@
           this.applyCompanyFadeInOutInStickyNavigationBar()
           this.applyCompanyLogoImage()
           this.textareaResize()
+
+          $(window).resize(() => {
+            this.mainImageResize()
+            this.textareaResize()
+            this.imageResize()
+            this.applyImageCSS()
+            this.applyStickyCSS()
+          })
         })
       },
       mainImageResize () {
         const $image = $('.main-image')
         const width = $(window).width()
         const height = (460 * width) / 1280
-        console.log(width)
-        console.log(height)
         $image.css('height', `${height}px`)
       },
       applyStickyCSS () {
@@ -455,7 +470,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight()
+          var titleBottomOffset = title.offset().top + title.outerHeight() + 34
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -589,13 +604,13 @@
 
   .header-container {
     position: relative;
+    min-height: 80px;
 
     .title {
       font-size: 32px;
       font-weight:500;
       margin-bottom:10px;
       padding-right: 65px;
-      min-height: 80px;
     }
     .sub-title  {
       font-weight: 400;
@@ -656,16 +671,24 @@
 
   .information-container {
     position: relative;
-  }
-  .information-container .information-table-container dt {
-    font-weight: 500;
-    line-height:1.7;
-    font-size:16px;
-  }
-  .information-container .information-table-container dd {
-    font-weight: 400;
-    line-height:1.7;
-    font-size:16px;
+
+    .list-container {
+      position: relative;
+      font-weight: 300;
+      font-size:17px;
+      line-height: 1.9em;
+
+      .left-contents {
+        position: absolute;
+        word-break: break-all;
+        max-width: 140px;
+      }
+      .right-contents {
+        text-align: left;
+        padding-left: 140px;
+        word-break: break-all;
+      }
+    }
   }
 
   .history-container {
@@ -767,6 +790,13 @@
         margin-top: 15px;
         margin-bottom: 4px;
         font-size: 16px;
+        word-break: break-all;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
       }
 
       .star-container {
@@ -796,6 +826,15 @@
         width: 70px;
         height: 70px;
         border: 1px solid #eeeeee;
+      }
+    }
+
+    .information-container {
+      .list-container {
+        .left-contents {
+        }
+        .right-contents {
+        }
       }
     }
 
@@ -914,6 +953,15 @@
           width: 70px;
           height: 70px;
           border: 1px solid #eeeeee;
+        }
+      }
+
+      .information-container {
+        .list-container {
+          .left-contents {
+          }
+          .right-contents {
+          }
         }
       }
     }

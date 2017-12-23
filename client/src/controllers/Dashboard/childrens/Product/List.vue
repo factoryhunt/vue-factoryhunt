@@ -227,18 +227,18 @@
               }
             }
 
-            // 7%
+            // 9%
             .image-container {
-              width: 7%;
+              width: 9%;
               display: table-cell;
               vertical-align: middle;
 
               img {
-                width: 50px;
+                width: 80px;
               }
             }
 
-            // 13%
+            // 18%
             .category-container {
               vertical-align: middle;
               display: table-cell;
@@ -248,20 +248,32 @@
               .primary-text {
                 font-size: 15px;
                 font-weight: 500;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* 라인수 */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
               }
               .secondary-text {
                 font-size: 14px;
                 font-weight: 300;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* 라인수 */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
               }
             }
 
-            // 60%
+            // 53%
             .product-name-container {
               vertical-align: middle;
               text-align: left;
               display: table-cell;
               padding: 0 8px;
-              width: 55%;
+              width: 53%;
 
               .name-text {
                 white-space: nowrap;
