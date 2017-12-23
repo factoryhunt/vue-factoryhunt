@@ -111,7 +111,7 @@
         <!-- Information -->
         <div class="information-container">
           <a><div class="vendor-logo-image" @click="routeAccountProfilePage"></div></a>
-          <div class="category-contents">
+          <div class="category-contents" v-show="value.product.primary_product_category">
             <span>{{value.product.primary_product_category}}</span>
             <span> > </span>
             <span>{{value.product.secondary_product_category}}</span>
@@ -126,10 +126,22 @@
           <!--<div class="right-contents">규격: {{ value.product.item_dimensions }}</div>-->
           <!--</div>-->
 
-          <p class="left-contents" v-show="value.product.minimum_order_quantity">MOQ: {{value.product.minimum_order_quantity}}</p>
-          <p class="right-contents" v-show="value.product.price">Price: {{ value.product.price }}</p>
-          <p class="left-contents" v-show="value.product.material_type">Materials: {{ value.product.material_type }}</p>
-          <p class="right-contents" v-show="value.product.item_dimensions">Dimensions: {{ value.product.item_dimensions }}</p>
+          <div class="list-container" v-show="value.product.minimum_order_quantity">
+            <div class="left-contents">MOQ</div>
+            <div class="right-contents">{{value.product.minimum_order_quantity}}</div>
+          </div>
+          <div class="list-container" v-show="value.product.price">
+            <div class="left-contents">Price</div>
+            <div class="right-contents">{{value.product.price}}123</div>
+          </div>
+          <div class="list-container" v-show="value.product.material_type">
+            <div class="left-contents">Material</div>
+            <div class="right-contents">{{value.product.material_type}}</div>
+          </div>
+          <div class="list-container" v-show="value.product.item_dimensions">
+            <div class="left-contents">Dimension</div>
+            <div class="right-contents">{{value.product.item_dimensions}}</div>
+          </div>
 
         </div>
         <div class="divider"></div>
@@ -143,21 +155,24 @@
         <div class="divider"></div>
       </div>
 
-      <div class="product-introduction-container">
+      <!-- Introduction -->
+      <div class="product-introduction-container" v-show="value.product.product_description">
         <h3>Product Introduction</h3>
         <br>
         <div class="product-introduction-inner-container" v-html="value.product.product_description"></div>
       </div>
-      <div class="divider"></div>
+      <div class="divider" v-show="value.product.product_description"></div>
 
-      <div class="catalog-container" id="catalog-container">
+      <!-- Catalog -->
+      <div v-show="value.product.product_pdf_url" class="catalog-container" id="catalog-container">
         <h3>Catalog</h3>
+        <img v-show="!toggle.isCatalogLoaded" src="/static/product_loading_image_text.png">
         <!--<h3><a href="/static/web/viewer.html?file=http://localhost:8080/static/test.pdf" target="_blank">Catalog</a></h3>-->
         <!--<iframe id="catalog" src="/static/web/viewer.html?file=/static/test.pdf" allowfullscreen webkitallowfullscreen scrolling="no"  name="pdf" width="724" height="300" style="border: none;">-->
         <!--This browser does not support PDFs. Please download the PDF to view it: <a target="pdf" :href="value.product.product_image_url_2">Download PDF</a>-->
         <!--</iframe>-->
       </div>
-      <div class="divider"></div>
+      <div class="divider" v-show="value.product.product_pdf_url"></div>
 
       <div class="related-products-container">
         <h3 class="title">Related products</h3>
@@ -186,6 +201,7 @@
 
 <script>
   import NavBar from '../components/NavBar'
+  import Spinkit from '../components/Spinkit/Spinkit.vue'
   import pdflib from 'pdfjs-dist'
   import CopyrightBar from '../components/CopyrightBar'
   import { mapGetters } from 'vuex'
@@ -193,7 +209,8 @@
   export default {
     components: {
       NavBar,
-      CopyrightBar
+      CopyrightBar,
+      Spinkit
     },
     computed: {
       ...mapGetters([
@@ -215,7 +232,8 @@
           vendor: {}
         },
         toggle: {
-          isAuthLoaded: false
+          isAuthLoaded: false,
+          isCatalogLoaded: false
         },
         options: this || { scale: 1 }
       }
@@ -323,6 +341,7 @@
         canvas.style.width = '100%'
         canvas.style.marginBottom = '-5px'
         page.render(renderContext)
+        this.toggle.isCatalogLoaded = true
       },
       changePageTitle () {
         document.title = `${this.value.product.product_name} - ${this.value.vendor.account_name_english} | Factory Hunt`
@@ -431,10 +450,13 @@
   // Global
   p {
     margin: 0;
-    word-break: break-all;
   }
   textarea {
     resize: none;
+  }
+
+  .left-container {
+    min-height: 377px;
   }
 
   .header-container .title {
@@ -471,6 +493,7 @@
     #vendor-text {
       font-size: 19px;
       margin-bottom: 28px;
+      padding-right: 80px;
     }
 
     .vendor-logo-image {
@@ -493,19 +516,19 @@
 
     .list-container {
       position: relative;
-      display: table;
-      width: 100%;
-      font-size: 19px;
       font-weight: 300;
-      margin-bottom: 12px;
+      font-size:17px;
+      line-height: 1.9em;
 
       .left-contents {
-        display: table-cell;
-        width: 50%;
+        position: absolute;
+        word-break: break-all;
+        max-width: 100px;
       }
       .right-contents {
-        display: table-cell;
-        width: 50%;
+        text-align: left;
+        padding-left: 100px;
+        word-break: break-all;
       }
     }
   }
@@ -516,6 +539,7 @@
   }
 
   .right-container {
+    z-index: 2;
 
     .product-image-container {
       box-shadow: 1px 1px 10px 1px #e4e4e4;
@@ -549,6 +573,10 @@
     .product-introduction-inner-container {
       text-align: inherit;
       word-break: break-all;
+
+      p {
+        margin: 0 !important;
+      }
     }
     img {
       width:100% !important;
@@ -569,6 +597,26 @@
     }
   }
 
+  .related-products-container {
+
+    .product-container {
+
+      .each-product {
+        p {
+          margin-top: 15px;
+          margin-bottom: 4px;
+          font-size:16px;
+          word-break: break-all;
+          display: -webkit-box;
+          -webkit-line-clamp: 2; /* 라인수 */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
   .related-products-container h4 {
     font-size:19px;
     font-weight:300;
@@ -587,9 +635,6 @@
     box-shadow: 1px 1px 10px 1px #e4e4e4;
   }
   .related-products-container .product-container .each-product p {
-    margin-top: 15px;
-    margin-bottom: 4px;
-    font-size:16px;
   }
   .related-products-container .product-container .each-product .star-container {
     color: #317fa9;

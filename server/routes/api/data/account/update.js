@@ -36,7 +36,6 @@ router.put('/:id', (req, res) => {
     mailing_street_address_2_english,
     history_english
   } = req.body
-  console.log(data)
 
   mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_ACCOUNTS} SET ? WHERE account_id = ${account_id}`, data,
     (err) => {

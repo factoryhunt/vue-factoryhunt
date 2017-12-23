@@ -169,6 +169,7 @@
   import countries from '../../../../assets/models/countries.json'
   import categories from '../../../../assets/models/categories.json'
   import Spinkit from '../../../../components/Spinkit/Spinkit.vue'
+  import pdflib from 'pdfjs-dist'
   import { VueEditor } from 'vue2-editor'
   import { mapGetters } from 'vuex'
   export default {
@@ -332,6 +333,7 @@
             formData.append(`image_${i + 1}`, this.value.files[i])
           }
         }
+        formData.append('pdf', document.getElementById('pdf-input').files[0])
         this.$http.put(`/api/data/product/${this.productId}`, formData, config)
           .then(() => {
             $('#loader').remove()
@@ -397,7 +399,7 @@
 
         // pdf information mapping
         if (product.product_pdf_url) {
-          this.msg.pdfText = 'asdf'
+          this.readPDF()
         }
       },
       readImage (index, url) {
@@ -451,6 +453,46 @@
             $('#editor-spinkit').removeClass().addClass('invisible')
             console.log(err)
           })
+      },
+      readPDF () {
+        const url = this.value.product.product_pdf_url
+        const file = new File([''], url)
+        var reader = new FileReader()
+        reader.onload = (event) => {
+          console.log('event', event)
+        }
+        reader.readAsDataURL(file)
+        console.log('file', file)
+        pdflib.PDFJS.getDocument(url).then((pdf) => {
+          console.log(pdf)
+          pdf.getStats().then((meta) => {
+            console.log('meta: ', meta)
+          })
+        })
+      },
+      onPDFchanged (files) {
+        const maxSize = 15 * 1024 * 1024
+        var fileSize = ((files[0].size) / 1024) / 1024
+        fileSize = fileSize.toFixed(1)
+        // over 15MB
+        if (files[0].size > maxSize) {
+          this.onPDFcancel()
+          alert('Maximum file size is 10MB.')
+          return
+        }
+
+        $('#pdf-cancel-button').css('display', 'inline-block')
+        this.msg.pdfText = `${files[0].name} (${fileSize}MB)`
+        var reader = new FileReader()
+        reader.onload = (event) => {
+          console.log(event)
+        }
+        reader.readAsDataURL(files[0])
+      },
+      onPDFcancel () {
+        $('#pdf-input').val('')
+        this.msg.pdfText = ''
+        $('#pdf-cancel-button').css('display', 'none')
       }
     },
     mounted () {

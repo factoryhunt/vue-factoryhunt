@@ -57,6 +57,7 @@ router.put('/:product_id', upload.fields(uploadKeys), (req, res) => {
       resolve()
     })
   })
+
   const imageUrlUpdate = () => new Promise((resolve, reject) => {
     let imageData = {}
     if (req.files.image_1) {

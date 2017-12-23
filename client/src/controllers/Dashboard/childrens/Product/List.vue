@@ -234,7 +234,7 @@
               vertical-align: middle;
 
               img {
-                width: 80%;
+                width: 80px;
               }
             }
 
