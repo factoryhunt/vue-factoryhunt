@@ -65,7 +65,6 @@
               vertical-align: middle;
             }
             span {
-              font-family: sans-serif, "Roboto", Roboto !important;
               margin-left: 5px;
               font-weight: 600;
               font-size: 16px;

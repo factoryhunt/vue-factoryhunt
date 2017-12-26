@@ -31,7 +31,7 @@
   }
 
   #app {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: @color-font-base;
     background-color: @color-white;
     -webkit-font-smoothing: antialiased;

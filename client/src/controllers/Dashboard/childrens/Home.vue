@@ -43,7 +43,7 @@
           <div class="text-container">
             <p class="text">Share the link below and use it as your company website.</p>
             <a id="clipboard" data-clipboard-target="#domain-text">
-              <span id="domain-text" class="text">www.factoryhunt.co.kr/{{account.domain}}
+              <span id="domain-text" class="text">www.factoryhunt.com/{{account.domain}}
               </span>
             </a>
             <span id="copied-text">URL copied</span>

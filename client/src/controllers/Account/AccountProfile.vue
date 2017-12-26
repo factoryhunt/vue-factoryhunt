@@ -1,7 +1,7 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" v-if="toggle.isAuthLoaded">
 
-    <nav-bar v-if="toggle.isAuthLoaded" :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
+    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
     <div class="image-container">
       <div class="main-image"></div>
@@ -96,7 +96,7 @@
           <br>
           <textarea>{{ account.history }}</textarea>
         </div>
-        <div class="divider"></div>
+        <div class="divider" v-show="account.history"></div>
 
         <!-- Company Certification -->
         <!--<div class="certification-container">-->
@@ -220,11 +220,6 @@
         }
       }
     },
-    created () {
-      window.scrollTo(0, 0)
-      this.tryAutoLogin()
-      this.fetchAccount(this.value.company)
-    },
     computed: {
       ...mapGetters([
         'getContactId',
@@ -253,9 +248,11 @@
             this.toggle.isAuthLoaded = true
             this.value.contact = res[0].data
             this.value.account = res[1].data
+            this.fetchAccount(this.value.company)
           })
           .catch(() => {
             this.toggle.isAuthLoaded = true
+            this.fetchAccount(this.value.company)
           })
       },
       changeDocumentTitle () {
@@ -389,13 +386,13 @@
       },
       activateJquery () {
         $(document).ready(() => {
+          this.textareaResize()
           this.mainImageResize()
           this.applyImageCSS()
           this.applySmoothScrolling()
-          this.applyStickyCSS()
           this.applyCompanyFadeInOutInStickyNavigationBar()
           this.applyCompanyLogoImage()
-          this.textareaResize()
+          this.applyStickyCSS()
 
           $(window).resize(() => {
             this.mainImageResize()
@@ -419,7 +416,7 @@
 //          const $stickyStopper = $('.sticky-stopper')
         if ($stickyOuter.offset()) { // make sure ".sticky" element exists
 //            var generalSidebarHeight = $sticky.innerHeight() // 30
-          var stickyTop = $stickyOuter.offset().top + 80
+          var stickyTop = $stickyOuter.offset().top
 //            var stickyBottom = stickyTop + $sticky.outerHeight()
           var stickOffset = 0
 //            var stickyStopperPosition = $stickyStopper.offset().top // 2259
@@ -470,7 +467,7 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() + 34
+          var titleBottomOffset = title.offset().top + title.outerHeight() - 45
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
             if (windowTop > titleBottomOffset) {
@@ -548,6 +545,10 @@
           $image.css('height', $image.width() + 'px')
         })
       }
+    },
+    created () {
+      window.scrollTo(0, 0)
+      this.tryAutoLogin()
     }
   }
 </script>
@@ -604,7 +605,7 @@
 
   .header-container {
     position: relative;
-    min-height: 80px;
+    min-height: 110px;
 
     .title {
       font-size: 32px;
