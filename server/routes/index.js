@@ -11,7 +11,7 @@ router.get('/logo.png', function(req, res) {
       'Content-Type': ' image/png'
     }
   }
-  res.sendFile('logo_orange_small.png', options)
+  res.sendFile('thumbnail_eng.png', options)
 })
 
 router.get('/robots.txt', function(req, res) {
