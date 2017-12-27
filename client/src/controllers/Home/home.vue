@@ -3,8 +3,10 @@
       <home-header></home-header>
 
       <div class="form-container">
-        <input @keyup.enter="onSearchInput()" v-model="input" type="text" class="form-control" id="searchInput" :placeholder="getInput">
-        <button @click="onSearchInput()" type="submit" class="btn btn-default" v-lang.search></button>
+        <form @submit.prevent="onSearchInput">
+          <input v-model="input" type="text" pattern="[A-Za-z0-9]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
+          <button type="submit" class="btn btn-default" v-lang.search></button>
+        </form>
       </div>
 
       <h2 class="featured-title" v-lang.featured></h2>
@@ -44,14 +46,14 @@
     },
     messages: {
       eng: {
-        'featured': 'Featured Suppliers',
-        'input': 'Try "Toy"',
-        'search': 'Search'
+        featured: 'Featured Suppliers',
+        input: 'Try "Toy"',
+        search: 'Search'
       },
       kor: {
-        'featured': '추천',
-        'input': '"Toy"를 검색해보세요.',
-        'search': '검색'
+        featured: '추천',
+        input: '"Toy"를 검색해보세요.',
+        search: '검색'
       }
     },
     computed: {
