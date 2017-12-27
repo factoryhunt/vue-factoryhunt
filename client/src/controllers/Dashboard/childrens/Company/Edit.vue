@@ -29,104 +29,104 @@
 
       <!-- Company Name -->
       <div class="account-name-container input-container">
-        <p class="title">Company Name</p>
-        <i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>
-        <p class="sub-title">Use the official company name from the business registration certificate.</p>
-        <input required pattern="[가-힣A-Za-z0-9 ().,]{2,50}" title="You can use letters, numbers, and special characters(( ) . ,)between 2 and 50 characters." id="account-name-input" type="text" placeholder="Factory Hunt, Inc." v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <p class="title" v-lang.name.title></p>
+        <i class="fa fa-circle required-circle" aria-hidden="true"><span v-lang.name.required></span></i>
+        <p class="sub-title" v-lang.name.desc></p>
+        <input required pattern="[A-Za-z0-9 ().,]{2,50}" title="You can use letters, numbers, and special characters(( ) . ,)between 2 and 50 characters." id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <p class="hidden-title"></p>
         <i id="account-name-mark" class="small-mark" aria-hidden="true"></i>
       </div>
 
       <!-- Company Short Description -->
       <div class="short-description-container input-container">
-        <p class="title">Slogan</p>
-        <p class="sub-title">Describe your company in 50 characters or less.</p>
-        <input id="short-description-input" maxlength="50" @keyup="countInputLength" placeholder="Factory Hunt is a global B2B platform." v-model="value.shortDescription">
+        <p class="title" v-lang.slogan.title></p>
+        <p class="sub-title" v-lang.slogan.desc></p>
+        <input id="short-description-input" maxlength="50" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
         <p class="third-title">{{ 50 - value.shortDescriptionCount }}</p>
       </div>
 
       <!-- Company Long Description -->
       <div class="description-container input-container">
-        <p class="title">Company Description</p>
-        <p class="sub-title">Describe your company</p>
-        <textarea id="description-input" maxlength="25000" rows="10" placeholder="Factory Hunt is a global B2B platform." v-model="value.description"></textarea>
+        <p class="title" v-lang.description.title></p>
+        <p class="sub-title" v-lang.description.desc></p>
+        <textarea id="description-input" maxlength="25000" rows="10" :placeholder="getDescriptionPlaceholder" v-model="value.description"></textarea>
       </div>
 
       <!-- Company Information -->
       <div class="information-container input-container">
-        <p class="title">Company Information</p>
-        <p class="sub-title">Fill out the information below.</p>
+        <p class="title" v-lang.company.title></p>
+        <p class="sub-title" v-lang.company.desc></p>
         <!-- Products -->
         <div class="box-container">
-          <div class="left-contents">Products</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="LED, Light bulbs, ..." v-model="value.products"></div>
+          <div class="left-contents" v-lang.company.products.title></div>
+          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getProductsPlaceholder" v-model="value.products"></div>
         </div>
         <!-- Website -->
         <div class="box-container">
-          <div class="left-contents">Website</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="www.factoryhunt.com" v-model="value.website" spellcheck="false"></div>
+          <div class="left-contents" v-lang.company.website.title></div>
+          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getWebsitePlaceholder" v-model="value.website" spellcheck="false"></div>
         </div>
         <!-- Phone -->
         <div class="box-container">
-          <div class="left-contents">Phone</div>
-          <div class="right-contents"><input type="text" maxlength="21" placeholder="+1-971-1234-5678" v-model="value.phone"></div>
+          <div class="left-contents" v-lang.company.phone.title></div>
+          <div class="right-contents"><input type="text" maxlength="21" :placeholder="getPhonePlaceholder" v-model="value.phone"></div>
         </div>
         <!-- Established Year -->
         <div class="box-container">
-          <div class="left-contents">Established Year</div>
-          <div class="right-contents"><input type="text" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title ="YYYY-MM-DD" placeholder="2003-01-01" v-model="value.establishedDate"></div>
+          <div class="left-contents" v-lang.company.year.title></div>
+          <div class="right-contents"><input type="text" maxlength="10" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title ="YYYY-MM-DD" :placeholder="getYearPlaceholder" v-model="value.establishedDate"></div>
         </div>
-        <p class="sub-title" style="margin-top: 12px">Address Information</p>
+        <p class="sub-title" style="margin-top: 12px" v-lang.company.desc2></p>
         <!-- Country -->
         <div class="box-container">
-          <div class="left-contents">Country</div>
+          <div class="left-contents" v-lang.company.country.title></div>
           <div class="right-contents">
             <select required v-model="value.country">
-              <option id="disabled-option" disabled value="">Select a country.</option>
+              <option id="disabled-option" disabled value="" v-lang.company.country.defaultValue></option>
               <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
             </select>
           </div>
         </div>
         <!-- State -->
         <div class="box-container">
-          <div class="left-contents">State</div>
-          <div class="right-contents"><input type="text" maxlength="50" placeholder="California" v-model="value.state"></div>
+          <div class="left-contents" v-lang.company.state.title></div>
+          <div class="right-contents"><input type="text" maxlength="50" :placeholder="getStatePlaceholder" v-model="value.state"></div>
         </div>
         <!-- City -->
         <div class="box-container">
-          <div class="left-contents">City</div>
-          <div class="right-contents"><input type="text" maxlength="50" placeholder="San Francisco" v-model="value.city"></div>
+          <div class="left-contents" v-lang.company.city.title></div>
+          <div class="right-contents"><input type="text" maxlength="50" :placeholder="getCityPlaceholder" v-model="value.city"></div>
         </div>
         <!-- Street Address -->
         <div class="box-container">
-          <div class="left-contents">Street address</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="7 hacker street" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
+          <div class="left-contents" v-lang.company.street.title></div>
+          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getStreetPlaceholder" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
         </div>
         <!-- Street Address Detail -->
         <div class="box-container">
-          <div class="left-contents">Street address 2</div>
-          <div class="right-contents"><input type="text" maxlength="100" placeholder="Floor 2" v-model="value.streetAddressDetail"></div>
+          <div class="left-contents" v-lang.company.street2.title></div>
+          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getStreet2Placeholder" v-model="value.streetAddressDetail"></div>
         </div>
         <!-- Postal Code -->
         <div class="box-container">
-          <div class="left-contents">Postal code</div>
-          <div class="right-contents"><input type="text" pattern="[0-9-]{1,10}" title="" placeholder="12345" v-model="value.postalCode"></div>
+          <div class="left-contents" v-lang.company.postal.title></div>
+          <div class="right-contents"><input type="text" pattern="[0-9-]{1,10}" title="" :placeholder="getPostalPlaceholder" v-model="value.postalCode"></div>
         </div>
       </div>
 
       <!-- Company History -->
       <div class="history-container input-container">
-        <p class="title">Company History</p>
-        <p class="sub-title"></p>
-        <textarea rows="10" maxlength="25000" placeholder="" v-model="value.history"></textarea>
+        <p class="title" v-lang.history.title></p>
+        <p class="sub-title" v-lang.history.desc></p>
+        <textarea rows="10" maxlength="25000" :placeholder="getHistoryPlaceholder" v-model="value.history"></textarea>
         <i id="history-mark" class="small-mark" aria-hidden="true"></i>
       </div>
 
       <!-- Confirm and Submit -->
       <div class="confirm-container input-container sticky-stopper">
-        <p class="title">Confirm and Save</p>
-        <p class="sub-title">Please confirm the information above before you save it. Company information will be updated immediately.</p>
-        <button class="button-orange">Save</button>
+        <p class="title" v-lang.save.title></p>
+        <p class="sub-title" v-lang.save.desc></p>
+        <button class="button-orange" v-lang.save.button></button>
       </div>
     </form>
   </div>
@@ -140,7 +140,7 @@
   import Spinkit from '../../../../components/Spinkit/Spinkit'
   export default {
     metaInfo: {
-      title: 'Edit Comapny information | Factory Hunt'
+      title: 'Edit Company information | Factory Hunt'
     },
     props: {
       account: {
@@ -184,19 +184,166 @@
           isDomainAvailable: null,
           isAccountNameAvailable: null,
           isUserAdmin: false
+        }
+      }
+    },
+    messages: {
+      eng: {
+        name: {
+          title: 'Company Name',
+          required: ' Required field',
+          desc: 'Use the official company name from the business registration certificate.',
+          placeholder: 'Factory Hunt, Inc.'
         },
-        msg: {
-          fileSelect: 'Choose File',
-          accountName: {
-            title: 'Company Name',
-            subTitle: '사업자등록증의 회사명과 일치시켜주세요.',
-            hiddenTitle: ''
+        slogan: {
+          title: 'Slogan',
+          desc: 'Describe your company in 50 characters or less.',
+          placeholder: 'Factory Hunt is a global B2B platform.'
+        },
+        description: {
+          title: 'Company Description',
+          desc: 'Describe your company.',
+          placeholder: 'Factory Hunt is a global B2B platform.'
+        },
+        company: {
+          title: 'Company Information',
+          desc: 'Please fill out the information below.',
+          desc2: 'Address Information',
+          products: {
+            title: 'Products',
+            placeholder: 'LED, Light bulbs, ...'
           },
-          confirm: {
-            title: '확인 및 수정',
-            subTitle: '수정할 정보를 다시 한 번 확인하고 내용이 맞다면 수정하기 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!',
-            edit: '수정하기'
+          website: {
+            title: 'Website',
+            placeholder: 'www.factoryhunt.com'
+          },
+          phone: {
+            title: 'Phone',
+            placeholder: '+1-917-1234-5678'
+          },
+          year: {
+            title: 'Established Date',
+            placeholder: 'YYYY-MM-DD'
+          },
+          country: {
+            title: 'Country',
+            defaultValue: 'Select a country.'
+          },
+          state: {
+            title: 'State',
+            placeholder: 'California'
+          },
+          city: {
+            title: 'City',
+            placeholder: 'San Francisco'
+          },
+          street: {
+            title: 'Street Address',
+            placeholder: '7 Hacker Street'
+          },
+          street2: {
+            title: 'Street Address 2',
+            placeholder: 'Floor 2'
+          },
+          postal: {
+            title: 'Postal Code',
+            placeholder: '12345'
           }
+        },
+        history: {
+          title: 'Company History',
+          desc: '',
+          placeholder: '1984 : B brand founded\n' +
+          '2000 : Management buyout from C and merged with D \n' +
+          '2005 : E leads a management buyout of the Group as CEO, backed by F\n' +
+          '2009 : Group opens Chinese facility\n' +
+          '2013 : LED lighting range is launched Group’s Chinese facility expanded\n' +
+          '2015 : Group achieves sales of $100m for the first time Offices opened in United States\n' +
+          '2016 : Group’s Chinese facility is expanded to 52,500 square metres Offices opened in Hong Kong and Spain'
+        },
+        save: {
+          title: 'Confirm and Save',
+          desc: 'Please confirm the information above before you save it. Company information will be updated immediately.',
+          button: 'Save'
+        }
+      },
+      kor: {
+        name: {
+          title: '회사명',
+          required: ' 필수입력',
+          desc: '사업자등록증의 회사명과 일치시켜주세요.',
+          placeholder: 'Factory Hunt, Co., Ltd.'
+        },
+        slogan: {
+          title: '슬로건',
+          desc: '귀사를 한 문장으로 표현해주세요.',
+          placeholder: 'Factory Hunt is a global B2B platform.'
+        },
+        description: {
+          title: '회사 소개',
+          desc: '회사를 소개해주세요. 양식은 자유입니다.',
+          placeholder: 'Factory Hunt is a global B2B platform.'
+        },
+        company: {
+          title: '회사 정보',
+          desc: '각 항목에 알맞은 정보를 입력해주세요.',
+          desc2: '주소 - 도로명 주소로 정확히 입력해야 지도에 위치가 표시됩니다.',
+          products: {
+            title: '취급 품목',
+            placeholder: 'LED, Light bulbs, ...'
+          },
+          website: {
+            title: '웹사이트',
+            placeholder: 'www.factoryhunt.com'
+          },
+          phone: {
+            title: '전화번호',
+            placeholder: '+82-31-123-4567'
+          },
+          year: {
+            title: '설립일',
+            placeholder: 'YYYY-MM-DD'
+          },
+          country: {
+            title: '국가',
+            defaultValue: '국가를 선택해주세요.'
+          },
+          state: {
+            title: '도',
+            placeholder: 'Gyeonggi-do'
+          },
+          city: {
+            title: '시, 군',
+            placeholder: 'Bucheon-si'
+          },
+          street: {
+            title: '도로명 주소',
+            placeholder: '20, Gongdan-daero'
+          },
+          street2: {
+            title: '상세 주소',
+            placeholder: 'Gongdan Building Floor 2'
+          },
+          postal: {
+            title: '우편번호',
+            placeholder: '12345'
+          }
+        },
+        history: {
+          title: '연혁',
+          desc: '회사의 연혁을 입력해주세요.',
+          placeholder: '1984 : B brand founded\n' +
+          '2000 : Management buyout from C and merged with D \n' +
+          '2005 : E leads a management buyout of the Group as CEO, backed by F\n' +
+          '2009 : Group opens Chinese facility\n' +
+          '2013 : LED lighting range is launched Group’s Chinese facility expanded\n' +
+          '2015 : Group achieves sales of $100m for the first time Offices opened in United States\n' +
+          '2016 : Group’s Chinese facility is expanded to 52,500 square metres Offices opened in Hong Kong and Spain'
+        },
+        save: {
+          title: '확인 및 저장',
+          desc: '저장할 정보를 다시 한 번 확인하고 내용이 맞다면 저장하기 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!',
+          button: '저장하기'
         }
       }
     },
@@ -205,7 +352,46 @@
         'getContactId',
         'getAccountId',
         'isLoggedIn'
-      ])
+      ]),
+      getNamePlaceholder () {
+        return this.translate('name.placeholder')
+      },
+      getSloganPlaceholder () {
+        return this.translate('slogan.placeholder')
+      },
+      getDescriptionPlaceholder () {
+        return this.translate('description.placeholder')
+      },
+      getProductsPlaceholder () {
+        return this.translate('company.products.placeholder')
+      },
+      getWebsitePlaceholder () {
+        return this.translate('company.website.placeholder')
+      },
+      getPhonePlaceholder () {
+        return this.translate('company.phone.placeholder')
+      },
+      getYearPlaceholder () {
+        return this.translate('company.year.placeholder')
+      },
+      getStatePlaceholder () {
+        return this.translate('company.state.placeholder')
+      },
+      getCityPlaceholder () {
+        return this.translate('company.city.placeholder')
+      },
+      getStreetPlaceholder () {
+        return this.translate('company.street.placeholder')
+      },
+      getStreet2Placeholder () {
+        return this.translate('company.street2.placeholder')
+      },
+      getPostalPlaceholder () {
+        return this.translate('company.postal.placeholder')
+      },
+      getHistoryPlaceholder () {
+        return this.translate('history.placeholder')
+      }
     },
     methods: {
       applyAttributes () {

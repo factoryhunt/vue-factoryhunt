@@ -5,11 +5,11 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div class="menu-container">
-            <a id="item-company-edit" class="menu" href="/dashboard/company">Edit Company</a>
-            <a id="item-domain-edit" class="menu" href="/dashboard/company/domain">Edit Domain</a>
-            <a id="item-image-edit" class="menu" href="/dashboard/company/image">Photos</a>
+            <a id="item-company-edit" class="menu" href="/dashboard/company" v-lang.left.editCompany></a>
+            <a id="item-domain-edit" class="menu" href="/dashboard/company/domain" v-lang.left.editDomain></a>
+            <a id="item-image-edit" class="menu" href="/dashboard/company/image" v-lang.left.photos></a>
             <!--<a id="item-certification-upload" class="menu" href="/dashboard/company/certifications">인증서 등록</a>-->
-            <button @click="routeCompanyPage" class="view-button button-white">View Website</button>
+            <button @click="routeCompanyPage" class="view-button button-white" v-lang.left.viewButton></button>
           </div>
         </div>
       </div>
@@ -45,6 +45,28 @@
     data () {
       return {
         msg: ''
+      }
+    },
+    messages: {
+      eng: {
+        left: {
+          editCompany: 'Edit Company',
+          editDomain: 'Edit Domain',
+          photos: 'Photos',
+          viewButton: 'View Website'
+        },
+        right: {
+        }
+      },
+      kor: {
+        left: {
+          editCompany: '회사 정보 수정',
+          editDomain: '도메인 수정',
+          photos: '이미지 등록',
+          viewButton: '회사 페이지 보기'
+        },
+        right: {
+        }
       }
     },
     methods: {
