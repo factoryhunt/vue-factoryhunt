@@ -15,6 +15,7 @@ import axios from 'axios'
 import scrollReveal from 'scrollreveal'
 import store from './vuex/store'
 import PDFJS from 'pdfjs-dist'
+import MultiLanguage from 'vue-multilanguage'
 
 // Global variable setting up received CDN (axios, jQuery, Google ..)
 Vue.config.productionTip = false
@@ -23,6 +24,9 @@ window.scrollReveal = scrollReveal()
 window.PDFJS = PDFJS
 Vue.use(Meta)
 Vue.component('icon', Icon)
+
+// Multi Languages
+Vue.use(MultiLanguage, { default: 'eng' })
 
 // Vuex
 sync(store, router)
