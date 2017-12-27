@@ -1,39 +1,42 @@
 <template>
   <div class="dashboard-page-container">
 
+    <!-- Before Button Press -->
     <div v-if="!toggle.isShowing" class="body-container">
-      <button id="first-drop-button" class="button-orange" @click="toggle.isShowing = true">
-        Delete account
-      </button>
+      <!-- Delete Account Button -->
+      <button id="first-drop-button" class="button-orange" @click="toggle.isShowing = true" v-lang.deleteAccountButton></button>
     </div>
+
+    <!-- After Button Press -->
     <div v-else class="body-container">
       <form @submit.prevent="dropAccount">
+
         <!-- Account Drop -->
         <div class="drop-container input-container">
-          <p class="title">Delete account</p>
+          <p class="title" v-lang.deleteAccountButton></p>
 
           <div class="description-container input-container">
-            <p class="sub-title">Could you tell us why you want to stop using the service?</p>
-            <textarea rows="10" placeholder="If you tell us the reason why you want to delete the account, we will do our best to improve the service to make users happy." v-model="value.description"></textarea>
+            <p class="sub-title" v-lang.drop.subTitle></p>
+            <textarea rows="10" :placeholder="getDropPlaceholder" v-model="value.description"></textarea>
           </div>
         </div>
 
         <!-- Cautions -->
         <div class="caution-container input-container">
-          <p class="title">What happens when a user delete account.</p>
+          <p class="title" v-lang.caution.title></p>
           <ul>
-            <li><p class="sub-title">All information will be deleted.</p></li>
-            <li><p class="sub-title">No more appears in the search result.</p></li>
-            <li><p class="sub-title">Your domain could be taken by someone else.</p></li>
-            <li><p class="sub-title">There could be some disadvantages when you signup again.</p></li>
+            <li><p class="sub-title" v-lang.caution.first></p></li>
+            <li><p class="sub-title" v-lang.caution.second></p></li>
+            <li><p class="sub-title" v-lang.caution.third></p></li>
+            <li><p class="sub-title" v-lang.caution.forth></p></li>
           </ul>
         </div>
 
         <!-- Confirm -->
         <div class="confirm-container input-container">
-          <p class="sub-title">Are you sure you want to delete your account?</p>
-          <button id="drop-button" class="button-orange">Delete</button>
-          <button id="cancel-button" class="button-white" @click="onCancelButton">Cancel</button>
+          <p class="sub-title" v-lang.confirm.subTitle></p>
+          <button id="drop-button" class="button-orange" v-lang.confirm.delete></button>
+          <button id="cancel-button" class="button-white" @click="onCancelButton" v-lang.confirm.cancel></button>
         </div>
       </form>
     </div>
@@ -65,11 +68,54 @@
         }
       }
     },
+    messages: {
+      eng: {
+        deleteAccountButton: 'Delete account',
+        drop: {
+          subTitle: 'Could you tell us why you want to stop using the service?',
+          placeholder: 'If you tell us the reason why you want to delete the account, we will do our best to improve the service to make users happy.'
+        },
+        caution: {
+          title: 'What happens when a user delete account.',
+          first: 'All information will be deleted.',
+          second: 'No more appears in the search result.',
+          third: 'Your domain could be taken by someone else.',
+          forth: 'There could be some disadvantages when you signup again.'
+        },
+        confirm: {
+          subTitle: 'Are you sure you want to delete your account?',
+          delete: 'Delete',
+          cancel: 'Cancel'
+        }
+      },
+      kor: {
+        deleteAccountButton: '계정 해지하기',
+        drop: {
+          subTitle: '왜 떠나시나요? 이유를 말씀해주세요.',
+          placeholder: '자세히 적어주시면 검토 후 유저분들에게 더 나은 서비스를 제공할 수 있도록 최선을 다하겠습니다. 감사합니다.'
+        },
+        caution: {
+          title: '계정을 해지한다면 생기는 일',
+          first: '회원님의 프로필과 회사, 제품 정보가 모두 없어집니다.',
+          second: '웹사이트 검색 엔진에 정보가 더 이상 노출되지 않습니다.',
+          third: '현재 사용 중인 도메인을 누군가가 사용할 수 있습니다.',
+          forth: '재가입시 불이익이 생길 수 있습니다.'
+        },
+        confirm: {
+          subTitle: '그래도 정말 떠나실건가요?..',
+          delete: '해지하기',
+          cancel: '취소하기'
+        }
+      }
+    },
     computed: {
       ...mapGetters([
         'getAccountId',
         'getContactId'
-      ])
+      ]),
+      getDropPlaceholder () {
+        return this.translate('drop.placeholder')
+      }
     },
     methods: {
       showModal () {

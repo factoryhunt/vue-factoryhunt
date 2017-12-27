@@ -5,13 +5,13 @@
     <div class="modal-background" @click="modalToggle">
       <div class="modal-container">
         <div class="modal-contents" @click="modalToggle">
-          <p class="title">Are you sure you want to delete?</p>
+          <p class="title" v-lang.modal.title></p>
           <div class="button-container">
             <div class="left-button-container">
-              <button class="button-white confirm-button" @click="deleteProduct">Delete</button>
+              <button class="button-white confirm-button" @click="deleteProduct" v-lang.modal.delete></button>
             </div>
             <div class="right-button-container">
-              <button class="button-orange cancel-button" @click="modalToggle">Cancel</button>
+              <button class="button-orange cancel-button" @click="modalToggle" v-lang.modal.cancel></button>
             </div>
           </div>
         </div>
@@ -20,21 +20,19 @@
 
     <!-- Header -->
     <div class="header-container">
-      <button v-if="products.length > 0" class="button-orange product-upload-button" @click="onProductUploadButton">New Product</button>
-      <p class="title">Product List</p>
+      <button v-if="products.length > 0" class="button-orange product-upload-button" @click="onProductUploadButton" v-lang.header.newProduct></button>
+      <p class="title" v-lang.header.title></p>
     </div>
 
     <!-- Body -->
     <div class="product-container">
 
       <!-- products empty -->
-      <div v-if="products.length < 1" class="product-empty-container">
+      <div v-if="products.length < 0" class="product-empty-container">
         <div class="empty">
-          <p class="title">Update your product information.</p>
-          <p class="sub-title">When you update your product information, it will appear in search results.</p>
-          <button @click="onProductUploadButton" class="product-upload-button button-orange">
-            Upload Product
-          </button>
+          <p class="title" v-lang.empty.title></p>
+          <p class="sub-title" v-lang.empty.subTitle></p>
+          <button @click="onProductUploadButton" class="product-upload-button button-orange" v-lang.empty.uploadProduct></button>
         </div>
       </div>
 
@@ -54,14 +52,14 @@
               <p class="code-text">{{product.product_code}}</p>
             </div>
             <div class="status-container">
-              <p :class="product.product_status === 'pending' ? 'pending' : 'on-sale'">{{product.product_status === 'pending' ? 'Pending' : 'Approved'}}</p>
+              <p :class="product.product_status === 'pending' ? 'pending' : 'on-sale'">{{getProductStatus(product)}}</p>
               <p class="price-text">{{product.price ? product.price : ''}}</p>
             </div>
             <div class="tool-container">
-              <a class="product-edit-button" @click="onEditButton(index)">Edit</a>
+              <a class="product-edit-button" @click="onEditButton(index)" v-lang.exist.edit></a>
               <span>|</span>
-              <a class="product-remove-button" @click="showProductRemoveModal(index)">Delete</a>
-              <a class="view-product-button" @click="routeProductPage(index)">View</a>
+              <a class="product-remove-button" @click="showProductRemoveModal(index)" v-lang.exist.delete></a>
+              <a class="view-product-button" @click="routeProductPage(index)" v-lang.exist.view></a>
             </div>
           </div>
         </div>
@@ -96,7 +94,66 @@
         }
       }
     },
+    messages: {
+      eng: {
+        modal: {
+          title: 'Are you sure you want to delete?',
+          delete: 'Delete',
+          cancel: 'Cancel'
+        },
+        header: {
+          title: 'Product List',
+          newProduct: 'New Product'
+        },
+        empty: {
+          title: 'Update your product information.',
+          subTitle: 'When you update your product information, it will appear in search results.',
+          uploadProduct: 'Upload Product'
+        },
+        exist: {
+          pending: 'Pending',
+          approved: 'Approved',
+          edit: 'Edit',
+          delete: 'Delete',
+          view: 'View'
+        }
+      },
+      kor: {
+        modal: {
+          title: '정말 삭제하시겠습니까?',
+          delete: '삭제',
+          cancel: '취소'
+        },
+        header: {
+          title: '제품 목록',
+          newProduct: '새로 등록하기'
+        },
+        empty: {
+          title: '등록된 제품이 아직 없습니다.',
+          subTitle: '귀사에서 생산하는 훌륭한 제품을 페이지에 올려주세요. 바이어들에게 바로 노출됩니다.',
+          uploadProduct: '제품 업로'
+        },
+        exist: {
+          pending: '승인 대기중',
+          approved: '승인됨',
+          edit: '수정',
+          delete: '삭제',
+          view: '보기'
+        }
+      }
+    },
+    computed: {
+      getPending () {
+        return this.translate('exist.pending')
+      },
+      getApproved () {
+        return this.translate('exist.approved')
+      }
+    },
     methods: {
+      getProductStatus (product) {
+        return product.product_status === 'pending' ? this.getPending : this.getApproved
+      },
       onProductUploadButton () {
         location.href = '/dashboard/product/upload'
       },
@@ -145,11 +202,6 @@
     created () {
       this.applyAttributes()
     }
-//    watch: {
-//      'products' () {
-//        console.log('value.products changed')
-//      }
-//    }
   }
 </script>
 

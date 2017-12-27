@@ -5,7 +5,7 @@
 
     <!-- Header -->
     <header class="header-container">
-      <p class="title">Upload Product</p>
+      <p class="title" v-lang.header.title></p>
       <!--<i id="required-circle" class="fa fa-circle required-circle" aria-hidden="true"></i>-->
       <!--<p class="caution-text">Required field</p>-->
     </header>
@@ -18,7 +18,7 @@
 
         <!-- Category -->
         <div class="category-container input-container">
-          <p class="title">Category</p>
+          <p class="title" v-lang.category.title></p>
           <!--<i class="fa fa-circle required-circle" aria-hidden="true"> <span> Required field</span></i>-->
           <div class="category-inner-container">
             <!-- Primary -->
@@ -34,26 +34,26 @@
               </ul>
             </div>
           </div>
-          <p v-if="value.primaryCategory" class="hidden-text">Selected category: {{value.primaryCategory}} {{ value.secondaryCategory ? '> ' + value.secondaryCategory : ''}} </p>
-          <p class="caution-text">If you register in a category that does not match the product, your product may be forcibly moved, stopped selling, or prohibited from selling.</p>
+          <p v-if="value.primaryCategory" class="hidden-text" v-lang.category.select="{category: getCategory}"></p>
+          <p class="caution-text" v-lang.category.caution></p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Name & Code -->
         <div class="name-container input-container">
-          <p class="title">Product Name</p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>
-          <input id="name-count-input" required pattern="[가-힣A-Za-z0-9 ]{2,100}" title="You can use letters and numbers between 2 and 100 characters." minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <p class="title" v-lang.productName.title></p>
+          <i class="fa fa-circle required-circle" aria-hidden="true"><span v-lang.requiredField> </span></i>
+          <input id="name-count-input" required pattern="[가-힣A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
-          <p class="caution-text">You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.</p>
+          <p class="caution-text" v-lang.productName.caution></p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Image -->
         <div class="image-container input-container">
-          <p class="title">Product image</p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"> <span> Required field</span></i>
-          <p class="sub-title">The first photo will be the main product image. You can upload up to 5 images.</p>
+          <p class="title" v-lang.productImage.title></p>
+          <i class="fa fa-circle required-circle" aria-hidden="true"> <span v-lang.requiredField></span></i>
+          <p class="sub-title" v-lang.productImage.subTitle></p>
           <div class="image-inner-container">
             <div class="image-each-container">
               <ul id="image-container-ul">
@@ -69,16 +69,16 @@
                 </li>
               </ul>
             </div>
-            <span id="thumbnail-text">Main image</span>
+            <span id="thumbnail-text" v-lang.productImage.mainImage></span>
           </div>
-          <p class="caution-text">If you upload an image that is not relevant to your product, you may be banned by the administrator.</p>
+          <p class="caution-text" v-lang.productImage.caution></p>
         </div>
         <div class="divider"></div>
 
         <!-- Product Information -->
         <div class="information-container input-container">
-          <p class="title">Product Information</p>
-          <p class="sub-title">Please fill out the form correctly.</p>
+          <p class="title" v-lang.information.title></p>
+          <p class="sub-title" v-lang.information.subTitle></p>
 
           <!--<div class="box-container">-->
             <!--<div class="left-container">Unit price</div>-->
@@ -87,46 +87,46 @@
             <!--</div>-->
           <!--</div>-->
           <div class="box-container">
-            <div class="left-container">Product code</div>
+            <div class="left-container" v-lang.information.code></div>
             <div class="right-container">
               <input placeholder="Factory_Hunt_A_01" maxlength="100" v-model="value.productCode" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">MOQ</div>
+            <div class="left-container" v-lang.information.moq></div>
             <div class="right-container">
-              <input placeholder="100" maxlength="10" pattern="[0-9]{1,10}" title="You can use only numbers." v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="100" maxlength="10" pattern="[0-9]{1,10}" :title="getMoqInputTitle" v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">Product of Origin</div>
+            <div class="left-container" v-lang.information.origin></div>
             <div class="right-container">
               <!--<select required v-model="value.origin">-->
               <select v-model="value.origin">
-                <option id="disabled-option" disabled value="">Please select where the product is produced.</option>
+                <option id="disabled-option" disabled value="" v-lang.information.originPlaceholder></option>
                 <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
               </select>
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">Size (mm)</div>
+            <div class="left-container" v-lang.information.size></div>
             <div class="right-container">
               <input placeholder="100 x 100 x 100mm" maxlength="100" v-model="value.dimension" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
-            <div class="left-container">Materials</div>
+            <div class="left-container" v-lang.information.materials></div>
             <div class="right-container">
               <input placeholder="" maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
-          <p class="caution-text">Leave blank for information you do not want to disclose.</p>
+          <p class="caution-text" v-lang.information.caution></p>
         </div>
         <div class="divider"></div>
 
-        <!-- Product Description -->
+        <!-- Product Introduction -->
         <div class="description-container input-container">
-          <p class="title">Product Introduction</p>
+          <p class="title" v-lang.introduction.title></p>
           <vue-editor :editorToolbar="customToolbar"
                       useCustomImageHandler
                       @imageAdded="handleImageAdded"
@@ -135,29 +135,28 @@
 
           </vue-editor>
           <spinkit id="editor-spinkit"></spinkit>
-          <p class="caution-text">Product details not directly related to the product name may be prohibited by the administrator.
-          </p>
+          <p class="caution-text" v-lang.introduction.caution></p>
         </div>
         <div class="divider"></div>
 
         <!-- Catalog -->
         <div class="catalog-container input-container">
-          <p class="title">Catalog</p>
-          <p class="sub-title">PDF only. Maximum upload file size :10MB</p>
-          <label for="pdf-input">Select PDF</label>
+          <p class="title" v-lang.catalog.title></p>
+          <p class="sub-title" v-lang.catalog.subTitle></p>
+          <label for="pdf-input" v-lang.catalog.button></label>
           <input name="catalog_pdf" id="pdf-input" type="file" accept="application/pdf" @change="onPDFchanged($event.target.files)">
           <div class="file-information-container">
             <p id="file-information-text">{{msg.pdfText}}</p>
-            <a id="pdf-cancel-button" @click="onPDFcancel">Cancel</a>
+            <a id="pdf-cancel-button" @click="onPDFcancel" v-lang.catalog.cancel></a>
           </div>
         </div>
         <div class="divider"></div>
 
         <!-- Upload Button -->
         <div class="confirm-container input-container">
-          <p class="title">Confirm and Upload</p>
-          <p class="sub-title">Please confirm the information above before submitting it. The information will be updated immediately.</p>
-          <button class="button-orange">Upload</button>
+          <p class="title" v-lang.confirm.title></p>
+          <p class="sub-title" v-lang.confirm.subTitle></p>
+          <button class="button-orange" v-lang.confirm.button></button>
         </div>
       </form>
     </div>
@@ -216,11 +215,143 @@
         }
       }
     },
+    messages: {
+      eng: {
+        requiredField: 'Required field',
+        uploadSuccess: 'Your product has been uploaded.\nPlease allow up to 24 hours for product approval.',
+        uploadFail: 'Product upload failed. please try again.',
+        header: {
+          title: 'Upload Product'
+        },
+        category: {
+          title: 'Category',
+          select: 'Selected category: {category}',
+          caution: 'If you register in a category that does not match the product, your product may be forcibly moved, stopped selling, or prohibited from selling.'
+        },
+        productName: {
+          title: 'Product Name',
+          inputTitle: 'You can use letters and numbers between 2 and 100 characters.',
+          placeholder: 'Please enter your product name.',
+          caution: 'You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.'
+        },
+        productImage: {
+          title: 'Product image',
+          subTitle: 'The first photo will be the main product image. You can upload up to 5 images.',
+          mainImage: 'Main image',
+          caution: 'If you upload an image that is not relevant to your product, you may be banned by the administrator.'
+        },
+        information: {
+          title: 'Product Information',
+          subTitle: 'Please fill out the form correctly.',
+          code: 'Product code',
+          moq: 'MOQ',
+          moqInputTitle: 'You can use only numbers.',
+          origin: 'Product of Origin',
+          originPlaceholder: 'Please select where the product is produced',
+          size: 'Size (mm)',
+          materials: 'Materials',
+          caution: 'Leave blank for information you do not want to disclose.'
+        },
+        introduction: {
+          title: 'Product Introduction',
+          caution: 'Product details not directly related to the product name may be prohibited by the administrator.'
+        },
+        catalog: {
+          title: 'Catalog',
+          subTitle: 'PDF only. Maximum upload file size :10MB',
+          button: 'Select PDF',
+          caution: 'Maximum file size is 10MB',
+          cancel: 'Cancel'
+        },
+        confirm: {
+          title: 'Confirm and Upload',
+          subTitle: 'Please confirm the information above before submitting it. The information will be updated immediately.',
+          button: 'Upload'
+        }
+      },
+      kor: {
+        requiredField: '필수입력',
+        uploadSuccess: '제품이 성공적으로 업로드 되었습니다. 제품 승인은 24시간까지 소요될 수 있습니다.',
+        uploadFail: '제품 업로드 실패. 다시 시도해주세요.',
+        header: {
+          title: '제품 업로드'
+        },
+        category: {
+          title: '카테고리',
+          select: '선택한 카테고리: {category}',
+          caution: '상품과 맞지 않는 카테고리에 등록할 경우 강제 이동되거나 판매중지, 판매금지 될 수 있습니다.'
+        },
+        productName: {
+          title: '제품명',
+          inputTitle: '2자 이상 100자 이하 영어로만 입력해주세요.',
+          placeholder: '제품 이름을 입력해주세요.',
+          caution: '판매 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 판매 금지 될 수 있습니다.'
+        },
+        productImage: {
+          title: '제품 이미지',
+          subTitle: '첫 번째 사진에는 대표 이미지를 올려주세요. 최대 5개까지 등록할 수 있습니다.',
+          mainImage: '대표 이미지',
+          caution: '판매 상품과 관련이 없는 이미지를 올리면 관리자에 의해 판매 금지 될 수 있습니다.'
+        },
+        information: {
+          title: '제품 정보',
+          subTitle: '양식에 맞게 정확히 입력해주세요.',
+          code: '제품 코드',
+          moq: '최소 주문량 (MOQ)',
+          moqInputTitle: '숫자만 입력해주세요.',
+          origin: '생산지',
+          originPlaceholder: '이 제품이 생산되는 곳을 선택해주세요.',
+          size: '규격 (mm)',
+          materials: '소재 및 재질',
+          caution: '공개하고 싶지 않은 정보는 칸을 비워두세요.'
+        },
+        introduction: {
+          title: '제품 설명',
+          caution: '상품명과 직접적 관련 없는 상품상세, 외부 링크 입력 시 관리자에 의해 판매 금지 될 수 있습니다.'
+        },
+        catalog: {
+          title: '카탈로그',
+          subTitle: 'PDF 파일만 가능합니다. 최대 업로드 크기 :10MB',
+          button: 'PDF 선택',
+          caution: '파일 크기는 최대 10MB 입니다.',
+          cancel: '취소'
+        },
+        confirm: {
+          title: '확인 및 업로드',
+          subTitle: '업로드 할 정보를 다시 한 번 확인하고 내용이 맞다면 업로드 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!',
+          button: '업로드'
+        }
+      }
+    },
     computed: {
       ...mapGetters([
         'getAccountId',
         'getContactId'
-      ])
+      ]),
+      getCategory () {
+        return this.value.primaryCategory + (this.value.secondaryCategory ? '> ' + this.value.secondaryCategory : '')
+      },
+      getProductNamePlaceholder () {
+        return this.translate('productName.placeholder')
+      },
+      getProductNameInputTitle () {
+        return this.translate('productName.inputTitle')
+      },
+      getProductOriginPlaceholder () {
+        return this.translate('information.originPlaceholder')
+      },
+      getMoqInputTitle () {
+        return this.translate('information.moqInputTitle')
+      },
+      getPDFcaution () {
+        return this.translate('catalog.caution')
+      },
+      getUploadSuccess () {
+        return this.translate('uploadSuccess')
+      },
+      getUploadFail () {
+        return this.translate('uploadFail')
+      }
     },
     methods: {
       filterProductDomain (productDomain) {
@@ -358,12 +489,12 @@
         this.$http.post(`/api/data/product/${this.getAccountId}`, formData, config)
           .then(() => {
             $('#modal-spinkit').removeClass()
-            alert('Your product has been uploaded.\nPlease allow up to 24 hours for product approval.')
+            alert(this.getUploadSuccess)
             location.href = '/dashboard/product'
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert('Product upload failed. please try again.')
+            alert(this.getUploadFail)
           })
       },
       handleImageAdded (file, Editor, cursorLocation) {
@@ -395,7 +526,7 @@
         // over 15MB
         if (files[0].size > maxSize) {
           this.onPDFcancel()
-          alert('Maximum file size is 10MB.')
+          alert(this.getPDFcaution)
           return
         }
 

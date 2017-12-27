@@ -13,12 +13,14 @@
 
       <!-- Search Bar -->
       <div class="search-container">
-        <div class="search-icon-container">
-          <div class="search-icon-contents">
-            <i id="search-icon" class="fa fa-search"></i>
+        <form @submit.prevent="onSearchInput">
+          <div class="search-icon-container">
+            <div class="search-icon-contents">
+              <i id="search-icon" class="fa fa-search"></i>
+            </div>
           </div>
-        </div>
-        <input @keyup.enter="onSearchInput" v-model="input" placeholder="Search" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input pattern="[A-Za-z0-9]{2,50}" :title="getTitle" v-model="input" :placeholder="getInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </form>
       </div>
 
       <!-- Right Buttons -->
@@ -127,17 +129,26 @@
         signUp: 'Sign Up',
         login: 'Login',
         dashboard: 'Dashboard',
-        logout: 'Logout'
+        logout: 'Logout',
+        search: 'Search',
+        searchCaution: 'English only and at least 2 characters, please'
       },
       kor: {
         signUp: '회원가입',
         login: '로그인',
         dashboard: '관리자 센터',
-        logout: '로그아웃'
+        logout: '로그아웃',
+        search: '검색',
+        searchCaution: '영어로만 입력해주세요. (2자 이상)'
       }
     },
     computed: {
-
+      getInput () {
+        return this.translate('search')
+      },
+      getTitle () {
+        return this.translate('searchCaution')
+      }
     },
     methods: {
       onSearchInput () {

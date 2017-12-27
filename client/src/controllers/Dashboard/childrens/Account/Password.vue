@@ -5,31 +5,31 @@
 
         <!-- Required Input Container -->
         <div class="required-container input-container">
-          <p class="title">New password</p>
-          <p class="sub-title">Use at least one letter, one numeral, and eight characters.</p>
+          <p class="title" v-lang.title></p>
+          <p class="sub-title" v-lang.subTitle></p>
 
           <!-- Current Password Container -->
           <div class="box-container">
-            <div class="left-contents">Current password</div>
+            <div class="left-contents" v-lang.currentPassword></div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.currentPassword"></div>
           </div>
           <br>
 
           <!-- New Password Container -->
           <div class="box-container">
-            <div class="left-contents">New password</div>
+            <div class="left-contents" v-lang.newPassword></div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.newPassword"></div>
           </div>
           <!-- Confirm Password Container -->
           <div class="box-container">
-            <div class="left-contents">Confirm</div>
+            <div class="left-contents" v-lang.confirmPassword></div>
             <div class="right-contents"><input required minlength="8" type="password" placeholder="" v-model="value.newPasswordConfirm"></div>
           </div>
         </div>
 
         <!-- Edit Password Container -->
         <div class="confirm-container input-container">
-          <button class="button-orange">Change</button>
+          <button class="button-orange" v-lang.change></button>
         </div>
 
       </div>
@@ -51,10 +51,27 @@
         }
       }
     },
-    computed: {
-      ...mapGetters([
-        'getContactId'
-      ])
+    messages: {
+      eng: {
+        editSuccess: 'Your password has been changed.',
+        editFail: 'Change failed. Please try again.',
+        title: 'New password',
+        subTitle: 'Use at least one letter, one numeral, and eight characters.',
+        currentPassword: 'Current password',
+        newPassword: 'New password',
+        confirmPassword: 'Confirm',
+        change: 'Change'
+      },
+      kor: {
+        editSuccess: '비밀번호가 변경 되었습니다.',
+        editFail: '변경 실패. 다시 시도해주세요.',
+        title: '새로운 비밀번호',
+        subTitle: '비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.',
+        currentPassword: '현재 비밀번호',
+        newPassword: '새로운 비밀번호',
+        confirmPassword: '확인',
+        change: '변경하기'
+      }
     },
     data () {
       return {
@@ -63,6 +80,17 @@
           newPassword: '',
           newPasswordConfirm: ''
         }
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'getContactId'
+      ]),
+      getEditSuccess () {
+        return this.translate('editSuccess')
+      },
+      getEditFail () {
+        return this.translate('editFail')
       }
     },
     methods: {
@@ -74,7 +102,7 @@
         }
         this.$http.put(`/api/data/contact/password_change/${this.getContactId}`, data)
           .then(() => {
-            alert('Password has been changed.')
+            alert(this.getEditSuccess)
             location.reload()
           })
           .catch(err => {

@@ -38,6 +38,7 @@
             <li class="list-title">Follow us</li>
             <br>
             <li class="small"><a href="//www.facebook.com/factoryhunt" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+            <li class="small"><a href="https://www.youtube.com/channel/UCC3c1TvZIsssj5aSTM9qj6A" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i> YouTube</a></li>
           </ul>
         </div>
       </div>
