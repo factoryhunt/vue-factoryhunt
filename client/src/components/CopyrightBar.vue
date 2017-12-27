@@ -15,13 +15,33 @@
       </div>
 
       <div class="right-container">
-        <a href="/terms">Terms</a>
-        <a href="/privacy">Privacy</a>
+        <a href="/terms" v-lang.terms></a>
+        <a href="/privacy" v-lang.privacy></a>
       </div>
 
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        copyright: '2017-2018 Factory Hunt'
+      }
+    },
+    messages: {
+      eng: {
+        terms: 'Terms',
+        privacy: 'Privacy'
+      },
+      kor: {
+        terms: '이용약관',
+        privacy: '개인정보 보호정책'
+      }
+    }
+  }
+</script>
 
 <style lang="less" scoped>
   @import '../assets/css/index';

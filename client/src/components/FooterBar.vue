@@ -21,7 +21,7 @@
 
         <div class="col-md-3 col-sm-6 column">
           <ul class="list-unstyled">
-            <li class="list-title">Languages</li>
+            <li class="list-title" v-lang.languages></li>
             <br>
             <!--<li class="small"><router-link :to="{ path: '/membership' }">Membership</router-link></li>-->
             <!--<li class="small"><router-link :to="{ path: '/help', params: { id:100 } }"><a>Help</a></router-link></li>-->
@@ -52,16 +52,23 @@
         copyright: '2017 factoryhunt.com'
       }
     },
+    messages: {
+      eng: {
+        languages: 'Languages'
+      },
+      kor: {
+        languages: '언어'
+      }
+    },
     methods: {
       onEnglishButton () {
         this.language = 'eng'
         window.scrollTo(0, 0)
-        location.reload()
       },
       onKoreanButton () {
         this.language = 'kor'
         window.scrollTo(0, 0)
-        location.reload()
+//        location.reload()
       }
     }
   }

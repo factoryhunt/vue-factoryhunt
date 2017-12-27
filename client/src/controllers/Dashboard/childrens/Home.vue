@@ -21,7 +21,7 @@
 
       <!-- Header -->
       <header class="header-container">
-        <p class="sub-title">Hello, {{contact.first_name_english ? (contact.salutation + ' ' + contact.first_name_english + ' ' + contact.last_name_english) : contact.contact_email}}!</p>
+        <p class="sub-title" v-lang.welcome="{name: getAccountName}"></p>
       </header>
 
       <!-- Link -->
@@ -108,6 +108,23 @@
     },
     data () {
       return {
+      }
+    },
+    messages: {
+      eng: {
+        viewWebsite: 'View website',
+        edit: 'Edit',
+        welcome: 'Hello, {name}!'
+      },
+      kor: {
+        viewWebsite: '회사 페이지 보기',
+        edit: '정보 수정',
+        welcome: '안녕하세요, {name}님!'
+      }
+    },
+    computed: {
+      getAccountName () {
+        return this.contact.first_name_english ? (this.contact.salutation + ' ' + this.contact.first_name_english + ' ' + this.contact.last_name_english) : this.contact.contact_email
       }
     },
     methods: {
