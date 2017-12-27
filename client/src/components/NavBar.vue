@@ -73,10 +73,10 @@
             <div class="footer-divider"></div>
             <div class="footer">
               <div class="footer-left">
-                <a id="my-page-button" @click="routeDashboardPage">Dashboard</a>
+                <a id="my-page-button" @click="routeDashboardPage" v-lang.dashboard></a>
               </div>
               <div class="footer-right">
-                <a id="logout-button" @click="onLogoutButton">Logout</a>
+                <a id="logout-button" @click="onLogoutButton" v-lang.logout></a>
               </div>
             </div>
           </div>
@@ -125,12 +125,19 @@
     messages: {
       eng: {
         signUp: 'Sign Up',
-        login: 'Login'
+        login: 'Login',
+        dashboard: 'Dashboard',
+        logout: 'Logout'
       },
       kor: {
         signUp: '회원가입',
-        login: '로그인'
+        login: '로그인',
+        dashboard: '관리자 센터',
+        logout: '로그아웃'
       }
+    },
+    computed: {
+
     },
     methods: {
       onSearchInput () {

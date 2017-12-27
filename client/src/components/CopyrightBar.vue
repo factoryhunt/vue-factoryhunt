@@ -83,11 +83,12 @@
             color: @color-deep-gray;
             .fa-copyright {
               vertical-align: middle;
+              font-size: 14px;
             }
             span {
               margin-left: 5px;
               font-weight: 600;
-              font-size: 16px;
+              font-size: 14px;
             }
           }
         }
@@ -103,7 +104,7 @@
           font-weight: 400;
           color: @color-font-gray;
           margin-left: 4px;
-          font-size: 15px;
+          font-size: 14px;
         }
       }
     }
@@ -111,13 +112,36 @@
 
   @media ( min-width: 744px ) {
     .body-container {
-      min-height: 0;
+
+      .divider {
+      }
 
       .footer-container {
 
+        .left-container {
+
+          .copyright-container {
+
+            .logo-gray-container {
+
+              #logo {
+              }
+            }
+            .text-container {
+              .fa-copyright {
+                vertical-align: middle;
+                font-size: 16px;
+              }
+              span {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
         .right-container {
           a {
-            margin-left: 12px;
+            font-size: 15px;
           }
         }
       }
