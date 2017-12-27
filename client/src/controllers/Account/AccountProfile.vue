@@ -466,11 +466,12 @@
       applyCompanyFadeInOutInStickyNavigationBar () {
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
-          var title = $('.header-container .logo')
-          var titleBottomOffset = title.offset().top + title.outerHeight() - 45
+          var logo = $('.header-container .logo')
+          console.log('height', logo.outerHeight())
+          var logoBottomOffset = logo.offset().top + logo.outerHeight() - 50
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
-            if (windowTop > titleBottomOffset) {
+            if (windowTop > logoBottomOffset) {
               fadeContainer.css({'opacity': '1'}).fadeIn(200)
             } else {
               fadeContainer.fadeOut(200)

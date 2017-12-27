@@ -25,8 +25,12 @@ window.PDFJS = PDFJS
 Vue.use(Meta)
 Vue.component('icon', Icon)
 
-// Multi Languages
-Vue.use(MultiLanguage, { default: 'eng' })
+// Multi Languages & default setting
+Vue.use(MultiLanguage, {
+  default: 'eng',
+  eng: {},
+  kor: {}
+})
 
 // Vuex
 sync(store, router)

@@ -48,12 +48,14 @@
       eng: {
         featured: 'Featured Suppliers',
         input: 'Try "Toy"',
-        search: 'Search'
+        search: 'Search',
+        searchCaution: 'English only and at least 2 characters, please'
       },
       kor: {
         featured: '추천',
         input: '"Toy"를 검색해보세요.',
-        search: '검색'
+        search: '검색',
+        searchCaution: '영어로만 입력해주세요. (2자 이상)'
       }
     },
     computed: {
@@ -64,6 +66,9 @@
       ]),
       getInput () {
         return this.translate('input')
+      },
+      getTitle () {
+        return this.translate('searchCaution')
       }
     },
     methods: {
