@@ -3,11 +3,13 @@
       <home-header></home-header>
 
       <div class="form-container">
-        <input @keyup.enter="onSearchInput()" v-model="input" type="text" class="form-control" id="searchInput" :placeholder="placeholder">
-        <button @click="onSearchInput()" type="submit" class="btn btn-default">Search</button>
+        <form @submit.prevent="onSearchInput">
+          <input v-model="input" type="text" pattern="[A-Za-z0-9]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
+          <button type="submit" class="btn btn-default" v-lang.search></button>
+        </form>
       </div>
 
-      <h2 class="featured-title">Featured Suppliers</h2>
+      <h2 class="featured-title" v-lang.featured></h2>
       <featured-card line="on" id="7"></featured-card>
       <featured-card line="on" id="10"></featured-card>
       <featured-card line="on" id="5"></featured-card>
@@ -36,13 +38,22 @@
           account: {},
           contact: {}
         },
-        msg: {
-          inputGuide: 'Loading..'
-        },
         input: '',
         sub_categories: null,
         inputActive: false,
         placeholder: 'Try "Toy"'
+      }
+    },
+    messages: {
+      eng: {
+        featured: 'Featured Suppliers',
+        input: 'Try "Toy"',
+        search: 'Search'
+      },
+      kor: {
+        featured: '추천',
+        input: '"Toy"를 검색해보세요.',
+        search: '검색'
       }
     },
     computed: {
@@ -50,7 +61,10 @@
         'getContactId',
         'getAccountId',
         'isLoggedIn'
-      ])
+      ]),
+      getInput () {
+        return this.translate('input')
+      }
     },
     methods: {
       onSearchInput () {

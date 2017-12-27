@@ -616,7 +616,7 @@
     .sub-title  {
       font-weight: 400;
       font-size:16px;
-      margin-bottom:0;
+      margin-bottom: -3px;
       color: @color-font-gray;
     }
     .short-description {

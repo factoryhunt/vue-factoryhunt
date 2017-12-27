@@ -21,15 +21,15 @@
 
         <div class="col-md-3 col-sm-6 column">
           <ul class="list-unstyled">
-            <li class="list-title">Services</li>
+            <li class="list-title" v-lang.languages></li>
             <br>
             <!--<li class="small"><router-link :to="{ path: '/membership' }">Membership</router-link></li>-->
             <!--<li class="small"><router-link :to="{ path: '/help', params: { id:100 } }"><a>Help</a></router-link></li>-->
             <!--<li class="small"><a href="/for-suppliers">For suppliers</a></li>-->
             <!--<li class="small"><router-link :to="{ path: '/openapi', params: { id:100 } }"><a>API</a></router-link></li>-->
             <!--<li class="small"><router-link :to="{ path: '/korean', params: { id:100 } }"><a>한국어</a></router-link></li>-->
-            <li class="small"><a href="https://www.factoryhunt.co.kr"
-                                 target="_blank">한국어</a></li>
+            <li class="small"><a @click="onEnglishButton">English</a></li>
+            <li class="small"><a @click="onKoreanButton">한국어</a></li>
           </ul>
         </div>
 
@@ -38,11 +38,8 @@
             <li class="list-title">Follow us</li>
             <br>
             <li class="small"><a href="//www.facebook.com/factoryhunt" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
-
           </ul>
         </div>
-
-
       </div>
     </footer>
   </section>
@@ -53,6 +50,25 @@
     data () {
       return {
         copyright: '2017 factoryhunt.com'
+      }
+    },
+    messages: {
+      eng: {
+        languages: 'Languages'
+      },
+      kor: {
+        languages: '언어'
+      }
+    },
+    methods: {
+      onEnglishButton () {
+        this.language = 'eng'
+        window.scrollTo(0, 0)
+      },
+      onKoreanButton () {
+        this.language = 'kor'
+        window.scrollTo(0, 0)
+//        location.reload()
       }
     }
   }

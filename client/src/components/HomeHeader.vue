@@ -1,17 +1,22 @@
 <template>
   <header>
     <div class="header-container">
-      <h1 class="title">{{ title }}</h1>
-      <p class="sub-title">Discover reliable suppliers and import high quality products.</p>
+      <h1 class="title" v-lang.title></h1>
+      <p class="sub-title" v-lang.subTitle></p>
     </div>
   </header>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        title: 'Factory Hunt'
+    messages: {
+      eng: {
+        title: 'Factory Hunt',
+        subTitle: 'Discover reliable suppliers and import high quality products.'
+      },
+      kor: {
+        title: '팩토리 헌트',
+        subTitle: '믿을 수 있는 공장을 찾고 <br>좋은 제품을 수입하세요.'
       }
     }
   }

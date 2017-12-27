@@ -15,13 +15,33 @@
       </div>
 
       <div class="right-container">
-        <a href="/terms">Terms</a>
-        <a href="/privacy">Privacy</a>
+        <a href="/terms" v-lang.terms></a>
+        <a href="/privacy" v-lang.privacy></a>
       </div>
 
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        copyright: '2017-2018 Factory Hunt'
+      }
+    },
+    messages: {
+      eng: {
+        terms: 'Terms',
+        privacy: 'Privacy'
+      },
+      kor: {
+        terms: '이용약관',
+        privacy: '개인정보 보호정책'
+      }
+    }
+  }
+</script>
 
 <style lang="less" scoped>
   @import '../assets/css/index';
@@ -63,11 +83,12 @@
             color: @color-deep-gray;
             .fa-copyright {
               vertical-align: middle;
+              font-size: 14px;
             }
             span {
               margin-left: 5px;
               font-weight: 600;
-              font-size: 16px;
+              font-size: 14px;
             }
           }
         }
@@ -83,7 +104,7 @@
           font-weight: 400;
           color: @color-font-gray;
           margin-left: 4px;
-          font-size: 15px;
+          font-size: 14px;
         }
       }
     }
@@ -91,13 +112,36 @@
 
   @media ( min-width: 744px ) {
     .body-container {
-      min-height: 0;
+
+      .divider {
+      }
 
       .footer-container {
 
+        .left-container {
+
+          .copyright-container {
+
+            .logo-gray-container {
+
+              #logo {
+              }
+            }
+            .text-container {
+              .fa-copyright {
+                vertical-align: middle;
+                font-size: 16px;
+              }
+              span {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
         .right-container {
           a {
-            margin-left: 12px;
+            font-size: 15px;
           }
         }
       }

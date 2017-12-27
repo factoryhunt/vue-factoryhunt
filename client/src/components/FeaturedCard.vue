@@ -15,7 +15,7 @@
           <p class="title">{{ account.account_name_english }}</p>
           <p class="description">{{ account.company_short_description }}</p>
           <div class="button-container" v-if="account.account_id">
-            <button @click="routeAccountProfilePage" class="btn btn-default">{{msg.button}}</button>
+            <button @click="routeAccountProfilePage" class="btn btn-default" v-lang.viewMore></button>
           </div>
         </div>
 
@@ -36,10 +36,15 @@
     data () {
       return {
         keyword: this.keywordData,
-        account: {},
-        msg: {
-          button: 'View More'
-        }
+        account: {}
+      }
+    },
+    messages: {
+      eng: {
+        viewMore: 'View More'
+      },
+      kor: {
+        viewMore: '자세히 보기'
       }
     },
     methods: {
@@ -102,7 +107,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-bottom: 4px;
+    margin-bottom: 0;
     margin-top: 2px;
   }
   .featured-contents .title {

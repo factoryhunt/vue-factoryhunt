@@ -6,33 +6,31 @@
 
       <form class="form-container" @submit.prevent="onSignUpButton">
         <div class="input-container">
-          <input required v-model="value.company" type="text" placeholder="Company">
+          <input required v-model="value.company" type="text" :placeholder="getCompany">
           <i id="image-company" class="fa fa-building-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input required v-model="value.email" type="email" placeholder="Email">
+          <input required v-model="value.email" type="email" :placeholder="getEmail">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input required minlength="8" v-model="value.password" type="password" placeholder="Password">
+          <input required minlength="8" v-model="value.password" type="password" :placeholder="getPassword">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
-        <p class="password-caution-text">Password must be at least 8 characters.</p>
+        <p class="password-caution-text" v-lang.caution></p>
 
         <div class="sign-up-button-container">
           <spinkit id="sign-up-loader"></spinkit>
-          <button id="sign-up-button" class="button-orange">Sign Up</button>
+          <button id="sign-up-button" class="button-orange" v-lang.signUp></button>
         </div>
-        <p class="terms">
-          By clicking Sign Up, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy Policy</a>, including our Cookie Use.
-        </p>
+        <p class="terms" v-lang.terms></p>
         <div class="divider"></div>
 
         <div class="log-in-container">
-          <a class="text-login" @click="onLoginButton">Did you already have account?</a>
-          <a class="button-white" @click="onLoginButton">Login</a>
+          <a class="text-login" @click="onLoginButton" v-lang.alreadyHaveAccount></a>
+          <a class="button-white" @click="onLoginButton" v-lang.login></a>
         </div>
       </form> <!--form-container -->
     </div> <!-- form-contents -->
@@ -60,7 +58,46 @@
         }
       }
     },
+    messages: {
+      eng: {
+        company: 'Company',
+        email: 'Email',
+        password: 'Password',
+        caution: 'Password must be at least 8 characters.',
+        terms: 'By clicking Sign Up, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy Policy</a>, including our Cookie Use.',
+        login: 'Login',
+        alreadyHaveAccount: 'Did you already have account?',
+        signUp: 'Sign Up'
+      },
+      kor: {
+        company: '회사명',
+        email: '이메일',
+        password: '비밀번호',
+        terms: '계정 만들기 버튼을 클릭하면, Factory Hunt의 <a href="/terms">이용약관</a>에 동의하며 쿠키 사용을 포함한 Factory Hunt의 <a href="/privacy">개인정보 보호정책</a>을 읽었음을 인정하게 됩니다.',
+        caution: '비밀번호는 문자와 숫자의 조합으로 최소 8 문자를 포함해야 합니다.',
+        login: '로그인',
+        alreadyHaveAccount: '계정이 이미 있으신가요?',
+        signUp: '계정 만들기'
+      }
+    },
+    computed: {
+      getCompany () {
+        return this.translate('company')
+      },
+      getEmail () {
+        return this.translate('email')
+      },
+      getPassword () {
+        return this.translate('password')
+      }
+    },
     methods: {
+      getLanguage () {
+        const lang = this.$route.query.lang
+        if (lang) {
+          this.language = lang
+        }
+      },
       onLoginButton () {
         location.href = '/login'
       },

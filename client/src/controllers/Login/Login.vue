@@ -6,25 +6,25 @@
 
       <form class="form-container" @submit.prevent="onLoginButton">
         <div class="input-container">
-          <input required v-model="value.email" type="email" placeholder="Email">
+          <input required v-model="value.email" type="email" :placeholder="getEmail">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
         </div>
 
         <div class="input-container">
-          <input required minlength="8" v-model="value.password" type="password" placeholder="Password">
+          <input required minlength="8" v-model="value.password" type="password" :placeholder="getPassword">
           <i id="image-password" class="fa fa-lock" aria-hidden="true"></i>
         </div>
 
         <div class="login-button-container">
           <spinkit id="login-loader"></spinkit>
-          <button id="login-button" class="button-orange">Login</button>
+          <button id="login-button" class="button-orange" v-lang.login></button>
         </div>
 
         <div class="divider"></div>
 
         <div class="login-container">
-          <a class="text-login" @click="onForgotPassword">Forgot your password?</a>
-          <a class="button-white" @click="onSignUpButton">Sign up</a>
+          <a class="text-login" @click="onForgotPassword" v-lang.forgotPassword></a>
+          <a class="button-white" @click="onSignUpButton" v-lang.signUp></a>
         </div>
       </form> <!--form-container -->
     </div> <!-- form-contents -->
@@ -51,10 +51,32 @@
         }
       }
     },
+    messages: {
+      eng: {
+        email: 'Email',
+        password: 'Password',
+        login: 'Login',
+        signUp: 'Sign Up',
+        forgotPassword: 'Forgot your password?'
+      },
+      kor: {
+        email: '이메일',
+        password: '비밀번호',
+        login: '로그인',
+        signUp: '회원가입',
+        forgotPassword: '비밀번호가 기억나지 않으세요?'
+      }
+    },
     computed: {
       ...mapGetters([
         'isLoggedIn'
-      ])
+      ]),
+      getEmail () {
+        return this.translate('email')
+      },
+      getPassword () {
+        return this.translate('password')
+      }
     },
     methods: {
       tryAutoLogin () {
@@ -62,6 +84,12 @@
           .then(() => {
             location.href = '/dashboard'
           })
+      },
+      getLanguage () {
+        const lang = this.$route.query.lang
+        if (lang) {
+          this.language = lang
+        }
       },
       onLoginButton () {
         const data = {
@@ -92,6 +120,7 @@
     created () {
       window.scrollTo(0, 0)
       this.tryAutoLogin()
+      this.getLanguage()
     }
   }
 </script>
