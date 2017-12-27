@@ -26,8 +26,8 @@
 
       <!-- Link -->
       <!--<div class="link-container">-->
-        <!--<p class="text">회사 정보를 입력하고 멋진 홈페이지를 바이어에게 공유하세요! 몇 분만 투자하면 됩니다.</p>-->
-        <!--<a @click="removeLinkContainer"><icon class="cancel-button" name="times" scale="1.4"></icon></a>-->
+      <!--<p class="text">회사 정보를 입력하고 멋진 홈페이지를 바이어에게 공유하세요! 몇 분만 투자하면 됩니다.</p>-->
+      <!--<a @click="removeLinkContainer"><icon class="cancel-button" name="times" scale="1.4"></icon></a>-->
       <!--</div>-->
 
       <!-- Body -->
@@ -37,46 +37,46 @@
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/company/domain" class="button">Edit</a>
-            <p class="title">Customized domain</p>
+            <a href="/dashboard/company/domain" class="button" v-lang.right.edit></a>
+            <p class="title" v-lang.right.domain.title></p>
           </div>
           <div class="text-container">
-            <p class="text">Share the link below and use it as your company website.</p>
+            <p class="text" v-lang.right.domain.desc></p>
             <a id="clipboard" data-clipboard-target="#domain-text">
               <span id="domain-text" class="text">www.factoryhunt.com/{{account.domain}}
               </span>
             </a>
-            <span id="copied-text">URL copied</span>
+            <span id="copied-text" v-lang.right.domain.linkCopied></span>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/company" class="button">Edit</a>
-            <p class="title">Company information</p>
+            <a href="/dashboard/company" class="button" v-lang.right.edit></a>
+            <p class="title" v-lang.right.company.title></p>
           </div>
           <div class="text-container">
-            <p class="text">Update company information and create a website in a minute.</p>
+            <p class="text" v-lang.right.company.desc></p>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/product" class="button">Edit</a>
-            <p class="title">Product information</p>
+            <a href="/dashboard/product" class="button" v-lang.right.edit></a>
+            <p class="title" v-lang.right.product.title></p>
           </div>
           <div class="text-container">
-            <p class="text">Update product information and create an online product catalog.</p>
+            <p class="text" v-lang.right.product.desc></p>
           </div>
         </div>
 
         <div class="box-container">
           <div class="title-container">
-            <a href="/dashboard/account" class="button">Edit</a>
-            <p class="title">Account Information</p>
+            <a href="/dashboard/account" class="button" v-lang.right.edit></a>
+            <p class="title" v-lang.right.account.title></p>
           </div>
           <div class="text-container">
-            <p class="text">Update your contact information. You will be connected with potential buyers by email.</p>
+            <p class="text" v-lang.right.account.desc></p>
           </div>
         </div>
 
@@ -118,7 +118,25 @@
         },
         right: {
           welcome: 'Hello, {name}!',
-          dashboard: 'Dashboard'
+          dashboard: 'Dashboard',
+          edit: 'Edit',
+          domain: {
+            title: 'Customized Domain',
+            desc: 'Share the link below and use it as your company website.',
+            linkCopied: 'URL copied'
+          },
+          company: {
+            title: 'Company information',
+            desc: 'Update company information and create a website in a minute.'
+          },
+          product: {
+            title: 'Product information',
+            desc: 'Update product information and create an online product catalog.'
+          },
+          account: {
+            title: 'Account Information',
+            desc: 'Update your contact information. You will be connected with potential buyers by email.'
+          }
         }
       },
       kor: {
@@ -128,7 +146,25 @@
         },
         right: {
           welcome: '안녕하세요, {name}님!',
-          dashboard: '관리자 센터'
+          dashboard: '관리자 센터',
+          edit: '수정하기',
+          domain: {
+            title: '도메인 등록',
+            desc: '도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.',
+            linkCopied: 'URL이 복사되었습니다!'
+          },
+          company: {
+            title: '회사 정보 관리',
+            desc: '회사 정보를 업데이트하면, 맞춤형 웹페이지가 생성됩니다. 도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.'
+          },
+          product: {
+            title: '제품 정보 관리',
+            desc: '제품 정보를 등록하면, 손쉽게 온라인 카탈로그를 만들 수 있습니다.'
+          },
+          account: {
+            title: '계정 정보 관리',
+            desc: '회사 또는 제품에 관심이 있는 고객(또는 바이어)이 있을 경우, 입력해 주신 연락처로 관련 정보를 받아보게 됩니다.'
+          }
         }
       }
     },
