@@ -7,9 +7,9 @@
     <div class="logo-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">Edit Logo</p>
-        <p class="sub-title">Your company's identity is visually expressed through its logo.</p>
-        <p class="third-title">Upload a square image.</p>
+        <p class="title" v-lang.logo.title></p>
+        <p class="sub-title" v-lang.logo.desc></p>
+        <p class="third-title" v-lang.logo.caution></p>
       </div>
 
       <!-- Logo Image -->
@@ -17,7 +17,7 @@
 
       <!-- Upload Button -->
       <div class="button-container">
-        <label for="logo-image-input">Choose File</label>
+        <label for="logo-image-input" v-lang.logo.button></label>
         <input id="logo-image-input" type="file" @change="onLogoImageChanged($event.target.files)" accept="image/*">
         <button id="logo-image-upload-button" class="button-orange" @click="imageUpload('logo-image-input')">Upload</button>
       </div>
@@ -27,8 +27,8 @@
     <div class="main-image-container">
       <!-- Title -->
       <div class="title-container">
-        <p class="title">Edit Company Cover Photo</p>
-        <p class="sub-title">A cover photo is the larger photo at the top of your company website.</p>
+        <p class="title" v-lang.cover.title></p>
+        <p class="sub-title" v-lang.cover.desc></p>
       </div>
 
       <!-- Main Image -->
@@ -38,8 +38,8 @@
 
       <!-- Upload Button -->
       <div class="button-container">
-        <p class="caution-text">Optimize your cover photo for the right dimensions: 1280 pixels wide and 460 pixels tall.</p>
-        <label for="main-image-input">Choose File</label>
+        <p class="caution-text" v-lang.cover.caution></p>
+        <label for="main-image-input" v-lang.cover.button></label>
         <input id="main-image-input" type="file" @change="onMainImageChanged($event.target.files)" accept="image/*">
         <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')">Upload</button>
       </div>
@@ -72,6 +72,36 @@
         value: {
           mainImageFileName: '',
           logoImageFileName: ''
+        }
+      }
+    },
+    messages: {
+      eng: {
+        logo: {
+          title: 'Edit Logo',
+          desc: 'Your company\'s identity is visually expressed through its logo.',
+          caution: 'Upload a square image.',
+          button: 'Choose File'
+        },
+        cover: {
+          title: 'Edit Company Cover Photo',
+          desc: 'A cover photo is the larger photo at the top of your company website.',
+          caution: 'Optimize your cover photo for the right dimensions: 1280 pixels wide and 460 pixels tall.',
+          button: 'Choose File'
+        }
+      },
+      kor: {
+        logo: {
+          title: '로고 이미지 수정',
+          desc: '회사를 상징하는 로고입니다.',
+          caution: '로고 사이즈는 정사각형에 최적화되어 있습니다.',
+          button: '파일 선택'
+        },
+        cover: {
+          title: '대표 이미지 수정',
+          desc: '홈페이지에 가장 먼저 노출되고 강조되는 부분입니다. 가장 멋진 사진을 올려주세요!',
+          caution: '대표 이미지의 사이즈는 가로 1280픽셀과 세로 460픽셀에 최적화 되어있습니다.',
+          button: '파일 선택'
         }
       }
     },

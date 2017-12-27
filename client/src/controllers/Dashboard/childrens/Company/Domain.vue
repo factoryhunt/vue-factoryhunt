@@ -8,12 +8,12 @@
       <div class="domain-container input-container">
         <!--<p class="title">Domain Address</p>-->
         <!--<i class="fa fa-circle required-circle" aria-hidden="true"><span> Required field</span></i>-->
-        <p class="title">Customize your domain.</p>
+        <p class="title" v-lang.domain.title></p>
         <br>
         <p class="sub-title">www.factoryhunt.com/<span id="domain-text">{{ value.domain }}</span></p>
-        <input required pattern="[가-힣a-z0-9]{3,50}" title="You can use letters and numbers between 3 and 50 characters." id="domain-input" type="text" :placeholder="placeholder.domain" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <input required pattern="[a-z0-9]{3,50}" title="You can use letters and numbers between 3 and 50 characters." id="domain-input" type="text" :placeholder="getdomainPlaceholder" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <!--<i id="domain-mark" class="big-mark" aria-hidden="true"></i>-->
-        <p class="hidden-title">{{msg.domain.hiddenTitle}}</p>
+        <p class="hidden-title" v-lang.domain.caution></p>
         <!--<spinkit id="domain-spinkit"></spinkit>-->
       </div>
 
@@ -21,7 +21,7 @@
       <div class="confirm-container input-container sticky-stopper">
         <!--<p class="title">Confirm and Save</p>-->
         <!--<p class="sub-title">Please confirm all information above before you click edit button</p>-->
-        <button class="button-orange">Save</button>
+        <button class="button-orange" v-lang.domain.button></button>
       </div>
     </form>
   </div>
@@ -74,12 +74,33 @@
         }
       }
     },
+    messages: {
+      eng: {
+        domain: {
+          title: 'Customize your domain.',
+          placeholder: 'Domain address',
+          caution: 'You can use letters and numbers between 3 and 50 characters.',
+          button: 'Save'
+        }
+      },
+      kor: {
+        domain: {
+          title: '회사 이름이 포함된 맞춤형 도메인으로 변경하세요.',
+          placeholder: '도메인 주소',
+          caution: '도메인 주소는 알파벳 포함하여 3자 이상이어야 합니다.(특수문자 제외)',
+          button: '저장하기'
+        }
+      }
+    },
     computed: {
       ...mapGetters([
         'getContactId',
         'getAccountId',
         'isLoggedIn'
-      ])
+      ]),
+      getdomainPlaceholder () {
+        return this.translate('domain.placeholder')
+      }
     },
     methods: {
       // not allowed capital letters
