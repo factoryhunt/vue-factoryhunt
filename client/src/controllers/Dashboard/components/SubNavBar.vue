@@ -2,10 +2,10 @@
   <div class="component-container">
     <div class="body-container">
       <div class="tab-container">
-        <a id="item-dashboard" class="tab" href="/dashboard">Dashboard</a>
-        <a id="item-company" class="tab" href="/dashboard/company">Company</a>
-        <a id="item-product" class="tab" href="/dashboard/product">Product</a>
-        <a id="item-account" class="tab" href="/dashboard/account">My Account</a>
+        <a id="item-dashboard" class="tab" href="/dashboard" v-lang.dashboard></a>
+        <a id="item-company" class="tab" href="/dashboard/company" v-lang.company></a>
+        <a id="item-product" class="tab" href="/dashboard/product" v-lang.product></a>
+        <a id="item-account" class="tab" href="/dashboard/account" v-lang.account></a>
       </div>
     </div>
   </div>
@@ -13,32 +13,19 @@
 
 <script>
   export default {
-    data () {
-      return {
-        msg: ''
+    messages: {
+      eng: {
+        dashboard: 'Dashboard',
+        company: 'Company',
+        product: 'Product',
+        account: 'My Account'
+      },
+      kor: {
+        dashboard: '관리자 센터',
+        company: '회사',
+        product: '제품',
+        account: '내 계정'
       }
-    },
-    methods: {
-//      trackingDomain () {
-//        $(document).ready(() => {
-//          $('.tab').attr('aria-selected', false)
-//          if (this.$route.path === '/dashboard') {
-//            $('#item-dashboard').attr('aria-selected', true)
-//          }
-//          if (this.$route.path === '/dashboard/company') {
-//            $('#item-company').attr('aria-selected', true)
-//          }
-//          if (this.$route.path === '/dashboard/product') {
-//            $('#item-product').attr('aria-selected', true)
-//          }
-//          if (this.$route.path === '/dashboard/account') {
-//            $('#item-account').attr('aria-selected', true)
-//          }
-//        })
-//      }
-    },
-    created () {
-//      this.trackingDomain()
     }
   }
 </script>

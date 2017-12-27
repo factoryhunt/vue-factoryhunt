@@ -10,8 +10,8 @@
             <p class="title">{{ account.account_name_english }}</p>
             <p v-if="contact.first_name_english" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
           </div>
-          <button id="view-button" @click="routeCompanyPage" class="view-button button-white">View website</button>
-          <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white">Edit</button>
+          <button id="view-button" @click="routeCompanyPage" class="view-button button-white" v-lang.left.viewWebsite></button>
+          <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white" v-lang.left.edit></button>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 
       <!-- Header -->
       <header class="header-container">
-        <p class="sub-title" v-lang.welcome="{name: getAccountName}"></p>
+        <p class="sub-title" v-lang.right.welcome="{name: getAccountName}"></p>
       </header>
 
       <!-- Link -->
@@ -33,7 +33,7 @@
       <!-- Body -->
       <div class="body-container">
 
-        <p class="title">Dashboard</p>
+        <p class="title" v-lang.right.dashboard></p>
 
         <div class="box-container">
           <div class="title-container">
@@ -112,14 +112,24 @@
     },
     messages: {
       eng: {
-        viewWebsite: 'View website',
-        edit: 'Edit',
-        welcome: 'Hello, {name}!'
+        left: {
+          viewWebsite: 'View website',
+          edit: 'Edit'
+        },
+        right: {
+          welcome: 'Hello, {name}!',
+          dashboard: 'Dashboard'
+        }
       },
       kor: {
-        viewWebsite: '회사 페이지 보기',
-        edit: '정보 수정',
-        welcome: '안녕하세요, {name}님!'
+        left: {
+          viewWebsite: '회사 페이지 보기',
+          edit: '정보 수정'
+        },
+        right: {
+          welcome: '안녕하세요, {name}님!',
+          dashboard: '관리자 센터'
+        }
       }
     },
     computed: {

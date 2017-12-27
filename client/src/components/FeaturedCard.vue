@@ -107,7 +107,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-bottom: 4px;
+    margin-bottom: 0;
     margin-top: 2px;
   }
   .featured-contents .title {
