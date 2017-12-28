@@ -19,7 +19,7 @@
       <div class="button-container">
         <label for="logo-image-input" v-lang.logo.button></label>
         <input id="logo-image-input" type="file" @change="onLogoImageChanged($event.target.files)" accept="image/*">
-        <button id="logo-image-upload-button" class="button-orange" @click="imageUpload('logo-image-input')">Upload</button>
+        <button id="logo-image-upload-button" class="button-orange" @click="imageUpload('logo-image-input')" v-lang.upload></button>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
         <p class="caution-text" v-lang.cover.caution></p>
         <label for="main-image-input" v-lang.cover.button></label>
         <input id="main-image-input" type="file" @change="onMainImageChanged($event.target.files)" accept="image/*">
-        <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')">Upload</button>
+        <button id="main-image-upload-button" class="button-orange" @click="imageUpload('main-image-input')" v-lang.upload></button>
       </div>
     </div>
 
@@ -77,6 +77,7 @@
     },
     messages: {
       eng: {
+        upload: 'Upload',
         logo: {
           title: 'Edit Logo',
           desc: 'Your company\'s identity is visually expressed through its logo.',
@@ -91,6 +92,7 @@
         }
       },
       kor: {
+        upload: '업로드',
         logo: {
           title: '로고 이미지 수정',
           desc: '회사를 상징하는 로고입니다.',
