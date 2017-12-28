@@ -11,7 +11,7 @@
         <p class="title" v-lang.domain.title></p>
         <br>
         <p class="sub-title">www.factoryhunt.com/<span id="domain-text">{{ value.domain }}</span></p>
-        <input required pattern="[a-z0-9]{3,50}" title="You can use letters and numbers between 3 and 50 characters." id="domain-input" type="text" :placeholder="getdomainPlaceholder" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <input required pattern="[a-z0-9]{3,50}" :title="getCautionPlaceholder" id="domain-input" type="text" :placeholder="getDomainPlaceholder" v-model="value.domain" @keyup="domainInputPressed" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <!--<i id="domain-mark" class="big-mark" aria-hidden="true"></i>-->
         <p class="hidden-title" v-lang.domain.caution></p>
         <!--<spinkit id="domain-spinkit"></spinkit>-->
@@ -59,18 +59,6 @@
         },
         placeholder: {
           domain: 'Domain Address'
-        },
-        msg: {
-          domain: {
-            title: 'Domain Address',
-            subTitle: 'Customize your domain.',
-            hiddenTitle: 'You can use letters and numbers between 3 and 50 characters.'
-          },
-          confirm: {
-            title: '',
-            subTitle: '',
-            edit: ''
-          }
         }
       }
     },
@@ -98,8 +86,11 @@
         'getAccountId',
         'isLoggedIn'
       ]),
-      getdomainPlaceholder () {
+      getDomainPlaceholder () {
         return this.translate('domain.placeholder')
+      },
+      getCautionPlaceholder () {
+        return this.translate('domain.caution')
       }
     },
     methods: {
