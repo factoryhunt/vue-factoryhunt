@@ -32,7 +32,7 @@
         <p class="title" v-lang.name.title></p>
         <i class="fa fa-circle required-circle" aria-hidden="true"><span v-lang.name.required></span></i>
         <p class="sub-title" v-lang.name.desc></p>
-        <input required pattern="[A-Za-z0-9 ().,]{2,50}" title="You can use letters, numbers, and special characters(( ) . ,)between 2 and 50 characters." id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <input required pattern="[A-Za-z0-9 ().,]{2,50}" :title="getCaution" id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <p class="hidden-title"></p>
         <i id="account-name-mark" class="small-mark" aria-hidden="true"></i>
       </div>
@@ -41,7 +41,7 @@
       <div class="short-description-container input-container">
         <p class="title" v-lang.slogan.title></p>
         <p class="sub-title" v-lang.slogan.desc></p>
-        <input id="short-description-input" maxlength="50" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
+        <input id="short-description-input" maxlength="50" pattern="[A-Za-z0-9 ().,]{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
         <p class="third-title">{{ 50 - value.shortDescriptionCount }}</p>
       </div>
 
@@ -353,6 +353,9 @@
         'getAccountId',
         'isLoggedIn'
       ]),
+      getCaution () {
+        return this.translate('caution')
+      },
       getNamePlaceholder () {
         return this.translate('name.placeholder')
       },
