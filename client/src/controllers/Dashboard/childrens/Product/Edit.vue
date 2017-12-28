@@ -43,7 +43,7 @@
         <div class="name-container input-container">
           <p class="title" v-lang.productName.title></p>
           <i class="fa fa-circle required-circle" aria-hidden="true"> <span v-lang.requiredField></span></i>
-          <input id="name-count-input" required minlength="1" maxlength="100" pattern="[가-힣A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input id="name-count-input" required minlength="1" maxlength="100" pattern="[A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" v-model="value.productName" @keyup="countNameLength" placeholder="Please enter your product name." type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
           <p class="caution-text" v-lang.productName.caution></p>
         </div>
