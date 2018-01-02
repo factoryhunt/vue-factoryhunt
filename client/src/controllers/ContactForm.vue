@@ -24,7 +24,7 @@
 
     <div class="button-container">
       <div class="help-container">
-        <a @click="onNeedHelpButton" v-lang.needOurHelp></a>
+        <a href="/contact" target="_blank" v-lang.needOurHelp></a>
       </div>
       <button type="submit" class="btn-lg btn-default" v-lang.button></button>
     </div>
@@ -119,9 +119,6 @@
       // 변환을 해줘야 한다. php의 nl2br 과 같다고 한다.
       convertEnterToBrTag: function (subject) {
         return subject.replace(/\n/g, '<br />')
-      },
-      onNeedHelpButton: function () {
-        alert('Coming soon')
       }
     },
     created () {

@@ -6,8 +6,6 @@
     <!-- Header -->
     <header class="header-container">
       <p class="title" v-lang.header.title></p>
-      <!--<i id="required-circle" class="fa fa-circle required-circle" aria-hidden="true"></i>-->
-      <!--<p class="caution-text">Required field</p>-->
     </header>
 
     <div class="divider"></div>
@@ -19,7 +17,6 @@
         <!-- Category -->
         <div class="category-container input-container">
           <p class="title" v-lang.category.title></p>
-          <!--<i class="fa fa-circle required-circle" aria-hidden="true"> <span> Required field</span></i>-->
           <div class="category-inner-container">
             <!-- Primary -->
             <div class="primary-category-container">
@@ -42,7 +39,7 @@
         <!-- Product Name & Code -->
         <div class="name-container input-container">
           <p class="title" v-lang.productName.title></p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"><span v-lang.requiredField> </span></i>
+          <span class="required-text" v-lang.requiredField></span>
           <input id="name-count-input" required pattern="[A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
           <p class="caution-text" v-lang.productName.caution></p>
@@ -52,7 +49,7 @@
         <!-- Product Image -->
         <div class="image-container input-container">
           <p class="title" v-lang.productImage.title></p>
-          <i class="fa fa-circle required-circle" aria-hidden="true"> <span v-lang.requiredField></span></i>
+          <span class="required-text" v-lang.requiredField></span>
           <p class="sub-title" v-lang.productImage.subTitle></p>
           <div class="image-inner-container">
             <div class="image-each-container">
@@ -217,7 +214,7 @@
     },
     messages: {
       eng: {
-        requiredField: 'Required field',
+        requiredField: '<i class="fa fa-circle" aria-hidden="true"></i> Required field',
         uploadSuccess: 'Your product has been uploaded.\nPlease allow up to 24 hours for product approval.',
         uploadFail: 'Product upload failed. please try again.',
         header: {
@@ -270,7 +267,7 @@
         }
       },
       kor: {
-        requiredField: '필수입력',
+        requiredField: '<i class="fa fa-circle" aria-hidden="true"></i> 필수입력',
         uploadSuccess: '제품이 성공적으로 업로드 되었습니다. 제품 승인은 24시간까지 소요될 수 있습니다.',
         uploadFail: '제품 업로드 실패. 다시 시도해주세요.',
         header: {
@@ -484,7 +481,9 @@
         for (var i = 0; i < this.value.files.length; i++) {
           formData.append('images', this.value.files[i])
         }
-        formData.append('pdf', document.getElementById('pdf-input').files[0])
+        if (document.getElementById('pdf-input').files[0]) {
+          formData.append('pdf', document.getElementById('pdf-input').files[0])
+        }
 
         this.$http.post(`/api/data/product/${this.getAccountId}`, formData, config)
           .then(() => {
@@ -631,17 +630,12 @@
     color: @color-font-base;
     right: @small-mark-right-amount
   }
-  .required-circle {
+  .required-text {
     display: inline-block;
     vertical-align: top;
     padding-top: 8px;
     color: @color-orange;
-    font-size: 0.5px;
-
-    span {
-      font-size:12px !important;
-      font-weight:500;
-    }
+    font-size: 11px;
   }
 
   @media ( min-width: 768px ) {
@@ -655,9 +649,6 @@
 
       .header-container {
 
-        .required-circle {
-          top: 46px;
-        }
         .caution-text {
           margin-left: 14px;
         }
@@ -686,10 +677,6 @@
 
         .category-container {
           position: relative;
-
-          .required-circle {
-            left: 107px;
-          }
 
           .category-inner-container {
             width: 100%;
@@ -758,10 +745,6 @@
         .name-container {
           position: relative;
 
-          .required-circle {
-            left: 82px;
-          }
-
           .count-text {
             float: right;
             font-size: 15px;
@@ -822,12 +805,6 @@
               color: @color-link;
               top: 155px;
               left: 57px;
-            }
-            .required-circle {
-              position: absolute;
-              top: 12px;
-              left: 166px;
-              color: @color-orange !important;
             }
 
             .image-each-container {

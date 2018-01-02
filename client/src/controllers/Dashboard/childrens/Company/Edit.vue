@@ -30,7 +30,7 @@
       <!-- Company Name -->
       <div class="account-name-container input-container">
         <p class="title" v-lang.name.title></p>
-        <i class="fa fa-circle required-circle" aria-hidden="true"><span v-lang.name.required></span></i>
+        <span class="required-text" v-lang.name.required></span>
         <p class="sub-title" v-lang.name.desc></p>
         <input required pattern="[A-Za-z0-9 ().,]{2,50}" :title="getCaution" id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <p class="hidden-title"></p>
@@ -191,7 +191,7 @@
       eng: {
         name: {
           title: 'Company Name',
-          required: ' Required field',
+          required: '<i class="fa fa-circle" aria-hidden="true"> Required field',
           desc: 'Use the official company name from the business registration certificate.',
           placeholder: 'Factory Hunt, Inc.'
         },
@@ -270,7 +270,7 @@
       kor: {
         name: {
           title: '회사명',
-          required: ' 필수입력',
+          required: '<i class="fa fa-circle" aria-hidden="true"> 필수입력',
           desc: '사업자등록증의 회사명과 일치시켜주세요.',
           placeholder: 'Factory Hunt, Co., Ltd.'
         },
@@ -603,17 +603,12 @@
   .certification-container {
     position: relative;
   }
-  .required-circle {
+  .required-text {
+    display: inline-block;
     vertical-align: top;
     padding-top: 8px;
-    display: inline-block;
     color: @color-orange;
-    font-size: 0.5px;
-
-    span {
-      font-size:12px !important;
-      font-weight:500;
-    }
+    font-size: 11px;
   }
 
   @media ( min-width: 768px ) {
@@ -776,10 +771,6 @@
 
     .account-name-container {
       position: relative;
-
-      .required-circle {
-        left: 80px;
-      }
 
       #account-name-mark {
         top: 105px;
