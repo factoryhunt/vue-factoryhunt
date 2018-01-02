@@ -117,7 +117,7 @@
             <span> > </span>
             <span>{{value.product.secondary_product_category}}</span>
           </div>
-          <p id="vendor-text">Made by: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
+          <p id="vendor-text">제조업체: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
           <!--<div class="list-container">-->
           <!--<div class="left-contents">최소 주문량: {{value.product.minimum_order_quantity}}</div>-->
           <!--<div class="right-contents">제품 가격: 미정</div>-->

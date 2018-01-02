@@ -70,7 +70,7 @@
         suppliers: 'Suppliers <small>({count})</small>'
       },
       kor: {
-        suppliers: '공장 <small>({count})</small>'
+        suppliers: '제조업체 <small>({count})</small>'
       }
     },
     methods: {

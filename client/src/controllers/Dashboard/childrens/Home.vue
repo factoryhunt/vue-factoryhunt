@@ -122,7 +122,7 @@
           edit: 'Edit',
           domain: {
             title: 'Customized Domain',
-            desc: 'Share the link below and use it as your company website.',
+            desc: 'Customize the page URL. Use the link below as your company website.',
             linkCopied: 'URL copied'
           },
           company: {
@@ -150,7 +150,7 @@
           edit: '수정하기',
           domain: {
             title: '도메인 등록',
-            desc: '도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.',
+            desc: '맞춤형 도메인으로 변경 하세요. 도메인 주소 공유를 통해 기업 홈페이지로 활용이 가능합니다.',
             linkCopied: 'URL이 복사되었습니다!'
           },
           company: {

@@ -129,9 +129,9 @@
       },
       kor: {
         readMore: '더 보기',
-        verifiedProducts: '인증 제품 <small>{count}</small>',
-        verifiedSuppliers: '인증 공장 <small>{count}</small>',
-        suppliers: '공장 <small>{count}</small>'
+        verifiedProducts: '추천 제품 <small>{count}</small>',
+        verifiedSuppliers: '추천 제조업체 <small>{count}</small>',
+        suppliers: '제조업체 <small>{count}</small>'
       }
     },
     methods: {
