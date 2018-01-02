@@ -60,7 +60,6 @@ router.post('/:account_id', productCreate, createProductImageMulter.fields(field
     let imageData = {}
 
     for (let i = 0; i < req.files.images.length; i++) {
-      console.log('updateImageUrl')
       if (i === 0) {
         imageData.product_image_url_1 = req.files.images[i].location
       }
@@ -77,7 +76,7 @@ router.post('/:account_id', productCreate, createProductImageMulter.fields(field
         imageData.product_image_url_5 = req.files.images[i].location
       }
     }
-    if (req.files.pdf[0].location) {
+    if (req.files.pdf) {
       imageData.product_pdf_url = req.files.pdf[0].location
     }
     mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ? WHERE product_id = ${product_id}`, imageData,
