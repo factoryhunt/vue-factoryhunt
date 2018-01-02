@@ -274,7 +274,7 @@
         uploadSuccess: '정보가 수정 되었습니다.',
         uploadFail: '정보 수정 실패. 다시 시도해주세요.',
         header: {
-          title: '제품 수'
+          title: '제품 수정'
         },
         category: {
           title: '카테고리',
