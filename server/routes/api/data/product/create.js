@@ -45,7 +45,7 @@ router.post('/:account_id', productCreate, createProductImageMulter.fields(field
       item_dimensions,
       material_type,
       minimum_order_quantity,
-      product_description,
+      product_description
     } = req.body
 
     mysql.query(`UPDATE ${CONFIG_MYSQL.TABLE_PRODUCTS} SET ? WHERE product_id = ${product_id}`, data,
