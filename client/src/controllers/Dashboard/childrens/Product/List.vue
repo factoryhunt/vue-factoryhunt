@@ -131,7 +131,7 @@
         empty: {
           title: '등록된 제품이 아직 없습니다.',
           subTitle: '귀사에서 생산하는 훌륭한 제품을 페이지에 올려주세요. 바이어들에게 바로 노출됩니다.',
-          uploadProduct: '제품 업로'
+          uploadProduct: '제품 업로드'
         },
         exist: {
           pending: '승인 대기중',

@@ -226,19 +226,19 @@
         category: {
           title: 'Category',
           select: 'Selected category: {category}',
-          caution: 'If you register in a category that does not match the product, your product may be forcibly moved, stopped selling, or prohibited from selling.'
+          caution: 'If you register in a category that does not match the product, your product may be forcibly moved, stopped listing, or prohibited from listing.'
         },
         productName: {
           title: 'Product Name',
           inputTitle: 'You can use letters and numbers between 2 and 100 characters.',
           placeholder: 'Please enter your product name.',
-          caution: 'You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.'
+          caution: 'If keywords are not directly related to the registered product, the registration can be prohibited by the administrator.'
         },
         productImage: {
           title: 'Product image',
           subTitle: 'The first photo will be the main product image. You can upload up to 5 images.',
           mainImage: 'Main image',
-          caution: 'If you upload an image that is not relevant to your product, you may be banned by the administrator.'
+          caution: 'If images are not directly related to the registered product, the registration can be by the administrator.'
         },
         information: {
           title: 'Product Information',
@@ -279,19 +279,19 @@
         category: {
           title: '카테고리',
           select: '선택한 카테고리: {category}',
-          caution: '상품과 맞지 않는 카테고리에 등록할 경우 강제 이동되거나 판매중지, 판매금지 될 수 있습니다.'
+          caution: '상품과 맞지 않는 카테고리에 등록할 경우 강제 이동되거나 중지, 또는 등록금지 될 수 있습니다.'
         },
         productName: {
           title: '제품명',
           inputTitle: '2자 이상 100자 이하 영어로만 입력해주세요.',
           placeholder: '제품 이름을 입력해주세요.',
-          caution: '판매 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 판매 금지 될 수 있습니다.'
+          caution: '등록 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 등록 금지 될 수 있습니다.'
         },
         productImage: {
           title: '제품 이미지',
           subTitle: '첫 번째 사진에는 대표 이미지를 올려주세요. 최대 5개까지 등록할 수 있습니다.',
           mainImage: '대표 이미지',
-          caution: '판매 상품과 관련이 없는 이미지를 올리면 관리자에 의해 판매 금지 될 수 있습니다.'
+          caution: '등록 상품과 관련이 없는 이미지를 올리면 관리자에 의해 등록 금지 될 수 있습니다.'
         },
         information: {
           title: '제품 정보',
@@ -307,7 +307,7 @@
         },
         introduction: {
           title: '제품 설명',
-          caution: '상품명과 직접적 관련 없는 상품상세, 외부 링크 입력 시 관리자에 의해 판매 금지 될 수 있습니다.'
+          caution: '상품명과 직접적 관련 없는 상품상세, 외부 링크 입력 시 관리자에 의해 등록 금지 될 수 있습니다.'
         },
         catalog: {
           title: '카탈로그',
