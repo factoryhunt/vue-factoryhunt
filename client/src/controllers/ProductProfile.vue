@@ -18,7 +18,7 @@
               <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             •
-            <h4 class="review-title" v-lang.header.reviews></h4>
+            <h4 class="review-title" v-lang.header.reviews="{count: 0}"></h4>
           </div>
         </div>
         <div class="divider"></div>
@@ -149,7 +149,7 @@
 
         <!-- Reviews -->
         <div class="reviews-container">
-          <h3 v-lang.reviews.title> <small>(0)</small></h3>
+          <h3 v-lang.reviews.title="{count: 0}"></h3>
           <br>
           <h4>No review.</h4>
         </div>
@@ -177,7 +177,7 @@
 
       <!-- Related products -->
       <div class="related-products-container">
-        <h3 class="title" v-lang.related.title></h3>
+        <h3 class="title" v-lang.related.title="{count: value.products.length - 1}"></h3>
         <br>
         <div class="row">
           <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
@@ -217,7 +217,7 @@
     messages: {
       eng: {
         header: {
-          reviews: 'Reviews (0)'
+          reviews: 'Reviews <small>({count})</small>'
         },
         image: {
           quote: 'Send inquiry to get pricing',
@@ -230,7 +230,7 @@
           dimension: 'Dimension'
         },
         reviews: {
-          title: 'Reviews'
+          title: 'Reviews <small>({count})</small>'
         },
         intro: {
           title: 'Product introduction'
@@ -239,7 +239,7 @@
           title: 'Catalog'
         },
         related: {
-          title: 'Related products'
+          title: 'Related products <small>({count})</small>'
         }
       },
       kor: {
@@ -257,7 +257,7 @@
           dimension: '규격'
         },
         reviews: {
-          title: '평가'
+          title: '평가 <small>({count})</small>'
         },
         intro: {
           title: '제품 정보'
@@ -266,7 +266,7 @@
           title: '카탈로그'
         },
         related: {
-          title: '연관제품'
+          title: '연관 제품 <small>({count})</small>'
         }
       }
     },
