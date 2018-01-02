@@ -49,7 +49,7 @@
       <div class="description-container input-container">
         <p class="title" v-lang.description.title></p>
         <p class="sub-title" v-lang.description.desc></p>
-        <textarea id="description-input" maxlength="25000" rows="10" :placeholder="getDescriptionPlaceholder" v-model="value.description"></textarea>
+        <textarea id="description-input" pattern="[A-Za-z0-9 .,]{1,50}" maxlength="25000" rows="10" :placeholder="getDescriptionPlaceholder" v-model="value.description"></textarea>
       </div>
 
       <!-- Company Information -->

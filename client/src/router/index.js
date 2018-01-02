@@ -12,6 +12,7 @@ import About from '../controllers/About'
 import ContactUs from '../controllers/ContactUs/ContactUs.vue'
 import LeadSearchDetail from '../controllers/LeadSearchDetail'
 import NotFound from '../controllers/NotFound'
+import Thanks from '../controllers/Thanks/Thanks.vue'
 import Membership from '../controllers/Membership'
 import Login from '../controllers/Login/Login.vue'
 import SignUp from '../controllers/SignUp/SignUp.vue'
@@ -188,6 +189,10 @@ export default new Router({
           ]
         }
       ]
+    },
+    {
+      path: '/thank-you-for-sign-up',
+      component: Thanks
     },
     {
       path: '/error',

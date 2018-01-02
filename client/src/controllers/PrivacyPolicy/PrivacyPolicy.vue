@@ -513,11 +513,18 @@
             this.value.contact = res[0].data
             this.value.account = res[1].data
           })
+      },
+      getLanguage () {
+        const lang = this.$route.query.lang
+        if (lang) {
+          this.language = lang
+        }
       }
     },
     created () {
       window.scrollTo(0, 0)
       this.tryAutoLogin()
+      this.getLanguage()
     }
   }
 </script>

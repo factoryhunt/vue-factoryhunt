@@ -92,8 +92,8 @@ export default {
       return new Promise(async (resolve, reject) => {
         try {
           const data = await register()
-          sendVerifyEmail()
           await login()
+          sendVerifyEmail()
           resolve(data)
         } catch (err) {
           reject(err)
