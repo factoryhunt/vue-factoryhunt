@@ -5,6 +5,7 @@
 
     <div class="body-container">
 
+      <!-- Left side -->
       <div class="left-container">
 
         <!-- Header -->
@@ -17,7 +18,7 @@
               <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             •
-            <h4 class="review-title">Reviews (0)</h4>
+            <h4 class="review-title" v-lang.header.reviews></h4>
           </div>
         </div>
         <div class="divider"></div>
@@ -46,8 +47,8 @@
             </div>
           </div>
 
-          <h4 class="quote-text">Send inquiry to get pricing</h4>
-          <button @click="onSendInquiry" class="button-orange inquiry-button">Send inquiry</button>
+          <h4 class="quote-text" v-lang.image.quote></h4>
+          <button @click="onSendInquiry" class="button-orange inquiry-button" v-lang.image.button></button>
 
           <!--<div class="product-image-containers">-->
 
@@ -127,19 +128,19 @@
           <!--</div>-->
 
           <div class="list-container" v-show="value.product.minimum_order_quantity">
-            <div class="left-contents">MOQ</div>
+            <div class="left-contents" v-lang.information.moq></div>
             <div class="right-contents">{{value.product.minimum_order_quantity}}</div>
           </div>
           <div class="list-container" v-show="value.product.price">
-            <div class="left-contents">Price</div>
+            <div class="left-contents" v-lang.information.price></div>
             <div class="right-contents">{{value.product.price}}123</div>
           </div>
           <div class="list-container" v-show="value.product.material_type">
-            <div class="left-contents">Material</div>
+            <div class="left-contents" v-lang.information.material></div>
             <div class="right-contents">{{value.product.material_type}}</div>
           </div>
           <div class="list-container" v-show="value.product.item_dimensions">
-            <div class="left-contents">Dimension</div>
+            <div class="left-contents" v-lang.information.dimension></div>
             <div class="right-contents">{{value.product.item_dimensions}}</div>
           </div>
 
@@ -148,7 +149,7 @@
 
         <!-- Reviews -->
         <div class="reviews-container">
-          <h3>Reviews <small>(0)</small></h3>
+          <h3 v-lang.reviews.title> <small>(0)</small></h3>
           <br>
           <h4>No review.</h4>
         </div>
@@ -157,7 +158,7 @@
 
       <!-- Introduction -->
       <div class="product-introduction-container" v-show="value.product.product_description">
-        <h3>Product Introduction</h3>
+        <h3 v-lang.intro.title></h3>
         <br>
         <div class="product-introduction-inner-container" v-html="value.product.product_description"></div>
       </div>
@@ -165,7 +166,7 @@
 
       <!-- Catalog -->
       <div v-show="value.product.product_pdf_url" class="catalog-container" id="catalog-container">
-        <h3>Catalog</h3>
+        <h3 v-lang.catalog.title></h3>
         <img v-show="!toggle.isCatalogLoaded" src="/static/product_loading_image_text.png">
         <!--<h3><a href="/static/web/viewer.html?file=http://localhost:8080/static/test.pdf" target="_blank">Catalog</a></h3>-->
         <!--<iframe id="catalog" src="/static/web/viewer.html?file=/static/test.pdf" allowfullscreen webkitallowfullscreen scrolling="no"  name="pdf" width="724" height="300" style="border: none;">-->
@@ -174,8 +175,9 @@
       </div>
       <div class="divider" v-show="value.product.product_pdf_url"></div>
 
+      <!-- Related products -->
       <div class="related-products-container">
-        <h3 class="title">Related products</h3>
+        <h3 class="title" v-lang.related.title></h3>
         <br>
         <div class="row">
           <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
@@ -211,6 +213,62 @@
       NavBar,
       CopyrightBar,
       Spinkit
+    },
+    messages: {
+      eng: {
+        header: {
+          reviews: 'Reviews (0)'
+        },
+        image: {
+          quote: 'Send inquiry to get pricing',
+          button: 'Send inquiry'
+        },
+        information: {
+          moq: 'MOQ',
+          price: 'Price',
+          material: 'Material',
+          dimension: 'Dimension'
+        },
+        reviews: {
+          title: 'Reviews'
+        },
+        intro: {
+          title: 'Product introduction'
+        },
+        catalog: {
+          title: 'Catalog'
+        },
+        related: {
+          title: 'Related products'
+        }
+      },
+      kor: {
+        header: {
+          reviews: '평가 (0)'
+        },
+        image: {
+          quote: '가격 협상을 위해 문의하세요',
+          button: '문의하기'
+        },
+        information: {
+          moq: '최소주문량',
+          price: '가격',
+          material: '소재 및 재질',
+          dimension: '규격'
+        },
+        reviews: {
+          title: '평가'
+        },
+        intro: {
+          title: '제품 정보'
+        },
+        catalog: {
+          title: '카탈로그'
+        },
+        related: {
+          title: '연관제품'
+        }
+      }
     },
     computed: {
       ...mapGetters([

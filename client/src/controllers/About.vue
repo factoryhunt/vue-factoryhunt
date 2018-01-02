@@ -1,7 +1,7 @@
 <template>
   <div class="about-container">
 
-    <h2>About Factory Hunt</h2>
+    <h2 v-lang.title></h2>
     <hr>
     <div class="containers">
       <div class="description-section">
@@ -35,6 +35,16 @@
         query: this.$route.query.id,
         title: 'Factoryhunt',
         products: []
+      }
+    },
+    messages: {
+      eng: {
+        title: 'About Factory Hunt',
+        description: ''
+      },
+      kor: {
+        title: '팩토리 헌트는',
+        description: ''
       }
     },
     methods: {

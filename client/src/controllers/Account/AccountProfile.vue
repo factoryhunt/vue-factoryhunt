@@ -3,6 +3,7 @@
 
     <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
 
+    <!-- Main Image -->
     <div class="image-container">
       <div class="main-image"></div>
     </div>
@@ -17,12 +18,11 @@
           <div class="sticky-inner-container">
             <div class="sticky-container">
               <ul>
-                <li><a href="#INTRO" class="sticky-item">Intro</a></li>
+                <li><a href="#INTRO" class="sticky-item" v-lang.sticky.intro></a></li>
                 <li>•</li>
-                <li><a href="#ADDRESS" class="sticky-item">Address</a></li>
+                <li><a href="#ADDRESS" class="sticky-item" v-lang.sticky.address></a></li>
                 <li>•</li>
-                <li><a href="#PRODUCTS" class="sticky-item">Products</a></li>
-                <li v-if="toggle.isUserAdmin"><a id="edit-button" @click="onEditButton">{{ msg.kor.edit }}</a></li>
+                <li><a href="#PRODUCTS" class="sticky-item" v-lang.sticky.products></a></li>
               </ul>
             </div>
 
@@ -55,7 +55,7 @@
 
         <!-- Company Description -->
         <div id="INTRO" class="description-container">
-          <h3>Company description</h3>
+          <h3 v-lang.description.title></h3>
           <br>
           <textarea id="description-textarea" readonly>{{ account.company_description_english }}</textarea>
         </div>
@@ -63,27 +63,27 @@
 
         <!-- Company Information -->
         <div class="information-container">
-          <h3>Information</h3>
+          <h3 v-lang.information.title></h3>
           <br>
           <div class="information-table-container">
             <div class="list-container" v-show="account.products_english">
-              <div class="left-contents">Products</div>
+              <div class="left-contents" v-lang.information.products></div>
               <div class="right-contents">{{ account.products_english }}</div>
             </div>
             <div class="list-container" v-show="account.website">
-              <div class="left-contents">Website</div>
+              <div class="left-contents" v-lang.information.website></div>
               <div class="right-contents"><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></div>
             </div>
             <div class="list-container" v-show="account.phone">
-              <div class="left-contents">Phone</div>
+              <div class="left-contents" v-lang.information.phone></div>
               <div class="right-contents">{{ account.phone }}</div>
             </div>
             <div class="list-container">
-              <div class="left-contents">Location</div>
+              <div class="left-contents" v-lang.information.location></div>
               <div class="right-contents">{{ getLocation }}</div>
             </div>
             <div class="list-container">
-              <div class="left-contents">Established year</div>
+              <div class="left-contents" v-lang.information.establishedYear></div>
               <div class="right-contents">{{ getYear(account.established_date) }}</div>
             </div>
           </div>
@@ -92,7 +92,7 @@
 
         <!-- Company History -->
         <div class="history-container" v-show="account.history">
-          <h3>History</h3>
+          <h3 v-lang.history.title></h3>
           <br>
           <textarea>{{ account.history }}</textarea>
         </div>
@@ -107,7 +107,7 @@
 
         <!-- Company Review -->
         <div id="review-container" class="review-container">
-          <h3>Reviews <small>(0)</small></h3>
+          <h3 v-lang.reviews.title> <small>(0)</small></h3>
           <br>
           <p>No review.</p>
         </div>
@@ -118,26 +118,26 @@
       <div class="right-container">
         <form @submit.prevent="sendEmail(value.email, value.quiry)" class="form-container">
 
-          <h3>Contact</h3>
+          <h3 v-lang.contact.title></h3>
           <br>
           <div class="input-container">
-            <input required v-model="value.email" type="email" :placeholder="placeholder.email">
+            <input required v-model="value.email" type="email" :placeholder="getContactEmailPlaceholder">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea required v-model="value.quiry" rows="10" :placeholder="placeholder.textarea"></textarea>
+          <textarea required v-model="value.quiry" rows="10" :placeholder="getContactMessagePlaceholder"></textarea>
 
-          <p class="quote">{{msg.quote}}</p>
+          <p class="quote" v-lang.contact.quote></p>
 
           <div class="button-container">
-            <button type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="btn btn-default" v-lang.contact.button></button>
           </div>
         </form>
       </div>
 
       <!-- Company Address -->
       <div id="ADDRESS" class="address-container">
-        <h3 class="title">Address</h3>
+        <h3 class="title" v-lang.address.title></h3>
         <div id="map"></div>
       </div>
 
@@ -146,7 +146,7 @@
         <div class="row">
 
           <div style="padding: 0" class="col-md-12">
-            <h3 class="title">Products <small>({{products.length}})</small></h3>
+            <h3 class="title" v-lang.products.title> <small>({{products.length}})</small></h3>
 
             <div class="product-container" v-for="(product, index) in this.products">
               <div class="col-md-3 col-sm-6 col-xs-12">
@@ -167,7 +167,6 @@
     </div>
 
     <copyright-bar></copyright-bar>
-
   </div>
 </template>
 
@@ -220,6 +219,79 @@
         }
       }
     },
+    messages: {
+      eng: {
+        sticky: {
+          intro: 'Intro',
+          address: 'Address',
+          products: 'Products'
+        },
+        description: {
+          title: 'Company Description'
+        },
+        information: {
+          title: 'Information',
+          products: 'Products',
+          website: 'Website',
+          phone: 'Phone',
+          location: 'Location',
+          establishedYear: 'Established Year'
+        },
+        reviews: {
+          title: 'Reviews'
+        },
+        address: {
+          title: 'Address'
+        },
+        products: {
+          title: 'Products'
+        },
+        contact: {
+          title: 'Contact',
+          emailPlaceholder: 'your@email.com',
+          messagePlaceholder: 'Enter your message',
+          quote: 'Request a quote to get pricing',
+          button: 'Send inquiry'
+        }
+      },
+      kor: {
+        sticky: {
+          intro: '회사 소개',
+          address: '주소',
+          products: '제품'
+        },
+        description: {
+          title: '회사 소개'
+        },
+        information: {
+          title: '정보',
+          products: '품목',
+          website: '웹사이트',
+          phone: '연락처',
+          location: '위치',
+          establishedYear: '설립연도'
+        },
+        history: {
+          title: '연혁'
+        },
+        reviews: {
+          title: '평가'
+        },
+        address: {
+          title: '주소'
+        },
+        products: {
+          title: '제품'
+        },
+        contact: {
+          title: '문의',
+          emailPlaceholder: '이메일',
+          messagePlaceholder: '내용을 입력해주세요.',
+          quote: '가격 협상을 위해 문의하세요',
+          button: '문의하기'
+        }
+      }
+    },
     computed: {
       ...mapGetters([
         'getContactId',
@@ -236,6 +308,12 @@
       },
       getAccountId () {
         return this.value.account.account_id
+      },
+      getContactEmailPlaceholder () {
+        return this.translate('contact.emailPlaceholder')
+      },
+      getContactMessagePlaceholder () {
+        return this.translate('contact.messagePlaceholder')
       }
     },
     methods: {

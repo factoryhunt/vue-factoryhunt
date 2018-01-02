@@ -4,7 +4,7 @@
     <div class="body-container">
 
       <div class="body-contents">
-        <h2>Suppliers <small>({{ addComma(lead_count) }})</small> </h2>
+        <h2 v-lang.suppliers="{count: addComma(lead_count)}"></h2>
         <hr>
         <div class="row">
 
@@ -63,6 +63,14 @@
         lead_result: '',
         lead_count: 0,
         pagination: Math.ceil((this.lead_count / 10) / 10)
+      }
+    },
+    messages: {
+      eng: {
+        suppliers: 'Suppliers <small>({count})</small>'
+      },
+      kor: {
+        suppliers: '공장 <small>({count})</small>'
       }
     },
     methods: {

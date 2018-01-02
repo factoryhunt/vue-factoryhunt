@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
 
-    <h2>Contact Us</h2>
+    <h2 v-lang.title></h2>
     <hr>
 
     <div class="inner-contents">
@@ -9,17 +9,17 @@
       <div class="right-container">
         <form @submit.prevent="sendEmail(email, quiry)" class="form-container">
 
-          <h3 class="title">Contact</h3>
+          <h3 class="title" v-lang.contact></h3>
           <br>
           <div class="input-container">
-            <input required v-model="email" type="email" :placeholder="placeholder.email">
+            <input required v-model="email" type="email" :placeholder="getEmailPlaceholder">
             <i class="fa fa-envelope-o" aria-hidden="true"></i>
           </div>
 
-          <textarea required v-model="quiry" rows="12" :placeholder="placeholder.textarea"></textarea>
+          <textarea required v-model="quiry" rows="12" :placeholder="getMessagePlaceholder"></textarea>
 
           <div class="button-container">
-            <button type="submit" class="btn btn-default">Send inquiry</button>
+            <button type="submit" class="btn btn-default" v-lang.button></button>
           </div>
         </form>
       </div>
@@ -27,7 +27,7 @@
       <div class="left-container">
         <div class="location-container">
           <hr>
-          <h3 class="title">Location</h3>
+          <h3 class="title" v-lang.location></h3>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25392017.06642179!2d132.10668611474622!3d39.02417588597382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca43fa198ee59%3A0x9b0e31cc41a900d9!2s417+Yeongdong-daero%2C+Gangnam-gu%2C+Seoul!5e0!3m2!1sen!2skr!4v1502419672699" width="550" height="450" frameborder="0" style="border: 0px; pointer-events: none;" allowfullscreen=""></iframe>
         </div>
       </div>
@@ -57,6 +57,32 @@
         },
         email: '',
         quiry: ''
+      }
+    },
+    messages: {
+      eng: {
+        title: 'Contact Us',
+        contact: 'Contact',
+        emailPlaceholder: 'Email',
+        messagePlaceholder: 'Enter your message',
+        button: 'Send inquiry',
+        location: 'Location'
+      },
+      kor: {
+        title: '문의하기',
+        contact: '문의',
+        emailPlaceholder: '이메일',
+        messagePlaceholder: '내용을 입력하세요',
+        button: '문의하기',
+        location: '위치'
+      }
+    },
+    computed: {
+      getEmailPlaceholder () {
+        return this.translate('emailPlaceholder')
+      },
+      getMessagePlaceholder () {
+        return this.translate('messagePlaceholder')
       }
     },
     created () {

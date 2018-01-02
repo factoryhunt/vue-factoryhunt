@@ -12,10 +12,10 @@
 
         <div class="col-md-3 col-sm-6 column">
           <ul class="list-unstyled">
-            <li class="list-title">Factory Hunt</li>
+            <li class="list-title" v-lang.factoryhunt></li>
             <br>
-            <li class="small"><a href="/about">About Us</a></li>
-            <li class="small"><a href="/contact">Contact Us</a></li>
+            <li class="small"><a href="/about" v-lang.aboutUs></a></li>
+            <li class="small"><a href="/contact" v-lang.contactUs></a></li>
           </ul>
         </div>
 
@@ -35,7 +35,7 @@
 
         <div class="col-md-3 col-sm-6 column">
           <ul class="list-unstyled">
-            <li class="list-title">Follow us</li>
+            <li class="list-title" v-lang.followUs></li>
             <br>
             <li class="small"><a href="//www.facebook.com/factoryhunt" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
             <li class="small"><a href="https://www.youtube.com/channel/UCC3c1TvZIsssj5aSTM9qj6A" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i> YouTube</a></li>
@@ -48,17 +48,20 @@
 
 <script>
   export default {
-    data () {
-      return {
-        copyright: '2017 factoryhunt.com'
-      }
-    },
     messages: {
       eng: {
-        languages: 'Languages'
+        factoryhunt: 'Factory Hunt',
+        aboutUs: 'About Us',
+        contactUs: 'Contact Us',
+        languages: 'Languages',
+        followUs: 'Follow Us'
       },
       kor: {
-        languages: '언어'
+        factoryhunt: '팩토리 헌트',
+        aboutUs: '소개',
+        contactUs: '문의하기',
+        languages: '언어',
+        followUs: '팔로잉'
       }
     },
     methods: {

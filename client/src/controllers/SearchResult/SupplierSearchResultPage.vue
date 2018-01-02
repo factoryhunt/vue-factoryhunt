@@ -2,7 +2,7 @@
   <div class="page-container">
 
     <div class="products-contents">
-      <h2>Verified products <small>{{ checkResultCount(product_result, product_count) }}</small> </h2>
+      <h2 v-lang.verifiedProducts="{count: checkResultCount(product_result, product_count)}"></h2>
       <div class="divider"></div>
       <div class="row">
         <div v-if="products.length === 0">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="accounts-contents">
-      <h2>Verified suppliers<small> {{ checkResultCount(account_result, account_count) }} </small> </h2>
+      <h2 v-lang.verifiedSuppliers="{count: checkResultCount(account_result, account_count)}"></h2>
       <div class="divider"></div>
       <div class="row">
         <div style="padding: 0" class="col-md-9 col-sm-9">
@@ -59,7 +59,7 @@
 
     <div class="leads-contents">
 
-      <h2>Suppliers <small>{{ checkResultCount(lead_result, lead_count) }}</small> </h2>
+      <h2 v-lang.suppliers="{count: checkResultCount(lead_result, lead_count)}"></h2>
       <div class="divider"></div>
       <div class="row">
 
@@ -86,7 +86,7 @@
         </div>
       </div>
       <div v-if="leads.length >= 7">
-        <h4 class="text-left"><a @click="onLeadReadMore">Read more</a></h4>
+        <h4 class="text-left"><a @click="onLeadReadMore" v-lang.readMore></a></h4>
       </div>
     </div>
   </div>
@@ -118,6 +118,20 @@
         product_count: 0,
         account_count: 0,
         lead_count: 0
+      }
+    },
+    messages: {
+      eng: {
+        readMore: 'Read more',
+        verifiedProducts: 'Verified products <small>{count}</small>',
+        verifiedSuppliers: 'Verified suppliers <small>{count}</small>',
+        suppliers: 'Suppliers <small>{count}</small>'
+      },
+      kor: {
+        readMore: '더 보기',
+        verifiedProducts: '인증 제품 <small>{count}</small>',
+        verifiedSuppliers: '인증 공장 <small>{count}</small>',
+        suppliers: '공장 <small>{count}</small>'
       }
     },
     methods: {

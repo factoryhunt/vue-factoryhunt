@@ -2,7 +2,7 @@
   <form class="narrow-contents" @submit.prevent="sendEmail(email, quiry)" id="form-container">
 
     <div class="narrow-contents">
-      <h2>{{msg.title}}</h2>
+      <h2 v-lang.title></h2>
       <hr>
 
       <div class="input-container">
@@ -16,17 +16,17 @@
       </div>
 
       <div class="input-container">
-        <input required type="email" v-model="email" :placeholder="placeholder.email">
+        <input required type="email" v-model="email" :placeholder="getEmailPlaceholder">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
       </div>
 
-      <textarea required rows="7" v-model="quiry" :placeholder="placeholder.textarea"></textarea>
+      <textarea required rows="7" v-model="quiry" :placeholder="getMessagePlaceholder"></textarea>
 
       <div class="button-container">
         <div class="help-container">
-          <a @click="onNeedHelpButton"><i class="fa fa-info-circle"></i> Need our help?</a>
+          <a @click="onNeedHelpButton" v-lang.needOurHelp></a>
         </div>
-        <button type="submit" class="btn-lg btn-default"><i class="fa fa-paper-plane"></i> Send inquiry</button>
+        <button type="submit" class="btn-lg btn-default" v-lang.button></button>
       </div>
 
     </div>
@@ -71,6 +71,33 @@
             message: 'Message is required'
           }
         }
+      }
+    },
+    messages: {
+      eng: {
+        title: 'Contact form',
+        emailPlaceholder: 'Email',
+        messagePlaceholder: 'Enter your message',
+        needOurHelp: '<i class="fa fa-info-circle"></i> Need our help?',
+        button: '<i class="fa fa-paper-plane"></i> Send inquiry'
+      },
+      kor: {
+        title: '문의',
+        emailPlaceholder: '이메일',
+        messagePlaceholder: '내용을 입력하세요',
+        needOurHelp: '<i class="fa fa-info-circle"></i> 도움이 필요하신가요?',
+        button: '<i class="fa fa-paper-plane"></i> 문의하기'
+      }
+    },
+    computed: {
+      getCompany () {
+        return this.lead.company_english ? this.lead.company + '(' + this.lead.company_english + ')' : this.lead.company
+      },
+      getEmailPlaceholder () {
+        return this.translate('emailPlaceholder')
+      },
+      getMessagePlaceholder () {
+        return this.translate('messagePlaceholder')
       }
     },
     methods: {

@@ -9,7 +9,7 @@
             <img id="logo" src="../assets/favicon_gray.png">
           </div>
           <div class="text-container">
-            <i class="fa fa-copyright"><span>2017 Factory Hunt</span></i>
+            <span><i class="fa fa-copyright"></i> 2018 Factory Hunt</span>
           </div>
         </div>
       </div>
@@ -25,11 +25,6 @@
 
 <script>
   export default {
-    data () {
-      return {
-        copyright: '2017-2018 Factory Hunt'
-      }
-    },
     messages: {
       eng: {
         terms: 'Terms',
@@ -87,7 +82,7 @@
             }
             span {
               margin-left: 5px;
-              font-weight: 600;
+              font-weight: 400;
               font-size: 14px;
             }
           }
@@ -186,7 +181,6 @@
               }
               span {
                 margin-left: 5px;
-                font-weight: 600;
                 font-size: 16px;
               }
             }
