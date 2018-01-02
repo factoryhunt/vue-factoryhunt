@@ -57,14 +57,16 @@
         password: 'Password',
         login: 'Login',
         signUp: 'Sign Up',
-        forgotPassword: 'Forgot your password?'
+        forgotPassword: 'Forgot your password?',
+        comingSoon: 'Sorry, Coming soon.'
       },
       kor: {
         email: '이메일',
         password: '비밀번호',
         login: '로그인',
         signUp: '회원가입',
-        forgotPassword: '비밀번호가 기억나지 않으세요?'
+        forgotPassword: '비밀번호가 기억나지 않으세요?',
+        comingSoon: '준비중입니다.'
       }
     },
     computed: {
@@ -76,6 +78,9 @@
       },
       getPassword () {
         return this.translate('password')
+      },
+      getComingSoon () {
+        return this.translate('comingSoon')
       }
     },
     methods: {
@@ -111,7 +116,7 @@
           })
       },
       onForgotPassword () {
-        alert('coming soon.')
+        alert(this.getComingSoon)
       },
       onSignUpButton () {
         location.href = '/signup'

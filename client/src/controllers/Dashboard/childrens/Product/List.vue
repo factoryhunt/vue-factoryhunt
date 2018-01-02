@@ -28,7 +28,7 @@
     <div class="product-container">
 
       <!-- products empty -->
-      <div v-if="products.length < 0" class="product-empty-container">
+      <div v-if="products.length === 0" class="product-empty-container">
         <div class="empty">
           <p class="title" v-lang.empty.title></p>
           <p class="sub-title" v-lang.empty.subTitle></p>

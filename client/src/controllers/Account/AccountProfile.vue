@@ -107,7 +107,7 @@
 
         <!-- Company Review -->
         <div id="review-container" class="review-container">
-          <h3 v-lang.reviews.title> <small>(0)</small></h3>
+          <h3 v-lang.reviews.title="{count: 0}"></h3>
           <br>
           <p>No review.</p>
         </div>
@@ -146,7 +146,7 @@
         <div class="row">
 
           <div style="padding: 0" class="col-md-12">
-            <h3 class="title" v-lang.products.title> <small>({{products.length}})</small></h3>
+            <h3 class="title" v-lang.products.title="{count: products.length}"></h3>
 
             <div class="product-container" v-for="(product, index) in this.products">
               <div class="col-md-3 col-sm-6 col-xs-12">
@@ -238,13 +238,13 @@
           establishedYear: 'Established Year'
         },
         reviews: {
-          title: 'Reviews'
+          title: 'Reviews <small>({count})</small>'
         },
         address: {
           title: 'Address'
         },
         products: {
-          title: 'Products'
+          title: 'Products ({count})'
         },
         contact: {
           title: 'Contact',
@@ -275,13 +275,13 @@
           title: '연혁'
         },
         reviews: {
-          title: '평가'
+          title: '평가 <small>({count})</small>'
         },
         address: {
           title: '주소'
         },
         products: {
-          title: '제품'
+          title: '제품 <small>({count})</small>'
         },
         contact: {
           title: '문의',
