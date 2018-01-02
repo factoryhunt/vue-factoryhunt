@@ -67,7 +67,8 @@
         terms: 'By clicking Sign Up, you agree to our <a href="/terms">Terms</a> and that you have read our <a href="/privacy">Privacy Policy</a>, including our Cookie Use.',
         login: 'Login',
         alreadyHaveAccount: 'Did you already have account?',
-        signUp: 'Sign Up'
+        signUp: 'Sign Up',
+        signUpSuccess: 'You have signed up successfully. \nPlease check your email to activate your account.'
       },
       kor: {
         company: '회사명',
@@ -77,7 +78,8 @@
         caution: '비밀번호는 문자와 숫자의 조합으로 최소 8 문자를 포함해야 합니다.',
         login: '로그인',
         alreadyHaveAccount: '계정이 이미 있으신가요?',
-        signUp: '계정 만들기'
+        signUp: '계정 만들기',
+        signUpSuccess: '성공적으로 가입되었습니다. \n계정 활성화를 위해 이메일을 확인해주세요.'
       }
     },
     computed: {
@@ -89,6 +91,9 @@
       },
       getPassword () {
         return this.translate('password')
+      },
+      getSuccessMessage () {
+        return this.translate('signUpSuccess')
       }
     },
     methods: {
@@ -110,7 +115,7 @@
           await this.signUp()
           $loader.removeClass().addClass('invisible')
           $signUpButton.css('display', 'inherit')
-          alert('You have signed up successfully. \nPlease check your email to activate your account.')
+          alert(this.getSuccessMessage)
           location.href = '/dashboard'
         } catch (err) {
           $loader.removeClass().addClass('invisible')

@@ -28,7 +28,7 @@
         <div class="location-container">
           <hr>
           <h3 class="title" v-lang.location></h3>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25392017.06642179!2d132.10668611474622!3d39.02417588597382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca43fa198ee59%3A0x9b0e31cc41a900d9!2s417+Yeongdong-daero%2C+Gangnam-gu%2C+Seoul!5e0!3m2!1sen!2skr!4v1502419672699" width="550" height="450" frameborder="0" style="border: 0px; pointer-events: none;" allowfullscreen=""></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22614192.714437235!2d111.92435988534045!3d37.06095545855957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca3e3561b583f%3A0x6683b2bd9f0703b3!2z7ISc7Jq47Yq567OE7IucIOqwleuCqOq1rCDrtInsnYDsgqzroZwgMTMz!5e0!3m2!1sko!2skr!4v1514872697200" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
       </div>
 
