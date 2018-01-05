@@ -1,61 +1,5 @@
 <template>
   <header class="header" id="HOME">
-    <!--Navigation-->
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#factoryhunt-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-left">
-            <a class="navbar-brand" href="/">
-              <img src="../../../assets/loog-b-2.png" alt="logo">
-            </a>
-            <a class="navbar-brand-title" href="/">
-              <strong>Factory Hunt</strong>
-              <span>제조업체 전문 검색엔진</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Col     the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="factoryhunt-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#ABOUT" class="nav-item">서비스</a></li>
-            <li><a href="#FEATURES" class="nav-item">제품소개</a></li>
-            <li><a href="#CHECK" class="nav-item">검색엔진</a></li>
-            <li><a href="#CONTACT" class="nav-item">문의하기</a></li>
-            <!-- Profile Image Menu -->
-            <li class="dropdown" v-if="isUserLoggedIn">
-              <div class="dropbtn" id="user-logo" @click="onProfileImage"></div>
-              <div class="dropdown-content">
-                <div class="dropdown-pointer"></div>
-                <div class="dropdown-pointer-bg"></div>
-                <div class="user-container">
-                  <p class="user-email">{{contact.contact_email}}</p>
-                  <p class="user-company-name">{{account.account_name}}</p>
-                  <p class="user-name">{{contact.first_name + contact.last_name}}</p>
-                </div>
-                <div class="footer-divider"></div>
-                <div class="footer">
-                  <div class="footer-left">
-                    <a id="my-page-button" @click="routeDashboardPage">관리자 센터</a>
-                  </div>
-                  <div class="footer-right">
-                    <a id="logout-button" @click="onLogoutButton">로그아웃</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li v-else><a href="https://www.factoryhunt.com/login?lang=kor" id="loginButton" class="nav-item">로그인</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
 
     <div class="header-overlay">
       <div class="container header-container">
@@ -63,15 +7,14 @@
           <div class="col-md-6">
             <div class="header-text">
               <!-- Title & Description -->
-              <h1><span>Factory Hunt</span>에서 영어 홈페이지와 온라인 카탈로그를 무료로 제작하세요. 해외 바이어와 연결됩니다.</h1>
-              <p>PDF 파일만 있으면, 단 한번의 클릭으로 온라인 제품 카탈로그가 완성됩니다.</p>
+              <h1 v-lang.header></h1>
+              <p v-lang.p1></p>
+              <p v-lang.p2></p>
             </div>
             <div class="header-btns scrollLeft">
               <!-- Header buttons -->
-              <a href="https://www.factoryhunt.com/signup?lang=kor" id="startButton" class="btn btn-check">시작하기</a>
-              <a href="#ABOUT" id="see-more-btn" class="btn btn-tour">
-                자세한 정보 보기
-                <i class="fa fa-angle-down"></i>
+              <a href="https://www.factoryhunt.com/signup?lang=kor" id="startButton" class="btn btn-check" v-lang.buttonLeft></a>
+              <a href="#ABOUT" id="see-more-btn" class="btn btn-tour" v-lang.buttonRight>
               </a>
             </div>
           </div>
@@ -85,33 +28,32 @@
                   </div>
                   <dl class="form-group mt-0">
                     <dt class="input-label">
-                      <label class="form-label f5" for="userCompany">제조업체 명칭(영어)</label>
+                      <label class="form-label f5" for="userCompany" v-lang.companyName.title></label>
                     </dt>
                     <dd>
-                      <input type="text" pattern="[A-Za-z0-9 ().,]{2,50}" title="영어로 작성해 주세요. 특수기호는 ( ) . , 만 사용 가능합니다." required id="userCompany" v-model="value.company" class="form-control form-control-lg input-block" placeholder="제조업체 명칭을 영어로 적어주세요." autofocus="">
+                      <input type="text" pattern="[A-Za-z0-9 ().,]{2,50}" :title="getCompanyNameCaution" required id="userCompany" v-model="value.company" class="form-control form-control-lg input-block" :placeholder="getCompanyNamePlaceholder" autofocus="">
                     </dd>
                   </dl>
                   <dl class="form-group">
                     <dt class="input-label">
-                      <label class="form-label f5" for="userEmail">이메일 주소</label>
+                      <label class="form-label f5" for="userEmail" v-lang.email.title></label>
                     </dt>
                     <dd>
                       <input type="email" required id="userEmail" v-model="value.email" class="form-control form-control-lg input-block" placeholder="you@example.com">
                     </dd>
                   </dl>
-                  <dl class="form-group">
+                  <dl class="form-group form-group-password">
                     <dt class="input-label">
-                      <label class="form-label f5" for="userPassword">비밀번호</label>
+                      <label class="form-label f5" for="userPassword" v-lang.password.title></label>
                     </dt>
                     <dd>
-                      <input type="password" id="userPassword" v-model="value.password" class="form-control form-control-lg input-block" placeholder="비밀번호를 적어 주세요." required minlength="8">
+                      <input type="password" id="userPassword" v-model="value.password" class="form-control form-control-lg input-block" :placeholder="getPasswordPlaceholder" :title="getPasswordCaution" required minlength="8">
                     </dd>
-                    <p class="form-control-note1">비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.</p>
+                    <p class="form-control-note1" v-lang.caution></p>
                   </dl>
                   <spinkit id="sign-up-spinkit"></spinkit>
-                  <button class="btn btn-primary btn-large btn-block btn-signup"> 계정 만들기 </button>
-                  <p class="form-control-note2 mb-0 text-center">
-                    계정 만들기 버튼을 클릭하면, Factory Hunt의 <a href="//www.factoryhunt.com/terms?lang=kor">이용약관</a>에 동의하며 쿠키 사용을 포함한 Factory Hunt의 <a href="//www.factoryhunt.com/privacy?lang=kor">개인정보취급방침</a>을 읽었음을 인정하게 됩니다.
+                  <button class="btn btn-primary btn-large btn-block btn-signup" v-lang.signUpButton></button>
+                  <p class="form-control-note2 mb-0 text-center" v-lang.agreement>
                   </p>
                 </form>
               </div>
@@ -140,6 +82,65 @@
         toggle: {
           isDropdownShown: false
         }
+      }
+    },
+    messages: {
+      eng: {
+        header: 'Be connected with buyers',
+        p1: 'Create a unique supplier website and online catalog.',
+        p2: 'It’s easy and free.',
+        buttonLeft: 'START',
+        buttonRight: 'Learn More <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
+        companyName: {
+          title: 'Company Name',
+          placeholder: 'Enter the official company name.',
+          caution: 'It must be 2 - 50 characters and can only contain letters, numbers, parentheses, periods, and comma.'
+        },
+        email: {
+          title: 'Email'
+        },
+        password: {
+          title: 'Password',
+          placeholder: 'Enter a password',
+          caution: 'It must contain at least one letter, one numeral, and eight characters.'
+        },
+        caution: 'Use at least one letter, one numeral, and eight characters.',
+        signUpButton: 'Create Account',
+        agreement: 'By clicking Create Account, you agree to our <a href="//www.factoryhunt.com/terms">Terms</a> and that you have read our <a href="//www.factoryhunt.com/privacy">Privacy Policy</a>, including our Cookie Use.'
+      },
+      kor: {
+        header: '팩토리헌트에서 영어 홈페이지와 온라인 카탈로그를 무료로 제작하세요. 해외 바이어와 연결됩니다.',
+        p1: 'PDF 파일만 있으면, 단 한번의 클릭으로 온라인 제품 카탈로그가 완성됩니다.',
+        p2: '',
+        buttonLeft: '시작하기',
+        buttonRight: '자세한 정보 보기 <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
+        companyName: {
+          title: '제조업체 명칭',
+          placeholder: '제조업체 명칭을 영어로 적어주세요.',
+          caution: '2자 이상 50자 이하의 영어로 작성해 주세요. 특수기호는 ( ) . , 만 사용 가능합니다.'
+        },
+        email: {
+          title: '이메일 주소'
+        },
+        password: {
+          title: '비밀번호',
+          placeholder: '비밀번호를 적어 주세요.',
+          caution: '비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.'
+        },
+        caution: '비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.',
+        signUpButton: '계정 만들기',
+        agreement: '계정 만들기 버튼을 클릭하면, Factory Hunt의 <a href="//www.factoryhunt.com/terms">이용약관</a>에 동의하며 쿠키 사용을 포함한 Factory Hunt의 <a href="//www.factoryhunt.com/privacy">개인정보취급방침</a>을 읽었음을 인정하게 됩니다.'
+      }
+    },
+    computed: {
+      getCompanyNamePlaceholder () {
+        return this.translate('companyName.placeholder')
+      },
+      getPasswordPlaceholder () {
+        return this.translate('password.placeholder')
+      },
+      getPasswordCaution () {
+        return this.translate('password.caution')
       }
     },
     methods: {
@@ -337,208 +338,6 @@
   @media only screen and (max-width: 1200px) {
   }
 
-  /*=============== Navigation ===============*/
-  .navbar-default {
-    background-color: rgba(255, 255, 255, 1);
-    border-color: white;
-    z-index: 110;
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -ms-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    margin-bottom: 0px;
-    border-radius: 0px;
-  }
-  .navbar-default .navbar-nav > li > a {
-    color: #484848;
-    -webkit-transition: all 500ms;
-    -moz-transition: all 500ms;
-    -ms-transition: all 500ms;
-    -o-transition: all 500ms;
-    transition: all 500ms;
-  }
-  .navbar-default .navbar-nav > li > a:hover {
-    color: #F2583D;
-  }
-  .navbar-default .navbar-nav > li > a:focus {
-    color: #484848;
-  }
-  .navbar-left {
-    width: 250px;
-  }
-  .navbar-brand {
-    padding: 0px 15px;
-  }
-  .navbar-brand img {
-    -webkit-transition: all 500ms;
-    -moz-transition: all 500ms;
-    -ms-transition: all 500ms;
-    -o-transition: all 500ms;
-    transition: all 500ms;
-    width: 50px;
-  }
-  .navbar-brand-title {
-    position: relative;
-    top: -3px;
-    color: transparent;
-  }
-  .navbar-brand-title > strong {
-    font-size: 22px;
-    color: #F2583D;
-  }
-  .navbar-brand-title > span {
-    font-size: 16px;
-    height: 10px;
-    color: #484848;
-    display: block;
-  }
-  .navbar-nav {
-    font-size: 17px;
-  }
-  .navbar-default .navbar-nav > .active>a,
-  .navbar-default .navbar-nav > .active>a:hover,
-  .navbar-default .navbar-nav > .active>a:focus {
-    background-color: transparent;
-    color: #F2583D;
-  }
-
-  /* when logged in */
-  #user-logo {
-    cursor: pointer;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: 50% 50% !important;
-    border-radius: 50%;
-    border: 2px solid @color-light-grey;
-    width: 40px;
-    height: 40px;
-    margin-top: 5px;
-    margin-left: 10px;
-  }
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-
-    .dropdown-pointer {
-      border-color: transparent;
-      border-bottom-color: @color-white;
-      border-style: dashed dashed solid;
-      border-width: 0 8.5px 8.5px;
-      position: absolute;
-      height: 0;
-      width: 0;
-      top: -9px;
-      right: 10px;
-      z-index: 5;
-    }
-    .dropdown-pointer-bg {
-      border-color: transparent;
-      border-bottom-color: @color-light-grey;
-      border-style: dashed dashed solid;
-      border-width: 0 8.5px 8.5px;
-      position: absolute;
-      height: 0;
-      width: 0;
-      top: -10px;
-      right: 10px;
-      z-index: 4;
-    }
-
-    .dropdown-content {
-      width: 300px;
-      border: 1px solid @color-light-grey;
-      border-radius: @border-radius;
-      display: none;
-      padding: 12px 20px;
-      top: 100% + 25px;
-      right: 0;
-      position: absolute;
-      background-color: @color-white;
-      min-width: 160px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.2);
-      z-index: 1;
-
-      .user-container {
-        margin-bottom: 50px;
-        text-align: right;
-        .user-email {
-          margin: 0;
-          font-weight: 400;
-        }
-
-        .user-company-name {
-          word-wrap: break-word;
-          font-size: 22px;
-          font-weight: 500;
-        }
-
-        .user-name {
-          font-size: 18px;
-          font-weight: 300;
-        }
-      }
-
-      .footer-divider {
-        height: 1px;
-        background-color: @color-light-grey;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        right: 0;
-        bottom: 60px;
-      }
-
-      .footer {
-        display: table;
-        width: 100%;
-        margin-bottom: 5px;
-
-        .footer-left {
-          display: table-cell;
-          text-align: left;
-
-          #my-page-button {
-            display: inline !important;
-            margin: 0 12px;
-            color: @color-orange;
-            /*<!--border: 1px solid @color-deep-gray;-->*/
-            /*<!--border-radius: @border-radius;-->*/
-            /*<!--padding: 5px 12px;-->*/
-            /*<!--background-color: @color-light-grey;-->*/
-
-            &:hover {
-              //
-            }
-          }
-        }
-
-        .footer-right {
-          display: table-cell;
-          text-align: right;
-
-          #logout-button {
-            display: inline !important;
-            margin: 0 12px;
-            color: @color-font-base;
-            /*<!--border: 1px solid @color-deep-gray;-->*/
-            /*<!--border-radius: @border-radius;-->*/
-            /*<!--padding: 5px 12px;-->*/
-            /*<!--background-color: @color-light-grey;-->*/
-          }
-        }
-
-        a {
-          text-decoration: none !important;
-          display: block !important;
-        }
-      }
-    }
-  }
-
   /*=============== Header ===============*/
   .header-container {
     padding-top: 100px;
@@ -565,17 +364,14 @@
     color: #fff;
     font-size: 35px;
     font-weight: 300;
-    line-height: 45px;
+    line-height: 40px;
     padding-top: 30px;
-    padding-bottom: 12px;
-  }
-  .header-text > h1 > span {
-    color: #F2583D;
+    padding-bottom: 11px;
   }
   .header-text p {
     color: #fff;
     font-size: 20px;
-    line-height: 28px;
+    line-height: 23px;
     font-weight: 300;
     margin-bottom: 3px;
   }
@@ -652,6 +448,9 @@
     -ms-transition: all 500ms;
     -o-transition: all 500ms;
     transition: all 500ms;
+  }
+  .form-group-password {
+    margin-bottom: 15px;
   }
   #HOME {
     outline: none !important;

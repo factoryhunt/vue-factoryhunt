@@ -10,12 +10,6 @@
     <home-features></home-features>
     <!--Counters-->
     <home-counters></home-counters>
-    <!--Check Now-->
-    <home-check-now></home-check-now>
-    <!--Contact Us-->
-    <home-contact-us></home-contact-us>
-    <!--Footer-->
-    <home-footer></home-footer>
   </div>
 </template>
 
