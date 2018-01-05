@@ -479,7 +479,7 @@
           mailing_postal_code_english: value.postalCode,
           mailing_street_address_english: value.streetAddress,
           mailing_street_address_2_english: value.streetAddressDetail,
-          history_english: value.history
+          history: value.history
         }
         // request
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
