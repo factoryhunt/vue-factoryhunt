@@ -3,6 +3,7 @@ const mysql = require('../../../../models/mysql')
 const CONFIG_MYSQL = require('../../../../config/mysql_config')
 
 // Retrieve All Products filtered by account_id
+// GET /api/data/product/account_id/:id
 router.get('/account_id/:id', (req, res) => {
   const id = req.params.id
   retrieveAllProductsByAccountId(id)

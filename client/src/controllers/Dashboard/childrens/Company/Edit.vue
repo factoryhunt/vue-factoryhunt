@@ -422,7 +422,7 @@
         this.value.postalCode = account.mailing_postal_code_english
         this.value.streetAddress = account.mailing_street_address_english
         this.value.streetAddressDetail = account.mailing_street_address_2_english
-        this.value.history = account.history_english
+        this.value.history = account.history
       },
       getYear (date) {
         if (date === '0000-00-00') {

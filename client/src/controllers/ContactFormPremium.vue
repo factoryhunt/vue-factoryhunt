@@ -26,7 +26,7 @@
         <div class="help-container">
           <a href="/contact" target="_blank" v-lang.needOurHelp></a>
         </div>
-        <button type="submit" class="btn-lg btn-default" v-lang.button></button>
+        <button type="submit" class="button-orange" v-lang.button></button>
       </div>
 
     </div>
@@ -79,14 +79,16 @@
         emailPlaceholder: 'Email',
         messagePlaceholder: 'Enter your message',
         needOurHelp: '<i class="fa fa-info-circle"></i> Need our help?',
-        button: '<i class="fa fa-paper-plane"></i> Send inquiry'
+        button: '<i class="fa fa-paper-plane"></i> Send inquiry',
+        emailSentSuccess: 'Email sent successfully.'
       },
       kor: {
         title: '문의',
         emailPlaceholder: '이메일',
         messagePlaceholder: '내용을 입력하세요',
         needOurHelp: '<i class="fa fa-info-circle"></i> 도움이 필요하신가요?',
-        button: '<i class="fa fa-paper-plane"></i> 문의하기'
+        button: '<i class="fa fa-paper-plane"></i> 문의하기',
+        emailSentSuccess: '메일을 성공적으로 보냈습니다.'
       }
     },
     computed: {
@@ -98,6 +100,9 @@
       },
       getMessagePlaceholder () {
         return this.translate('messagePlaceholder')
+      },
+      getSendSuccessMessage () {
+        return this.translate('emailSentSuccess')
       }
     },
     methods: {
@@ -127,7 +132,7 @@
         }
         this.$http.post('/api/mail/product', data)
           .then(response => {
-            console.log('mail sent: ' + response.data)
+            console.log(this.getSendSuccessMessage)
           })
       },
       // textarea의 데이터를 post로 전송할 때 \n이 없어지는 상태로 전송이 되기 때문에
@@ -190,6 +195,8 @@
     display: block;
     width: 100%;
     height: 55px;
+    font-weight: 600;
+    font-size: 18px;
   }
 
 </style>

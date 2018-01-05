@@ -42,6 +42,7 @@
           <span class="required-text" v-lang.requiredField></span>
           <input id="name-count-input" required pattern="[A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
+          <p class="hidden-text" v-lang.productName.hidden></p>
           <p class="caution-text" v-lang.productName.caution></p>
         </div>
         <div class="divider"></div>
@@ -78,10 +79,10 @@
           <p class="sub-title" v-lang.information.subTitle></p>
 
           <!--<div class="box-container">-->
-            <!--<div class="left-container">Unit price</div>-->
-            <!--<div class="right-container">-->
-              <!--<input placeholder="Enter unit price" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">-->
-            <!--</div>-->
+          <!--<div class="left-container">Unit price</div>-->
+          <!--<div class="right-container">-->
+          <!--<input placeholder="Enter unit price" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">-->
+          <!--</div>-->
           <!--</div>-->
           <div class="box-container">
             <div class="left-container" v-lang.information.code></div>
@@ -187,6 +188,9 @@
           [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
           ['clean']
         ],
+        toggle: {
+          productName: true
+        },
         value: {
           files: [],
           pdfFile: null,
@@ -229,13 +233,15 @@
           title: 'Product Name',
           inputTitle: 'You can use letters and numbers between 2 and 100 characters.',
           placeholder: 'Please enter your product name.',
-          caution: 'If keywords are not directly related to the registered product, the registration can be prohibited by the administrator.'
+          caution: 'If keywords are not directly related to the registered product, the registration can be prohibited by the administrator.',
+          hidden: 'You already have the same product name. Please try another one.'
         },
         productImage: {
           title: 'Product image',
           subTitle: 'The first photo will be the main product image. You can upload up to 5 images.',
           mainImage: 'Main image',
-          caution: 'If images are not directly related to the registered product, the registration can be by the administrator.'
+          caution: 'If images are not directly related to the registered product, the registration can be by the administrator.',
+          alert: 'At least one product photo must be uploaded.'
         },
         information: {
           title: 'Product Information',
@@ -282,13 +288,15 @@
           title: '제품명',
           inputTitle: '2자 이상 100자 이하 영어로만 입력해주세요.',
           placeholder: '제품 이름을 입력해주세요.',
-          caution: '등록 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 등록 금지 될 수 있습니다.'
+          caution: '등록 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 등록 금지 될 수 있습니다.',
+          hidden: '이미 등록된 같은 이름의 제품이 있습니다. 다른 이름을 입력해주세요.'
         },
         productImage: {
           title: '제품 이미지',
           subTitle: '첫 번째 사진에는 대표 이미지를 올려주세요. 최대 5개까지 등록할 수 있습니다.',
           mainImage: '대표 이미지',
-          caution: '등록 상품과 관련이 없는 이미지를 올리면 관리자에 의해 등록 금지 될 수 있습니다.'
+          caution: '등록 상품과 관련이 없는 이미지를 올리면 관리자에 의해 등록 금지 될 수 있습니다.',
+          alert: '제품 사진은 하나 이상 등록되어야 합니다.'
         },
         information: {
           title: '제품 정보',
@@ -328,6 +336,7 @@
       getCategory () {
         return this.value.primaryCategory + (this.value.secondaryCategory ? '> ' + this.value.secondaryCategory : '')
       },
+      // placeholder & title
       getProductNamePlaceholder () {
         return this.translate('productName.placeholder')
       },
@@ -340,6 +349,7 @@
       getMoqInputTitle () {
         return this.translate('information.moqInputTitle')
       },
+      // Alert Messages
       getPDFcaution () {
         return this.translate('catalog.caution')
       },
@@ -348,6 +358,12 @@
       },
       getUploadFail () {
         return this.translate('uploadFail')
+      },
+      getProductNameAlreadyHave () {
+        return this.translate('productName.hidden')
+      },
+      getAtLeastOneImage () {
+        return this.translate('productImage.alert')
       }
     },
     methods: {
@@ -380,7 +396,7 @@
         // single upload
         if (fileCount === 1 && childCount < 6) {
           this.addNewImage(childCount, files[0])
-        // multiple upload
+          // multiple upload
         } else {
           for (var i = 0; i < fileCount; i++) {
             if (childCount < 6) {
@@ -444,9 +460,53 @@
           }
         })
       },
+      DelayKeyupEvent () {
+        var delay = (() => {
+          var timer = 0
+          return function (callback, ms) {
+            clearTimeout(timer)
+            timer = setTimeout(callback, ms)
+          }
+        })()
+        $('#name-count-input').keyup(() => {
+          delay(() => {
+            this.checkProductNameIsAlreadyUsed()
+          }, 800)
+        })
+      },
+      async checkProductNameIsAlreadyUsed () {
+        const getProducts = () => {
+          return new Promise((resolve, reject) => {
+            this.$http.get(`/api/data/product/account_id/${this.getAccountId}`)
+              .then((res) => { resolve(res.data) })
+              .catch((err) => { reject(err) })
+          })
+        }
+        const checkProductName = (products) => {
+          for (const i in products) {
+            const productName = (products[i].product_name).toLowerCase()
+            const inputName = (this.value.productName).toLowerCase()
+            if (inputName === productName) {
+              $('.name-container .hidden-text').css('display', 'inherit')
+              this.toggle.productName = false
+              return
+            } else {
+              $('.name-container .hidden-text').css('display', 'none')
+              this.toggle.productName = true
+            }
+          }
+        }
+        try {
+          const products = await getProducts()
+          checkProductName(products)
+        } catch (err) {
+          console.log(err)
+        }
+      },
       activateJquery () {
         $(document).ready(() => {
           this.preventEnterKeySubmit()
+          this.DelayKeyupEvent()
         })
       },
       onUploadButton () {
@@ -458,8 +518,12 @@
 //          return alert('Select the product subcategory.')
 //        }
 
+        if (!this.toggle.productName) {
+          return alert(this.getProductNameAlreadyHave)
+        }
+
         if (this.value.files.length < 1) {
-          return alert('You must upload at lease one product image.')
+          return alert(this.getAtLeastOneImage)
         }
 
         $('#modal-spinkit').removeClass().addClass('spinkit-modal')
@@ -583,11 +647,11 @@
     }
   }
   /*<!--label {-->*/
-    /*<!--.upload-label-basic;-->*/
-    /*<!--border: 1px solid @color-font-base;-->*/
-    /*<!--margin-top: 10px;-->*/
-    /*<!--font-size: @font-size-button;-->*/
-    /*<!--font-weight: @font-weight-button;-->*/
+  /*<!--.upload-label-basic;-->*/
+  /*<!--border: 1px solid @color-font-base;-->*/
+  /*<!--margin-top: 10px;-->*/
+  /*<!--font-size: @font-size-button;-->*/
+  /*<!--font-weight: @font-weight-button;-->*/
   /*<!--}-->*/
   textarea {
     font-size: 20px !important;
@@ -745,6 +809,12 @@
         .name-container {
           position: relative;
 
+          .hidden-text {
+            color: @color-red;
+            font-weight: 500;
+            font-size:17px;
+            display: none;
+          }
           .count-text {
             float: right;
             font-size: 15px;

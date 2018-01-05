@@ -78,11 +78,11 @@
               <div class="left-contents" v-lang.information.phone></div>
               <div class="right-contents">{{ account.phone }}</div>
             </div>
-            <div class="list-container">
+            <div class="list-container" v-show="getLocation">
               <div class="left-contents" v-lang.information.location></div>
               <div class="right-contents">{{ getLocation }}</div>
             </div>
-            <div class="list-container">
+            <div class="list-container" v-show="account.established_date !== '0000-00-00'">
               <div class="left-contents" v-lang.information.establishedYear></div>
               <div class="right-contents">{{ getYear(account.established_date) }}</div>
             </div>
@@ -94,7 +94,7 @@
         <div class="history-container" v-show="account.history">
           <h3 v-lang.history.title></h3>
           <br>
-          <textarea>{{ account.history }}</textarea>
+          <textarea readonly>{{ account.history }}</textarea>
         </div>
         <div class="divider" v-show="account.history"></div>
 
@@ -130,7 +130,7 @@
           <p class="quote" v-lang.contact.quote></p>
 
           <div class="button-container">
-            <button type="submit" class="btn btn-default" v-lang.contact.button></button>
+            <button type="submit" class="button-orange" v-lang.contact.button></button>
           </div>
         </form>
       </div>
@@ -237,6 +237,9 @@
           location: 'Location',
           establishedYear: 'Established Year'
         },
+        history: {
+          title: 'History'
+        },
         reviews: {
           title: 'Reviews <small>({count})</small>'
         },
@@ -244,7 +247,7 @@
           title: 'Address'
         },
         products: {
-          title: 'Products ({count})'
+          title: 'Products <small>({count})</small>'
         },
         contact: {
           title: 'Contact',
@@ -361,13 +364,13 @@
             this.imageResize()
           })
       },
-      getYear: function (year) {
+      getYear (year) {
         if (year) {
           year = year.split('-')
 
-//          if (year[0] === '0000') {
-//            return ''
-//          }
+          if (year[0] === '0000') {
+            return ''
+          }
 
           return year[0]
         }

@@ -12,12 +12,8 @@
         <div class="header-container">
           <h1 class="title">{{ value.product.product_name }}</h1>
           <div class="sub-title-container">
-            <h4 class="sub-title">{{ value.product.product_origin }}</h4>
-            •
-            <div class="star-container" v-for="index in 5">
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            •
+            <h4 class="sub-title" v-show="value.product.product_origin">{{ value.product.product_origin }} •</h4>
+            <h4 class="sub-title"><i class="fa fa-star-o" aria-hidden="true" v-for="index in 5"></i> •</h4>
             <h4 class="review-title" v-lang.header.reviews="{count: 0}"></h4>
           </div>
         </div>
@@ -117,7 +113,7 @@
             <span> > </span>
             <span>{{value.product.secondary_product_category}}</span>
           </div>
-          <p id="vendor-text">제조업체: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
+          <p id="vendor-text">Made by: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
           <!--<div class="list-container">-->
           <!--<div class="left-contents">최소 주문량: {{value.product.minimum_order_quantity}}</div>-->
           <!--<div class="right-contents">제품 가격: 미정</div>-->
@@ -530,10 +526,7 @@
     font-weight: 400;
     display: inline;
   }
-  .header-container .star-container {
-    display: inline;
-  }
-  .header-container .star-container i {
+  .header-container i {
     color: #317fa9;
     /*color: rgb(53, 105, 206)*/
   }
