@@ -13,37 +13,37 @@
         <div class="input-container">
           <!-- Email -->
           <div class="box-container" style="background-color: #eeeeee">
-            <div class="left-contents" v-lang.body.email></div>
+            <div class="left-contents" v-lang.body.email.title></div>
             <div class="right-contents"><input disabled type="email" v-model="value.email"></div>
           </div>
 
-          <!-- Last name -->
-          <div class="box-container">
-            <div class="left-contents" v-lang.body.firstName></div>
-            <div class="right-contents"><input type="text" placeholder="Robert" v-model="value.firstName"></div>
-          </div>
           <!-- First name -->
           <div class="box-container">
-            <div class="left-contents" v-lang.body.lastName></div>
-            <div class="right-contents"><input type="text" placeholder="Smith" v-model="value.lastName"></div>
+            <div class="left-contents" v-lang.body.firstName.title></div>
+            <div class="right-contents"><input type="text" pattern="[A-Za-z .]{1,20}" :placeholder="getFirstNamePlaceholder" :title="getFirstNameInputTitle" v-model="value.firstName"></div>
+          </div>
+          <!-- Last name -->
+          <div class="box-container">
+            <div class="left-contents" v-lang.body.lastName.title></div>
+            <div class="right-contents"><input type="text" pattern="[A-Za-z]{1,20}" :placeholder="getLastNamePlaceholder" :title="getLastNameInputTitle" v-model="value.lastName"></div>
           </div>
 
           <!-- Title -->
           <div class="box-container">
-            <div class="left-contents" v-lang.body.title></div>
-            <div class="right-contents"><input type="text" placeholder="CEO, Manager.." v-model="value.title"></div>
+            <div class="left-contents" v-lang.body.titles.title></div>
+            <div class="right-contents"><input type="text" pattern="[A-Za-z ,]{1,30}" :placeholder="getTitlesPlaceholder" :title="getTitlesInputTitle" v-model="value.title"></div>
           </div>
 
           <!-- Mobile -->
           <div class="box-container">
-            <div class="left-contents" v-lang.body.mobile></div>
-            <div class="right-contents"><input type="text" placeholder="+1-917-1234-5678" v-model="value.mobile"></div>
+            <div class="left-contents" v-lang.body.mobile.title></div>
+            <div class="right-contents"><input type="text" pattern="[0-9+-]{1,21}" :placeholder="getMobilePlaceholder" :title="getMobileInputTitle" v-model="value.mobile"></div>
           </div>
 
           <!-- Phone -->
           <div class="box-container">
-            <div class="left-contents" v-lang.body.officeNumber></div>
-            <div class="right-contents"><input type="text" placeholder="+1-917-123-4567" v-model="value.phone"></div>
+            <div class="left-contents" v-lang.body.officeNumber.title></div>
+            <div class="right-contents"><input type="text" pattern="[0-9+-]{1,21}" :placeholder="getOfficeNumberPlaceholder" :title="getOfficeNumberInputTitle" v-model="value.phone"></div>
           </div>
         </div>
 
@@ -102,12 +102,34 @@
           subTitle: 'Please upload all information below. It will make easier for buyers to contact you.'
         },
         body: {
-          email: 'Email',
-          firstName: 'First Name',
-          lastName: 'Last Name',
-          title: 'Title',
-          mobile: 'Mobile Number',
-          officeNumber: 'Office Phone'
+          email: {
+            title: 'Email'
+          },
+          firstName: {
+            title: 'First Name',
+            placeholder: 'Robert',
+            inputTitle: 'It must be 1-20 characters and can only contain letters, and periods.'
+          },
+          lastName: {
+            title: 'Last Name',
+            placeholder: 'Smith',
+            inputTitle: 'It must be 1-20 characters and can only contain letters.'
+          },
+          titles: {
+            title: 'Title',
+            placeholder: 'CEO, Manager, ..',
+            inputTitle: 'It must be 1-30 characters and can only contain letters, and comma.'
+          },
+          mobile: {
+            title: 'Mobile Number',
+            placeholder: '+1-917-1234-5678',
+            inputTitle: 'It must be 1-21 characters and can only contain numbers, plus, and hyphens.'
+          },
+          officeNumber: {
+            title: 'Office Phone',
+            placeholder: '+1-917-123-4567',
+            inputTitle: 'It must be 1-21 characters and can only contain numbers, plus, and hyphens.'
+          }
         },
         confirm: {
           title: 'Confirm and Save',
@@ -123,12 +145,34 @@
           subTitle: '모든 정보를 입력하면 바이어가 회원님을 찾는게 좀 더 수월해집니다.'
         },
         body: {
-          email: '이메일',
-          firstName: '이름',
-          lastName: '성',
-          title: '직책',
-          mobile: '핸드폰 번호',
-          officeNumber: '사무실 전화번호'
+          email: {
+            title: '이메일'
+          },
+          firstName: {
+            title: '이름',
+            placeholder: 'Robert',
+            inputTitle: '1~20자의 문자와 마침표만 입력해주세요.'
+          },
+          lastName: {
+            title: '성',
+            placeholder: 'Smith',
+            inputTitle: '1~20자의 이상의 문자만 입력해주세요.'
+          },
+          titles: {
+            title: '직책',
+            placeholder: 'CEO, Manager, ..',
+            inputTitle: '1~30자의 문자와 마침표(.)만 입력해주세요.'
+          },
+          mobile: {
+            title: '핸드폰 번호',
+            placeholder: '+82-10-1234-5678',
+            inputTitle: '1~21자의 숫자, 더하기, 그리고 하이픈(-)만 입력해주세요.'
+          },
+          officeNumber: {
+            title: '사무실 번호',
+            placeholder: '+82-10-123-4567',
+            inputTitle: '1~21자의 숫자, 더하기, 그리고 하이픈(-)만 입력해주세요.'
+          }
         },
         confirm: {
           title: '확인 및 수정',
@@ -138,6 +182,36 @@
       }
     },
     computed: {
+      getFirstNamePlaceholder () {
+        return this.translate('body.firstName.placeholder')
+      },
+      getFirstNameInputTitle () {
+        return this.translate('body.firstName.inputTitle')
+      },
+      getLastNamePlaceholder () {
+        return this.translate('body.lastName.placeholder')
+      },
+      getLastNameInputTitle () {
+        return this.translate('body.lastName.inputTitle')
+      },
+      getTitlesPlaceholder () {
+        return this.translate('body.titles.placeholder')
+      },
+      getTitlesInputTitle () {
+        return this.translate('body.titles.inputTitle')
+      },
+      getMobilePlaceholder () {
+        return this.translate('body.mobile.placeholder')
+      },
+      getMobileInputTitle () {
+        return this.translate('body.mobile.inputTitle')
+      },
+      getOfficeNumberPlaceholder () {
+        return this.translate('body.officeNumber.placeholder')
+      },
+      getOfficeNumberInputTitle () {
+        return this.translate('body.officeNumber.inputTitle')
+      },
       getEditSuccess () {
         return this.translate('editSuccess')
       },

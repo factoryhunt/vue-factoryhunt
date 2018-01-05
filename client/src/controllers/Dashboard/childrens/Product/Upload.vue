@@ -40,7 +40,7 @@
         <div class="name-container input-container">
           <p class="title" v-lang.productName.title></p>
           <span class="required-text" v-lang.requiredField></span>
-          <input id="name-count-input" required pattern="[A-Za-z0-9 ]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input id="name-count-input" required pattern="[A-Za-z0-9 .,&/-]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
           <p class="hidden-text" v-lang.productName.hidden></p>
           <p class="caution-text" v-lang.productName.caution></p>
@@ -93,7 +93,7 @@
           <div class="box-container">
             <div class="left-container" v-lang.information.moq></div>
             <div class="right-container">
-              <input placeholder="100" maxlength="10" pattern="[0-9]{1,10}" :title="getMoqInputTitle" v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="100" maxlength="10" pattern="[0-9,]{1,11}" :title="getMoqInputTitle" v-model="value.moq" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <div class="box-container">
@@ -115,7 +115,7 @@
           <div class="box-container">
             <div class="left-container" v-lang.information.materials></div>
             <div class="right-container">
-              <input placeholder="" maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="Iron, wood, .." maxlength="100" pattern="[A-Za-z ,-]{1,100}" :title="getMaterialsInputTitle" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <p class="caution-text" v-lang.information.caution></p>
@@ -231,7 +231,7 @@
         },
         productName: {
           title: 'Product Name',
-          inputTitle: 'You can use letters and numbers between 2 and 100 characters.',
+          inputTitle: 'It must be 2~100 characters and can only contain letters, numbers, hyphens, slash, periods, parentheses, apostrophe and Ampersand.',
           placeholder: 'Please enter your product name.',
           caution: 'If keywords are not directly related to the registered product, the registration can be prohibited by the administrator.',
           hidden: 'You already have the same product name. Please try another one.'
@@ -248,11 +248,12 @@
           subTitle: 'Please fill out the form correctly.',
           code: 'Product code',
           moq: 'MOQ',
-          moqInputTitle: 'You can use only numbers.',
+          moqInputTitle: 'It must be 1~11 characters and can only contain numbers.',
           origin: 'Product of Origin',
-          originPlaceholder: 'Please select where the product is produced',
+          originPlaceholder: 'Please select where the product is produced.',
           size: 'Size (mm)',
           materials: 'Materials',
+          materialsInputTitle: 'It must be 1~100 characters and can only contain letters, numbers, comma, and hyphen.',
           caution: 'Leave blank for information you do not want to disclose.'
         },
         introduction: {
@@ -286,7 +287,7 @@
         },
         productName: {
           title: '제품명',
-          inputTitle: '2자 이상 100자 이하 영어로만 입력해주세요.',
+          inputTitle: '2~100자의 영어와 숫자, 마침표, 소괄호, 따옴표, 그리고 엠퍼샌드(&), 하이픈(-), 슬래시(/),만 입력해주세요.',
           placeholder: '제품 이름을 입력해주세요.',
           caution: '등록 상품과 직접 관련이 없는 다른 상품명, 유명 상품 유사문구, 스팸성 키워드 입력 시 관리자에 의해 등록 금지 될 수 있습니다.',
           hidden: '이미 등록된 같은 이름의 제품이 있습니다. 다른 이름을 입력해주세요.'
@@ -303,11 +304,12 @@
           subTitle: '양식에 맞게 정확히 입력해주세요.',
           code: '제품 코드',
           moq: '최소 주문량 (MOQ)',
-          moqInputTitle: '숫자만 입력해주세요.',
+          moqInputTitle: '1~11자의 숫자만 입력해주세요.',
           origin: '생산지',
           originPlaceholder: '이 제품이 생산되는 곳을 선택해주세요.',
           size: '규격 (mm)',
           materials: '소재 및 재질',
+          materialsInputTitle: '1~100자의 문자와 숫자, 쉼표, 그리고 하이픈(-)만 입력해주세요.',
           caution: '공개하고 싶지 않은 정보는 칸을 비워두세요.'
         },
         introduction: {
@@ -348,6 +350,9 @@
       },
       getMoqInputTitle () {
         return this.translate('information.moqInputTitle')
+      },
+      getMaterialsInputTitle () {
+        return this.translate('information.materialsInputTitle')
       },
       // Alert Messages
       getPDFcaution () {

@@ -312,6 +312,7 @@
                     line-height: 1;
 
                     a {
+                      font-size: 17px;
                       color: @color-font-gray;
                     }
                   }

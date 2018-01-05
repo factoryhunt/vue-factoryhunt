@@ -67,7 +67,7 @@
         domain: {
           title: 'Customize your domain.',
           placeholder: 'Domain address',
-          caution: 'You can use letters and numbers between 3 and 50 characters.',
+          caution: 'It must be 3-50 and can only contain letters, and numbers.',
           button: 'Save'
         }
       },
@@ -75,7 +75,7 @@
         domain: {
           title: '회사 이름이 포함된 맞춤형 도메인으로 변경하세요.',
           placeholder: '도메인 주소',
-          caution: '도메인 주소는 알파벳 포함하여 3자 이상이어야 합니다.(특수문자 제외)',
+          caution: '3~50자의 영어와 숫자만 입력해주세요.',
           button: '저장하기'
         }
       }

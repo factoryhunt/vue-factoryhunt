@@ -16,21 +16,19 @@
             <br>
             <li class="small"><a href="/about" v-lang.aboutUs></a></li>
             <li class="small"><a href="/contact" v-lang.contactUs></a></li>
-            <li class="small"><a href="/for-supplier" v-lang.forSupplier></a></li>
           </ul>
         </div>
 
         <div class="col-md-3 col-sm-6 column">
           <ul class="list-unstyled">
-            <li class="list-title" v-lang.languages></li>
+            <li class="list-title" v-lang.services></li>
             <br>
             <!--<li class="small"><router-link :to="{ path: '/membership' }">Membership</router-link></li>-->
             <!--<li class="small"><router-link :to="{ path: '/help', params: { id:100 } }"><a>Help</a></router-link></li>-->
             <!--<li class="small"><a href="/for-suppliers">For suppliers</a></li>-->
             <!--<li class="small"><router-link :to="{ path: '/openapi', params: { id:100 } }"><a>API</a></router-link></li>-->
             <!--<li class="small"><router-link :to="{ path: '/korean', params: { id:100 } }"><a>한국어</a></router-link></li>-->
-            <li class="small"><a @click="onEnglishButton">English</a></li>
-            <li class="small"><a @click="onKoreanButton">한국어</a></li>
+            <li class="small"><a href="/for-supplier" v-lang.forSupplier></a></li>
           </ul>
         </div>
 
@@ -55,7 +53,7 @@
         aboutUs: 'About Us',
         contactUs: 'Contact Us',
         forSupplier: 'For Supplier',
-        languages: 'Languages',
+        services: 'Services',
         followUs: 'Follow Us'
       },
       kor: {
@@ -63,7 +61,7 @@
         aboutUs: '소개',
         contactUs: '문의하기',
         forSupplier: 'For Supplier',
-        languages: '언어',
+        services: '서비스',
         followUs: '팔로잉'
       }
     },

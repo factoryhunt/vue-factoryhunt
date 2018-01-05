@@ -115,7 +115,7 @@
           <div class="box-container">
             <div class="left-container" v-lang.information.materials></div>
             <div class="right-container">
-              <input placeholder="" maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              <input placeholder="Iron, wood, .." maxlength="100" v-model="value.materialType" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             </div>
           </div>
           <p class="caution-text" v-lang.information.caution></p>
@@ -134,7 +134,6 @@
           </vue-editor>
           <spinkit id="editor-spinkit"></spinkit>
           <p class="caution-text" v-lang.introduction.caution></p>
-          </p>
         </div>
         <div class="divider"></div>
 
@@ -234,7 +233,7 @@
         },
         productName: {
           title: 'Product Name',
-          inputTitle: 'You can use letters and numbers between 2 and 100 characters.',
+          inputTitle: 'It must be 2~100 characters and can only contain letters, numbers, hyphens, slash, periods, parentheses, apostrophe and Ampersand.',
           placeholder: 'Please enter your product name.',
           caution: 'You may be prohibited from selling by other company name, similar phrase from famous product, or spammy keyword when it is not related directly with the product.',
           hidden: 'You already have the same product name. Please try another one.'
@@ -251,11 +250,12 @@
           subTitle: 'Please fill out the form correctly.',
           code: 'Product code',
           moq: 'MOQ',
-          moqInputTitle: 'You can use only numbers.',
+          moqInputTitle: 'It must be 1~11 characters and can only contain numbers.',
           origin: 'Product of Origin',
           originPlaceholder: 'Please select where the product is produced',
           size: 'Size (mm)',
           materials: 'Materials',
+          materialsInputTitle: 'It must be 1~100 characters and can only contain letters, numbers, comma, and hyphen.',
           caution: 'Leave blank for information you do not want to disclose.'
         },
         introduction: {
@@ -306,11 +306,12 @@
           subTitle: '양식에 맞게 정확히 입력해주세요.',
           code: '제품 코드',
           moq: '최소 주문량 (MOQ)',
-          moqInputTitle: '숫자만 입력해주세요.',
+          moqInputTitle: '1~11자의 숫자만 입력해주세요.',
           origin: '생산지',
           originPlaceholder: '이 제품이 생산되는 곳을 선택해주세요.',
           size: '규격 (mm)',
           materials: '소재 및 재질',
+          materialsInputTitle: '1~100자의 문자와 숫자, 쉼표, 그리고 하이픈(-)만 입력해주세요.',
           caution: '공개하고 싶지 않은 정보는 칸을 비워두세요.'
         },
         introduction: {

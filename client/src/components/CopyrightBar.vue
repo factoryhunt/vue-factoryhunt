@@ -15,8 +15,16 @@
       </div>
 
       <div class="right-container">
-        <a href="/terms" v-lang.terms></a>
-        <a href="/privacy" v-lang.privacy></a>
+        <a class="each-button" href="/terms" v-lang.terms></a>
+        <a class="each-button" href="/privacy" v-lang.privacy></a>
+        <span class="language-container each-button">
+          <select v-model="value.language" @change="onLanguageSelect($event.target.value)" name="languages" id="languages">
+          <option value="" disabled>Languages</option>
+          <option value="eng">English</option>
+          <option value="kor">한국어</option>
+        </select>
+          <i id="arrow-icon" class="fa fa-angle-down"></i>
+        </span>
       </div>
 
     </div>
@@ -25,6 +33,13 @@
 
 <script>
   export default {
+    data () {
+      return {
+        value: {
+          language: ''
+        }
+      }
+    },
     messages: {
       eng: {
         terms: 'Terms',
@@ -34,6 +49,19 @@
         terms: '이용약관',
         privacy: '개인정보 보호정책'
       }
+    },
+    methods: {
+      onLanguageSelect (value) {
+        localStorage.setItem('vue-lang', value)
+        this.language = value
+      },
+      getUserDefaultLanguage () {
+        const language = localStorage.getItem('vue-lang')
+        this.value.language = language
+      }
+    },
+    mounted () {
+      this.getUserDefaultLanguage()
     }
   }
 </script>
@@ -57,7 +85,7 @@
 
       .left-container {
         display: table-cell;
-        vertical-align: middle;
+        vertical-align: top;
 
         .copyright-container {
           display: table;
@@ -73,6 +101,7 @@
             }
           }
           .text-container {
+            white-space: nowrap;
             display: table-cell;
             vertical-align: middle;
             color: @color-deep-gray;
@@ -92,14 +121,37 @@
       .right-container {
         display: table-cell;
         text-align: right;
-        vertical-align: middle;
+        vertical-align: top;
+
+        .each-button {
+          margin-left: 6px;
+        }
 
         a {
-          vertical-align: middle;
+          vertical-align: top;
           font-weight: 400;
           color: @color-font-gray;
-          margin-left: 4px;
           font-size: 14px;
+        }
+
+        .language-container {
+          position: relative;
+          border: 1px solid @color-light-grey;
+          display: inline-block;
+          border-radius: @border-radius;
+
+          select {
+            width: inherit;
+            border: none;
+            font-size: 17px;
+            padding-right: 20px;
+          }
+          #arrow-icon {
+            position: absolute;
+            font-size: 25px;
+            top: 8px;
+            right: 10px;
+          }
         }
       }
     }
@@ -114,6 +166,7 @@
       .footer-container {
 
         .left-container {
+          vertical-align: middle;
 
           .copyright-container {
 
@@ -137,6 +190,7 @@
         .right-container {
           a {
             font-size: 15px;
+            vertical-align: middle;
           }
         }
       }

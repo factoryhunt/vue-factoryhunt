@@ -7,6 +7,7 @@
           <div class="menu-container">
             <a id="item-account-edit" class="menu" href="/dashboard/account" v-lang.editAccount></a>
             <a id="item-password-edit" class="menu" href="/dashboard/account/password" v-lang.changePassword></a>
+            <!--<a id="item-language" class="menu" href="/dashboard/account/language" v-lang.language></a>-->
             <a id="item-management" class="menu" href="/dashboard/account/management" v-lang.management></a>
             <!--<button @click="routeCompanyPage" class="view-button button-white">See My Profile</button>-->
           </div>
@@ -45,12 +46,14 @@
       eng: {
         editAccount: 'Edit Account',
         changePassword: 'Change Password',
-        management: 'Account Management'
+        management: 'Account Management',
+        language: 'Language'
       },
       kor: {
         editAccount: '정보 수정',
         changePassword: '비밀번호 변경',
-        management: '계정 관리'
+        management: '계정 관리',
+        language: '언어'
       }
     },
     methods: {
@@ -69,6 +72,9 @@
           }
           if (this.$route.path === '/dashboard/account/management') {
             $('#item-management').attr('aria-selected', true)
+          }
+          if (this.$route.path === '/dashboard/account/language') {
+            $('#item-language').attr('aria-selected', true)
           }
         })
       }

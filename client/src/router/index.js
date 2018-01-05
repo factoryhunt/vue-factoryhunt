@@ -26,18 +26,22 @@ import ContactFormPremium from '../controllers/ContactFormPremium'
 // Dashboard
 import Dashboard from '../controllers/Dashboard/Dashboard.vue'
 import DashboardHome from '../controllers/Dashboard/childrens/Home.vue'
+// Company (DB: accounts)
 import DashboardCompany from '../controllers/Dashboard/childrens/Company/Company.vue'
 import DashboardCompanyEdit from '../controllers/Dashboard/childrens/Company/Edit.vue'
 import DashboardCompanyDomain from '../controllers/Dashboard/childrens/Company/Domain.vue'
 import DashboardCompanyImage from '../controllers/Dashboard/childrens/Company/ImageEdit.vue'
 import DashboardCompanyCertification from '../controllers/Dashboard/childrens/Company/Certification.vue'
+// Product (DB: products_eng)
 import DashboardProduct from '../controllers/Dashboard/childrens/Product/Product.vue'
 import DashboardProductList from '../controllers/Dashboard/childrens/Product/List.vue'
 import DashboardProductUpload from '../controllers/Dashboard/childrens/Product/Upload.vue'
 import DashboardProductEdit from '../controllers/Dashboard/childrens/Product/Edit.vue'
+// Account (DB: contacts)
 import DashboardAccount from '../controllers/Dashboard/childrens/Account/Account.vue'
 import DashboardAccountEdit from '../controllers/Dashboard/childrens/Account/Edit.vue'
 import DashboardAccountPassword from '../controllers/Dashboard/childrens/Account/Password.vue'
+// import DashboardAccountLanguage from '../controllers/Dashboard/childrens/Account/Language.vue'
 import DashboardAccountManagement from '../controllers/Dashboard/childrens/Account/Management.vue'
 
 Vue.use(Router)
@@ -183,6 +187,10 @@ export default new Router({
               path: 'password',
               component: DashboardAccountPassword
             },
+            // {
+            //   path: 'language',
+            //   component: DashboardAccountLanguage
+            // },
             {
               path: 'management',
               component: DashboardAccountManagement

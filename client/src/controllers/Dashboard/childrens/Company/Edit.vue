@@ -32,7 +32,7 @@
         <p class="title" v-lang.name.title></p>
         <span class="required-text" v-lang.name.required></span>
         <p class="sub-title" v-lang.name.desc></p>
-        <input required pattern="[A-Za-z0-9 ().,]{2,50}" :title="getCaution" id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <input required pattern="[A-Za-z0-9 ().,]{2,50}" :title="getNameInputTitle" id="account-name-input" type="text" :placeholder="getNamePlaceholder" v-model="value.accountName" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
         <p class="hidden-title"></p>
         <i id="account-name-mark" class="small-mark" aria-hidden="true"></i>
       </div>
@@ -41,7 +41,7 @@
       <div class="short-description-container input-container">
         <p class="title" v-lang.slogan.title></p>
         <p class="sub-title" v-lang.slogan.desc></p>
-        <input id="short-description-input" maxlength="50" pattern="[A-Za-z0-9 ().,]{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
+        <input id="short-description-input" maxlength="50" :title="getSloganInputTitle" pattern="[A-Za-z0-9 .,']{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
         <p class="third-title">{{ 50 - value.shortDescriptionCount }}</p>
       </div>
 
@@ -49,7 +49,7 @@
       <div class="description-container input-container">
         <p class="title" v-lang.description.title></p>
         <p class="sub-title" v-lang.description.desc></p>
-        <textarea id="description-input" pattern="[A-Za-z0-9 .,]{1,50}" maxlength="25000" rows="10" :placeholder="getDescriptionPlaceholder" v-model="value.description"></textarea>
+        <textarea id="description-input" pattern="[A-Za-z0-9 ().,]{1,25000}" :title="getDescriptionInputTitle" maxlength="25000" rows="10" :placeholder="getDescriptionPlaceholder" v-model="value.description"></textarea>
       </div>
 
       <!-- Company Information -->
@@ -59,17 +59,17 @@
         <!-- Products -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.products.title></div>
-          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getProductsPlaceholder" v-model="value.products"></div>
+          <div class="right-contents"><input type="text" pattern="[A-Za-z0-9 ',-]{1,100}" :title="getProductsInputTitle" maxlength="100" :placeholder="getProductsPlaceholder" v-model="value.products"></div>
         </div>
         <!-- Website -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.website.title></div>
-          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getWebsitePlaceholder" v-model="value.website" spellcheck="false"></div>
+          <div class="right-contents"><input type="text" pattern="[A-Za-z0-9 .]{1,100}" :title="getWebsiteInputTitle" maxlength="100" :placeholder="getWebsitePlaceholder" v-model="value.website" spellcheck="false"></div>
         </div>
         <!-- Phone -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.phone.title></div>
-          <div class="right-contents"><input type="text" maxlength="21" :placeholder="getPhonePlaceholder" v-model="value.phone"></div>
+          <div class="right-contents"><input type="text" maxlength="21" pattern="[0-9 +-]{1,21}" :title="getPhoneInputTitle" :placeholder="getPhonePlaceholder" v-model="value.phone"></div>
         </div>
         <!-- Established Year -->
         <div class="box-container">
@@ -81,7 +81,7 @@
         <div class="box-container">
           <div class="left-contents" v-lang.company.country.title></div>
           <div class="right-contents">
-            <select required v-model="value.country">
+            <select required title="required" v-model="value.country">
               <option id="disabled-option" disabled value="" v-lang.company.country.defaultValue></option>
               <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
             </select>
@@ -90,27 +90,27 @@
         <!-- State -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.state.title></div>
-          <div class="right-contents"><input type="text" maxlength="50" :placeholder="getStatePlaceholder" v-model="value.state"></div>
+          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z ]{1,50}" :title="getStateInputTitle" :placeholder="getStatePlaceholder" v-model="value.state"></div>
         </div>
         <!-- City -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.city.title></div>
-          <div class="right-contents"><input type="text" maxlength="50" :placeholder="getCityPlaceholder" v-model="value.city"></div>
+          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z ]{1,50}" :title="getCityInputTitle" :placeholder="getCityPlaceholder" v-model="value.city"></div>
         </div>
         <!-- Street Address -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.street.title></div>
-          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getStreetPlaceholder" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
+          <div class="right-contents"><input type="text" maxlength="100" pattern="[A-Za-z0-9 -.,#()]{1,50}" :title="getStreetInputTitle" :placeholder="getStreetPlaceholder" v-model="value.streetAddress" @keyup="checkPostalCode(value.postalCode)"></div>
         </div>
         <!-- Street Address Detail -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.street2.title></div>
-          <div class="right-contents"><input type="text" maxlength="100" :placeholder="getStreet2Placeholder" v-model="value.streetAddressDetail"></div>
+          <div class="right-contents"><input type="text" maxlength="100" pattern="[A-Za-z0-9 -.,#()]{1,50}" :title="getStreetInputTitle" :placeholder="getStreet2Placeholder" v-model="value.streetAddressDetail"></div>
         </div>
         <!-- Postal Code -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.postal.title></div>
-          <div class="right-contents"><input type="text" pattern="[0-9-]{1,10}" title="" :placeholder="getPostalPlaceholder" v-model="value.postalCode"></div>
+          <div class="right-contents"><input type="text" pattern="[0-9-]{1,10}" :title="getPostalInputTitle" :placeholder="getPostalPlaceholder" v-model="value.postalCode"></div>
         </div>
       </div>
 
@@ -118,7 +118,7 @@
       <div class="history-container input-container">
         <p class="title" v-lang.history.title></p>
         <p class="sub-title" v-lang.history.desc></p>
-        <textarea rows="10" maxlength="25000" :placeholder="getHistoryPlaceholder" v-model="value.history"></textarea>
+        <textarea rows="10" maxlength="25000" :title="getDescriptionInputTitle" :placeholder="getHistoryPlaceholder" v-model="value.history"></textarea>
         <i id="history-mark" class="small-mark" aria-hidden="true"></i>
       </div>
 
@@ -193,17 +193,20 @@
           title: 'Company Name',
           required: '<i class="fa fa-circle" aria-hidden="true"> Required field',
           desc: 'Use the official company name from the business registration certificate.',
-          placeholder: 'Factory Hunt, Inc.'
+          placeholder: 'Factory Hunt, Inc.',
+          inputTitle: 'It must be characters 2-50 and can only contain letters, numbers, periods, comma, and parentheses.'
         },
         slogan: {
           title: 'Slogan',
           desc: 'Describe your company in 50 characters or less.',
-          placeholder: 'Factory Hunt is a global B2B platform.'
+          placeholder: 'Factory Hunt is a global B2B platform.',
+          inputTitle: 'It must be characters 2-50 and can only contain letters, numbers, periods, comma, and apostrophe.'
         },
         description: {
           title: 'Company Description',
           desc: 'Describe your company.',
-          placeholder: 'Factory Hunt is a global B2B platform.'
+          placeholder: 'Factory Hunt is a global B2B platform.',
+          inputTitle: 'It must be less than 25000 digits.'
         },
         company: {
           title: 'Company Information',
@@ -211,15 +214,18 @@
           desc2: 'Address Information',
           products: {
             title: 'Products',
-            placeholder: 'LED, Light bulbs, ...'
+            placeholder: 'LED, Light bulbs, ...',
+            inputTitle: 'It must be 1-100 characters and can only contain letters, numbers, comma, hyphens, and apostrophe.'
           },
           website: {
             title: 'Website',
-            placeholder: 'www.factoryhunt.com'
+            placeholder: 'www.factoryhunt.com',
+            inputTitle: 'It must be 1-100 characters and can only contain letters, numbers and periods.'
           },
           phone: {
             title: 'Phone',
-            placeholder: '+1-917-1234-5678'
+            placeholder: '+1-917-1234-5678',
+            inputTitle: 'It must be 1-21 characters and can only contain numbers, plus, and hyphens.'
           },
           year: {
             title: 'Established Date',
@@ -231,23 +237,28 @@
           },
           state: {
             title: 'State',
-            placeholder: 'California'
+            placeholder: 'California',
+            inputTitle: 'It must be 1-50 characters and can only contain letters.'
           },
           city: {
             title: 'City',
-            placeholder: 'San Francisco'
+            placeholder: 'San Francisco',
+            inputTitle: 'It must be 1-50 characters and can only contain letters.'
           },
           street: {
             title: 'Street Address',
-            placeholder: '7 Hacker Street'
+            placeholder: '7 Hacker Street',
+            inputTitle: 'It must be 1-100 characters and can only contain letters, numbers, hyphens, periods, comma, hash, and parentheses'
           },
           street2: {
             title: 'Street Address 2',
-            placeholder: 'Floor 2'
+            placeholder: 'Floor 2',
+            inputTitle: 'It must be 1-100 characters and can only contain letters, numbers, hyphens, periods, comma, hash, and parentheses'
           },
           postal: {
             title: 'Postal Code',
-            placeholder: '12345'
+            placeholder: '12345',
+            inputTitle: 'It must be 1-10 characters and can only contain letters.'
           }
         },
         history: {
@@ -272,17 +283,20 @@
           title: '회사명',
           required: '<i class="fa fa-circle" aria-hidden="true"> 필수입력',
           desc: '사업자등록증의 회사명과 일치시켜주세요.',
-          placeholder: 'Factory Hunt, Co., Ltd.'
+          placeholder: 'Factory Hunt, Co., Ltd.',
+          inputTitle: '2~50자의 영어와 숫자, 마침표, 쉼표 그리고 소괄호만 입력해주세요.'
         },
         slogan: {
           title: '슬로건',
           desc: '귀사를 한 문장으로 표현해주세요.',
-          placeholder: 'Factory Hunt is a global B2B platform.'
+          placeholder: 'Factory Hunt is a global B2B platform.',
+          inputTitle: '2~50자의 영어와 숫자, 마침표, 쉼표, 그리고 작은따옴표만 입력해주세요.'
         },
         description: {
           title: '회사 소개',
           desc: '회사를 소개해주세요. 양식은 자유입니다.',
-          placeholder: 'Factory Hunt is a global B2B platform.'
+          placeholder: 'Factory Hunt is a global B2B platform.',
+          inputTitle: '이 항목은 25000자로 제한됩니다.'
         },
         company: {
           title: '회사 정보',
@@ -290,15 +304,18 @@
           desc2: '주소 - 도로명 주소로 정확히 입력해야 지도에 위치가 표시됩니다.',
           products: {
             title: '취급 품목',
-            placeholder: 'LED, Light bulbs, ...'
+            placeholder: 'LED, Light bulbs, ...',
+            inputTitle: '1~100자의 영어와 숫자, 쉼표, 하이픈, 그리고 작은따옴표만 입력해주세요.'
           },
           website: {
             title: '웹사이트',
-            placeholder: 'www.factoryhunt.com'
+            placeholder: 'www.factoryhunt.com',
+            inputTitle: '1~100자의 영어와 숫자, 그리고 마침표만 입력해주세요.'
           },
           phone: {
             title: '전화번호',
-            placeholder: '+82-31-123-4567'
+            placeholder: '+82-31-123-4567',
+            inputTitle: '1~21자의 숫자와 더하기, 그리고 하이픈만 입력해주세요.'
           },
           year: {
             title: '설립일',
@@ -310,23 +327,28 @@
           },
           state: {
             title: '도',
-            placeholder: 'Gyeonggi-do'
+            placeholder: 'Gyeonggi-do',
+            inputTitle: '1~50자의 영어만 입력해주세요.'
           },
           city: {
             title: '시, 군',
-            placeholder: 'Bucheon-si'
+            placeholder: 'Bucheon-si',
+            inputTitle: '1~50자의 영어만 입력해주세요.'
           },
           street: {
             title: '도로명 주소',
-            placeholder: '20, Gongdan-daero'
+            placeholder: '20, Gongdan-daero',
+            inputTitle: '1~100자의 영어와 숫자, 하이픈, 마침표, 쉼표, 샵, 그리고 소괄호만 입력해주세요.'
           },
           street2: {
             title: '상세 주소',
-            placeholder: 'Gongdan Building Floor 2'
+            placeholder: 'Gongdan Building Floor 2',
+            inputTitle: '1~100자의 영어와 숫자, 하이픈, 마침표, 쉼표, 샵, 그리고 소괄호만 입력해주세요.'
           },
           postal: {
             title: '우편번호',
-            placeholder: '12345'
+            placeholder: '12345',
+            inputTitle: '1~10자의 숫자만 입력해주세요.'
           }
         },
         history: {
@@ -353,26 +375,41 @@
         'getAccountId',
         'isLoggedIn'
       ]),
-      getCaution () {
-        return this.translate('caution')
-      },
       getNamePlaceholder () {
         return this.translate('name.placeholder')
+      },
+      getNameInputTitle () {
+        return this.translate('name.inputTitle')
       },
       getSloganPlaceholder () {
         return this.translate('slogan.placeholder')
       },
+      getSloganInputTitle () {
+        return this.translate('slogan.inputTitle')
+      },
       getDescriptionPlaceholder () {
         return this.translate('description.placeholder')
+      },
+      getDescriptionInputTitle () {
+        return this.translate('description.inputTitle')
       },
       getProductsPlaceholder () {
         return this.translate('company.products.placeholder')
       },
+      getProductsInputTitle () {
+        return this.translate('company.products.inputTitle')
+      },
       getWebsitePlaceholder () {
         return this.translate('company.website.placeholder')
       },
+      getWebsiteInputTitle () {
+        return this.translate('company.website.inputTitle')
+      },
       getPhonePlaceholder () {
         return this.translate('company.phone.placeholder')
+      },
+      getPhoneInputTitle () {
+        return this.translate('company.phone.inputTitle')
       },
       getYearPlaceholder () {
         return this.translate('company.year.placeholder')
@@ -380,17 +417,29 @@
       getStatePlaceholder () {
         return this.translate('company.state.placeholder')
       },
+      getStateInputTitle () {
+        return this.translate('company.state.inputTitle')
+      },
       getCityPlaceholder () {
         return this.translate('company.city.placeholder')
       },
+      getCityInputTitle () {
+        return this.translate('company.city.inputTitle')
+      },
       getStreetPlaceholder () {
         return this.translate('company.street.placeholder')
+      },
+      getStreetInputTitle () {
+        return this.translate('company.street.inputTitle')
       },
       getStreet2Placeholder () {
         return this.translate('company.street2.placeholder')
       },
       getPostalPlaceholder () {
         return this.translate('company.postal.placeholder')
+      },
+      getPostalInputTitle () {
+        return this.translate('company.postal.inputTitle')
       },
       getHistoryPlaceholder () {
         return this.translate('history.placeholder')
@@ -400,7 +449,6 @@
       applyAttributes () {
         // when login user is page admin, keep going
         this.applyLocalData(this.account)
-        this.checkAllInputOnce(this.value)
         this.applyInputFocusBlurEvent()
         this.preventEnterKeySubmit()
       },
