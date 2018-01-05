@@ -28,6 +28,7 @@ module.exports = {
     '$': true,
     'jQuery': true,
     'google': true,
-    'PDFJS': true
+    'PDFJS': true,
+    'scrollReveal': true
   }
 }

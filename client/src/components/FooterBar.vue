@@ -16,6 +16,7 @@
             <br>
             <li class="small"><a href="/about" v-lang.aboutUs></a></li>
             <li class="small"><a href="/contact" v-lang.contactUs></a></li>
+            <li class="small"><a href="/for-supplier" v-lang.forSupplier></a></li>
           </ul>
         </div>
 
@@ -53,6 +54,7 @@
         factoryhunt: 'Factory Hunt',
         aboutUs: 'About Us',
         contactUs: 'Contact Us',
+        forSupplier: 'For Supplier',
         languages: 'Languages',
         followUs: 'Follow Us'
       },
@@ -60,6 +62,7 @@
         factoryhunt: '팩토리 헌트',
         aboutUs: '소개',
         contactUs: '문의하기',
+        forSupplier: 'For Supplier',
         languages: '언어',
         followUs: '팔로잉'
       }
