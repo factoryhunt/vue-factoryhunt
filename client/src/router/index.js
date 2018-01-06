@@ -58,10 +58,6 @@ export default new Router({
           component: Home
         },
         {
-          path: 'about',
-          component: About
-        },
-        {
           path: 'contact',
           component: ContactUs
         },
@@ -104,6 +100,11 @@ export default new Router({
           component: EmailVerification
         }
       ]
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
       path: '/login',

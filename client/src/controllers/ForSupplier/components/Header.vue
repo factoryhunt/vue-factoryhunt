@@ -281,7 +281,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import '../../../assets/css/index';
 
   #sign-up-spinkit {
     margin-bottom: 20px;
@@ -293,7 +292,7 @@
       display: none;
     }
     #factoryhunt-navbar-collapse-1 {
-      border-top-width: 0px;
+      border-top-width: 0;
     }
     #startButton {
       display: none;

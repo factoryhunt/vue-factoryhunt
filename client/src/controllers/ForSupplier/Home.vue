@@ -1,5 +1,7 @@
 <template>
   <div class="home-container">
+    <!-- Navigation bar -->
+    <nav-bar></nav-bar>
     <!-- Header -->
     <home-header></home-header>
     <!-- About us -->
@@ -10,11 +12,16 @@
     <home-features></home-features>
     <!--Counters-->
     <home-counters></home-counters>
+    <!-- Footer -->
+    <footer-bar></footer-bar>
+    <!-- CopyrightBar -->
+    <copyright-bar></copyright-bar>
   </div>
 </template>
 
 <script>
   // components
+  import NavBar from '../../components/NavBar.vue'
   import Header from './components/Header.vue'
   import AboutUs from './components/AboutUs.vue'
   import Testimonials from './components/Testimonials.vue'
@@ -22,9 +29,11 @@
   import Counters from './components/Counters.vue'
   import CheckNow from './components/CheckNow.vue'
   import ContactUs from './components/ContactUs.vue'
-  import Footer from './components/Footer.vue'
+  import FooterBar from '../../components/FooterBar.vue'
+  import CopyrightBar from '../../components/CopyrightBar.vue'
   export default {
     components: {
+      NavBar: NavBar,
       HomeHeader: Header,
       HomeAboutUs: AboutUs,
       HomeTestimonials: Testimonials,
@@ -32,7 +41,8 @@
       HomeCounters: Counters,
       HomeCheckNow: CheckNow,
       HomeContactUs: ContactUs,
-      HomeFooter: Footer
+      FooterBar: FooterBar,
+      CopyrightBar: CopyrightBar
     },
     metaInfo: {
       title: 'Factory Hunt - 대한민국 제조업체를 위한 무료 영어 홈페이지 & 온라인 카탈로그 제작 서비스'

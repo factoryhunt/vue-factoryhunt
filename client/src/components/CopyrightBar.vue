@@ -1,8 +1,8 @@
 <template>
   <div class="body-container">
-    <div class="divider"></div>
     <div class="footer-container">
 
+      <!-- Left-side -->
       <div class="left-container">
         <div class="copyright-container">
           <div class="logo-gray-container">
@@ -14,6 +14,7 @@
         </div>
       </div>
 
+      <!-- Right-side -->
       <div class="right-container">
         <a class="each-button" href="/terms" v-lang.terms></a>
         <a class="each-button" href="/privacy" v-lang.privacy></a>
@@ -70,8 +71,9 @@
   @import '../assets/css/index';
 
   .body-container {
-    margin-top: 60px;
-    margin-bottom: 60px !important;
+    border-top: 1px solid @color-light-grey;
+    padding-top: 24px;
+    padding-bottom: 60px !important;
     min-height: 0;
 
     .divider {
@@ -95,7 +97,6 @@
             vertical-align: middle;
 
             #logo {
-              margin-right: 8px;
               width: 22px;
               height: 22px;
             }
@@ -107,7 +108,7 @@
             color: @color-deep-gray;
             .fa-copyright {
               vertical-align: middle;
-              font-size: 14px;
+              font-size: 13px;
             }
             span {
               margin-left: 5px;
@@ -178,7 +179,7 @@
             .text-container {
               .fa-copyright {
                 vertical-align: middle;
-                font-size: 16px;
+                font-size:13px;
               }
               span {
                 font-size: 16px;
@@ -221,7 +222,6 @@
               vertical-align: middle;
 
               #logo {
-                margin-right: 8px;
                 width: 22px;
                 height: 22px;
               }

@@ -1,6 +1,5 @@
 <template>
   <section class="body-container">
-    <div class="divider"></div>
     <footer class="footer-container">
       <div class="row">
 
@@ -82,16 +81,15 @@
 <style lang="less" scoped>
   @import '../assets/css/index';
 
-  section {
-    display: none;
-  }
-
   .body-container {
     min-height: 0;
+    display: none;
+    border-top: 1px solid @color-light-grey;
+    padding: 60px 0;
   }
 
   .divider {
-    margin: 60px 0;
+    margin-top: 0;
   }
 
   .column {
@@ -120,7 +118,7 @@
 
   }
   @media ( min-width: 1128px ) {
-    section {
+    .body-container {
       display: inherit;
     }
   }

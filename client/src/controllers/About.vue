@@ -1,20 +1,23 @@
 <template>
   <div class="page-container">
+    <nav-bar></nav-bar>
     <!-- About Us Image -->
     <div class="image-container">
       <div class="about-us-image"></div>
     </div>
 
-    <div class="about-container">
+    <div class="body-container">
+      <div class="about-container">
 
-      <h2 class="title-text" v-lang.title></h2>
-      <hr>
-      <div class="containers">
+        <h2 class="title-text" v-lang.title></h2>
+        <div class="divider"></div>
         <div class="description-section">
           <p v-lang.description></p>
         </div>
       </div>
     </div>
+    <footer-bar></footer-bar>
+    <copyright-bar></copyright-bar>
   </div>
 </template>
 
@@ -94,25 +97,46 @@
   }
 </script>
 
-<style scoped>
-  .image-container .about-us-image {
-    background-image: url(../assets/about-us-image.jpg);
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: 50% 50% !important;
-    height: 320px;
-  }
-  .title-text {
-    font-size:32px;
-    font-weight:400;
-  }
-  .description-section {
-    font-size:22px;
-    font-weight:300;
-  }
-  p {
-    margin-bottom: 20px;
-  }
+<style lang="less" scoped>
+  @import '../assets/css/index';
+  .image-container  {
 
+    .about-us-image {
+      background-image: url(../assets/about-us-image.jpg);
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+      background-position: 50% 20% !important;
+      height: 30vh;
+    }
+  }
+  .about-container {
+    margin-top: 40px;
+
+    .title-text {
+      font-size:32px;
+      font-weight:400;
+    }
+    .description-section {
+      font-size:22px;
+      font-weight:300;
+      min-height: 400px;
+    }
+  }
+  @media ( min-width: 744px ) {
+    .image-container  {
+
+      .about-us-image {
+        height: 50vh;
+      }
+    }
+  }
+  @media ( min-width: 1128px ) {
+    .image-container  {
+
+      .about-us-image {
+        height: 70vh;
+      }
+    }
+  }
 </style>
 
