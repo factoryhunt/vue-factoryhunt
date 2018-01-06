@@ -5,8 +5,8 @@
         <div class="col-md-10 col-md-offset-1">
           <!--About us title & description-->
           <div class="section-title">
-            <h2> Factory Hunt는 어떤 서비스인가요? </h2>
-            <p>Factory Hunt는 제조업체 전문 검색엔진입니다. 제품 정보를 해외 바이어에게 쉽게 노출시킬 수 있습니다.</p>
+            <h2 v-lang.title></h2>
+            <p v-lang.desc></p>
           </div>
         </div>
       </div>
@@ -36,8 +36,8 @@
                   </i>
                 </div>
                 <!--choose us item title & desc-->
-                <h3>무료 영어 홈페이지</h3>
-                <p>클릭 몇 번으로 영어 웹페이지를 무료로 개설하세요.</p>
+                <h3 v-lang.item1.title></h3>
+                <p v-lang.item1.desc></p>
               </div>
               <!--why choose us item 2-->
               <div class="choose-us-item scrollUpDelay">
@@ -52,8 +52,8 @@
                   </i>
                 </div>
                 <!--choose us item title & desc-->
-                <h3>무료 온라인 카탈로그</h3>
-                <p>PDF 영문 카탈로그를 가지고 계신가요? 단 한번의 클릭으로 온라인 제품 카탈로그를 쉽게 만들 수 있습니다!</p>
+                <h3 v-lang.item2.title></h3>
+                <p v-lang.item2.desc></p>
               </div>
               <!--why choose us item 3-->
               <div class="choose-us-item scrollUpDelay">
@@ -68,8 +68,8 @@
                   </i>
                 </div>
                 <!--choose us item title & desc-->
-                <h3>해외 바이어와 연결</h3>
-                <p>영어 정보를 업데이트하면 Factory Hunt 검색 엔진이 자동으로 정보를 수집하여 해외 바이어에게 노출시킵니다.</p>
+                <h3 v-lang.item3.title></h3>
+                <p v-lang.item3.desc></p>
               </div>
             </div>
           </div>
@@ -84,6 +84,42 @@
     data () {
       return {
       }
+    },
+    messages: {
+      eng: {
+        title: 'Factory Hunt helps connect suppliers to buyers',
+        desc: 'Factory Hunt is supplier search engine 제품 정보를 해외 바이어에게 쉽게 노출시킬 수 있습니다.',
+        item1: {
+          title: 'Free Website',
+          desc: 'Create a supplier website in just a few clicks.'
+        },
+        item2: {
+          title: 'Free Online Catalog',
+          desc: 'Do you have a PDF catalog? You can have an online catalog with just one click.'
+        },
+        item3: {
+          title: 'Connecting with buyers',
+          desc: 'Update product information on Factory Hunt. Search Engine bots will collect it automatically and it will appear in search results'
+        }
+      },
+      kor: {
+        title: 'Factory Hunt는 어떤 서비스인가요?',
+        desc: 'Factory Hunt는 제조업체 전문 검색엔진입니다. 제품 정보를 해외 바이어에게 쉽게 노출시킬 수 있습니다.',
+        item1: {
+          title: '무료 영어 홈페이지',
+          desc: '클릭 몇 번으로 영어 웹페이지를 무료로 개설하세요.'
+        },
+        item2: {
+          title: '무료 온라인 카탈로그',
+          desc: 'PDF 영문 카탈로그를 가지고 계신가요? 단 한번의 클릭으로 온라인 제품 카탈로그를 쉽게 만들 수 있습니다!'
+        },
+        item3: {
+          title: '해외 바이어와 연결',
+          desc: '영어 정보를 업데이트하면 Factory Hunt 검색 엔진이 자동으로 정보를 수집하여 해외 바이어에게 노출시킵니다.'
+        }
+      }
+    },
+    computed: {
     },
     updated () {
     },
