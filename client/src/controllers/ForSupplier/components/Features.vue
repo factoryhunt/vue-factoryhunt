@@ -4,8 +4,8 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <div class="section-title">
-            <h2>팩토리헌트를 사용하면 무엇이 좋나요?</h2>
-            <p>팩토리헌트는 최고의 개발진이 최신 소프트웨어 기술을 사용하여, 최적화된 사용자 경험을 제공합니다.</p>
+            <h2 v-lang.title></h2>
+            <p v-lang.desc></p>
           </div>
         </div>
       </div>
@@ -20,8 +20,8 @@
                 <i class="fa fa-desktop"></i>
               </div>
               <!--Feature item title & description-->
-              <h3>사용자 친화적인 디자인</h3>
-              <p>팩토리헌트는 데스크탑과 모든 모바일 기기에 최적화 되어있습니다. 또한 직관적이고 차별화된 디자인을 제공합니다.</p>
+              <h3 v-lang.item1.title></h3>
+              <p v-lang.item1.desc></p>
             </div>
           </div>
           <div class="col-md-8 col-md-pull-4 scrollLeftDelay">
@@ -36,8 +36,8 @@
                 <i class="fa fa-cogs"></i>
               </div>
               <!--Feature item title & description-->
-              <h3>고유한 웹페이지 도메인</h3>
-              <p>맞춤 URL 링크 공유를 통해, 쉽고 빠르게 바이어에게 웹페이지를 소개하세요.</p>
+              <h3 v-lang.item2.title></h3>
+              <p v-lang.item2.desc></p>
             </div>
           </div>
           <div class="col-md-8 scrollRightDelay">
@@ -52,8 +52,8 @@
                 <i class="fa fa-pencil-square-o"></i>
               </div>
               <!--Feature item title & description-->
-              <h3>쉬운 정보 업데이트</h3>
-              <p>문자 메세지를 보내는 것 만큼이나 쉽게 기업 정보 및 제품 정보를 업데이트 할 수 있습니다.</p>
+              <h3 v-lang.item3.title></h3>
+              <p v-lang.item3.desc></p>
             </div>
           </div>
           <div class="col-md-8 col-md-pull-4 scrollLeftDelay">
@@ -68,8 +68,8 @@
                 <i class="fa fa-line-chart"></i>
               </div>
               <!--Feature item title & description-->
-              <h3>검색 엔진 노출</h3>
-              <p>영어 정보를 업데이트하면 전 세계 바이어를 위한 제조업체 전문 검색엔진 factoryhunt.com에 제품 정보가 자동으로 업데이트 됩니다.</p>
+              <h3 v-lang.item4.title></h3>
+              <p v-lang.item4.desc></p>
             </div>
           </div>
           <div class="col-md-8 scrollRightDelay">
@@ -86,6 +86,50 @@
     data () {
       return {
       }
+    },
+    messages: {
+      eng: {
+        title: 'Why Factory Hunt?',
+        desc: '팩토리헌트는 최고의 개발진이 최신 소프트웨어 기술을 사용하여, 최적화된 사용자 경험을 제공합니다.',
+        item1: {
+          title: '사용자 친화적인 디자인',
+          desc: '팩토리헌트는 데스크탑과 모든 모바일 기기에 최적화 되어있습니다. 또한 직관적이고 차별화된 디자인을 제공합니다.'
+        },
+        item2: {
+          title: '고유한 웹페이지 도메인',
+          desc: '맞춤 URL 링크 공유를 통해, 쉽고 빠르게 바이어에게 웹페이지를 소개하세요.'
+        },
+        item3: {
+          title: '쉬운 정보 업데이트',
+          desc: '문자 메세지를 보내는 것 만큼이나 쉽게 기업 정보 및 제품 정보를 업데이트 할 수 있습니다.'
+        },
+        item4: {
+          title: '검색 엔진 노출',
+          desc: '영어 정보를 업데이트하면 전 세계 바이어를 위한 제조업체 전문 검색엔진 factoryhunt.com에 제품 정보가 자동으로 업데이트 됩니다.'
+        }
+      },
+      kor: {
+        title: '팩토리헌트를 사용하면 무엇이 좋나요?',
+        desc: '팩토리헌트는 최고의 개발진이 최신 소프트웨어 기술을 사용하여, 최적화된 사용자 경험을 제공합니다.',
+        item1: {
+          title: '사용자 친화적인 디자인',
+          desc: '팩토리헌트는 데스크탑과 모든 모바일 기기에 최적화 되어있습니다. 또한 직관적이고 차별화된 디자인을 제공합니다.'
+        },
+        item2: {
+          title: '고유한 웹페이지 도메인',
+          desc: '맞춤 URL 링크 공유를 통해, 쉽고 빠르게 바이어에게 웹페이지를 소개하세요.'
+        },
+        item3: {
+          title: '쉬운 정보 업데이트',
+          desc: '문자 메세지를 보내는 것 만큼이나 쉽게 기업 정보 및 제품 정보를 업데이트 할 수 있습니다.'
+        },
+        item4: {
+          title: '검색 엔진 노출',
+          desc: '영어 정보를 업데이트하면 전 세계 바이어를 위한 제조업체 전문 검색엔진 factoryhunt.com에 제품 정보가 자동으로 업데이트 됩니다.'
+        }
+      }
+    },
+    computed: {
     },
     updated () {
     },

@@ -89,7 +89,7 @@
         header: 'Be connected with buyers',
         p1: 'Create a unique supplier website and online catalog.',
         p2: 'It’s easy and free.',
-        buttonLeft: 'START',
+        buttonLeft: 'Get Started',
         buttonRight: 'Learn More <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
         companyName: {
           title: 'Company Name',

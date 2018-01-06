@@ -87,30 +87,30 @@
     },
     messages: {
       eng: {
-        title: 'Factory Hunt helps connect suppliers to buyers',
-        desc: 'Factory Hunt is supplier search engine 제품 정보를 해외 바이어에게 쉽게 노출시킬 수 있습니다.',
+        title: 'How Factory Hunt works',
+        desc: 'Factory Hunt is a supplier search engine and helps connect suppliers to buyers.',
         item1: {
-          title: 'Free Website',
+          title: 'Create a Free Website',
           desc: 'Create a supplier website in just a few clicks.'
         },
         item2: {
-          title: 'Free Online Catalog',
+          title: 'Update Product Information',
           desc: 'Do you have a PDF catalog? You can have an online catalog with just one click.'
         },
         item3: {
           title: 'Connecting with buyers',
-          desc: 'Update product information on Factory Hunt. Search Engine bots will collect it automatically and it will appear in search results'
+          desc: 'Your product information will be automatically collected by search engine bots and appear in search results.'
         }
       },
       kor: {
         title: 'Factory Hunt는 어떤 서비스인가요?',
         desc: 'Factory Hunt는 제조업체 전문 검색엔진입니다. 제품 정보를 해외 바이어에게 쉽게 노출시킬 수 있습니다.',
         item1: {
-          title: '무료 영어 홈페이지',
+          title: '무료 영어 홈페이지 제작',
           desc: '클릭 몇 번으로 영어 웹페이지를 무료로 개설하세요.'
         },
         item2: {
-          title: '무료 온라인 카탈로그',
+          title: '제품 정보 업데이트',
           desc: 'PDF 영문 카탈로그를 가지고 계신가요? 단 한번의 클릭으로 온라인 제품 카탈로그를 쉽게 만들 수 있습니다!'
         },
         item3: {
