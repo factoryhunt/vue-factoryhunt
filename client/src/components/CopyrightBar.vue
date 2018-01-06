@@ -55,6 +55,9 @@
       onLanguageSelect (value) {
         localStorage.setItem('vue-lang', value)
         this.language = value
+        location.reload(() => {
+          window.scrollTo(0, 0)
+        })
       },
       getUserDefaultLanguage () {
         const language = localStorage.getItem('vue-lang')
