@@ -27,8 +27,6 @@
   import Testimonials from './components/Testimonials.vue'
   import Features from './components/Features.vue'
   import Counters from './components/Counters.vue'
-  import CheckNow from './components/CheckNow.vue'
-  import ContactUs from './components/ContactUs.vue'
   import FooterBar from '../../components/FooterBar.vue'
   import CopyrightBar from '../../components/CopyrightBar.vue'
   export default {
@@ -39,8 +37,6 @@
       HomeTestimonials: Testimonials,
       HomeFeatures: Features,
       HomeCounters: Counters,
-      HomeCheckNow: CheckNow,
-      HomeContactUs: ContactUs,
       FooterBar: FooterBar,
       CopyrightBar: CopyrightBar
     },
