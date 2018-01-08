@@ -12,7 +12,7 @@
         <h2 class="title-text" v-lang.title></h2>
         <div class="divider"></div>
         <div class="description-section">
-          <p v-lang.description></p>
+          <p class="description-text" v-lang.description></p>
         </div>
       </div>
     </div>
@@ -116,7 +116,7 @@
       font-size:32px !important;
       font-weight:400 !important;
     }
-    .description-section {
+    .description-text {
       font-size:22px !important;
       font-weight:300 !important;
       min-height: 400px !important;
