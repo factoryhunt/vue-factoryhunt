@@ -30,13 +30,12 @@
 <script>
   export default {
     props: [
-      'id',
-      'line'
+      'line',
+      'account'
     ],
     data () {
       return {
-        keyword: this.keywordData,
-        account: {}
+        keyword: this.keywordData
       }
     },
     messages: {
@@ -48,20 +47,10 @@
       }
     },
     methods: {
-      requestFeaturedAccount () {
-        this.$http.get(`/api/data/account/${this.id}`)
-          .then((response) => {
-            this.account = response.data
-          })
-      },
       routeAccountProfilePage () {
         const domain = this.account.domain
         location.href = `/${domain}`
       }
-    },
-    created () {
-      console.log('featured card created')
-      this.requestFeaturedAccount()
     }
   }
 </script>

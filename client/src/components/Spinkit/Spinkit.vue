@@ -30,15 +30,20 @@
 <style lang="less" scoped>
   @import "../../assets/css/index";
 
+  @size-contents: 50px;
   @size-modal: 50px;
-  @size-default: 25px;
+  @size-small: 25px;
 
   .invisible {
     display: none;
   }
 
+  .spinkit-contents {
+    .spinkit(@size-contents)
+  }
+
   .spinkit-input {
-    .spinkit(@size-default)
+    .spinkit(@size-small)
   }
 
   .spinkit-modal {

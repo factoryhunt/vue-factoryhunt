@@ -153,7 +153,7 @@
           await this.signUp()
           $spinkit.removeClass().addClass('invisible')
           $signUpButton.css('display', 'inherit')
-          location.href = 'https://www.factoryhunt.com/thank-you-for-sign-up?lang=kor'
+          location.href = '/dashboard'
         } catch (err) {
           $spinkit.removeClass().addClass('invisible')
           $signUpButton.css('display', 'inherit')

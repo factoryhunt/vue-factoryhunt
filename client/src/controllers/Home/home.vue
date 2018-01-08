@@ -1,23 +1,24 @@
 <template>
   <section>
-      <home-header></home-header>
+    <!-- Header -->
+    <home-header></home-header>
 
-      <div class="form-container">
-        <form @submit.prevent="onSearchInput">
-          <input v-model="input" type="text" pattern="[A-Za-z0-9]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
-          <button type="submit" class="btn btn-default" v-lang.search></button>
-        </form>
+    <!-- Search bar -->
+    <div class="form-container">
+      <form @submit.prevent="onSearchInput">
+        <input v-model="input" type="text" pattern="[A-Za-z0-9]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
+        <button type="submit" class="btn btn-default" v-lang.search></button>
+      </form>
+    </div>
+
+    <!-- Featured -->
+    <div class="featured-container">
+      <h2 class="title" v-lang.featured></h2>
+      <spinkit id="featured-loader"></spinkit>
+      <div class="featured-card-container" v-for="(feature, i) in value.features">
+        <featured-card :account="feature" :line="i === (value.features.length - 1) ? 'off' : 'on'"></featured-card>
       </div>
-
-      <h2 class="featured-title" v-lang.featured></h2>
-      <featured-card line="on" id="7"></featured-card>
-      <featured-card line="on" id="10"></featured-card>
-      <featured-card line="on" id="5"></featured-card>
-      <featured-card line="on" id="3"></featured-card>
-      <featured-card line="on" id="4"></featured-card>
-      <featured-card line="on" id="1"></featured-card>
-      <featured-card line="on" id="11"></featured-card>
-      <featured-card line="off" id="6"></featured-card>
+    </div>
 
   </section>
 </template>
@@ -25,18 +26,21 @@
 <script>
   import HomeHeader from '../../components/HomeHeader'
   import FeaturedCard from '../../components/FeaturedCard'
+  import Spinkit from '../../components/Spinkit/Spinkit.vue'
   import { mapGetters } from 'vuex'
 
   export default {
     components: {
       HomeHeader,
-      FeaturedCard
+      FeaturedCard,
+      Spinkit
     },
     data () {
       return {
         value: {
           account: {},
-          contact: {}
+          contact: {},
+          features: []
         },
         input: '',
         sub_categories: null,
@@ -106,7 +110,33 @@
             this.inputActive = false
           }
         })
+      },
+      getFeaturedSuppliers () {
+        this.featuredLoaderStart()
+        this.$http.get('api/data/account/featured')
+          .then(res => {
+            this.featuredLoaderStop()
+            this.value.features = res.data
+          })
+          .catch(() => {
+            this.featuredLoaderStop()
+          })
+      },
+      featuredLoaderStart () {
+        $(document).ready(() => {
+          const $loader = $('#featured-loader')
+          $loader.removeClass().addClass('spinkit-contents')
+        })
+      },
+      featuredLoaderStop () {
+        $(document).ready(() => {
+          const $loader = $('#featured-loader')
+          $loader.removeClass().addClass('invisible')
+        })
       }
+    },
+    created () {
+      this.getFeaturedSuppliers()
     }
   }
 </script>
@@ -161,24 +191,33 @@
     }
   }
 
-  .featured-title {
-    font-size:26px;
-    font-weight: 700;
-    margin-bottom: 0;
+  .featured-container {
+    #featured-loader {
+      padding: 80px 0;
+    }
+    .title {
+      font-size:26px;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
   }
 
   @media ( min-width: 744px ) {
     .form-container {
       margin-bottom: 165px;
+
+      input {
+        .input-none-border;
+        width: 95%;
+      }
     }
-    .form-container input {
-      .input-none-border;
-      width: 95%;
-    }
-    .featured-title {
-      font-size:29px;
-      font-weight: 700;
-      margin-bottom: 0;
+
+    .featured-container {
+      .title {
+        font-size:29px;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
     }
   }
   @media ( min-width: 1128px ) {
@@ -213,6 +252,4 @@
       display: inherit;
     }
   }
-
-
 </style>
