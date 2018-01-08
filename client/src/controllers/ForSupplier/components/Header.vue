@@ -13,7 +13,7 @@
             </div>
             <div class="header-btns scrollLeft">
               <!-- Header buttons -->
-              <a href="https://www.factoryhunt.com/signup?lang=kor" id="startButton" class="btn btn-check" v-lang.buttonLeft></a>
+              <a href="/signup" id="startButton" class="btn btn-check" v-lang.buttonLeft></a>
               <a href="#ABOUT" id="see-more-btn" class="btn btn-tour" v-lang.buttonRight>
               </a>
             </div>
@@ -86,9 +86,9 @@
     },
     messages: {
       eng: {
-        header: 'Be connected with buyers',
-        p1: 'Create a unique supplier website and online catalog.',
-        p2: 'It’s easy and free.',
+        header: '<span style="font-size: 43px;">Be connected with buyers</span>',
+        p1: '<span style="font-size: 24px;">Create a unique supplier website and online catalog.</span>',
+        p2: '<span style="font-size: 24px;">It’s easy and free.</span>',
         buttonLeft: 'Get Started',
         buttonRight: 'Learn More <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
         companyName: {

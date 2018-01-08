@@ -87,7 +87,7 @@
     },
     messages: {
       eng: {
-        title: 'How Factory Hunt works',
+        title: 'How Factory Hunt Works',
         desc: 'Factory Hunt is a supplier search engine and helps connect suppliers to buyers.',
         item1: {
           title: 'Create a Free Website',

@@ -90,7 +90,7 @@
     messages: {
       eng: {
         title: 'Why Factory Hunt?',
-        desc: 'Factory Hunt is a technology company that builds simple, powerful services for suppliers and buyers.',
+        desc: 'Factory Hunt is a technology company that makes simple, powerful services for suppliers and buyers.',
         item1: {
           title: 'User-friendly Design',
           desc: 'Factory Hunt is optimized for desktop and all mobile devices. It also offers an intuitive and distinctive design.'
@@ -98,12 +98,12 @@
         item2: {
           title: 'Customized URL',
           desc: 'Introduce your products to buyers quickly and easily by sharing customized URL.',
-          image: '../../../assets/for_supplier/feature-item-02-eng.png'
+          image: '/static/img/for_supplier/feature-item-02-eng.png'
         },
         item3: {
           title: 'Easy to Use',
           desc: 'It\'s simple and easy to update company profile and product information.',
-          image: '../../../assets/for_supplier/feature-item-03-eng.png'
+          image: '/static/img/for_supplier/feature-item-03-eng.png'
         },
         item4: {
           title: 'Search Engine Exposure',
@@ -120,12 +120,12 @@
         item2: {
           title: '고유한 웹페이지 도메인',
           desc: '맞춤 URL 링크 공유를 통해, 쉽고 빠르게 바이어에게 웹페이지를 소개하세요.',
-          image: '../../../assets/for_supplier/feature-item-02.png'
+          image: '/static/img/for_supplier/feature-item-02.png'
         },
         item3: {
           title: '쉬운 정보 업데이트',
           desc: '문자 메세지를 보내는 것 만큼이나 쉽게 기업 정보 및 제품 정보를 업데이트 할 수 있습니다.',
-          image: '../../../assets/for_supplier/feature-item-03.png'
+          image: '/static/img/for_supplier/feature-item-03.png'
         },
         item4: {
           title: '검색 엔진 노출',
