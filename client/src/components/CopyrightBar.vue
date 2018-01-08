@@ -1,24 +1,25 @@
 <template>
   <div class="body-container">
-    <div class="footer-container">
+    <div class="body-wrapper">
+      <div class="footer-container">
 
-      <!-- Left-side -->
-      <div class="left-container">
-        <div class="copyright-container">
-          <div class="logo-gray-container">
-            <img id="logo" src="../assets/favicon_gray.png">
-          </div>
-          <div class="text-container">
-            <span><i class="fa fa-copyright"></i> 2018 Factory Hunt</span>
+        <!-- Left-side -->
+        <div class="left-container">
+          <div class="copyright-container">
+            <div class="logo-gray-container">
+              <img id="logo" src="../assets/favicon_gray.png">
+            </div>
+            <div class="text-container">
+              <span><i class="fa fa-copyright"></i> 2018 Factory Hunt</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Right-side -->
-      <div class="right-container">
-        <a class="each-button" href="/terms" v-lang.terms></a>
-        <a class="each-button" href="/privacy" v-lang.privacy></a>
-        <span class="language-container each-button">
+        <!-- Right-side -->
+        <div class="right-container">
+          <a class="each-button" href="/terms" v-lang.terms></a>
+          <a class="each-button" href="/privacy" v-lang.privacy></a>
+          <span class="language-container each-button">
           <select v-model="value.language" @change="onLanguageSelect($event.target.value)" name="languages" id="languages">
           <option value="" disabled>Languages</option>
           <option value="eng">English</option>
@@ -26,8 +27,9 @@
         </select>
           <i id="arrow-icon" class="fa fa-angle-down"></i>
         </span>
-      </div>
+        </div>
 
+      </div>
     </div>
   </div>
 </template>
@@ -74,13 +76,12 @@
   @import '../assets/css/index';
 
   .body-container {
-    border-top: 1px solid @color-light-grey;
-    padding-top: 24px;
-    padding-bottom: 60px !important;
-    min-height: 0;
 
-    .divider {
-      margin: 24px 0 24px 0;
+    .body-wrapper {
+      border-top: 1px solid @color-light-grey;
+      padding-top: 24px !important;
+      padding-bottom: 60px !important;
+      min-height: 0;
     }
 
     .footer-container {
@@ -203,10 +204,6 @@
   @media ( min-width: 1128px ) {
     .body-container {
       min-height: 0;
-
-      .divider {
-        margin: 24px 0 24px 0;
-      }
 
       .footer-container {
         display: table;

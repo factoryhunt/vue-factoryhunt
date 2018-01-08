@@ -4,7 +4,6 @@
     <nav-bar v-if="toggle.isAuthLoaded" :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
 
     <div class="body-container">
-
       <!-- Left side -->
       <div class="left-container">
 
