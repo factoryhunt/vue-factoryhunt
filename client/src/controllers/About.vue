@@ -110,16 +110,16 @@
     }
   }
   .about-container {
-    margin-top: 40px;
+    margin-top: 40px !important;
 
     .title-text {
-      font-size:32px;
-      font-weight:400;
+      font-size:32px !important;
+      font-weight:400 !important;
     }
     .description-section {
-      font-size:22px;
-      font-weight:300;
-      min-height: 400px;
+      font-size:22px !important;
+      font-weight:300 !important;
+      min-height: 400px !important;
     }
   }
   @media ( min-width: 744px ) {

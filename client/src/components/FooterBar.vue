@@ -85,7 +85,7 @@
     min-height: 0;
     display: none;
     border-top: 1px solid @color-light-grey;
-    padding: 60px 0;
+    padding: 60px 0 !important;
   }
 
   .divider {

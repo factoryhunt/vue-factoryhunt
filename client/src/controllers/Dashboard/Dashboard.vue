@@ -59,10 +59,6 @@
 <style lang="less">
   @import "../../assets/css/index";
 
-  .body-contents {
-    margin-top: 20px;
-  }
-
   .dashboard-page-container {
     position: relative;
     // Header
