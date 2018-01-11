@@ -38,7 +38,7 @@
               <li v-if="!isUserLoggedIn" class="button-item-container">
                 <div class="button-item-wrapper">
                   <div class="button-item">
-                    <a href="/signup" v-lang.signUp></a>
+                    <a @click="onSignUpButton" v-lang.signUp></a>
                   </div>
                 </div>
               </li>
@@ -61,6 +61,15 @@
         </div>
       </div>
 
+      <!-- Sign Up Toggle Menu -->
+      <div class="sign-up-toggle-container">
+        <div class="dropdown-container">
+          <div class="dropdown-pointer"></div>
+          <div class="dropdown-pointer-bg"></div>
+          <p><a class="supplier-sign-up" href="/for-supplier" v-lang.forSupplier></a></p>
+          <p><a class="buyer-sign-up" @click="onBuyerSignUpButton" v-lang.forBuyer></a></p>
+        </div>
+      </div>
       <!-- Profile Toggle Menu -->
       <div class="profile-toggle-container">
         <div class="dropdown-container">
@@ -119,7 +128,8 @@
         },
         toggle: {
           isDropdownShown: false,
-          isProfileDropdownShown: false
+          isProfileDropdownShown: false,
+          isSignUpDropdownShown: false
         },
         input: this.$route.query.input
       }
@@ -131,7 +141,10 @@
         dashboard: 'Dashboard',
         logout: 'Logout',
         search: 'Search',
-        searchCaution: 'English only and at least 2 characters, please'
+        searchCaution: 'English only and at least 2 characters, please',
+        forSupplier: 'For Supplier',
+        forBuyer: 'For Buyer',
+        comingSoon: 'Coming soon.'
       },
       kor: {
         signUp: '회원가입',
@@ -139,7 +152,10 @@
         dashboard: '관리자 센터',
         logout: '로그아웃',
         search: '검색',
-        searchCaution: '영어로만 입력해주세요. (2자 이상)'
+        searchCaution: '영어로만 입력해주세요. (2자 이상)',
+        forSupplier: '제조업체',
+        forBuyer: '바이어',
+        comingSoon: '준비중입니다.'
       }
     },
     computed: {
@@ -148,6 +164,9 @@
       },
       getTitle () {
         return this.translate('searchCaution')
+      },
+      getComingSoon () {
+        return this.translate('comingSoon')
       }
     },
     methods: {
@@ -155,6 +174,16 @@
         if (this.input) {
           location.href = `/search?input=${this.input}`
         }
+      },
+      onSignUpButton () {
+        const dropdown = $('.sign-up-toggle-container')
+
+        if (this.toggle.isSignUpDropdownShown) dropdown.css({'display': 'none'})
+        else dropdown.css({'display': 'inherit'})
+        this.toggle.isSignUpDropdownShown = !this.toggle.isSignUpDropdownShown
+      },
+      onBuyerSignUpButton () {
+        alert(this.getComingSoon)
       },
       onLogoutButton () {
         this.$store.dispatch('logout')
@@ -334,139 +363,6 @@
           }
         }
       }
-
-      .profile-toggle-container {
-        display: none;
-        position: relative;
-        right: 0;
-        top: 75px;
-        z-index: 9999 !important;
-
-        .dropdown-container {
-          position: absolute;
-          width: 300px;
-          border: 1px solid @color-light-grey;
-          border-radius: @border-radius;
-          top: 100% + 25px;
-          right: 0;
-          background-color: @color-white;
-          min-width: 160px;
-          box-shadow: 0 2px 10px rgba(0,0,0,.2);
-
-          .dropdown-pointer {
-            border-color: transparent;
-            border-bottom-color: @color-white;
-            border-style: dashed dashed solid;
-            border-width: 0 8.5px 8.5px;
-            position: absolute;
-            height: 0;
-            width: 0;
-            top: -9px;
-            right: 56px;
-            z-index: 5;
-          }
-          .dropdown-pointer-bg {
-            border-color: transparent;
-            border-bottom-color: @color-light-grey;
-            border-style: dashed dashed solid;
-            border-width: 0 8.5px 8.5px;
-            position: absolute;
-            height: 0;
-            width: 0;
-            top: -10px;
-            right: 56px;
-            z-index: 4;
-          }
-
-          .dropdown-contents {
-            width: 300px;
-            border-radius: @border-radius;
-            padding: 12px 20px;
-            top: 100% + 25px;
-            right: 0;
-            background-color: @color-white;
-            min-width: 160px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.2);
-            z-index: 1;
-
-            .user-container {
-              margin-bottom: 50px;
-              text-align: right;
-              .user-email {
-                margin: 0;
-                font-weight: 400;
-              }
-
-              .user-company-name {
-                word-wrap: break-word;
-                font-size: 22px;
-                font-weight: 500;
-              }
-
-              .user-name {
-                font-size: 18px;
-                font-weight: 300;
-              }
-            }
-
-            .footer-divider {
-              height: 1px;
-              background-color: @color-light-grey;
-              position: absolute;
-              width: 100%;
-              left: 0;
-              right: 0;
-              bottom: 60px;
-            }
-
-            .footer {
-              display: table;
-              width: 100%;
-              margin-bottom: 5px;
-              font-size: 16px;
-
-              .footer-left {
-                display: table-cell;
-                text-align: left;
-
-                #my-page-button {
-                  display: inline !important;
-                  margin: 0 12px;
-                  color: @color-orange;
-                  /*<!--border: 1px solid @color-deep-gray;-->*/
-                  /*<!--border-radius: @border-radius;-->*/
-                  /*<!--padding: 5px 12px;-->*/
-                  /*<!--background-color: @color-light-grey;-->*/
-
-                  &:hover {
-                    //
-                  }
-                }
-              }
-
-              .footer-right {
-                display: table-cell;
-                text-align: right;
-
-                #logout-button {
-                  display: inline !important;
-                  margin: 0 12px;
-                  color: @color-font-base;
-                  /*<!--border: 1px solid @color-deep-gray;-->*/
-                  /*<!--border-radius: @border-radius;-->*/
-                  /*<!--padding: 5px 12px;-->*/
-                  /*<!--background-color: @color-light-grey;-->*/
-                }
-              }
-
-              a {
-                text-decoration: none !important;
-                display: block !important;
-              }
-            }
-          }
-        }
-      }
     }
   }
   @media ( min-width: 744px ) {
@@ -531,6 +427,7 @@
         display: table;
         width: 100%;
 
+        // Logo
         .logo-container {
           display: table-cell;
           vertical-align: middle;
@@ -553,6 +450,7 @@
           }
         }
 
+        // Search Bar
         .search-container {
           display: table-cell;
           vertical-align: middle;
@@ -569,6 +467,7 @@
           }
         }
 
+        // Right Buttons
         .button-container {
           display: table-cell;
           vertical-align: middle;
@@ -599,6 +498,190 @@
           }
         }
 
+        /* Dropdown Menus */
+        // Sign Up
+        .sign-up-toggle-container {
+          display: none;
+          position: relative;
+          right: 90px;
+          top: 75px;
+          z-index: 9999 !important;
+          .dropdown-container {
+            position: absolute;
+            border: 1px solid @color-light-grey;
+            border-radius: @border-radius;
+            top: 100% + 25px;
+            right: 0;
+            background-color: @color-white;
+            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+            padding: 8px 16px;
+
+            .dropdown-pointer {
+              border-color: transparent;
+              border-bottom-color: @color-white;
+              border-style: dashed dashed solid;
+              border-width: 0 8.5px 8.5px;
+              position: absolute;
+              height: 0;
+              width: 0;
+              top: -9px;
+              right: 50px;
+              z-index: 5;
+            }
+            .dropdown-pointer-bg {
+              border-color: transparent;
+              border-bottom-color: @color-light-grey;
+              border-style: dashed dashed solid;
+              border-width: 0 8.5px 8.5px;
+              position: absolute;
+              height: 0;
+              width: 0;
+              top: -10px;
+              right: 50px;
+              z-index: 4;
+            }
+
+            a {
+              font-size: 17px;
+              color: @color-font-gray;
+              white-space: nowrap;
+            }
+          }
+        }
+
+        // Profile
+        .profile-toggle-container {
+          display: none;
+          position: relative;
+          right: 0;
+          top: 75px;
+          z-index: 9999 !important;
+
+          .dropdown-container {
+            position: absolute;
+            width: 300px;
+            border: 1px solid @color-light-grey;
+            border-radius: @border-radius;
+            top: 100% + 25px;
+            right: 0;
+            background-color: @color-white;
+            min-width: 160px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+
+            .dropdown-pointer {
+              border-color: transparent;
+              border-bottom-color: @color-white;
+              border-style: dashed dashed solid;
+              border-width: 0 8.5px 8.5px;
+              position: absolute;
+              height: 0;
+              width: 0;
+              top: -9px;
+              right: 56px;
+              z-index: 5;
+            }
+            .dropdown-pointer-bg {
+              border-color: transparent;
+              border-bottom-color: @color-light-grey;
+              border-style: dashed dashed solid;
+              border-width: 0 8.5px 8.5px;
+              position: absolute;
+              height: 0;
+              width: 0;
+              top: -10px;
+              right: 56px;
+              z-index: 4;
+            }
+
+            .dropdown-contents {
+              width: 300px;
+              border-radius: @border-radius;
+              padding: 12px 20px;
+              top: 100% + 25px;
+              right: 0;
+              background-color: @color-white;
+              min-width: 160px;
+              box-shadow: 0 2px 10px rgba(0,0,0,.2);
+              z-index: 1;
+
+              .user-container {
+                margin-bottom: 50px;
+                text-align: right;
+                .user-email {
+                  margin: 0;
+                  font-weight: 400;
+                }
+
+                .user-company-name {
+                  word-wrap: break-word;
+                  font-size: 22px;
+                  font-weight: 500;
+                }
+
+                .user-name {
+                  font-size: 18px;
+                  font-weight: 300;
+                }
+              }
+
+              .footer-divider {
+                height: 1px;
+                background-color: @color-light-grey;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 60px;
+              }
+
+              .footer {
+                display: table;
+                width: 100%;
+                margin-bottom: 5px;
+                font-size: 16px;
+
+                .footer-left {
+                  display: table-cell;
+                  text-align: left;
+
+                  #my-page-button {
+                    display: inline !important;
+                    margin: 0 12px;
+                    color: @color-orange;
+                    /*<!--border: 1px solid @color-deep-gray;-->*/
+                    /*<!--border-radius: @border-radius;-->*/
+                    /*<!--padding: 5px 12px;-->*/
+                    /*<!--background-color: @color-light-grey;-->*/
+
+                    &:hover {
+                      //
+                    }
+                  }
+                }
+
+                .footer-right {
+                  display: table-cell;
+                  text-align: right;
+
+                  #logout-button {
+                    display: inline !important;
+                    margin: 0 12px;
+                    color: @color-font-base;
+                    /*<!--border: 1px solid @color-deep-gray;-->*/
+                    /*<!--border-radius: @border-radius;-->*/
+                    /*<!--padding: 5px 12px;-->*/
+                    /*<!--background-color: @color-light-grey;-->*/
+                  }
+                }
+
+                a {
+                  text-decoration: none !important;
+                  display: block !important;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

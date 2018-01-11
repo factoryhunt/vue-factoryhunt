@@ -36,6 +36,8 @@
 
   .invisible {
     display: none;
+    overflow: hidden;
+    -ms-overflow-style: none;
   }
 
   .spinkit-contents {

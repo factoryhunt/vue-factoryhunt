@@ -304,17 +304,21 @@
           })
       },
       async fetchDatas () {
-        const promise = await Promise.all([
-          this.fetchProduct(),
-          this.fetchVendor()
-        ])
-        this.value.product = promise[0]
-        this.value.vendor = promise[1]
-        if (!this.value.product.product_image_url_1) {
-          this.value.product.product_image_url_1 = '../../static/product_loading_image.png'
+        try {
+          const promise = await Promise.all([
+            this.fetchProduct(),
+            this.fetchVendor()
+          ])
+          this.value.product = promise[0]
+          this.value.vendor = promise[1]
+          if (!this.value.product.product_image_url_1) {
+            this.value.product.product_image_url_1 = '../../static/product_loading_image.png'
+          }
+          this.fetchReletedProducts(this.value.product.account_id)
+          this.applyJquery()
+        } catch (err) {
+          this.$router.replace('/error')
         }
-        this.fetchReletedProducts(this.value.product.account_id)
-        this.applyJquery()
       },
       fetchProduct () {
         return new Promise((resolve, reject) => {

@@ -5,7 +5,7 @@
     <div class="body-container">
       <div class="body-contents">
         <h3>{{msg}}</h3>
-        <button @click="onGoBackButton" class="btn btn-default">
+        <button @click="onGoBackButton" class="button-orange">
           Go back Home
         </button>
       </div>
