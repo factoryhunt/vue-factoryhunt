@@ -513,6 +513,7 @@
   }
 
   .left-container {
+    margin-top:22px;
     min-height: 377px;
   }
 

@@ -668,7 +668,6 @@
   }
 
   .left-container {
-
     .sticky-outer-container {
       display: none;
     }

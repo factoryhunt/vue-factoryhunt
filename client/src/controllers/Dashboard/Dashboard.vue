@@ -1,6 +1,7 @@
 <template>
   <div v-if="value.account.account_id" class="page-container">
     <nav-bar :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
+    <sub-nav-bar></sub-nav-bar>
     <div class="body-container">
       <div class="body-contents">
         <router-view :account="value.account" :contact="value.contact"></router-view>
@@ -11,7 +12,8 @@
 </template>
 
 <script>
-  import NavBar from './components/NavBar.vue'
+  import NavBar from '../../components/NavBar.vue'
+  import SubNavBar from './components/SubNavBar.vue'
   import CopyrightBar from '../../components/CopyrightBar.vue'
   import { mapGetters } from 'vuex'
   export default {
@@ -20,6 +22,7 @@
     },
     components: {
       NavBar,
+      SubNavBar,
       CopyrightBar
     },
     data () {
