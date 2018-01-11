@@ -677,6 +677,7 @@
   .header-container {
     position: relative;
     min-height: 110px;
+    padding-top: 20px;
 
     .title {
       font-size: 32px;

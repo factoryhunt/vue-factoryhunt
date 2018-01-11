@@ -56,6 +56,7 @@
     left: 0;
     background: rgba(0, 0, 0, 0.8);
     opacity:0.4;
+    display: -moz-flex;
     display: -webkit-flex;
     display:         flex;
     -webkit-align-items: center;
