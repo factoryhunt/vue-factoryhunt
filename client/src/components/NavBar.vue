@@ -257,8 +257,8 @@
             display: table-cell;
             position: relative;
             padding: 11.5px;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             text-align: center;
             vertical-align: middle;
           }
@@ -327,8 +327,8 @@
                 display: table-cell;
 
                 .button-item-wrapper {
-                  height: 70px;
-                  line-height: 70px;
+                  height: 80px;
+                  line-height: 80px;
                   background: transparent;
                   display: inline-block;
                   padding: 0 8px;
