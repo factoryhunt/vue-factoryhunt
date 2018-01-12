@@ -118,17 +118,19 @@
       }
     },
     methods: {
-      showModal () {
-        //
-      },
-      dropAccount () {
-        this.deleteProducts()
-          .then(() => { this.deleteContact() })
-          .then(() => { this.deleteAccount() })
-          .catch(() => { alert('Failed. Please try again.') })
-      },
       onCancelButton () {
         location.replace('/dashboard')
+      },
+      async dropAccount () {
+        try {
+          await this.deleteProducts()
+          await this.deleteContact()
+          await this.deleteAccount()
+          this.$store.dispatch('logout')
+          alert('Your account has been deleted.')
+        } catch (err) {
+          alert('Failed. Please try again.')
+        }
       },
       deleteProducts () {
         return new Promise((resolve, reject) => {
@@ -138,6 +140,17 @@
             })
             .catch((err) => {
               reject(err.response)
+            })
+        })
+      },
+      deleteContact () {
+        return new Promise((resolve, reject) => {
+          this.$http.delete(`/api/data/contact/${this.getContactId}`)
+            .then(() => {
+              resolve()
+            })
+            .catch(() => {
+              reject()
             })
         })
       },
@@ -151,16 +164,6 @@
               reject(err.response)
             })
         })
-      },
-      deleteContact () {
-        this.$http.delete(`/api/data/contact/${this.getContactId}`)
-          .then(() => {
-            this.$store.dispatch('logout')
-            alert('Your account has been deleted')
-          })
-          .catch(() => {
-            alert('Failed. Please try again.')
-          })
       }
     }
   }

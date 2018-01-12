@@ -49,11 +49,8 @@ router.delete('/:product_id', async (req, res) => {
   }
 
   try {
-    console.log(1)
     await transferProduct()
-    console.log(2)
     await removeProduct()
-    console.log(3)
     onSuccess()
   } catch (err) {
     onError(err)
@@ -97,7 +94,7 @@ function transferAllProducts (account_id) {
 }
 function removeAllProducts (account_id) {
   return new Promise((resolve, reject) => {
-    mysql.query(`DELETE FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE account_id = ${id}`,
+    mysql.query(`DELETE FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE account_id = ${account_id}`,
       (err) => {
         if (err) return reject(err)
         resolve()

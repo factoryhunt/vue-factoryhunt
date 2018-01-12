@@ -2,8 +2,8 @@ const router = require('express').Router()
 const mysql = require('../../../../models/mysql')
 const CONFIG_MYSQL = require('../../../../config/mysql_config')
 
-// DELETE /api/data/product/:contact_id
-router.delete('/:contact_id', (req, res) => {
+// DELETE /api/data/contact/:contact_id
+router.delete('/:contact_id', async (req, res) => {
   const id = req.params.contact_id
 
   const onSuccess = () => {

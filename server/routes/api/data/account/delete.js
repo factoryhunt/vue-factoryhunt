@@ -1,16 +1,15 @@
 const router = require('express').Router()
 const mysql = require('../../../../models/mysql')
 const CONFIG_MYSQL = require('../../../../config/mysql_config')
-// ${CONFIG_MYSQL.TABLE_ACCOUNTS_DELETED}
 
 // DELETE /api/data/account/:account_id
-router.delete('/:account_id', (req, res) => {
+router.delete('/:account_id', async (req, res) => {
   const id = req.params.account_id
 
   const onSuccess = () => {
     res.status(200).json({
       result: true,
-      msg: 'Product deleted success.'
+      msg: 'Account deleted success.'
     })
   }
 
@@ -21,10 +20,13 @@ router.delete('/:account_id', (req, res) => {
     })
   }
 
-  transferAccount(id)
-    .then(removeAccount(id))
-    .then(onSuccess)
-    .catch(onError)
+  try {
+    await transferAccount(id)
+    await removeAccount(id)
+    onSuccess()
+  } catch (err) {
+    onError()
+  }
 })
 
 module.exports = router
