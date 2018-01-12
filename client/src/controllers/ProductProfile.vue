@@ -124,11 +124,11 @@
 
           <div class="list-container" v-show="value.product.minimum_order_quantity">
             <div class="left-contents" v-lang.information.moq></div>
-            <div class="right-contents">{{value.product.minimum_order_quantity}}</div>
+            <div class="right-contents">{{addComma(value.product.minimum_order_quantity)}}</div>
           </div>
           <div class="list-container" v-show="value.product.price">
             <div class="left-contents" v-lang.information.price></div>
-            <div class="right-contents">{{value.product.price}}123</div>
+            <div class="right-contents">{{value.product.price}}</div>
           </div>
           <div class="list-container" v-show="value.product.material_type">
             <div class="left-contents" v-lang.information.material></div>
@@ -146,7 +146,7 @@
         <div class="reviews-container">
           <h3 v-lang.reviews.title="{count: 0}"></h3>
           <br>
-          <h4>No review.</h4>
+          <h4 style="font-size:18px">No review</h4>
         </div>
         <div class="divider"></div>
       </div>
@@ -215,8 +215,8 @@
           reviews: 'Reviews <small>({count})</small>'
         },
         image: {
-          quote: 'Send inquiry to get pricing',
-          button: 'Send inquiry'
+          quote: 'Send inquiry to get pricing.',
+          button: 'Send Inquiry'
         },
         information: {
           moq: 'MOQ',
@@ -242,7 +242,7 @@
           reviews: '평가 (0)'
         },
         image: {
-          quote: '가격 협상을 위해 문의하세요',
+          quote: '가격 협상을 위해 문의하세요.',
           button: '문의하기'
         },
         information: {
@@ -305,12 +305,9 @@
       },
       async fetchDatas () {
         try {
-          const promise = await Promise.all([
-            this.fetchProduct(),
-            this.fetchVendor()
-          ])
-          this.value.product = promise[0]
-          this.value.vendor = promise[1]
+          const vendor = await this.fetchProduct()
+          this.value.vendor = vendor.account
+          this.value.product = vendor.product
           if (!this.value.product.product_image_url_1) {
             this.value.product.product_image_url_1 = '../../static/product_loading_image.png'
           }
@@ -322,7 +319,7 @@
       },
       fetchProduct () {
         return new Promise((resolve, reject) => {
-          this.$http.get(`/api/data/product/domain/${this.productDomain}`)
+          this.$http.get(`/api/data/product/domain/${this.domain}/${this.productDomain}`)
             .then(res => {
               resolve(res.data)
             })
@@ -338,17 +335,6 @@
             this.relatedProductImageResize()
           })
       },
-      fetchVendor () {
-        return new Promise((resolve, reject) => {
-          this.$http.get(`/api/data/account/domain/${this.domain}`)
-            .then(res => {
-              resolve(res.data)
-            })
-            .catch(err => {
-              reject(err.response)
-            })
-        })
-      },
       onSendInquiry () {
         const pid = this.value.product.product_id
         const aid = this.value.vendor.account_id
@@ -360,6 +346,10 @@
             aid: aid
           }
         })
+      },
+      addComma (str) {
+        str = String(str)
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')
       },
       applyJquery () {
         $(document).ready(() => {
@@ -431,14 +421,15 @@
             arrows: true,
             dots: true,
             draggable: true,
-            nextArrow: '<div id="right-arrow-container"><i id="right-arrow" class="fa fa-arrow-right"></i></div>',
-            prevArrow: '<div id="left-arrow-container"><i id="left-arrow" class="fa fa-arrow-left"></i></div>'
+            nextArrow: '<div id="right-arrow-container"><i id="right-arrow" class="fa fa-angle-right"></i></div>',
+            prevArrow: '<div id="left-arrow-container"><i id="left-arrow" class="fa fa-angle-left"></i></div>'
           })
           $('.item').css('outline', 'none')
           $('.slick-dots').css('bottom', '4px')
           $('.slick-dots li').css('margin', '0')
 
           $('#right-arrow-container').css({
+            'font-size': '3rem',
             'position': 'absolute',
             'right': '0',
             'top': '0',
@@ -455,6 +446,7 @@
             'top': '50%'
           })
           $('#left-arrow-container').css({
+            'font-size': '3rem',
             'position': 'absolute',
             'left': '0',
             'top': '0',

@@ -109,7 +109,7 @@
         <div id="review-container" class="review-container">
           <h3 v-lang.reviews.title="{count: 0}"></h3>
           <br>
-          <p>No review.</p>
+          <p style="font-size: 18px">No review</p>
         </div>
         <div class="divider"></div>
       </div>
@@ -252,9 +252,9 @@
         contact: {
           title: 'Contact',
           emailPlaceholder: 'your@email.com',
-          messagePlaceholder: 'Enter your message',
-          quote: 'Request a quote to get pricing',
-          button: 'Send inquiry'
+          messagePlaceholder: 'Enter your message.',
+          quote: 'Request a quote to get pricing.',
+          button: 'Send Inquiry'
         }
       },
       kor: {
@@ -290,7 +290,7 @@
           title: '문의',
           emailPlaceholder: '이메일',
           messagePlaceholder: '내용을 입력해주세요.',
-          quote: '가격 협상을 위해 문의하세요',
+          quote: '가격 협상을 위해 문의하세요.',
           button: '문의하기'
         }
       }
