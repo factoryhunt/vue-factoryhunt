@@ -6,12 +6,14 @@
       <div class="profile-container">
         <div class="profile-inner-container">
           <div id="company-image"></div>
-          <div class="title-contents">
-            <p class="title">{{ account.account_name_english }}</p>
-            <p v-if="contact.first_name_english" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
+          <div class="contents-container">
+            <div class="title-contents">
+              <p class="title">{{ account.account_name_english }}</p>
+              <p v-if="contact.first_name_english" class="sub-title">{{contact.first_name_english + ' ' + contact.last_name_english}}<small></small></p>
+            </div>
+            <button id="view-button" @click="routeCompanyPage" class="view-button button-white" v-lang.left.viewWebsite></button>
+            <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white" v-lang.left.edit></button>
           </div>
-          <button id="view-button" @click="routeCompanyPage" class="view-button button-white" v-lang.left.viewWebsite></button>
-          <button id="edit-button" @click="routeCompanyEditPage" class="edit-button button-white" v-lang.left.edit></button>
         </div>
       </div>
     </div>
@@ -272,33 +274,35 @@
             background-repeat: no-repeat;
           }
 
-          .title-contents {
-            margin-bottom: 22px;
+          .contents-container {
+            padding: 0 20px;
 
-            .title {
-              word-wrap: break-word;
-              font-weight: 500;
-              font-size: 24px;
-              margin: 0;
+            .title-contents {
+              margin-bottom: 22px;
+              .title {
+                word-wrap: break-word;
+                font-weight: 500;
+                font-size: 24px;
+                margin: 0;
+              }
+              .sub-title {
+                font-size: 20px;
+                font-weight: 300;
+                margin: 0;
+              }
             }
-            .sub-title {
-              font-size: 20px;
-              font-weight: 300;
-              margin: 0;
+            button {
+              color: @color-font-base;
+              border: 1px solid @color-input-placeholder;
+              width: 100%;
+              margin-bottom: 8px;
+              padding-top: 6px;
+              padding-bottom:6px;
+              font-weight: 600;
             }
-          }
-
-          button {
-            color: @color-font-base;
-            border: 1px solid @color-input-placeholder;
-            width: 80%;
-            margin-bottom: 8px;
-            padding-top: 6px;
-            padding-bottom:6px;
-            font-weight: 600;
-          }
-          #edit-button {
-            margin-bottom: 18px;
+            #edit-button {
+              margin-bottom: 18px;
+            }
           }
         }
       }
@@ -370,6 +374,10 @@
             font-size:18px;
             font-weight: 300;
             margin: 10px 0;
+
+            .text {
+              font-size: 18px;
+            }
 
             #share-button {
               vertical-align: middle;

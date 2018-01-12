@@ -386,7 +386,7 @@
         canvas.height = viewport.height
         canvas.width = viewport.width
         canvas.style.width = '100%'
-        canvas.style.marginBottom = '-5px'
+        canvas.style.marginBottom = '-2px'
         page.render(renderContext)
         this.toggle.isCatalogLoaded = true
       },

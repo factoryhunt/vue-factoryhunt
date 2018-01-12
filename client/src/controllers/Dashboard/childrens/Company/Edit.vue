@@ -191,7 +191,7 @@
       eng: {
         name: {
           title: 'Company Name',
-          required: '<i class="fa fa-circle" aria-hidden="true"> Required field',
+          required: '<i class="fa fa-circle" aria-hidden="true"></i> Required field',
           desc: 'Use the official company name from the business registration certificate.',
           placeholder: 'Factory Hunt, Inc.',
           inputTitle: 'It must be characters 2-50 and can only contain letters, numbers, periods, comma, and parentheses.'
@@ -281,7 +281,7 @@
       kor: {
         name: {
           title: '회사명',
-          required: '<i class="fa fa-circle" aria-hidden="true"> 필수입력',
+          required: '<i class="fa fa-circle" aria-hidden="true"></i> 필수입력',
           desc: '사업자등록증의 회사명과 일치시켜주세요.',
           placeholder: 'Factory Hunt, Co., Ltd.',
           inputTitle: '2~50자의 영어와 숫자, 마침표, 쉼표 그리고 소괄호만 입력해주세요.'
