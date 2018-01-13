@@ -40,9 +40,6 @@
       FooterBar: FooterBar,
       CopyrightBar: CopyrightBar
     },
-    metaInfo: {
-      title: 'Factory Hunt - 대한민국 제조업체를 위한 무료 영어 홈페이지 & 온라인 카탈로그 제작 서비스'
-    },
     data () {
       return {
         msg: 'Factory Hunt 홈페이지',
@@ -53,7 +50,23 @@
         }
       }
     },
+    messages: {
+      eng: {
+        title: 'Factory Hunt - Free Website & Online Catalog for Suppliers'
+      },
+      kor: {
+        title: 'Factory Hunt - 제조업체를 위한 무료 영어 홈페이지 & 온라인 카탈로그 제작 서비스'
+      }
+    },
+    computed: {
+      getDocumentTitle () {
+        return this.translate('title')
+      }
+    },
     methods: {
+      changeDocumentTitle () {
+        document.title = this.getDocumentTitle
+      },
       applySmoothScrolling () {
         //      Add smooth scrolling feature
         /* eslint-disable */
@@ -149,6 +162,9 @@
     created () {
       this.applySmoothScrolling()
       this.applyAddAnimation()
+    },
+    mounted () {
+      this.changeDocumentTitle()
     }
   }
 </script>
