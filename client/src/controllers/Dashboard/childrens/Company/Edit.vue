@@ -90,12 +90,12 @@
         <!-- State -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.state.title></div>
-          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z ]{1,50}" :title="getStateInputTitle" :placeholder="getStatePlaceholder" v-model="value.state"></div>
+          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z -]{1,50}" :title="getStateInputTitle" :placeholder="getStatePlaceholder" v-model="value.state"></div>
         </div>
         <!-- City -->
         <div class="box-container">
           <div class="left-contents" v-lang.company.city.title></div>
-          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z ]{1,50}" :title="getCityInputTitle" :placeholder="getCityPlaceholder" v-model="value.city"></div>
+          <div class="right-contents"><input type="text" maxlength="50" pattern="[A-Za-z -]{1,50}" :title="getCityInputTitle" :placeholder="getCityPlaceholder" v-model="value.city"></div>
         </div>
         <!-- Street Address -->
         <div class="box-container">
@@ -238,12 +238,12 @@
           state: {
             title: 'State',
             placeholder: 'California',
-            inputTitle: 'It must be 1-50 characters and can only contain letters.'
+            inputTitle: 'It must be 1-50 characters and can only contain letters and hyphens.'
           },
           city: {
             title: 'City',
             placeholder: 'San Francisco',
-            inputTitle: 'It must be 1-50 characters and can only contain letters.'
+            inputTitle: 'It must be 1-50 characters and can only contain letters and hyphens.'
           },
           street: {
             title: 'Street Address',
@@ -328,12 +328,12 @@
           state: {
             title: '도',
             placeholder: 'Gyeonggi-do',
-            inputTitle: '1~50자의 영어만 입력해주세요.'
+            inputTitle: '1~50자의 영어와 하이픈만 입력해주세요.'
           },
           city: {
             title: '시, 군',
             placeholder: 'Bucheon-si',
-            inputTitle: '1~50자의 영어만 입력해주세요.'
+            inputTitle: '1~50자의 영어와 하이픈만 입력해주세요.'
           },
           street: {
             title: '도로명 주소',

@@ -1,7 +1,7 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" v-if="toggle.isAuthLoaded">
     <!-- Navigation bar -->
-    <nav-bar></nav-bar>
+    <nav-bar :account="value.account" :contact="value.contact" :isUserLoggedIn="this.isLoggedIn"></nav-bar>
     <!-- Header -->
     <home-header></home-header>
     <!-- About us -->
@@ -29,6 +29,7 @@
   import Counters from './components/Counters.vue'
   import FooterBar from '../../components/FooterBar.vue'
   import CopyrightBar from '../../components/CopyrightBar.vue'
+  import { mapGetters } from 'vuex'
   export default {
     components: {
       NavBar: NavBar,
@@ -47,6 +48,9 @@
           userId: '',
           account: {},
           contact: {}
+        },
+        toggle: {
+          isAuthLoaded: false
         }
       }
     },
@@ -59,11 +63,25 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'isLoggedIn'
+      ]),
       getDocumentTitle () {
         return this.translate('title')
       }
     },
     methods: {
+      tryAutoLogin () {
+        this.$store.dispatch('autoLogin')
+          .then(res => {
+            this.toggle.isAuthLoaded = true
+            this.value.contact = res[0].data
+            this.value.account = res[1].data
+          })
+          .catch(() => {
+            this.toggle.isAuthLoaded = true
+          })
+      },
       changeDocumentTitle () {
         document.title = this.getDocumentTitle
       },
@@ -160,6 +178,7 @@
       }
     },
     created () {
+      this.tryAutoLogin()
       this.applySmoothScrolling()
       this.applyAddAnimation()
     },
