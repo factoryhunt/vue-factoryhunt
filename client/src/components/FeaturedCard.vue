@@ -13,7 +13,7 @@
         <div class="description-contents">
           <p class="product">{{ account.products_english }}</p>
           <p class="title">{{ account.account_name_english }}</p>
-          <p class="description">{{ account.company_short_description }}</p>
+          <p class="description">{{ account.company_short_description_english }}</p>
           <div class="button-container" v-if="account.account_id">
             <button @click="routeAccountProfilePage" class="btn btn-default" v-lang.viewMore></button>
           </div>

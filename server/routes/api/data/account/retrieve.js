@@ -8,7 +8,7 @@ router.get('/featured', async (req, res) => {
     return new Promise((resolve, reject) => {
       let temp_accounts = []
       mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_ACCOUNTS} 
-      WHERE 
+      WHERE
   (account_id = 7) OR 
   (account_id = 10) OR 
   (account_id = 5) OR 
@@ -16,14 +16,16 @@ router.get('/featured', async (req, res) => {
   (account_id = 4) OR 
   (account_id = 1) OR 
   (account_id = 11) OR 
-  (account_id = 6)`, (err, rows) => {
+  (account_id = 6) OR
+  (account_id = 94) ORDER BY account_id`, (err, rows) => {
         if (err) reject(err)
+        temp_accounts.push(rows[8])
         temp_accounts.push(rows[5])
         temp_accounts.push(rows[6])
         temp_accounts.push(rows[3])
         temp_accounts.push(rows[1])
-        temp_accounts.push(rows[2])
         temp_accounts.push(rows[0])
+        temp_accounts.push(rows[2])
         temp_accounts.push(rows[7])
         temp_accounts.push(rows[4])
         resolve(temp_accounts)
