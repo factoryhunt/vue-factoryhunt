@@ -28,7 +28,8 @@
 
             <div class="sticky-company-container">
               <a href="#app"class="sticky-item">
-                <div id="sticky-company-logo"></div>
+                <img v-if="account.thumbnail_url" id="sticky-company-logo" :src="account.thumbnail_url"/>
+                <img v-else id="sticky-company-logo" src="/static/temp-logo-image_english_512.png"/>
                 <span id="sticky-company-name">{{account.account_name_english}}</span>
               </a>
             </div>
@@ -472,7 +473,6 @@
           this.applyImageCSS()
           this.applySmoothScrolling()
           this.applyCompanyFadeInOutInStickyNavigationBar()
-          this.applyCompanyLogoImage()
           this.applyStickyCSS()
 
           $(window).resize(() => {
@@ -1000,9 +1000,6 @@
                 height: 32px;
                 border-radius: 16px;
                 border: 1px solid @color-lightest-grey;
-                background-position: 50% 50%;
-                background-size: cover;
-                background-repeat: no-repeat;
               }
               #sticky-company-name {
                 font-weight: 500;

@@ -106,7 +106,10 @@
 
         <!-- Information -->
         <div class="information-container">
-          <a><div class="vendor-logo-image" @click="routeAccountProfilePage"></div></a>
+          <a @click="routeAccountProfilePage">
+            <img v-if="value.vendor.thumbnail_url" class="vendor-logo-image" :src="value.vendor.thumbnail_url"/>
+            <img v-else class="vendor-logo-image" src="/static/temp-logo-image_english_512.png"/>
+          </a>
           <div class="category-contents" v-show="value.product.primary_product_category">
             <span>{{value.product.primary_product_category}}</span>
             <span> > </span>
@@ -354,7 +357,6 @@
       applyJquery () {
         $(document).ready(() => {
           this.changePageTitle()
-          this.applyCompanyLogoImage()
           this.imageResize()
           this.activateSlick()
           this.renderPDF()
@@ -403,16 +405,6 @@
         } else {
           location.href = `/${this.domain}/${productDomain}`
         }
-      },
-      applyCompanyLogoImage () {
-        const $logo = $('.vendor-logo-image')
-        var image = this.value.vendor.thumbnail_url
-        if (image) {
-          image = 'url(' + image + ')'
-        } else {
-          image = 'url(/static/temp-logo-image_english_512.png)'
-        }
-        $logo.css('background-image', image)
       },
       activateSlick () {
         $(document).ready(() => {
@@ -550,9 +542,6 @@
       height: 60px;
       border: 1px solid @color-lightest-grey;
       border-radius: 50%;
-      background-repeat: no-repeat !important;
-      background-size: cover !important;
-      background-position: 50% 50% !important;
     }
 
     p {

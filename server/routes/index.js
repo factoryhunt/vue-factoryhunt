@@ -25,7 +25,6 @@ router.get('/robots.txt', function(req, res) {
 })
 
 router.get('*', (req, res) => {
-  console.log('*')
   // if (req.headers.cookie) {
   //   console.log('cookie already have had.')
   //   req.headers.cookie.split('').map(function(element){
