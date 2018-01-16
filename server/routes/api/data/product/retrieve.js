@@ -118,7 +118,7 @@ module.exports = router
 // scoped functions
 function retrieveAllProductsByAccountId (id) {
   return new Promise((resolve, reject) => {
-    mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE account_id = ${id}`,
+    mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE account_id = ${id} AND product_status = "approved"`,
       (err, rows) => {
         if (err) return reject(err)
         resolve(rows)

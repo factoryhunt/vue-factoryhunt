@@ -130,7 +130,6 @@
                       @imageAdded="handleImageAdded"
                       id="html-editor"
                       v-model="value.editor">
-
           </vue-editor>
           <spinkit id="editor-spinkit"></spinkit>
           <p class="caution-text" v-lang.introduction.caution></p>
