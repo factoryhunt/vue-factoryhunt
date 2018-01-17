@@ -40,8 +40,8 @@
           <div v-else>
             <div v-for="(account, i) in accounts" v-if="i < 7">
               <div class="account-container">
-                <h3 class="company" v-if="account.account_name_english" @click="routeAccountProfilePage(i)">{{account.account_name_english}} <small>({{ getYear(account.established_date) }})</small></h3>
-                <h3 class="company" v-else @click="routeAccountProfilePage(i)">{{account.account_name}} <small>({{ getYear(account.established_date) }})</small></h3>
+                <h3 class="company" v-if="account.account_name_english" @click="routeAccountProfilePage(i)">{{account.account_name_english}} <small>{{ getYear(account.established_date) }}</small></h3>
+                <h3 class="company" v-else @click="routeAccountProfilePage(i)">{{account.account_name}} <small>{{ getYear(account.established_date) }}</small></h3>
                 <ul class="list-unstyled account-ul">
                   <li id="products">{{ account.products_english }}</li>
                   <li><a :href="checkWebsiteLinkHasHttp(account.website)" target="_blank">{{ account.website }}</a></li>
@@ -71,8 +71,8 @@
           <div v-for="(lead, index2) in leads" v-if="index2 < 7">
             <div style="padding: 0" class="col-md-9">
               <div class="directory-content">
-                <h4 class="company" v-if="lead.company_english" @click="routeLeadContactForm(index2)">{{ lead.company_english }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
-                <h4 class="company" v-else @click="routeLeadContactForm(index2)">{{ lead.company }} <small v-show="getYear(lead.established_date) !== '0000'">({{ getYear(lead.established_date) }})</small></h4>
+                <h4 class="company" v-if="lead.company_english" @click="routeLeadContactForm(index2)">{{ lead.company_english }} <small v-show="getYear(lead.established_date) !== '0000'">{{ getYear(lead.established_date) }}</small></h4>
+                <h4 class="company" v-else @click="routeLeadContactForm(index2)">{{ lead.company }} <small v-show="getYear(lead.established_date) !== '0000'">{{ getYear(lead.established_date) }}</small></h4>
                 <ul class="list-unstyled lead-ul">
                   <li id="products">{{ lead.products_english }}</li>
                   <li><a :href="checkWebsiteLinkHasHttp(lead.website)" target="_blank">{{ lead.website }}</a></li>
@@ -179,9 +179,15 @@
             }
           })
       },
-      getYear: function (year) {
-        year = year.split('-')
-        return year[0]
+      getYear (year) {
+        if (year) {
+          year = year.split('-')
+
+          if (year[0] === '0000') {
+            return ''
+          }
+          return `(${year[0]})`
+        }
       },
       routeLeadContactForm: function (index) {
         const id = this.leads[index].lead_id

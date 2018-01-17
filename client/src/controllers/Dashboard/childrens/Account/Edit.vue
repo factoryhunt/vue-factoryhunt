@@ -20,7 +20,7 @@
           <!-- First name -->
           <div class="box-container">
             <div class="left-contents" v-lang.body.firstName.title></div>
-            <div class="right-contents"><input type="text" pattern="[A-Za-z .]{1,20}" :placeholder="getFirstNamePlaceholder" :title="getFirstNameInputTitle" v-model="value.firstName"></div>
+            <div class="right-contents"><input type="text" pattern="[A-Za-z -.]{1,20}" :placeholder="getFirstNamePlaceholder" :title="getFirstNameInputTitle" v-model="value.firstName"></div>
           </div>
           <!-- Last name -->
           <div class="box-container">
@@ -108,7 +108,7 @@
           firstName: {
             title: 'First Name',
             placeholder: 'Robert',
-            inputTitle: 'It must be 1-20 characters and can only contain letters, and periods.'
+            inputTitle: 'It must be 1-20 characters and can only contain letters, hyphens and periods.'
           },
           lastName: {
             title: 'Last Name',
@@ -151,7 +151,7 @@
           firstName: {
             title: '이름',
             placeholder: 'Robert',
-            inputTitle: '1~20자의 문자와 마침표만 입력해주세요.'
+            inputTitle: '1~20자의 문자, 하이픈(-), 그리고 마침표만 입력해주세요.'
           },
           lastName: {
             title: '성',

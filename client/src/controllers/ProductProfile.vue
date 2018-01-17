@@ -115,7 +115,7 @@
             <span> > </span>
             <span>{{value.product.secondary_product_category}}</span>
           </div>
-          <p id="vendor-text">Made by: <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
+          <p id="vendor-text">by <a @click="routeAccountProfilePage">{{ value.vendor.account_name_english }}</a></p>
           <!--<div class="list-container">-->
           <!--<div class="left-contents">최소 주문량: {{value.product.minimum_order_quantity}}</div>-->
           <!--<div class="right-contents">제품 가격: 미정</div>-->
@@ -175,7 +175,7 @@
 
       <!-- Related products -->
       <div class="related-products-container">
-        <h3 class="title" v-lang.related.title="{count: value.products.length - 1}"></h3>
+        <h3 class="title" v-lang.related.title="{count: value.products.length > 0 ? value.products.length - 1 : 0}"></h3>
         <br>
         <div class="row">
           <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
@@ -191,11 +191,9 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <copyright-bar></copyright-bar>
-
   </div>
 </template>
 
