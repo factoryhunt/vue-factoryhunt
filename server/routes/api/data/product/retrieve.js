@@ -4,7 +4,26 @@ const CONFIG_MYSQL = require('../../../../config/mysql_config')
 
 // Retrieve All Products filtered by account_id
 // GET /api/data/product/account_id/:id
-router.get('/account_id/:id', (req, res) => {
+router.get('/account_id/:id', async (req, res) => {
+  const id = req.params.id
+  const getProducts = () => {
+    return new Promise((resolve, reject) => {
+      mysql.query(`SELECT * FROM ${CONFIG_MYSQL.TABLE_PRODUCTS} WHERE account_id = ${id}`,
+        (err, rows) => {
+          if (err) return reject(err)
+          resolve(rows)
+        })
+    })
+  }
+
+  try {
+    const products = await getProducts()
+    res.status(200).json(products)
+  } catch (err) {
+    res.status(404).json({result: false, msg: 'Getting all products failed'})
+  }
+})
+router.get('/account_id/:id/approved', (req, res) => {
   const id = req.params.id
   retrieveAllProductsByAccountId(id)
     .then((result) => {

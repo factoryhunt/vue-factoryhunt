@@ -357,9 +357,9 @@
       applyLocalData (account) {
         this.value.accountName = this.account.account_name_english
       },
-      fetchProducts: function (id) {
+      fetchProducts (id) {
         if (!id) return
-        this.$http.get(`/api/data/product/account_id/${id}`)
+        this.$http.get(`/api/data/product/account_id/${id}/approved`)
           .then(response => {
             this.products = response.data
             this.imageResize()

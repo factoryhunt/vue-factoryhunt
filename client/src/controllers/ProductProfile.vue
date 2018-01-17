@@ -332,7 +332,7 @@
         })
       },
       fetchReletedProducts (id) {
-        this.$http.get(`/api/data/product/account_id/${id}`)
+        this.$http.get(`/api/data/product/account_id/${id}/approved`)
           .then(res => {
             this.value.products = res.data
             this.relatedProductImageResize()

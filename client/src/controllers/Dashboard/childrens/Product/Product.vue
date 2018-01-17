@@ -46,7 +46,7 @@
     },
     methods: {
       fetchProducts (id) {
-        if (!id) return console.log('fetchProduct failed (/Dashboard/Product/Product.vue)')
+        if (!id) return
         this.$http.get(`/api/data/product/account_id/${id}`)
           .then(res => {
             this.value.products = res.data
