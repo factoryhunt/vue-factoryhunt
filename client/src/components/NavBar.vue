@@ -19,7 +19,7 @@
               <i id="search-icon" class="fa fa-search"></i>
             </div>
           </div>
-          <input pattern="[A-Za-z0-9]{2,50}" :title="getTitle" v-model="input" :placeholder="getInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input pattern="[A-Za-z0-9 ]{2,50}" :title="getTitle" v-model="input" :placeholder="getInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         </form>
       </div>
 

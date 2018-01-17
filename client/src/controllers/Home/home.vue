@@ -6,7 +6,7 @@
     <!-- Search bar -->
     <div class="form-container">
       <form @submit.prevent="onSearchInput">
-        <input v-model="input" type="text" pattern="[A-Za-z0-9]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
+        <input v-model="input" type="text" pattern="[A-Za-z0-9 ]{2,50}" :title="getTitle" class="form-control" id="searchInput" :placeholder="getInput">
         <button type="submit" class="btn btn-default" v-lang.search></button>
       </form>
     </div>
