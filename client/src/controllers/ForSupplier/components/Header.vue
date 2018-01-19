@@ -151,8 +151,6 @@
           $spinkit.removeClass().addClass('spinkit-input')
           $signUpButton.css('display', 'none')
           await this.signUp()
-          $spinkit.removeClass().addClass('invisible')
-          $signUpButton.css('display', 'inherit')
           location.href = '/dashboard'
         } catch (err) {
           $spinkit.removeClass().addClass('invisible')

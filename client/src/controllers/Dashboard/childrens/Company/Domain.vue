@@ -29,8 +29,6 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import NavBar from '../../components/NavBar.vue'
-  import FooterBar from '../../../../components/FooterBar'
   import Spinkit from '../../../../components/Spinkit/Spinkit'
   export default {
     metaInfo: {
@@ -45,8 +43,6 @@
       }
     },
     components: {
-      NavBar,
-      FooterBar,
       Spinkit
     },
     data () {
@@ -68,7 +64,8 @@
           title: 'Customize your domain.',
           placeholder: 'Domain address',
           caution: 'It must be 3-50 and can only contain letters, and numbers.',
-          button: 'Save'
+          button: 'Save',
+          success: '<i class="fa fa-check-circle-o" aria-hidden="true"> Your information has been changed successfully.'
         }
       },
       kor: {
@@ -76,7 +73,8 @@
           title: '회사 이름이 포함된 맞춤형 도메인으로 변경하세요.',
           placeholder: '도메인 주소',
           caution: '3~50자의 영어와 숫자만 입력해주세요.',
-          button: '저장하기'
+          button: '저장하기',
+          fail: '<i class="fa fa-ban" aria-hidden="true"> Failed to update your information.'
         }
       }
     },
@@ -102,29 +100,49 @@
       applyLocalData (account) {
         this.value.domain = account.domain
       },
-      checkDomain () {
+      async checkDomain () {
         $('#modal-spinkit').removeClass().addClass('spinkit-modal')
-//        const hiddenTitle = $('.domain-container > .hidden-title')
 
-        if (this.value.domain === this.account.domain) {
-          alert('It has been edited successfuly.')
-          window.scrollTo(0, 0)
-          location.reload()
-          return
-        }
-
-        this.$http.get(`/api/data/account/domain/${this.value.domain}`)
-          .then(res => {
-            if (res.data) {
-              alert('The domain is already taken. Try another one.')
-              $('#modal-spinkit').removeClass()
-              this.toggle.isDomainAvailable = false
-//              this.msg.domain.hiddenTitle = 'The domain is already taken. Try another one.'
-//              hiddenTitle.css({'color': 'red'})
-            } else { // when available
+        try {
+          let { data } = await this.$http.get(`/api/data/account/domain/${this.value.domain}`)
+          if (data) {
+            if (data.account_id === this.account.account_id) {
               this.updateDomain()
+            } else {
+              this.onEditFail()
             }
-          })
+          } else {
+            this.updateDomain()
+          }
+        } catch (err) {
+          this.onEditFail()
+        }
+      },
+      onEditSuccess () {
+        $(document).ready(() => {
+          $('#modal-spinkit').removeClass()
+          this.showAlert(true)
+        })
+      },
+      onEditFail () {
+        this.showAlert(false)
+        $('#modal-spinkit').removeClass()
+        this.toggle.isDomainAvailable = false
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          $alert.show()
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+        })
       },
       domainInputPressed () {
         this.value.domain = this.value.domain.toLowerCase()
@@ -160,10 +178,7 @@
         // request
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
-            $('#modal-spinkit').removeClass()
-            alert('It has been edited successfuly.')
-            window.scrollTo(0, 0)
-            location.reload()
+            this.onEditSuccess()
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()

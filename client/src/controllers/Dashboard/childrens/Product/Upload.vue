@@ -36,11 +36,11 @@
         </div>
         <div class="divider"></div>
 
-        <!-- Product Name & Code -->
+        <!-- Product Name -->
         <div class="name-container input-container">
           <p class="title" v-lang.productName.title></p>
           <span class="required-text" v-lang.requiredField></span>
-          <input id="name-count-input" required pattern="[A-Za-z0-9 .,&/-]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <input id="name-count-input" required pattern="[A-Za-z0-9 `\/.,&()-]{2,100}" :title="getProductNameInputTitle" minlength="2" maxlength="100" v-model="value.productName" @keyup="countNameLength" :placeholder="getProductNamePlaceholder" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
           <p class="count-text">{{ 100 - value.nameCount }}</p>
           <p class="hidden-text" v-lang.productName.hidden></p>
           <p class="caution-text" v-lang.productName.caution></p>
@@ -102,7 +102,7 @@
               <!--<select required v-model="value.origin">-->
               <select v-model="value.origin">
                 <option id="disabled-option" disabled value="" v-lang.information.originPlaceholder></option>
-                <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
+                <option v-for="country in value.country_list" :value="country.country_name">{{country.country_name}}</option>
               </select>
             </div>
           </div>
@@ -162,7 +162,7 @@
 </template>
 
 <script>
-  import countries from '../../../../assets/models/countries.json'
+  import country from '../../../../assets/models/country.json'
   import categories from '../../../../assets/models/categories.json'
   import Spinkit from '../../../../components/Spinkit/Spinkit.vue'
   import { VueEditor } from 'vue2-editor'
@@ -193,7 +193,7 @@
         value: {
           files: [],
           pdfFile: null,
-          countries: countries.english,
+          country_list: country,
           categories: categories,
           subCategories: '',
           thirdCategories: '',
@@ -372,7 +372,12 @@
     },
     methods: {
       filterProductDomain (productDomain) {
-        return productDomain.replace(/ /g, '-')
+        let temp = productDomain
+        temp = temp.replace(/[-`.,()&/]/g, ' ')
+        temp = temp.trim()
+        temp = temp.replace(/ +/g, '-')
+        console.log(temp)
+        return temp
       },
       countNameLength (e) {
         $(document).ready(() => {
@@ -521,6 +526,7 @@
 //        if (!this.value.secondaryCategory) {
 //          return alert('Select the product subcategory.')
 //        }
+        this.filterProductDomain(this.value.productName)
 
         if (!this.toggle.productName) {
           return alert(this.getProductNameAlreadyHave)
@@ -561,8 +567,26 @@
           })
           .catch(() => {
             $('#modal-spinkit').removeClass()
-            alert(this.getUploadFail)
+            this.showAlert(false)
           })
+      },
+      editFail () {
+        this.showAlert(false)
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+          $alert.show()
+        })
       },
       handleImageAdded (file, Editor, cursorLocation) {
         // An example of using FormData
@@ -576,7 +600,6 @@
         formData.append('images', file)
         this.$http.post(`/api/data/product/editor/${this.getAccountId}`, formData, config)
           .then((result) => {
-            console.log(result)
             $('#editor-spinkit').removeClass().addClass('invisible')
             let url = result.data // Get url from response
             Editor.insertEmbed(cursorLocation, 'image', url)

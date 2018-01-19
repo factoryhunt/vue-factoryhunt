@@ -2,6 +2,7 @@
   <div v-if="value.account.account_id" class="page-container">
     <nav-bar :isUserLoggedIn="isLoggedIn" :account="value.account" :contact="value.contact"></nav-bar>
     <sub-nav-bar></sub-nav-bar>
+    <top-alert-bar></top-alert-bar>
     <div class="body-container">
       <div class="body-contents">
         <router-view :account="value.account" :contact="value.contact"></router-view>
@@ -14,6 +15,7 @@
 <script>
   import NavBar from '../../components/NavBar.vue'
   import SubNavBar from './components/SubNavBar.vue'
+  import TopAlertBar from './components/TopAlertBar.vue'
   import CopyrightBar from '../../components/CopyrightBar.vue'
   import { mapGetters } from 'vuex'
   export default {
@@ -23,6 +25,7 @@
     components: {
       NavBar,
       SubNavBar,
+      TopAlertBar,
       CopyrightBar
     },
     data () {
@@ -72,5 +75,4 @@
       }
     }
   }
-
 </style>

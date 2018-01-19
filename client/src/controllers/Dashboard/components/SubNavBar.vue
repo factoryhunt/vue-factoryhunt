@@ -33,34 +33,34 @@
 <style lang="less" scoped>
   @import "../../../assets/css/index";
 
-  .body-container {
-    margin-top: 0;
-  }
-
   // Global
   .component-container {
     background-color: @color-font-base;
     width: 100%;
     height: 40px;
-  }
 
-  .tab-container {
+    .body-container {
+      margin-top: 0;
 
-    .tab {
-      color: @color-menu-gray;
-      line-height: 40px;
-      margin-right: 20px;
-      font-size: 15px;
-      font-weight: 400;
-      text-decoration: none;
+      .tab-container {
 
-      &:hover {
-        color: @color-white;
-        cursor: pointer;
+        .tab {
+          color: @color-menu-gray;
+          line-height: 40px;
+          margin-right: 20px;
+          font-size: 15px;
+          font-weight: 400;
+          text-decoration: none;
+
+          &:hover {
+            color: @color-white;
+            cursor: pointer;
+          }
+        }
+        .tab[aria-selected="true"] {
+          color: @color-white;
+        }
       }
-    }
-    .tab[aria-selected="true"] {
-      color: @color-white;
     }
   }
 </style>

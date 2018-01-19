@@ -146,18 +146,36 @@
       async imageUpload (inputId) {
         this.activateLoader()
         const file = document.getElementById(inputId).files[0]
-        console.log(file)
         try {
           const compressedFile = await this.imageCompress(file)
-          console.log(compressedFile)
           await this.postImageToS3(inputId, compressedFile)
           this.deactivateLoader()
-          alert('The image has been uploaded successfully.')
-          location.reload()
+          this.uploadSuccess()
         } catch (err) {
+          this.uploadFail()
           this.deactivateLoader()
-          alert('Failed. Please try again.')
         }
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          $alert.show()
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+        })
+      },
+      uploadSuccess () {
+        this.showAlert(true)
+      },
+      uploadFail () {
+        this.showAlert(false)
       },
       imageCompress (file) {
         return new Promise((resolve, reject) => {
@@ -226,7 +244,6 @@
       }
     },
     mounted () {
-      window.scrollTo(0, 0)
       this.activateJquery()
     }
   }

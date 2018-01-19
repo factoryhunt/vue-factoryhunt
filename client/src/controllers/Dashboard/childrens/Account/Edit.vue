@@ -236,15 +236,25 @@
         }
         this.$http.put(`/api/data/contact/${this.contact.contact_id}`, data)
           .then(() => {
-            $('#loader').removeClass()
-            alert(this.getEditSuccess)
-            window.scrollTo(0, 0)
-            location.reload()
+            this.onEditSuccess()
           })
           .catch(() => {
-            $('#loader').removeClass()
-            alert(this.getEditFail)
+            this.onEditFail()
           })
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          $alert.show()
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+        })
       },
       mappingData () {
         this.value.email = this.contact.contact_email
@@ -264,6 +274,20 @@
       activateJquery () {
         $(document).ready(() => {
           this.preventEnterKeySubmit()
+        })
+      },
+      onEditSuccess () {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          $('#loader').removeClass()
+          this.showAlert(true)
+        })
+      },
+      onEditFail () {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          $('#loader').removeClass()
+          this.showAlert(false)
         })
       }
     },

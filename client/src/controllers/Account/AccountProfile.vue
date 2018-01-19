@@ -59,6 +59,7 @@
           <h3 v-lang.description.title></h3>
           <br>
           <textarea id="description-textarea" readonly>{{ account.company_description_english }}</textarea>
+          <p @click="descriptionExpand" class="view-details-button" v-lang.description.readMore></p>
         </div>
         <div class="divider"></div>
 
@@ -96,13 +97,14 @@
           <h3 v-lang.history.title></h3>
           <br>
           <textarea readonly>{{ account.history }}</textarea>
+          <p @click="historyExpand" class="view-details-button" v-lang.history.readMore></p>
         </div>
         <div class="divider" v-show="account.history"></div>
 
         <!-- Company Certification -->
         <!--<div class="certification-container">-->
-          <!--<h3>Certifications</h3>-->
-          <!--<br>-->
+        <!--<h3>Certifications</h3>-->
+        <!--<br>-->
         <!--</div>-->
         <!--<div class="divider"></div>-->
 
@@ -228,7 +230,8 @@
           products: 'Products'
         },
         description: {
-          title: 'Company Description'
+          title: 'Company Description',
+          readMore: 'Read more <i class="fa fa-angle-down" aria-hidden="false"></i>'
         },
         information: {
           title: 'Information',
@@ -239,7 +242,8 @@
           establishedYear: 'Established Year'
         },
         history: {
-          title: 'History'
+          title: 'History',
+          readMore: 'Read more <i class="fa fa-angle-down" aria-hidden="false"></i>'
         },
         reviews: {
           title: 'Reviews <small>({count})</small>'
@@ -265,7 +269,8 @@
           products: '제품'
         },
         description: {
-          title: '회사 소개'
+          title: '회사 소개',
+          readMore: '자세히 보기 <i class="fa fa-angle-down" aria-hidden="false"></i>'
         },
         information: {
           title: '정보',
@@ -276,7 +281,8 @@
           establishedYear: '설립연도'
         },
         history: {
-          title: '연혁'
+          title: '연혁',
+          readMore: '자세히 보기 <i class="fa fa-angle-down" aria-hidden="false"></i>'
         },
         reviews: {
           title: '평가 <small>({count})</small>'
@@ -453,18 +459,40 @@
         /* eslint-enable no-unused-vars */
       },
       textareaResize () {
-        $(document).ready(() => {
-          const $description = $('.description-container textarea')
-          const $history = $('.history-container textarea')
-          $description.css({
-            'height': ($description[0].scrollHeight) + 'px',
-            'overflow': 'hidden'
-          })
-          $history.css({
-            'height': ($history[0].scrollHeight) + 'px',
-            'overflow': 'hidden'
-          })
-        })
+        const $description = $('.description-container textarea')
+        const $history = $('.history-container textarea')
+        const $descriptionHeight = $description[0].scrollHeight
+        const $historyHeight = $history[0].scrollHeight
+        console.log('dh:', $descriptionHeight)
+        console.log('hd: ', $historyHeight)
+        const $descriptionButton = $('.description-container .view-details-button')
+        const $historyButton = $('.history-container .view-details-button')
+        if ($descriptionHeight >= 200) {
+          $descriptionButton.show()
+        } else {
+          $description.css('height', `${$descriptionHeight}px`)
+        }
+        if ($historyHeight >= 400) {
+          $historyButton.show()
+        } else {
+          $history.css('height', `${$historyHeight}px`)
+        }
+      },
+      descriptionExpand () {
+        const $description = $('.description-container textarea')
+        const $viewDetailsButton = $('.description-container .view-details-button')
+        $viewDetailsButton.hide()
+        $description.animate({
+          'height': ($description[0].scrollHeight) + 'px'
+        }, 200)
+      },
+      historyExpand () {
+        const $history = $('.history-container textarea')
+        const $viewDetailsButton = $('.history-container .view-details-button')
+        $viewDetailsButton.hide()
+        $history.animate({
+          'height': ($history[0].scrollHeight) + 'px'
+        }, 200)
       },
       activateJquery () {
         $(document).ready(() => {
@@ -477,7 +505,6 @@
 
           $(window).resize(() => {
             this.mainImageResize()
-            this.textareaResize()
             this.imageResize()
             this.applyImageCSS()
             this.applyStickyCSS()
@@ -548,7 +575,6 @@
         $(document).ready(() => {
           const fadeContainer = $('.sticky-company-container')
           var logo = $('.header-container .logo')
-          console.log('height', logo.outerHeight())
           var logoBottomOffset = logo.offset().top + logo.outerHeight() - 50
           $(window).scroll(function () { // scroll event
             var windowTop = $(window).scrollTop() // returns number
@@ -738,6 +764,20 @@
       padding: 0;
       font-weight:200;
       font-size:18px;
+      overflow: hidden;
+    }
+    .view-details-button {
+      display: none;
+      color: @color-link;
+      font-size: 17px;
+      margin-top: 10px;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+    .expand {
+      animation: text-expand 2s;
     }
   }
 
@@ -772,6 +812,17 @@
       padding: 0;
       font-weight:200;
       font-size:18px;
+      overflow: hidden;
+    }
+    .view-details-button {
+      display: none;
+      color: @color-link;
+      font-size: 17px;
+      margin-top: 10px;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
   }
 

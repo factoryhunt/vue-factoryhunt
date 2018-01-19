@@ -1,5 +1,8 @@
 <template>
   <div class="dashboard-page-container">
+
+    <spinkit id="loader"></spinkit>
+
     <form @submit.prevent="onEditButton">
       <div class="body-container">
 
@@ -38,8 +41,12 @@
 </template>
 
 <script>
+  import Spinkit from '../../../../components/Spinkit/Spinkit.vue'
   import { mapGetters } from 'vuex'
   export default {
+    components: {
+      Spinkit
+    },
     metaInfo: {
       title: 'Change Password | Factory Hunt'
     },
@@ -95,6 +102,7 @@
     },
     methods: {
       onEditButton () {
+        this.activateLoader()
         const data = {
           password: this.value.currentPassword,
           new_password: this.value.newPassword,
@@ -102,15 +110,41 @@
         }
         this.$http.put(`/api/data/contact/password_change/${this.getContactId}`, data)
           .then(() => {
-            alert(this.getEditSuccess)
-            location.reload()
+            this.deactivateLoader()
+            this.changeSuccess()
+            this.value.currentPassword = ''
+            this.value.newPassword = ''
+            this.value.newPasswordConfirm = ''
           })
           .catch(err => {
             console.log(err.response)
+            this.deactivateLoader()
             alert(err.response.data.msg)
           })
       },
-      mappingData () {
+      activateLoader () {
+        $('#loader').removeClass().addClass('spinkit-modal')
+      },
+      deactivateLoader () {
+        $('#loader').removeClass()
+      },
+      changeSuccess () {
+        this.showAlert(true)
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+          $alert.show()
+        })
       }
     }
   }

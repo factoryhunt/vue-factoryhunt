@@ -41,8 +41,8 @@
       <div class="short-description-container input-container">
         <p class="title" v-lang.slogan.title></p>
         <p class="sub-title" v-lang.slogan.desc></p>
-        <input id="short-description-input" maxlength="50" :title="getSloganInputTitle" pattern="[A-Za-z0-9 .,']{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
-        <p class="third-title">{{ 50 - value.shortDescriptionCount }}</p>
+        <input id="short-description-input" maxlength="150" :title="getSloganInputTitle" pattern="[A-Za-z0-9 .,']{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
+        <p class="third-title">{{ 150 - value.shortDescriptionCount }}</p>
       </div>
 
       <!-- Company Long Description -->
@@ -83,7 +83,7 @@
           <div class="right-contents">
             <select required title="required" v-model="value.country">
               <option id="disabled-option" disabled value="" v-lang.company.country.defaultValue></option>
-              <option v-for="country in value.countries" :value="country.name">{{country.name}}</option>
+              <option v-for="country in value.country_list" :value="country.country_name">{{country.country_name}}</option>
             </select>
           </div>
         </div>
@@ -134,9 +134,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import countries from '../../../../assets/models/countries.json'
-  import NavBar from '../../components/NavBar.vue'
-  import FooterBar from '../../../../components/FooterBar'
+  import country from '../../../../assets/models/country.json'
   import Spinkit from '../../../../components/Spinkit/Spinkit'
   export default {
     metaInfo: {
@@ -151,14 +149,12 @@
       }
     },
     components: {
-      NavBar,
-      FooterBar,
       Spinkit
     },
     data () {
       return {
         value: {
-          countries: countries.english,
+          country_list: country,
           contact: {},
           mainImageUrl: '',
           mainImageFileName: '',
@@ -532,15 +528,38 @@
         // request
         this.$http.put(`/api/data/account/${this.getAccountId}`, data)
           .then(() => {
-            $('#modal-spinkit').removeClass()
-            alert('The information has been updated successfully.')
-            window.scrollTo(0, 0)
-            location.reload()
+            this.onEditSuccess()
           })
           .catch(() => {
-            $('#modal-spinkit').removeClass()
-            alert('Failed. Please try again.')
+            this.onEditFail()
           })
+      },
+      showAlert (result) {
+        $(document).ready(() => {
+          window.scrollTo(0, 0)
+          const $alert = $('#alert')
+          if (result) {
+            this.$store.commit('changeAlertState', true)
+          } else {
+            this.$store.commit('changeAlertState', false)
+          }
+          $alert.show()
+          setTimeout(() => {
+            $('.alert-container').hide()
+          }, 6000)
+        })
+      },
+      onEditSuccess () {
+        $(document).ready(() => {
+          $('#modal-spinkit').removeClass()
+          this.showAlert(true)
+        })
+      },
+      onEditFail () {
+        $(document).ready(() => {
+          $('#modal-spinkit').removeClass()
+          this.showAlert(false)
+        })
       },
       // jQuery for CSS
       applyStickyCSS () {
@@ -615,6 +634,9 @@
     },
     mounted () {
       this.applyAttributes()
+      for (var i in this.value.country_list) {
+        console.log(this.value.country_list[i])
+      }
     }
   }
 </script>
