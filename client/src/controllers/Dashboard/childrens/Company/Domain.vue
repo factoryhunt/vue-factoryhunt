@@ -66,7 +66,7 @@
           caution: 'It must be 3-50 and can only contain letters, and numbers.',
           button: 'Save',
           success: 'Your domain has been updated successfully.',
-          fail: 'Domain update failed: The domain already exists.'
+          fail: 'The domain is taken. Please try another.'
         }
       },
       kor: {
@@ -76,7 +76,7 @@
           caution: '3~50자의 영어와 숫자만 입력해주세요.',
           button: '저장하기',
           success: '도메인이 성공적으로 업데이트 되었습니다.',
-          fail: '도메인 업데이트 실패: 이미 존재하는 도메인입니다.'
+          fail: '입력한 도메인이 이미 사용중입니다. 다른 도메인을 입력해주세요.'
         }
       }
     },

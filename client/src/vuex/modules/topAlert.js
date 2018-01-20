@@ -18,7 +18,7 @@ export default {
     changeAlertState (state, payload) {
       state.alertState = payload.state
       if (state.alertState) {
-        state.alertMsg = '<i class="fa fa-check-circle-o" aria-hidden="true"> ' + payload.msg
+        state.alertMsg = '<i class="fa fa-check-circle-o" aria-hidden="true"></i> ' + payload.msg
       } else {
         state.alertMsg = '<i class="fa fa-ban" aria-hidden="true"></i> ' + payload.msg
       }

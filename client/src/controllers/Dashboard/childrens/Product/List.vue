@@ -39,7 +39,7 @@
       <!-- products exist -->
       <div v-else class="product-list-container">
         <div class="list-container">
-          <div v-for="(product, index) in products" :id="'list-' + index" class="list">
+          <div v-for="(product, index) in getProductReversed" :id="'list-' + index" class="list">
             <div class="image-container">
               <img class="product-image" :src="product.product_image_url_1">
             </div>
@@ -143,6 +143,9 @@
       }
     },
     computed: {
+      getProductReversed () {
+        return this.products.reverse()
+      },
       getPending () {
         return this.translate('exist.pending')
       },
