@@ -65,7 +65,8 @@
           placeholder: 'Domain address',
           caution: 'It must be 3-50 and can only contain letters, and numbers.',
           button: 'Save',
-          success: '<i class="fa fa-check-circle-o" aria-hidden="true"> Your information has been changed successfully.'
+          success: 'Your domain has been updated successfully.',
+          fail: 'Domain update failed: The domain already exists.'
         }
       },
       kor: {
@@ -74,7 +75,8 @@
           placeholder: '도메인 주소',
           caution: '3~50자의 영어와 숫자만 입력해주세요.',
           button: '저장하기',
-          fail: '<i class="fa fa-ban" aria-hidden="true"> Failed to update your information.'
+          success: '도메인이 성공적으로 업데이트 되었습니다.',
+          fail: '도메인 업데이트 실패: 이미 존재하는 도메인입니다.'
         }
       }
     },
@@ -89,6 +91,12 @@
       },
       getCautionPlaceholder () {
         return this.translate('domain.caution')
+      },
+      getSuccessAlert () {
+        return this.translate('domain.success')
+      },
+      getFailAlert () {
+        return this.translate('domain.fail')
       }
     },
     methods: {
@@ -119,25 +127,22 @@
         }
       },
       onEditSuccess () {
-        $(document).ready(() => {
-          $('#modal-spinkit').removeClass()
-          this.showAlert(true)
-        })
+        this.showAlert(true, this.getSuccessAlert)
+        $('#modal-spinkit').removeClass()
       },
       onEditFail () {
-        this.showAlert(false)
+        this.showAlert(false, this.getFailAlert)
         $('#modal-spinkit').removeClass()
         this.toggle.isDomainAvailable = false
       },
-      showAlert (result) {
+      showAlert (state, msg) {
         $(document).ready(() => {
           window.scrollTo(0, 0)
           const $alert = $('#alert')
-          if (result) {
-            this.$store.commit('changeAlertState', true)
-          } else {
-            this.$store.commit('changeAlertState', false)
-          }
+          this.$store.commit('changeAlertState', {
+            msg,
+            state
+          })
           $alert.show()
           setTimeout(() => {
             $('.alert-container').hide()

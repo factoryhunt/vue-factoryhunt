@@ -60,24 +60,37 @@
     },
     messages: {
       eng: {
-        editSuccess: 'Your password has been changed.',
         editFail: 'Change failed. Please try again.',
         title: 'New password',
         subTitle: 'Use at least one letter, one numeral, and eight characters.',
-        currentPassword: 'Current password',
-        newPassword: 'New password',
-        confirmPassword: 'Confirm',
-        change: 'Change'
+        currentPassword: 'Old Password',
+        newPassword: 'New Password',
+        confirmPassword: 'Confirm Password',
+        change: 'Change',
+        alert: {
+          success: 'Your password has been changed.',
+          8001: 'Your new passwords did not match. Please try again.',
+          8002: 'Your password must at least 8 characters. Please try again.',
+          8003: 'Your old password was incorrect. Please try again.',
+          8004: 'Password update failed: Internal server error. Please try again.'
+        }
       },
       kor: {
         editSuccess: '비밀번호가 변경 되었습니다.',
         editFail: '변경 실패. 다시 시도해주세요.',
-        title: '새로운 비밀번호',
+        title: '이전 비밀번호',
         subTitle: '비밀번호는 문자와 숫자의 조합으로 최소 8문자를 포함해야 합니다.',
         currentPassword: '현재 비밀번호',
-        newPassword: '새로운 비밀번호',
-        confirmPassword: '확인',
-        change: '변경하기'
+        newPassword: '새 비밀번호',
+        confirmPassword: '비밀번호 확인',
+        change: '변경하기',
+        alert: {
+          success: '비밀번호가 성공적으로 변경되었습니다.',
+          8001: '새로운 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.',
+          8002: '비밀번호는 8자 이상이어야 합니다. 다시 시도해 주세요.',
+          8003: '이전 비밀번호가 정확하지 않습니다. 다시 입력해 주세요.',
+          8004: '비밀번호 변경 실패: 서버 내부 오류가 발생했습니다. 다시 시도해 주세요.'
+        }
       }
     },
     data () {
@@ -93,11 +106,20 @@
       ...mapGetters([
         'getContactId'
       ]),
-      getEditSuccess () {
-        return this.translate('editSuccess')
+      getSuccessAlert () {
+        return this.translate('alert.success')
       },
-      getEditFail () {
-        return this.translate('editFail')
+      get8001Alert () {
+        return this.translate('alert.8001')
+      },
+      get8002Alert () {
+        return this.translate('alert.8002')
+      },
+      get8003Alert () {
+        return this.translate('alert.8003')
+      },
+      get8004Alert () {
+        return this.translate('alert.8004')
       }
     },
     methods: {
@@ -110,17 +132,17 @@
         }
         this.$http.put(`/api/data/contact/password_change/${this.getContactId}`, data)
           .then(() => {
-            this.deactivateLoader()
-            this.changeSuccess()
-            this.value.currentPassword = ''
-            this.value.newPassword = ''
-            this.value.newPasswordConfirm = ''
+            this.changeSucceed()
+            this.resetLocalData()
           })
           .catch(err => {
-            console.log(err.response)
-            this.deactivateLoader()
-            alert(err.response.data.msg)
+            this.changeFailed(err.response.data.code)
           })
+      },
+      resetLocalData () {
+        this.value.currentPassword = ''
+        this.value.newPassword = ''
+        this.value.newPasswordConfirm = ''
       },
       activateLoader () {
         $('#loader').removeClass().addClass('spinkit-modal')
@@ -128,18 +150,37 @@
       deactivateLoader () {
         $('#loader').removeClass()
       },
-      changeSuccess () {
-        this.showAlert(true)
+      changeSucceed () {
+        this.showAlert(true, this.getSuccessAlert)
       },
-      showAlert (result) {
+      changeFailed (code) {
+        switch (code) {
+          case '8001':
+            this.showAlert(false, this.get8001Alert)
+            break
+          case '8002':
+            this.showAlert(false, this.get8002Alert)
+            break
+          case '8003':
+            this.showAlert(false, this.get8003Alert)
+            break
+          case '8004':
+            this.showAlert(false, this.get8004Alert)
+            break
+          default:
+            this.showAlert(false, this.get8004Alert)
+            break
+        }
+      },
+      showAlert (state, msg) {
         $(document).ready(() => {
+          this.deactivateLoader()
           window.scrollTo(0, 0)
           const $alert = $('#alert')
-          if (result) {
-            this.$store.commit('changeAlertState', true)
-          } else {
-            this.$store.commit('changeAlertState', false)
-          }
+          this.$store.commit('changeAlertState', {
+            state,
+            msg
+          })
           setTimeout(() => {
             $('.alert-container').hide()
           }, 6000)
@@ -267,11 +308,11 @@
           padding-left: 18px;
           height: @height;
           line-height: @height;
-          width: 170px;
+          width: 180px;
           border-right: 1px solid @color-light-grey;
         }
         .right-contents {
-          padding-left: 180px;
+          padding-left: 190px;
 
           input {
             border: none;

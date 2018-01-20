@@ -89,6 +89,10 @@
           desc: 'A cover photo is the larger photo at the top of your company website.',
           caution: 'Optimize your cover photo for the right dimensions: 1280 pixels wide and 460 pixels tall.',
           button: 'Choose File'
+        },
+        alert: {
+          success: 'Your photo has been updated successfully.',
+          fail: 'Photo update failed. Please try again.'
         }
       },
       kor: {
@@ -104,13 +108,23 @@
           desc: '홈페이지에 가장 먼저 노출되고 강조되는 부분입니다. 가장 멋진 사진을 올려주세요!',
           caution: '대표 이미지의 사이즈는 가로 1280픽셀과 세로 460픽셀에 최적화 되어있습니다.',
           button: '파일 선택'
+        },
+        alert: {
+          success: '이미지가 성공적으로 업데이트 되었습니다.',
+          fail: '이미지를 업데이트 하지 못했습니다. 다시 시도해주세요.'
         }
       }
     },
     computed: {
       ...mapGetters([
         'getAccountId'
-      ])
+      ]),
+      getSuccessAlert () {
+        return this.translate('alert.success')
+      },
+      getFailAlert () {
+        return this.translate('alert.fail')
+      }
     },
     methods: {
       //      filterImageFileName (fileName) {
@@ -149,22 +163,20 @@
         try {
           const compressedFile = await this.imageCompress(file)
           await this.postImageToS3(inputId, compressedFile)
-          this.deactivateLoader()
           this.uploadSuccess()
         } catch (err) {
           this.uploadFail()
-          this.deactivateLoader()
         }
       },
-      showAlert (result) {
+      showAlert (state, msg) {
         $(document).ready(() => {
+          this.deactivateLoader()
           window.scrollTo(0, 0)
           const $alert = $('#alert')
-          if (result) {
-            this.$store.commit('changeAlertState', true)
-          } else {
-            this.$store.commit('changeAlertState', false)
-          }
+          this.$store.commit('changeAlertState', {
+            state,
+            msg
+          })
           $alert.show()
           setTimeout(() => {
             $('.alert-container').hide()
@@ -172,10 +184,10 @@
         })
       },
       uploadSuccess () {
-        this.showAlert(true)
+        this.showAlert(true, this.getSuccessAlert)
       },
       uploadFail () {
-        this.showAlert(false)
+        this.showAlert(false, this.getFailAlert)
       },
       imageCompress (file) {
         return new Promise((resolve, reject) => {

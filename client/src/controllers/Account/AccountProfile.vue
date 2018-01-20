@@ -469,11 +469,15 @@
         const $historyButton = $('.history-container .view-details-button')
         if ($descriptionHeight >= 200) {
           $descriptionButton.show()
+          $description.css('height', '200px')
+        } else if ($descriptionHeight <= 50) {
+//          $description.css('height', '40px') // because of css bug?
         } else {
           $description.css('height', `${$descriptionHeight}px`)
         }
         if ($historyHeight >= 400) {
           $historyButton.show()
+          $history.css('height', '200px')
         } else {
           $history.css('height', `${$historyHeight}px`)
         }

@@ -96,8 +96,6 @@
       },
       getYear: function (year) {
         year = year.split('-')
-        console.log(year)
-        console.log(typeof year)
         return year[0]
       },
       routeLeadContactForm: function (index) {

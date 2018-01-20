@@ -194,9 +194,9 @@
         },
         slogan: {
           title: 'Slogan',
-          desc: 'Describe your company in 50 characters or less.',
+          desc: 'Describe your company in 150 characters or less.',
           placeholder: 'Factory Hunt is a global B2B platform.',
-          inputTitle: 'It must be characters 2-50 and can only contain letters, numbers, periods, comma, and apostrophe.'
+          inputTitle: 'It must be characters 2-150 and can only contain letters, numbers, periods, comma, and apostrophe.'
         },
         description: {
           title: 'Company Description',
@@ -272,6 +272,10 @@
           title: 'Confirm and Save',
           desc: 'Please confirm the information above before you save it. Company information will be updated immediately.',
           button: 'Save'
+        },
+        alert: {
+          success: 'Your information has been updated successfully.',
+          fail: 'Information update failed. Please try again.'
         }
       },
       kor: {
@@ -286,7 +290,7 @@
           title: '슬로건',
           desc: '귀사를 한 문장으로 표현해주세요.',
           placeholder: 'Factory Hunt is a global B2B platform.',
-          inputTitle: '2~50자의 영어와 숫자, 마침표, 쉼표, 그리고 작은따옴표만 입력해주세요.'
+          inputTitle: '2~150자의 영어와 숫자, 마침표, 쉼표, 그리고 작은따옴표만 입력해주세요.'
         },
         description: {
           title: '회사 소개',
@@ -362,6 +366,10 @@
           title: '확인 및 저장',
           desc: '저장할 정보를 다시 한 번 확인하고 내용이 맞다면 저장하기 버튼을 눌러주세요. 바로 웹사이트에 반영됩니다!',
           button: '저장하기'
+        },
+        alert: {
+          success: '정보가 성공적으로 업데이트 되었습니다.',
+          fail: '정보를 업데이트 실패. 다시 시도해주세요.'
         }
       }
     },
@@ -439,6 +447,12 @@
       },
       getHistoryPlaceholder () {
         return this.translate('history.placeholder')
+      },
+      getSuccessAlert () {
+        return this.translate('alert.success')
+      },
+      getFailAlert () {
+        return this.translate('alert.fail')
       }
     },
     methods: {
@@ -534,15 +548,14 @@
             this.onEditFail()
           })
       },
-      showAlert (result) {
+      showAlert (state, msg) {
         $(document).ready(() => {
           window.scrollTo(0, 0)
           const $alert = $('#alert')
-          if (result) {
-            this.$store.commit('changeAlertState', true)
-          } else {
-            this.$store.commit('changeAlertState', false)
-          }
+          this.$store.commit('changeAlertState', {
+            state,
+            msg
+          })
           $alert.show()
           setTimeout(() => {
             $('.alert-container').hide()
@@ -550,16 +563,12 @@
         })
       },
       onEditSuccess () {
-        $(document).ready(() => {
-          $('#modal-spinkit').removeClass()
-          this.showAlert(true)
-        })
+        $('#modal-spinkit').removeClass()
+        this.showAlert(true, this.getSuccessAlert)
       },
       onEditFail () {
-        $(document).ready(() => {
-          $('#modal-spinkit').removeClass()
-          this.showAlert(false)
-        })
+        $('#modal-spinkit').removeClass()
+        this.showAlert(false, this.getFailAlert)
       },
       // jQuery for CSS
       applyStickyCSS () {
@@ -812,31 +821,31 @@
     /* Global CSS */
 
     /*<!--.right-container {-->*/
-      /*<!--position: absolute;-->*/
-      /*<!--z-index: 2;-->*/
-      /*<!--width: 310px;-->*/
-      /*<!--right: 0;-->*/
-      /*<!--background-color: @color-white;-->*/
+    /*<!--position: absolute;-->*/
+    /*<!--z-index: 2;-->*/
+    /*<!--width: 310px;-->*/
+    /*<!--right: 0;-->*/
+    /*<!--background-color: @color-white;-->*/
 
-      /*<!--.title {-->*/
-        /*<!--font-size: 28px !important;-->*/
-        /*<!--font-weight:400 !important;-->*/
-        /*<!--margin-bottom:0 !important;-->*/
-      /*<!--}-->*/
-      /*<!--.sub-title {-->*/
-        /*<!--font-size: 18px !important;-->*/
-        /*<!--font-weight:300 !important;-->*/
-        /*<!--margin-bottom: 4px !important;-->*/
-      /*<!--}-->*/
+    /*<!--.title {-->*/
+    /*<!--font-size: 28px !important;-->*/
+    /*<!--font-weight:400 !important;-->*/
+    /*<!--margin-bottom:0 !important;-->*/
+    /*<!--}-->*/
+    /*<!--.sub-title {-->*/
+    /*<!--font-size: 18px !important;-->*/
+    /*<!--font-weight:300 !important;-->*/
+    /*<!--margin-bottom: 4px !important;-->*/
+    /*<!--}-->*/
 
-      /*<!--.each-container {-->*/
-        /*<!--margin-bottom: 30px;-->*/
-      /*<!--}-->*/
+    /*<!--.each-container {-->*/
+    /*<!--margin-bottom: 30px;-->*/
+    /*<!--}-->*/
 
-      /*<!--.caption {-->*/
-        /*<!--margin-top: 60px;-->*/
-        /*<!--font-weight:700;-->*/
-      /*<!--}-->*/
+    /*<!--.caption {-->*/
+    /*<!--margin-top: 60px;-->*/
+    /*<!--font-weight:700;-->*/
+    /*<!--}-->*/
     /*<!--}-->*/
 
     .account-name-container {

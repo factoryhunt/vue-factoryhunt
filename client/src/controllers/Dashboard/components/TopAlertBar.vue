@@ -1,34 +1,28 @@
 <template>
-  <section id="alert" :class="$store.getters.getAlertState ? 'alert-container success' : 'alert-container fail'">
-    <div v-if="$store.getters.getAlertState"  class="success">
-      <h5 class="message" v-lang.success></h5>
-    </div>
-    <div v-else=""  class="fail">
-      <h5 class="message" v-lang.fail></h5>
-      <p class="reason"></p>
+  <section id="alert" :class="getAlertState ? 'alert-container success' : 'alert-container fail'">
+    <div>
+      <h5 class="message" v-html="getAlertMsg"></h5>
     </div>
     <i @click="onHideButton" id="hide-button" class="fa fa-times" aria-hidden="true"></i>
   </section>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     messages: {
       eng: {
-        success: '<i class="fa fa-check-circle-o" aria-hidden="true"></i> Your information has been updated successfully.',
-        fail: '<i class="fa fa-ban" aria-hidden="true"> Failed to update your information.'
+        success: 'Your information has been updated successfully.'
       },
       kor: {
-        success: '<i class="fa fa-check-circle-o" aria-hidden="true"></i> 정보가 성공적으로 업데이트 되었습니다.',
-        fail: '<i class="fa fa-ban" aria-hidden="true"> 정보를 업데이트 하지 못했습니다.'
+        success: '정보가 성공적으로 업데이트 되었습니다.'
       }
     },
-    data () {
-      return {
-        value: {
-          state: null
-        }
-      }
+    computed: {
+      ...mapGetters([
+        'getAlertState',
+        'getAlertMsg'
+      ])
     },
     methods: {
       onHideButton () {

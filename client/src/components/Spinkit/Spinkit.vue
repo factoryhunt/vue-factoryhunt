@@ -21,7 +21,6 @@
   export default {
     props: ['type'],
     mounted () {
-      console.log(this.type)
       $('.spinkit-default').removeClass('spinkit-default').addClass(this.type)
     }
   }

@@ -39,7 +39,8 @@ router.put('/password_change/:contact_id', async (req, res) => {
   const checkPasswordSame = () => {
     if (data.new_password !== data.new_password_confirm) {
       throw {
-        msg: 'New passwords do not match',
+        code: '8001',
+        msg: 'New passwords do not match.',
         msg_kor: '새로운 비밀번호가 서로 일치하지 않습니다.'
       }
     }
@@ -48,6 +49,7 @@ router.put('/password_change/:contact_id', async (req, res) => {
   const checkPasswordLength = () => {
     if (data.new_password.length < 8) {
       throw {
+        code: '8002',
         msg: 'The new password is too short.',
         msg_kor: '새로운 비밀번호가 너무 짧습니다.'
       }
@@ -71,7 +73,8 @@ router.put('/password_change/:contact_id', async (req, res) => {
 
         // password is incorrect
         if (!result) reject({
-          msg: 'password is incorrect',
+          code: '8003',
+          msg: 'Password is incorrect.',
           msg_kor: '비밀번호가 일치하지 않습니다.'
         })
 
@@ -85,7 +88,8 @@ router.put('/password_change/:contact_id', async (req, res) => {
       crypto.randomBytes(64, (err, buf) => { //randomBtyes로 salt를 생성 -> buf로 바꿈
         crypto.pbkdf2(data.new_password, buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
           if (err) reject({
-            msg: 'Encrypting password failed',
+            code: '8004',
+            msg: 'Encrypting password failed.',
             msg_kor: '비밀번호 암호화 실패.'
           })
           const password = key.toString('base64')
@@ -124,6 +128,7 @@ router.put('/password_change/:contact_id', async (req, res) => {
   const onError = (err) => {
     res.status(403).json({
       result: false,
+      code: err.code,
       msg: err.msg,
       msg_kor: err.msg_kor
     })

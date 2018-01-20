@@ -135,6 +135,10 @@
           title: 'Confirm and Save',
           subTitle: 'Please confirm the information above before you save it. All information will be updated immediately.',
           button: 'Save'
+        },
+        alert: {
+          success: 'Your information has been updated successfully.',
+          fail: 'Information update failed. Please try again.'
         }
       },
       kor: {
@@ -178,6 +182,10 @@
           title: '확인 및 수정',
           subTitle: '수정 할 정보를 다시 한 번 확인하고 내용이 맞다면 수정 버튼을 눌러주세요. 웹사이트에 바로 반영됩니다.',
           button: '수정하기'
+        },
+        alert: {
+          success: '정보가 성공적으로 업데이트 되었습니다.',
+          fail: '정보를 업데이트 실패. 다시 시도해주세요.'
         }
       }
     },
@@ -212,11 +220,11 @@
       getOfficeNumberInputTitle () {
         return this.translate('body.officeNumber.inputTitle')
       },
-      getEditSuccess () {
-        return this.translate('editSuccess')
+      getSuccessAlert () {
+        return this.translate('alert.success')
       },
-      getEditFail () {
-        return this.translate('editFail')
+      getFailAlert () {
+        return this.translate('alert.fail')
       }
     },
     methods: {
@@ -242,14 +250,13 @@
             this.onEditFail()
           })
       },
-      showAlert (result) {
+      showAlert (state, msg) {
         $(document).ready(() => {
           const $alert = $('#alert')
-          if (result) {
-            this.$store.commit('changeAlertState', true)
-          } else {
-            this.$store.commit('changeAlertState', false)
-          }
+          this.$store.commit('changeAlertState', {
+            state,
+            msg
+          })
           $alert.show()
           setTimeout(() => {
             $('.alert-container').hide()
@@ -280,14 +287,14 @@
         $(document).ready(() => {
           window.scrollTo(0, 0)
           $('#loader').removeClass()
-          this.showAlert(true)
+          this.showAlert(true, this.getSuccessAlert)
         })
       },
       onEditFail () {
         $(document).ready(() => {
           window.scrollTo(0, 0)
           $('#loader').removeClass()
-          this.showAlert(false)
+          this.showAlert(false, this.getFailAlert)
         })
       }
     },
