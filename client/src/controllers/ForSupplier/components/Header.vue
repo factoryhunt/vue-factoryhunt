@@ -71,7 +71,6 @@
     components: {
       Spinkit
     },
-    props: ['isUserLoggedIn', 'account', 'contact'],
     data () {
       return {
         value: {
@@ -141,6 +140,9 @@
       },
       getPasswordCaution () {
         return this.translate('password.caution')
+      },
+      getCompanyNameCaution () {
+        return this.translate('companyName.caution')
       }
     },
     methods: {
@@ -186,18 +188,7 @@
       routeDashboardPage () {
         location.href = '/dashboard'
       },
-      applyImageBackgroundImage () {
-        const $image = $('#user-logo')
-        var image = this.account.thumbnail_url
-        if (image) {
-          image = 'url(' + image + ')'
-        } else {
-          image = 'url(../../../../static/temp-logo-image_512.png)'
-        }
-        $image.css('background-image', image)
-      },
       activateJquery () {
-        this.applyImageBackgroundImage()
         //    Show and hide menu
 //      $(document).ready(function () {
 //
@@ -269,11 +260,6 @@
     },
     created () {
       this.activateJquery()
-    },
-    watch: {
-      'account' () {
-        this.applyImageBackgroundImage()
-      }
     }
   }
 </script>

@@ -77,10 +77,18 @@
             this.toggle.isAuthLoaded = true
             this.value.contact = res[0].data
             this.value.account = res[1].data
+            this.activateJquery()
           })
           .catch(() => {
+            this.activateJquery()
             this.toggle.isAuthLoaded = true
           })
+      },
+      activateJquery () {
+        $(document).ready(() => {
+          this.applySmoothScrolling()
+          this.applyAddAnimation()
+        })
       },
       changeDocumentTitle () {
         document.title = this.getDocumentTitle
@@ -177,12 +185,8 @@
         })
       }
     },
-    created () {
-      this.tryAutoLogin()
-      this.applySmoothScrolling()
-      this.applyAddAnimation()
-    },
     mounted () {
+      this.tryAutoLogin()
       this.changeDocumentTitle()
     }
   }
