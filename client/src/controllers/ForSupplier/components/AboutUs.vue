@@ -90,12 +90,12 @@
         title: 'How Factory Hunt Works',
         desc: 'Factory Hunt is a supplier search engine and helps connect suppliers to buyers.',
         item1: {
-          title: 'Create a Free Website',
-          desc: 'Create a supplier website in just a few clicks.'
+          title: 'Create Your Company Profile',
+          desc: 'Create a company profile in just a few clicks.'
         },
         item2: {
           title: 'Update Product Information',
-          desc: 'Do you have a PDF catalog? You can have an online catalog with just one click.'
+          desc: 'Simply upload your PDF catalog to create a web product catalog.'
         },
         item3: {
           title: 'Connecting with buyers',

@@ -56,7 +56,7 @@
     },
     messages: {
       eng: {
-        title: 'Factory Hunt - Free Website & Online Catalog for Suppliers'
+        title: 'Factory Hunt - A Hub for Manufacturer Listings'
       },
       kor: {
         title: 'Factory Hunt - 제조업체를 위한 무료 영어 홈페이지 & 온라인 카탈로그 제작 서비스'

@@ -8,8 +8,7 @@
             <div class="header-text">
               <!-- Title & Description -->
               <h1 v-lang.header></h1>
-              <p v-lang.p1></p>
-              <p v-lang.p2></p>
+              <p v-lang.p></p>
             </div>
             <div class="header-btns scrollLeft">
               <!-- Header buttons -->
@@ -86,9 +85,8 @@
     },
     messages: {
       eng: {
-        header: '<span style="font-size: 43px;">Be connected with buyers</span>',
-        p1: '<span style="font-size: 24px;">Create a unique supplier website and online catalog.</span>',
-        p2: '<span style="font-size: 24px;">It’s easy and free.</span>',
+        header: '<span style="font-size: 39px;">A Hub for Manufacturer Listings</span>',
+        p: '<span style="font-size: 26px;">Simply share your PDF catalog and<br />promote your business to global buyers.<br />It’s easy and free.</span>',
         buttonLeft: 'Get Started',
         buttonRight: 'Learn More <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
         companyName: {
@@ -109,9 +107,8 @@
         agreement: 'By clicking Create Account, you agree to our <a href="//www.factoryhunt.com/terms">Terms</a> and that you have read our <a href="//www.factoryhunt.com/privacy">Privacy Policy</a>, including our Cookie Use.'
       },
       kor: {
-        header: '팩토리헌트에서 영어 홈페이지와 온라인 카탈로그를 무료로 제작하세요. 해외 바이어와 연결됩니다.',
-        p1: 'PDF 파일만 있으면, 단 한번의 클릭으로 온라인 제품 카탈로그가 완성됩니다.',
-        p2: '',
+        header: '<span>팩토리헌트에서 영어 홈페이지와 온라인 카탈로그를 무료로 제작하세요. <br />해외 바이어와 연결됩니다.</span>',
+        p: '<span style="font-size: 23px;">PDF 카탈로그만 있으면,<br />단 한번의 클릭으로 온라인 카탈로그가 완성됩니다.</span>',
         buttonLeft: '시작하기',
         buttonRight: '자세한 정보 보기 <i style="color: #F2583D;" class="fa fa-angle-down"></i>',
         companyName: {
@@ -370,7 +367,7 @@
   .header-text p {
     color: #fff;
     font-size: 20px;
-    line-height: 23px;
+    line-height: 32px;
     font-weight: 300;
     margin-bottom: 3px;
   }
