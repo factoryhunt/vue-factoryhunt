@@ -255,7 +255,7 @@
         })
       }
     },
-    created () {
+    mounted () {
       this.activateJquery()
     }
   }
