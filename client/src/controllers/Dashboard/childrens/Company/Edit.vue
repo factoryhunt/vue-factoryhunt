@@ -41,7 +41,7 @@
       <div class="short-description-container input-container">
         <p class="title" v-lang.slogan.title></p>
         <p class="sub-title" v-lang.slogan.desc></p>
-        <input id="short-description-input" maxlength="150" :title="getSloganInputTitle" pattern="[A-Za-z0-9 .,']{2,50}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
+        <input id="short-description-input" maxlength="150" :title="getSloganInputTitle" pattern="[A-Za-z0-9 .,']{2,150}" @keyup="countInputLength" :placeholder="getSloganPlaceholder" v-model="value.shortDescription">
         <p class="third-title">{{ 150 - value.shortDescriptionCount }}</p>
       </div>
 

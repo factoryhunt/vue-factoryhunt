@@ -172,20 +172,22 @@
         <!--</iframe>-->
       </div>
       <div class="divider" v-show="value.product.product_pdf_url"></div>
+    </div>
 
-      <!-- Related products -->
-      <div class="related-products-container">
+    <!-- Related products -->
+    <div class="related-products-container">
+      <div class="related-products-wrapper">
         <h3 class="title" v-lang.related.title="{count: value.products.length > 0 ? value.products.length - 1 : 0}"></h3>
-        <br>
-        <div class="row">
-          <div class="product-container" v-for="(product, index) in value.products" v-if="value.product.product_id !== product.product_id">
-            <div v-if="index < 9" class="col-md-3 col-sm-6 col-xs-12">
-              <div class="each-product">
-                <img class="related-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
-                <p>{{product.product_name}}</p>
-                <div class="star-container" v-for="index in 5">
-                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                </div>
+        <div class="product-wrapper">
+          <div class="product-container" v-for="(product, index) in value.products" :key="index" v-if="value.product.product_id !== product.product_id">
+            <div class="image-container">
+              <img class="product-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
+            </div>
+            <div class="content-container">
+              <!--<p class="primary-container">{{product.primary_product_category}}</p>-->
+              <p class="product-name">{{product.product_name}}</p>
+              <div class="star-container">
+                <i class="fa fa-star-o" aria-hidden="true" v-for="index in 5" :key="index"></i>
               </div>
             </div>
           </div>
@@ -470,7 +472,7 @@
       },
       relatedProductImageResize () {
         $(document).ready(() => {
-          const $image = $('.related-image')
+          const $image = $('.related-products-container .product-image')
           $image.css('height', $image.width() + 'px')
         })
       }
@@ -632,48 +634,61 @@
   }
 
   .related-products-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0;
 
-    .product-container {
+    .related-products-wrapper {
+      padding-bottom: 20px;
 
-      .each-product {
-        p {
-          margin-top: 15px;
-          margin-bottom: 4px;
-          font-size:16px;
-          word-break: break-all;
-          display: -webkit-box;
-          -webkit-line-clamp: 2; /* 라인수 */
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          word-wrap: break-word;
+      .title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .product-wrapper {
+
+        .product-container {
+          padding-bottom: 40px;
+          padding-left: 20px;
+          padding-right: 20px;
+
+          .image-container {
+            img {
+              cursor: pointer;
+              width: 100%;
+              box-shadow: 1px 1px 10px 1px #e4e4e4;
+            }
+          }
+
+          .content-container {
+            word-break: break-all;
+            margin-top: 8px;
+
+            .primary-category {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              margin: 4px 0 0 0;
+              font-size: 16px;
+              font-weight: 500;
+            }
+            .product-name {
+              font-size: 16px;
+              font-weight: 400;
+            }
+            .star-container {
+              margin: 0;
+              i {
+                font-size: 14px;
+                color: @color-link;
+              }
+            }
+          }
         }
       }
     }
-  }
-  .related-products-container h4 {
-    font-size:19px;
-    font-weight:300;
-    margin-top: 20px;
-  }
-  .related-products-container .title {
-    margin-bottom: 10px;
-  }
-  .related-products-container .product-container .each-product {
-    margin-bottom:25px;
-    min-height:340px;
-  }
-  .related-products-container .product-container .each-product img {
-    cursor: pointer;
-    width: 100%;
-    box-shadow: 1px 1px 10px 1px #e4e4e4;
-  }
-  .related-products-container .product-container .each-product p {
-  }
-  .related-products-container .product-container .each-product .star-container {
-    color: #317fa9;
-    display: inline-block;
-    text-align: center;
   }
 
   @media ( min-width: 744px ) {
@@ -683,6 +698,50 @@
     .right-container {
       max-width: 600px;
       margin: 0 auto 30px auto;
+    }
+
+    .related-products-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+
+      .related-products-wrapper {
+        padding-bottom: 1.6rem;
+
+        .title {
+          padding-left: 6px;
+          padding-right: 6px;
+        }
+        .product-wrapper {
+          position: relative;
+
+          .product-container {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            padding-left: 6px;
+            padding-right: 6px;
+
+            .image-container {
+              img {
+              }
+            }
+
+            .content-container {
+              word-break: break-all;
+
+              .primary-category {
+              }
+              .product-name {
+              }
+              .star-container {
+                i {
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   @media ( min-width: 1128px ) {
@@ -698,6 +757,49 @@
     }
     .right-container .divider {
       display: none;
+    }
+
+    .related-products-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0;
+
+      .related-products-wrapper {
+        padding-bottom: 1.6rem;
+
+        .title {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .product-wrapper {
+          position: relative;
+
+          .product-container {
+            display: inline-block;
+            width: 25%;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            .image-container {
+              img {
+              }
+            }
+
+            .content-container {
+              word-break: break-all;
+
+              .primary-category {
+              }
+              .product-name {
+              }
+              .star-container {
+                i {
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 </style>

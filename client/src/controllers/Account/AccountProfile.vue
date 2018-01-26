@@ -143,28 +143,25 @@
         <h3 class="title" v-lang.address.title></h3>
         <div id="map"></div>
       </div>
+    </div>
 
-      <!-- Company Products -->
-      <div id="PRODUCTS" class="products-container">
-        <div class="row">
+    <!-- Company Products -->
+    <div id="PRODUCTS" class="products-container">
+      <div class="products-wrapper">
+        <h3 class="title" v-lang.products.title="{count: products.length}"></h3>
 
-          <div style="padding: 0" class="col-md-12">
-            <h3 class="title" v-lang.products.title="{count: products.length}"></h3>
-
-            <div class="product-container" v-for="(product, index) in this.products">
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="each-product">
-                  <img class="product-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
-                  <p>{{product.product_name}}</p>
-                  <div class="star-container" v-for="index in 5">
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                  </div>
-                </div>
+        <div class="product-wrapper">
+          <div class="product-container" v-for="(product, index) in this.products" :key="index">
+            <div class="image-container">
+              <img class="product-image" @click="routeProductProfilePage(index)" :src="product.product_image_url_1">
+            </div>
+            <div class="content-container">
+              <p class="product-name">{{product.product_name}}</p>
+              <div class="star-container">
+                <i class="fa fa-star-o" aria-hidden="true" v-for="index in 5" :key="index"></i>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
@@ -897,42 +894,63 @@
   }
 
   .products-container {
-    margin-top: 20px;
-    outline: none;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0;
 
-    .title {
-      margin-bottom: 30px;
-    }
+    .products-wrapper {
+      padding-bottom: 20px;
 
-    .each-product {
-      margin-bottom: 65px;
-
-      img {
-        cursor: pointer;
-        width: 100%;
-        box-shadow: 1px 1px 10px 1px #e4e4e4;
+      .title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
       }
+      .product-wrapper {
 
-      p {
-        margin-top: 15px;
-        margin-bottom: 4px;
-        font-size: 16px;
-        word-break: break-all;
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* 라인수 */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-wrap: break-word;
-      }
+        .product-container {
+          padding-bottom: 40px;
+          padding-left: 20px;
+          padding-right: 20px;
 
-      .star-container {
-        color: #317fa9;
-        display: inline-block;
-        text-align: center;
+          .image-container {
+            img {
+              cursor: pointer;
+              width: 100%;
+              box-shadow: 1px 1px 10px 1px #e4e4e4;
+            }
+          }
+
+          .content-container {
+            word-break: break-all;
+            margin-top: 8px;
+
+            .primary-category {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              margin: 4px 0 0 0;
+              font-size: 16px;
+              font-weight: 500;
+            }
+            .product-name {
+              font-size: 16px;
+              font-weight: 400;
+            }
+            .star-container {
+              margin: 0;
+              i {
+                font-size: 14px;
+                color: @color-link;
+              }
+            }
+          }
+        }
       }
     }
   }
+
 
   @media ( min-width: 744px ) {
     .image-container {
@@ -975,6 +993,50 @@
       margin: 30px 0;
       width: 100%;
       min-height: 450px;
+    }
+
+    .products-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+
+      .products-wrapper {
+        padding-bottom: 1.6rem;
+
+        .title {
+          padding-left: 6px;
+          padding-right: 6px;
+        }
+        .product-wrapper {
+          position: relative;
+
+          .product-container {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            padding-left: 6px;
+            padding-right: 6px;
+
+            .image-container {
+              img {
+              }
+            }
+
+            .content-container {
+              word-break: break-all;
+
+              .primary-category {
+              }
+              .product-name {
+              }
+              .star-container {
+                i {
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -1106,6 +1168,49 @@
       margin: 30px 0;
       width: 100%;
       min-height: 500px;
+    }
+
+    .products-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0;
+
+      .products-wrapper {
+        padding-bottom: 1.6rem;
+
+        .title {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .product-wrapper {
+          position: relative;
+
+          .product-container {
+            display: inline-block;
+            width: 25%;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            .image-container {
+              img {
+              }
+            }
+
+            .content-container {
+              word-break: break-all;
+
+              .primary-category {
+              }
+              .product-name {
+              }
+              .star-container {
+                i {
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 </style>
