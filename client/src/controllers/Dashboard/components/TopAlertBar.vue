@@ -44,7 +44,7 @@
     text-align: center;
 
     &.success {
-      background-color: @color-light-green;
+      background-color: @color-alert-green;
     }
     &.fail {
       background-color: @color-light-red;
