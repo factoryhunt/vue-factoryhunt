@@ -1,10 +1,17 @@
 var mysql = require('mysql')
+const {
+  MYSQL_HOST,
+  MYSQL_USER,
+  MYSQL_PASSWORD,
+  MYSQL_DATABASE,
+  MYSQL_PORT
+}
 
-const host = 'fh-test-2017-10-14-09-25-2017-12-12-09-19.cfwdgkhtxdcy.us-west-1.rds.amazonaws.com'
-const user = 'zerobaseinc'
-const password = 'Ycombinator2017'
-const database = 'fh'
-const port = '3306'
+const host = MYSQL_HOST || 'YOUR_HOST'
+const user = MYSQL_USER || 'YOUR_USER'
+const password = MYSQL_PASSWORD || 'YOUR_PASSWORD'
+const database = MYSQL_DATABASE || 'YOUR_DATABASE'
+const port = MYSQL_PORT || '3306'
 
 // parameters
 var connection = mysql.createConnection({
